@@ -1,0 +1,21 @@
+  <block type="puzzle_noms" x="10" y="10">
+    <field name="CARACTERISTIQUE">LUNETTES</field>
+    <value name="IMAGE">
+      <block type="image_head"></block>
+    </value>
+    <statement name="ATTRIBUT">
+      <block type="text_afficheln">
+        <value name="TEXT">
+          <block type="image_t_zwissig"></block>
+        </value>
+        <next>
+          <block type="text_afficheln">
+            <value name="TEXT">
+              <block type="image_pa_cherix"></block>
+            </value>
+          </block>
+        </next>
+      </block>
+    </statement>
+  </block>
+

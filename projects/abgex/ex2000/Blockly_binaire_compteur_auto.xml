@@ -1,0 +1,205 @@
+<xml xmlns="http://www.w3.org/1999/xhtml">
+  <variables>
+    <variable type="">j</variable>
+    <variable type="">k</variable>
+    <variable type="">i</variable>
+  </variables>
+  <block type="card_source_define" x="21" y="14">
+    <value name="SOURCE">
+      <shadow type="text">
+        <field name="TEXT">../images/ASCII</field>
+      </shadow>
+    </value>
+    <value name="EXT">
+      <shadow type="text">
+        <field name="TEXT">.png</field>
+      </shadow>
+    </value>
+    <next>
+      <block type="text_comment">
+        <value name="COMMENT">
+          <shadow type="text">
+            <field name="TEXT">Supprime toutes les cartes</field>
+          </shadow>
+        </value>
+        <next>
+          <block type="controls_for">
+            <field name="VAR" variabletype="">j</field>
+            <value name="FROM">
+              <shadow type="math_number">
+                <field name="NUM">1</field>
+              </shadow>
+            </value>
+            <value name="TO">
+              <shadow type="math_number">
+                <field name="NUM">12</field>
+              </shadow>
+            </value>
+            <value name="BY">
+              <shadow type="math_number">
+                <field name="NUM">1</field>
+              </shadow>
+            </value>
+            <statement name="DO">
+              <block type="card_remove_one_card">
+                <data>1</data>
+                <value name="FRAME1">
+                  <shadow type="math_number">
+                    <field name="NUM">1</field>
+                  </shadow>
+                  <block type="variables_get">
+                    <field name="VAR" variabletype="">j</field>
+                  </block>
+                </value>
+              </block>
+            </statement>
+            <next>
+              <block type="text_comment">
+                <value name="COMMENT">
+                  <shadow type="text">
+                    <field name="TEXT">Ajoute 4 cartes binaires</field>
+                  </shadow>
+                </value>
+                <next>
+                  <block type="controls_for">
+                    <field name="VAR" variabletype="">k</field>
+                    <value name="FROM">
+                      <shadow type="math_number">
+                        <field name="NUM">1</field>
+                      </shadow>
+                    </value>
+                    <value name="TO">
+                      <shadow type="math_number">
+                        <field name="NUM">4</field>
+                      </shadow>
+                    </value>
+                    <value name="BY">
+                      <shadow type="math_number">
+                        <field name="NUM">1</field>
+                      </shadow>
+                    </value>
+                    <statement name="DO">
+                      <block type="card_add_one_card">
+                        <data>1</data>
+                        <value name="CARD">
+                          <shadow type="math_number">
+                            <field name="NUM">148</field>
+                          </shadow>
+                        </value>
+                        <value name="BACK">
+                          <shadow type="math_number">
+                            <field name="NUM">149</field>
+                          </shadow>
+                        </value>
+                        <value name="FRAME2">
+                          <shadow type="math_number">
+                            <field name="NUM">4</field>
+                          </shadow>
+                          <block type="variables_get">
+                            <field name="VAR" variabletype="">k</field>
+                          </block>
+                        </value>
+                      </block>
+                    </statement>
+                    <next>
+                      <block type="text_comment">
+                        <value name="COMMENT">
+                          <shadow type="text">
+                            <field name="TEXT">Fait un compteur de 0 à 16</field>
+                          </shadow>
+                        </value>
+                        <next>
+                          <block type="controls_repeat_ext">
+                            <value name="TIMES">
+                              <shadow type="math_number">
+                                <field name="NUM">16</field>
+                              </shadow>
+                            </value>
+                            <statement name="DO">
+                              <block type="controls_for">
+                                <field name="VAR" variabletype="">i</field>
+                                <value name="FROM">
+                                  <shadow type="math_number">
+                                    <field name="NUM">4</field>
+                                  </shadow>
+                                </value>
+                                <value name="TO">
+                                  <shadow type="math_number">
+                                    <field name="NUM">1</field>
+                                  </shadow>
+                                </value>
+                                <value name="BY">
+                                  <shadow type="math_number">
+                                    <field name="NUM">1</field>
+                                  </shadow>
+                                </value>
+                                <statement name="DO">
+                                  <block type="card_flip">
+                                    <data>1</data>
+                                    <value name="FRAME1">
+                                      <shadow type="math_number">
+                                        <field name="NUM">3</field>
+                                      </shadow>
+                                      <block type="variables_get">
+                                        <field name="VAR" variabletype="">i</field>
+                                      </block>
+                                    </value>
+                                    <next>
+                                      <block type="controls_if">
+                                        <value name="IF0">
+                                          <block type="logic_compare">
+                                            <field name="OP">EQ</field>
+                                            <value name="A">
+                                              <block type="card_get_card">
+                                                <value name="FRAME1">
+                                                  <shadow type="math_number">
+                                                    <field name="NUM">3</field>
+                                                  </shadow>
+                                                  <block type="variables_get">
+                                                    <field name="VAR" variabletype="">i</field>
+                                                  </block>
+                                                </value>
+                                              </block>
+                                            </value>
+                                            <value name="B">
+                                              <block type="math_number">
+                                                <field name="NUM">149</field>
+                                              </block>
+                                            </value>
+                                          </block>
+                                        </value>
+                                        <statement name="DO0">
+                                          <block type="controls_flow_statements">
+                                            <field name="FLOW">BREAK</field>
+                                          </block>
+                                        </statement>
+                                      </block>
+                                    </next>
+                                  </block>
+                                </statement>
+                                <next>
+                                  <block type="text_pause">
+                                    <field name="SPEED">NONE</field>
+                                    <value name="TIME">
+                                      <shadow type="math_number">
+                                        <field name="NUM">1</field>
+                                      </shadow>
+                                    </value>
+                                  </block>
+                                </next>
+                              </block>
+                            </statement>
+                          </block>
+                        </next>
+                      </block>
+                    </next>
+                  </block>
+                </next>
+              </block>
+            </next>
+          </block>
+        </next>
+      </block>
+    </next>
+  </block>
+</xml>

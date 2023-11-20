@@ -1,0 +1,363 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>ex0610, échange de la position de deux cartes.</title>
+  
+  <!-- Les 4 lignes suivantes chargent les routines de Blockly -->
+  <script src="../../blockly_compressed.js"></script>
+  <script src="../../blocks_compressed.js"></script>
+  <script src="../../javascript_compressed.js"></script>
+  <script src="../../msg/js/fr.js"></script>  <!-- C'est ici que la langue des blocs est définie -->
+ <script src="../../acorn_interpreter.js"></script>  <!-- Pour avoir un interpréteur javascript -->
+
+  <script src="ex0610.js"></script>  <!-- Code spécifique à cette page ( cette application ). -->
+  <link rel="stylesheet" type="text/css" href="ex0610_menu.css" media="screen" />
+
+  <script>
+    function DialogHelp(fUpdate) {
+    //============================
+    // Affiche les instructions à réaliser.
+    if (fUpdate) {
+      // N'est pas fait lors du premier message, qui n'a pas encore terminé la mise à jour du 'Workspace'
+      demoWorkspace.setVisible(false);
+      demoWorkspace.setVisible(true);  // Deux instructions, pour enlever une sélection d'un nombre en train d'être éditer.
+      }
+    glnZIndex++;
+    document.getElementById('idDialogBoxHelp').style.zIndex = glnZIndex+1;
+    document.getElementById('idDialogHideWindow').style.zIndex = glnZIndex;
+    document.getElementById('idDialogHideWindow').style.display='block';
+    document.getElementById('idDialogBoxHelp').style.display='block';
+    } // Help
+    
+    function DialogAbout() {
+    //======================
+    // Affiche une boîte de dialogue 'À propos de...'
+    demoWorkspace.setVisible(false);
+    demoWorkspace.setVisible(true);  // Deux instructions, pour enlever une sélection d'un nombre en train d'être éditer.
+    glnZIndex++;
+    document.getElementById('idDialogBoxAbout').style.zIndex = glnZIndex+1;
+    document.getElementById('idDialogHideWindow').style.zIndex = glnZIndex;
+    document.getElementById('idDialogHideWindow').style.display='block';
+    document.getElementById('idDialogBoxAbout').style.display='block';
+    } // Help
+  </script>
+  
+</head>
+<!-- <body onmousemove="myMouseMove(event);" onload="Include_toolbox('ex0610');">  Si on n'a pas de blocs au départ. -->
+<body onmousemove="myMouseMove(event);" onload="Include_startBlocks('ex0610');"  style="margin:0px;"> 
+<!-- Une fois la page chargée, elle démarre automatiquement Blockly avec :
+ la toolbox définie dans ex0610_toolbox.xml 
+ la startBlokcs définie dans ex0610_startBlokcs.xml
+ Atention au minuscules et majuscules, qui ont de l'importance dans les noms de fichiers sur les serveurs Apach. -->
+
+
+<!-- Permet de simuler une boîte de dialogue modale -->
+<!-- Le  div  d'id 'idDialogHideWindow' recouvre toute le fenêtre en empêchant d'accéder aux éléments de celle-ci. -->
+<!-- Le div  d'id 'idDialogBoxHelp' devient visible et fait office de boite de dialogue. -->
+
+<!-- recouvre toute la fenêtre, en empêchant d'y accéder -->
+<div id='idDialogHideWindow' 
+     style="position:absolute; display:none; left:0px; top:0px; right:0px; bottom:0px;
+            background-color:#000000; opacity:0.7; z-index:90;"
+  >
+</div>
+
+<div id="idDialogBoxHelp"
+	  style=" position:absolute; display:none;
+				       left:220px; top:260px; z-index:91;
+	          background-color:rgb(255,255,240);
+				 border-style:solid; border-width:2px;
+				 padding:0px 00px 00px 0px;"
+		 		onclick="myMouseDown(event, null, 'idDialogBoxHelp');">
+  <form name="idDialogBoxHelpNameForm"> 
+    <!-- http://www.w3schools.com/cssref/pr_class_cursor.asp -->
+    <div
+      style=" background-color:rgb(40,40,255);
+              color:rgb(255,255,255);
+              font-weight:bold;
+              font-size:80%;
+              cursor:grab;"	
+              onmousedown="myMouseDown(event, this, 'idDialogBoxHelp');"
+              onmouseup="this.style.cursor='grab'; gloDivSel = 0;"
+              onmouseout="this.style.cursor='grab';">
+      &nbsp; Message &nbsp;  &nbsp;  &nbsp; 
+    </div>         
+    &nbsp;Amusez-vous... &nbsp;<br> 
+    <br><br>
+
+    <button type="button" style="font-size:80%; position:absolute; display:inline-block; right:2px; bottom:2px;"
+            onclick=" document.getElementById('idDialogHideWindow').style.display='none';
+                      document.getElementById('idDialogBoxHelp').style.display='none';
+            ">OK, j'ai lu le message.
+    </button><br>
+
+  </form>
+</div>
+
+<div id="idDialogBoxAbout"
+	  style=" position:absolute; display:none;
+				       left:220px; top:260px; z-index:91;
+	          background-color:rgb(255,255,240);
+				 border-style:solid; border-width:2px;
+				 padding:0px 00px 00px 0px;"
+		 		onclick="myMouseDown(event, null, 'idDialogBoxAbout');">
+  <form name="idDialogBoxAboutNameForm"> 
+    <!-- http://www.w3schools.com/cssref/pr_class_cursor.asp -->
+    <div
+      style=" background-color:rgb(40,40,255);
+              color:rgb(255,255,255);
+              font-weight:bold;
+              font-size:80%;
+              cursor:grab;"	
+              onmousedown="myMouseDown(event, this, 'idDialogBoxAbout');"
+              onmouseup="this.style.cursor='grab'; gloDivSel = 0;"
+              onmouseout="this.style.cursor='grab';">
+      &nbsp; À propos de ce programme &nbsp;  &nbsp;  &nbsp; 
+    </div>         
+    &nbsp;Ce programme a été développé par Bernard Gisin pour tester les possibilités de Blockly &nbsp;<br> 
+    &nbsp;et pour donner des exemples à des enseignants informaticiens &nbsp;<br> 
+    &nbsp;qui désirent développer des modules pour des élèves. &nbsp;<br> 
+    <br>
+    &nbsp;À partir de l'ex1000, les développement seront multilangues, &nbsp;<br> 
+    &nbsp;il n'y aura qu'a taduire certains textes se trouvant dans des fichiesr séparés. &nbsp;<br> 
+    &nbsp;Ils utiliseront également une librairie, pour permettre de ne pas devoir écrire trop de code. &nbsp;<br> 
+    &nbsp;À partir de l'ex2000, le développement devraient être assez complet pour être utilisable avec des élèves. &nbsp;<br>     
+    <br><br>
+
+    <button type="button" style="font-size:80%; position:absolute; display:inline-block; right:2px; bottom:2px;"
+            onclick=" document.getElementById('idDialogHideWindow').style.display='none';
+                      document.getElementById('idDialogBoxAbout').style.display='none';
+            ">OK, j'ai lu le message.
+    </button><br>
+
+  </form>
+</div>
+
+<!-- ********************************************************************** -->
+
+<!-- Ligne de titre -->
+<div style="position:relative; margin:0px; background-color:#0000ff; text-align:center;">
+  <span style='color:#ffffff;'><b>Amusez-vous !!!</b> &nbsp;
+  <b><span id="idBlocklyCoundUsed" style='color:#ff0000;'></span></b> bloc(s) ont été utilisés.</span><br>  
+</div>
+<!-- ''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''' -->
+
+<!-- Menu de la page -->
+<div id="idBlocklyMenu" style="position:relative; margin:0px;">
+  
+  <span id="menu1" class="cMenu_top">Fichiers
+    <span id="menu1_ouvert" class="cMenu_ouvert">
+      <span class="cMenu_interieur">
+        <span class="cMenu" onclick="LoadFile();"> Ouvrir... </span><br>
+        <span class="cMenu" onclick="SaveFile('Blockly_move_cartes_v1.xml');"> Enregistrer sous... </span><br>
+      </span>
+    </span>
+  </span> &nbsp; 
+  
+  <span id="menu2" class="cMenu_top">Exécution
+    <span id="menu2_ouvert" class="cMenu_ouvert">
+      <span class="cMenu_interieur">
+        <span class="cMenu" onclick="runCode_slow(1, 10);">Exécution lente</span><br>
+        <span class="cMenu" onclick="runCode_slow(2, 10);">Exécution plus rapide</span><br>
+        <span class="cMenu" onclick="runCode_slow(3, 10);">Exécution sans animation</span><br>
+        <span class="cMenu" onclick="runCode_slow(4, 10);">Exécution sans animation, avec 'exec'</span><br>
+        <span class="cMenu" onclick="glfRunPause = true;">Met l'exécution en mode pause</span><br>
+        <span class="cMenu" onclick="glfRunStop = true;">Arrête l'exécution</span><br>
+        <span class="cMenu" onclick="glnMoveStep++;">Plus vite</span><br>
+        <span class="cMenu" onclick="glnMoveStep--; if (glnMoveStep < 1) glnMoveStep = 1;">Moins vite</span><br>
+      </span>
+    </span>
+  </span> &nbsp;
+  
+  <span id="menu3" class="cMenu_top">Voir
+    <span id="menu3_ouvert" class="cMenu_ouvert">
+      <span class="cMenu_interieur">
+        <span class="cMenu" onclick="showCode_slow();">Montre le code javascript</span><br>
+      </span>
+    </span>
+  </span> &nbsp;
+  
+  <span id="menu4" class="cMenu_top">Paramètres
+    <span id="menu4_ouvert" class="cMenu_ouvert">
+      <span class="cMenu_interieur">
+        <span class="cMenu" onclick="parameter_select('with_highlight');">
+          <b><span id=idMenuParametre_with_illumination>v</span></b> Avec illumination des blocs</span><br>
+        <span class="cMenu" onclick="parameter_select('without_highlight');">
+          <b><span id=idMenuParametre_without_illumination>&nbsp; </span></b>Sans illumination des blocs</span><br>
+      </span>
+    </span>
+  </span> &nbsp;
+  
+  <span id="menu5" class="cMenu_top">Aide
+    <span id="menu5_ouvert" class="cMenu_ouvert" >
+      <span class="cMenu_interieur">
+        <span class="cMenu" onclick="DialogHelp(true);">Aide...</span><br>
+        <span class="cMenu" onclick="DialogAbout(true);">À props...</span><br>
+      </span>
+    </span>
+  </span>
+
+</div>
+
+<!-- Ligne d'icones -->
+<div style="position:relative; margin:0px; height:32px; background-color:#e0e0e0; text-align:left;">
+  <img src="../images/FileLoad.png" alt="FileLoad" width="32" height="32" class="idButtonCommand"
+       title="Ouvrire un fichier Blockly..." 
+       onclick="LoadFile();">
+  <img src="../images/FileSaveAs.png" alt="FileSaveAs" width="32" height="32" class="idButtonCommand"
+       title="Sauver un fichier Blockly..."
+       onclick="SaveFile('Blockly_move_cartes_v1.xml');">
+  <img src="../images/ExecuteRun.png" alt="ExecuteRun" width="32" height="32" class="idButtonCommand"
+       title="Lance le programme défini par les blocs dans l'espace de travail."
+       onclick="runCode_slow(1, 10);">
+  <img src="../images/ExecuteRunRun.png" alt="ExecuteRunRun" width="32" height="32" class="idButtonCommand"
+       title="Lance le programme, exécution plus rapide."
+       onclick="runCode_slow(2, 10);">
+  <img src="../images/ExecuteRunRunRun.png" alt="ExecuteRunRunRun" width="32" height="32" class="idButtonCommand"
+       title="Lance le programme, exécution à haute vitesse, sans animation."
+       onclick="runCode_slow(3, 10);">
+  <img src="../images/ExecuteOneSetp.png" alt="RunOneStep" width="32" height="32" class="idButtonCommand"
+       title="Exécute un pas du code."
+       onclick="runOneStep();">
+  <img src="../images/Pause.png" alt="Pause" width="32" height="32" class="idButtonCommand"
+       title="Met l'exécution du programme en mode pause."
+       onclick="glfRunPause = true;">
+  <img src="../images/Stop.png" alt="Stop" width="32" height="32" class="idButtonCommand"
+       title="Arrête l'exécution du programme."
+       onclick="glfRunStop = true; glfIsRunning = false;">
+  <img src="../images/Plus.png" alt="Plus" width="32" height="32" class="idButtonCommand"
+       title="Avance plus vite."
+       onclick="glnMoveStep++;">
+  <img src="../images/Minus.png" alt="Minus" width="32" height="32" class="idButtonCommand"
+       title="Avance moins vite."
+       onclick="glnMoveStep--; if (glnMoveStep < 1) glnMoveStep = 1;">
+  <img src="../images/Help.png" alt="Help" width="32" height="32" class="idButtonCommand"
+       title="Aide."
+       onclick="DialogHelp(true);">
+  <img src="../images/CodeJavascript.png" alt="CodeJavascript" width="32" height="32" class="idButtonCommand"
+       title="Montre le code javascript."
+       onclick="showCode_slow();">
+</div>
+
+<!-- zone bleue claire, pour placer les cartes. -->
+<!-- name indique le numéro de la carte. -->
+<!-- L'id des cartes sont définies relativement à leur position  --> 
+<!-- id = 'idPos' + (100 + n° de case) + profondeur.  
+     profondeur = 1 s'il n'y a q'une carte, 2 s'il y a une carte dessus, 3 s'il y a deux cartes dessus, ... -->
+<div id='idCartes' style="position:relative; left:0px; right:0px; top:0px; height:180px; background-color:#80e0ff;">
+  <!-- Le contenu sera rempli par le script en fin de ce fichier -->
+</div>
+
+<!-- Positionnement du code Blockly -->
+<div id="blocklyDiv" style="position:absolute; left:0px; right:0px; top:262px; bottom:80px;"></div>
+
+<!-- ********************************************************************** -->
+<!-- Une fenêtre dans la fenêtre, pour afficher les résultats de l'exécution du code -->
+<div id="idDisplay"
+	  style=" visibility:visible; position:absolute; left:120px; top:860px; z-index:5;
+	          background-color:rgb(220,255,220);
+			      	 border-style:solid; border-width:2px;
+				       padding:0px 0px 0px 0px;"
+			onclick="myMouseDown(event, null, 'idDisplay');">
+  <form name="nomForm1"> 
+    <!-- http://www.w3schools.com/cssref/pr_class_cursor.asp -->
+    <div
+      style=" background-color:rgb(40,40,255);
+              color:rgb(255,255,255);
+              font-weight:bold;
+              font-size:80%;
+              cursor:grab;"	
+              onmousedown="myMouseDown(event, this, 'idDisplay');"
+              onmouseup="this.style.cursor='grab'; gloDivSel = 0;"
+              onmouseout="this.style.cursor='grab';">
+      &nbsp; Affichage &nbsp;  &nbsp;  &nbsp; 
+
+      <button type="button" style='font-size:80%'
+              onclick="window.document.nomForm1.nomTextarea1.value = '';">Effacer
+      </button><br>
+    </div>         
+    
+    &nbsp;<textarea name="nomTextarea1" rows=20 cols=40 
+                    style="vertical-align:bottom; padding:5px 5px 5px 5px;"></textarea><br>
+
+  </form>
+</div>
+
+<!-- ********************************************************************** -->
+<!-- Une fenêtre dans la fenêtre, pour afficher le code javascript -->
+<div id="idCodeJavascript"
+	  style=" visibility:visible; position:absolute; left:520px; top:860px; z-index:5;
+	          background-color:rgb(220,255,220);
+				       border-style:solid; border-width:2px;
+				       padding:0px 0px 5px 0px;"
+		onclick="myMouseDown(event, null, 'idCodeJavascript');">
+<form name="nomForm2"> 
+<div
+	style="	background-color:rgb(40,40,255);
+				color:rgb(255,255,255);
+				font-weight:bold;
+				font-size:80%;
+				cursor:grab;"
+	onmousedown="myMouseDown(event, this, 'idCodeJavascript');"
+	onmouseup="this.style.cursor='grab'; gloDivSel = 0;"
+	onmouseout="this.style.cursor='grab';"
+	>
+	
+ &nbsp; Code javascript  &nbsp;  &nbsp; 
+ 
+  <button type="button" style='font-size:80%'
+		        onclick="runMyCode_slow(window.document.nomForm2.nomTextarea2.value, 100);">Exécuter
+  </button><br>
+</div>
+&nbsp;<textarea name="nomTextarea2" rows=25 cols=40 
+			 style=" vertical-align:bottom;
+					      	padding:5px 5px 5px 5px;
+						      font-family:Courier New, monospace;
+					      	font-size:10pt;
+	 		     			font-weight:bold;
+			      			color:rgb(0,0,0);"></textarea>
+			 
+</form>
+</div>
+
+<!-- ================================================================ -->
+<!-- Pour le pied de page -->
+<div style="position:absolute; left:2px; bottom:0px;">
+  <hr style="margin-left:0; width:110%">
+  <p style="margin-top:0; font-size:80%">
+  Plan du Site : 
+  <a href="../../blockly.html ">blockly</a> &nbsp;
+  <img src="../../images/arrow_right.png" alt="arrow" width="13" height="9"> &nbsp; 
+  ex0610 
+  </p>
+  <hr style="margin-left:0; margin-bottom:0; width:95%">
+  <p style="margin-top:0; font-size:80%">
+  Page mise à jour le 24 janvier 2019 par Bernard Gisin<br>
+  </p>
+</div>
+
+<script>
+  // Pour placer automatiquement les cadres, les numéros et les cartes
+  var nunit = 0;
+  var ndec = 0;
+  var strInstr = '';
+
+  for (ndec=0; ndec<=8; ndec++) { 
+    for (nunit=0; nunit<=9; nunit++) {
+      strInstr += " <div id='idPos" + (100 + 10*ndec + nunit) + "1' name='" + (10*ndec + nunit) + "'\n" 
+               +  " style='position:absolute; left:" + (10 + 100 * ndec + 10*nunit) 
+               +  "px; top:40px; width:8px; z-index:90;'> " + ndec + " " + nunit + "</div>\n"
+               +  " <div style='position:absolute; left:" + (10 + 100 * ndec + 10*nunit) + "px; top:90px; width:8px;  z-index:90;'>" 
+               +  nunit + " " + ndec + "</div>\n";
+       
+      } // for
+    } // for
+
+  document.getElementById('idCartes').innerHTML = strInstr; 
+  
+  DialogHelp(false); // Démarre la page avec l'instruction à suivre...
+</script>
+
+</body>
+</html>

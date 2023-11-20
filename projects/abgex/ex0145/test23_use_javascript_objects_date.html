@@ -1,0 +1,28 @@
+<html>
+<head>
+<meta charset="utf-8">
+<title>Brython demo</title>
+</head>
+<body onload="brython({debug: 1, indexedDB: false})">
+
+<button id="button11">use javascript objects : Date</button>
+<span id="zone11"></span>
+
+<script type="text/python" id="script11">
+    from browser import document
+    import javascript
+
+    def show_date(event):
+        date = javascript.Date.new()
+        document["zone11"].text = "{}-{:02}-{:02} at {:02}:{:02}:{:02}".format(
+            date.getFullYear(), date.getMonth()+1, date.getDate(),
+            date.getHours(), date.getMinutes(), date.getSeconds())
+
+    document["button11"].bind("click", show_date)
+</script>
+
+<script src="brython.js"></script>
+<script src="brython_stdlib.js"></script>
+
+</body>
+</html>

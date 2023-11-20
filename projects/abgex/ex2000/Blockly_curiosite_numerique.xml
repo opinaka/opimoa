@@ -1,0 +1,457 @@
+<xml xmlns="http://www.w3.org/1999/xhtml">
+  <variables>
+    <variable type="">z</variable>
+    <variable type="">tab</variable>
+    <variable type="">i</variable>
+    <variable type="">chif</variable>
+    <variable type="">zMax</variable>
+    <variable type="">j</variable>
+    <variable type="">zMin</variable>
+  </variables>
+  <block type="text_comment" x="-31" y="9">
+    <value name="COMMENT">
+      <shadow type="text">
+        <field name="TEXT">Curiosité mathématiques</field>
+      </shadow>
+    </value>
+    <next>
+      <block type="text_comment">
+        <value name="COMMENT">
+          <shadow type="text">
+            <field name="TEXT">En partant d'un nombre n'ayant pas 4 chiffres identiques</field>
+          </shadow>
+        </value>
+        <next>
+          <block type="text_comment">
+            <value name="COMMENT">
+              <shadow type="text">
+                <field name="TEXT">En itérant 7 fois on termine sur 6174</field>
+              </shadow>
+            </value>
+            <next>
+              <block type="variables_set">
+                <field name="VAR" variabletype="">z</field>
+                <value name="VALUE">
+                  <block type="math_number">
+                    <field name="NUM">8476</field>
+                  </block>
+                </value>
+                <next>
+                  <block type="variables_set">
+                    <field name="VAR" variabletype="">tab</field>
+                    <value name="VALUE">
+                      <block type="lists_create_with">
+                        <mutation items="0"></mutation>
+                      </block>
+                    </value>
+                    <next>
+                      <block type="controls_repeat_ext">
+                        <value name="TIMES">
+                          <shadow type="math_number">
+                            <field name="NUM">10</field>
+                          </shadow>
+                        </value>
+                        <statement name="DO">
+                          <block type="controls_for">
+                            <field name="VAR" variabletype="">i</field>
+                            <value name="FROM">
+                              <shadow type="math_number">
+                                <field name="NUM">1</field>
+                              </shadow>
+                            </value>
+                            <value name="TO">
+                              <shadow type="math_number">
+                                <field name="NUM">4</field>
+                              </shadow>
+                            </value>
+                            <value name="BY">
+                              <shadow type="math_number">
+                                <field name="NUM">1</field>
+                              </shadow>
+                            </value>
+                            <statement name="DO">
+                              <block type="variables_set">
+                                <field name="VAR" variabletype="">chif</field>
+                                <value name="VALUE">
+                                  <block type="math_modulo">
+                                    <value name="DIVIDEND">
+                                      <shadow type="math_number">
+                                        <field name="NUM">64</field>
+                                      </shadow>
+                                      <block type="variables_get">
+                                        <field name="VAR" variabletype="">z</field>
+                                      </block>
+                                    </value>
+                                    <value name="DIVISOR">
+                                      <shadow type="math_number">
+                                        <field name="NUM">10</field>
+                                      </shadow>
+                                    </value>
+                                  </block>
+                                </value>
+                                <next>
+                                  <block type="lists_setIndex">
+                                    <mutation at="true"></mutation>
+                                    <field name="MODE">SET</field>
+                                    <field name="WHERE">FROM_START</field>
+                                    <value name="LIST">
+                                      <block type="variables_get">
+                                        <field name="VAR" variabletype="">tab</field>
+                                      </block>
+                                    </value>
+                                    <value name="AT">
+                                      <block type="variables_get">
+                                        <field name="VAR" variabletype="">i</field>
+                                      </block>
+                                    </value>
+                                    <value name="TO">
+                                      <block type="variables_get">
+                                        <field name="VAR" variabletype="">chif</field>
+                                      </block>
+                                    </value>
+                                    <next>
+                                      <block type="variables_set">
+                                        <field name="VAR" variabletype="">z</field>
+                                        <value name="VALUE">
+                                          <block type="math_arithmetic">
+                                            <field name="OP">DIVIDE</field>
+                                            <value name="A">
+                                              <shadow type="math_number">
+                                                <field name="NUM">1</field>
+                                              </shadow>
+                                              <block type="variables_get">
+                                                <field name="VAR" variabletype="">z</field>
+                                              </block>
+                                            </value>
+                                            <value name="B">
+                                              <shadow type="math_number">
+                                                <field name="NUM">10</field>
+                                              </shadow>
+                                            </value>
+                                          </block>
+                                        </value>
+                                        <next>
+                                          <block type="variables_set">
+                                            <field name="VAR" variabletype="">z</field>
+                                            <value name="VALUE">
+                                              <block type="text_parse_to_number">
+                                                <field name="TYPE">INT</field>
+                                                <value name="STR">
+                                                  <shadow type="text">
+                                                    <field name="TEXT">123</field>
+                                                  </shadow>
+                                                  <block type="variables_get">
+                                                    <field name="VAR" variabletype="">z</field>
+                                                  </block>
+                                                </value>
+                                              </block>
+                                            </value>
+                                          </block>
+                                        </next>
+                                      </block>
+                                    </next>
+                                  </block>
+                                </next>
+                              </block>
+                            </statement>
+                            <next>
+                              <block type="variables_set">
+                                <field name="VAR" variabletype="">tab</field>
+                                <value name="VALUE">
+                                  <block type="lists_sort">
+                                    <field name="TYPE">NUMERIC</field>
+                                    <field name="DIRECTION">1</field>
+                                    <value name="LIST">
+                                      <block type="variables_get">
+                                        <field name="VAR" variabletype="">tab</field>
+                                      </block>
+                                    </value>
+                                  </block>
+                                </value>
+                                <next>
+                                  <block type="text_comment">
+                                    <value name="COMMENT">
+                                      <shadow type="text">
+                                        <field name="TEXT">Nombre maximal formé à partir des chiffres</field>
+                                      </shadow>
+                                    </value>
+                                    <next>
+                                      <block type="variables_set">
+                                        <field name="VAR" variabletype="">zMax</field>
+                                        <value name="VALUE">
+                                          <block type="lists_getIndex">
+                                            <mutation statement="false" at="true"></mutation>
+                                            <field name="MODE">GET</field>
+                                            <field name="WHERE">FROM_START</field>
+                                            <value name="VALUE">
+                                              <block type="variables_get">
+                                                <field name="VAR" variabletype="">tab</field>
+                                              </block>
+                                            </value>
+                                            <value name="AT">
+                                              <block type="math_number">
+                                                <field name="NUM">4</field>
+                                              </block>
+                                            </value>
+                                          </block>
+                                        </value>
+                                        <next>
+                                          <block type="controls_for">
+                                            <field name="VAR" variabletype="">j</field>
+                                            <value name="FROM">
+                                              <shadow type="math_number">
+                                                <field name="NUM">3</field>
+                                              </shadow>
+                                            </value>
+                                            <value name="TO">
+                                              <shadow type="math_number">
+                                                <field name="NUM">1</field>
+                                              </shadow>
+                                            </value>
+                                            <value name="BY">
+                                              <shadow type="math_number">
+                                                <field name="NUM">1</field>
+                                              </shadow>
+                                            </value>
+                                            <statement name="DO">
+                                              <block type="variables_set">
+                                                <field name="VAR" variabletype="">zMax</field>
+                                                <value name="VALUE">
+                                                  <block type="math_arithmetic">
+                                                    <field name="OP">MULTIPLY</field>
+                                                    <value name="A">
+                                                      <shadow type="math_number">
+                                                        <field name="NUM">1</field>
+                                                      </shadow>
+                                                      <block type="variables_get">
+                                                        <field name="VAR" variabletype="">zMax</field>
+                                                      </block>
+                                                    </value>
+                                                    <value name="B">
+                                                      <shadow type="math_number">
+                                                        <field name="NUM">10</field>
+                                                      </shadow>
+                                                    </value>
+                                                  </block>
+                                                </value>
+                                                <next>
+                                                  <block type="variables_set">
+                                                    <field name="VAR" variabletype="">zMax</field>
+                                                    <value name="VALUE">
+                                                      <block type="math_arithmetic">
+                                                        <field name="OP">ADD</field>
+                                                        <value name="A">
+                                                          <shadow type="math_number">
+                                                            <field name="NUM">1</field>
+                                                          </shadow>
+                                                          <block type="variables_get">
+                                                            <field name="VAR" variabletype="">zMax</field>
+                                                          </block>
+                                                        </value>
+                                                        <value name="B">
+                                                          <shadow type="math_number">
+                                                            <field name="NUM">1</field>
+                                                          </shadow>
+                                                          <block type="lists_getIndex">
+                                                            <mutation statement="false" at="true"></mutation>
+                                                            <field name="MODE">GET</field>
+                                                            <field name="WHERE">FROM_START</field>
+                                                            <value name="VALUE">
+                                                              <block type="variables_get">
+                                                                <field name="VAR" variabletype="">tab</field>
+                                                              </block>
+                                                            </value>
+                                                            <value name="AT">
+                                                              <block type="variables_get">
+                                                                <field name="VAR" variabletype="">j</field>
+                                                              </block>
+                                                            </value>
+                                                          </block>
+                                                        </value>
+                                                      </block>
+                                                    </value>
+                                                  </block>
+                                                </next>
+                                              </block>
+                                            </statement>
+                                            <next>
+                                              <block type="text_comment">
+                                                <value name="COMMENT">
+                                                  <shadow type="text">
+                                                    <field name="TEXT">Nombre minimal formé à partir des chiffres</field>
+                                                  </shadow>
+                                                </value>
+                                                <next>
+                                                  <block type="variables_set">
+                                                    <field name="VAR" variabletype="">zMin</field>
+                                                    <value name="VALUE">
+                                                      <block type="lists_getIndex">
+                                                        <mutation statement="false" at="true"></mutation>
+                                                        <field name="MODE">GET</field>
+                                                        <field name="WHERE">FROM_START</field>
+                                                        <value name="VALUE">
+                                                          <block type="variables_get">
+                                                            <field name="VAR" variabletype="">tab</field>
+                                                          </block>
+                                                        </value>
+                                                        <value name="AT">
+                                                          <block type="math_number">
+                                                            <field name="NUM">1</field>
+                                                          </block>
+                                                        </value>
+                                                      </block>
+                                                    </value>
+                                                    <next>
+                                                      <block type="controls_for">
+                                                        <field name="VAR" variabletype="">j</field>
+                                                        <value name="FROM">
+                                                          <shadow type="math_number">
+                                                            <field name="NUM">2</field>
+                                                          </shadow>
+                                                        </value>
+                                                        <value name="TO">
+                                                          <shadow type="math_number">
+                                                            <field name="NUM">4</field>
+                                                          </shadow>
+                                                        </value>
+                                                        <value name="BY">
+                                                          <shadow type="math_number">
+                                                            <field name="NUM">1</field>
+                                                          </shadow>
+                                                        </value>
+                                                        <statement name="DO">
+                                                          <block type="variables_set">
+                                                            <field name="VAR" variabletype="">zMin</field>
+                                                            <value name="VALUE">
+                                                              <block type="math_arithmetic">
+                                                                <field name="OP">MULTIPLY</field>
+                                                                <value name="A">
+                                                                  <shadow type="math_number">
+                                                                    <field name="NUM">1</field>
+                                                                  </shadow>
+                                                                  <block type="variables_get">
+                                                                    <field name="VAR" variabletype="">zMin</field>
+                                                                  </block>
+                                                                </value>
+                                                                <value name="B">
+                                                                  <shadow type="math_number">
+                                                                    <field name="NUM">10</field>
+                                                                  </shadow>
+                                                                </value>
+                                                              </block>
+                                                            </value>
+                                                            <next>
+                                                              <block type="variables_set">
+                                                                <field name="VAR" variabletype="">zMin</field>
+                                                                <value name="VALUE">
+                                                                  <block type="math_arithmetic">
+                                                                    <field name="OP">ADD</field>
+                                                                    <value name="A">
+                                                                      <shadow type="math_number">
+                                                                        <field name="NUM">1</field>
+                                                                      </shadow>
+                                                                      <block type="variables_get">
+                                                                        <field name="VAR" variabletype="">zMin</field>
+                                                                      </block>
+                                                                    </value>
+                                                                    <value name="B">
+                                                                      <shadow type="math_number">
+                                                                        <field name="NUM">1</field>
+                                                                      </shadow>
+                                                                      <block type="lists_getIndex">
+                                                                        <mutation statement="false" at="true"></mutation>
+                                                                        <field name="MODE">GET</field>
+                                                                        <field name="WHERE">FROM_START</field>
+                                                                        <value name="VALUE">
+                                                                          <block type="variables_get">
+                                                                            <field name="VAR" variabletype="">tab</field>
+                                                                          </block>
+                                                                        </value>
+                                                                        <value name="AT">
+                                                                          <block type="variables_get">
+                                                                            <field name="VAR" variabletype="">j</field>
+                                                                          </block>
+                                                                        </value>
+                                                                      </block>
+                                                                    </value>
+                                                                  </block>
+                                                                </value>
+                                                              </block>
+                                                            </next>
+                                                          </block>
+                                                        </statement>
+                                                        <next>
+                                                          <block type="variables_set">
+                                                            <field name="VAR" variabletype="">z</field>
+                                                            <value name="VALUE">
+                                                              <block type="math_arithmetic">
+                                                                <field name="OP">MINUS</field>
+                                                                <value name="A">
+                                                                  <shadow type="math_number">
+                                                                    <field name="NUM">1</field>
+                                                                  </shadow>
+                                                                  <block type="variables_get">
+                                                                    <field name="VAR" variabletype="">zMax</field>
+                                                                  </block>
+                                                                </value>
+                                                                <value name="B">
+                                                                  <shadow type="math_number">
+                                                                    <field name="NUM">1</field>
+                                                                  </shadow>
+                                                                  <block type="variables_get">
+                                                                    <field name="VAR" variabletype="">zMin</field>
+                                                                  </block>
+                                                                </value>
+                                                              </block>
+                                                            </value>
+                                                            <next>
+                                                              <block type="text_afficheln">
+                                                                <value name="TEXT">
+                                                                  <shadow type="text">
+                                                                    <field name="TEXT"></field>
+                                                                  </shadow>
+                                                                  <block type="variables_get">
+                                                                    <field name="VAR" variabletype="">z</field>
+                                                                  </block>
+                                                                </value>
+                                                              </block>
+                                                            </next>
+                                                          </block>
+                                                        </next>
+                                                      </block>
+                                                    </next>
+                                                  </block>
+                                                </next>
+                                              </block>
+                                            </next>
+                                          </block>
+                                        </next>
+                                      </block>
+                                    </next>
+                                  </block>
+                                </next>
+                              </block>
+                            </next>
+                          </block>
+                        </statement>
+                        <next>
+                          <block type="text_comment">
+                            <value name="COMMENT">
+                              <shadow type="text">
+                                <field name="TEXT">Ici, z vaut 6174</field>
+                              </shadow>
+                            </value>
+                          </block>
+                        </next>
+                      </block>
+                    </next>
+                  </block>
+                </next>
+              </block>
+            </next>
+          </block>
+        </next>
+      </block>
+    </next>
+  </block>
+</xml>

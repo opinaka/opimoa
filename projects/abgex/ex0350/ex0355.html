@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>ex0355, Test de programmation objet en javascript</title>
+</head>
+<body>
+<h2>ex0355, Test de programmation objet en javascript</h2>
+
+<p>
+  <button onclick="runCode()">Exécute le code JavaScript</button>
+</p>
+
+<!-- C'est ici que le texte sera affiché -->
+<div style="display:inline-block; vertical-align:top;">
+  <form name=nomForm1>
+    <textarea rows=55 COLS=60 NAME=nomTextarea1></textarea><br>
+    <br>
+    <input type="button" value="Efface les lignes"
+           onclick="window.document.nomForm1.nomTextarea1.value = ''">
+  </form>
+</div>
+
+<script>
+//############################################################################
+/*
+Le but de ce programme est d'illustrer la programmation objet sur la classe des vertébrés
+et quelques classes descendantes plus particulières.
+Structure des classes :
+- classe des vertébrés.
+	- classe des mammifères
+		- classe des chiens
+		- classe des chats
+  
+c.f.  https://javascript.info/class   ;   https://javascript.info/class-inheritance
+c.f.  https://developer.mozilla.org/fr/docs/Web/JavaScript/Reference/Classes
+*/
+function Display(strInfo) {
+//=========================
+// Ecrit dans une partie de la fenêtre, divers informations.
+// La forme "nomForm1" a été définie plus bas, 
+// sous la définition de la '<div id="blocklyDiv" ...' pour Blockly
+var myMessage = window.document.nomForm1.nomTextarea1.value;
+myMessage = myMessage + strInfo + '\n';
+window.document.nomForm1.nomTextarea1.value = myMessage;
+window.document.nomForm1.nomTextarea1.scrollTop = 100000;  // pour rester en fin du texte.
+/// window.document.nomForm1.nomTextarea1.scrollBy(10,0);  pas correcte !?!
+} // Display
+
+class Vertebres {
+//###############
+  constructor(couleur, nom) {
+  //=========================
+  this.couleur = couleur;
+  this.nom = nom;
+  this.maClass = "Vertébré";
+  } // constructor
+
+  AfficheInfo() {
+  //=============
+  Display("Class = " + this.maClass);
+  Display("Couleur = " + this.couleur);
+  Display("Nom = " + this.nom);
+  } // AfficheInfo
+  
+  ChangeNom(nomNouveau) {
+  //=====================
+  this.nom = nomNouveau; 
+  } // ChangeNom
+} // Vertebres
+
+function Fonction_qui_ne_connait_que_les_vertebre(monVertebre) {
+//==============================================================
+// Cette fonction peut avoir écrite juste après avoir défini la classe des Vertebres,
+// sans avoir aucune connaissances des classes descendantes.
+// Pourtant, elle accèdera à des méthodes des classes descendantes.
+// C'est la force du polymorphisme."""
+ monVertebre.AfficheInfo();
+ } // Fonction_qui_ne_connait_que_les_vertebre
+
+class Mammiferes extends Vertebres {
+//##################################
+  constructor(couleur, nom) {
+  //=========================
+  super(couleur, nom); // Pour appeler le constructeur parent
+
+  this.maClass = "Mamifère";
+  this.caracteristiques = "A des poiles et donne du lait"; // Une propriété a été ajoutée.
+  } // constructor
+
+  AfficheInfo() {  // Exention - redéfinition de la méthode AfficheInfo
+  //=============
+  super.AfficheInfo(); // Appelle la méthode parente
+ 
+  Display("Caractéristiques = " + this.caracteristiques);
+  } // AfficheInfo
+} // Mammiferes
+
+class Chiens extends Mammiferes {
+//###############################
+  constructor(couleur, nom, ageMax) {
+  //=================================
+  super(couleur, nom); // Pour appeler le constructeur parent
+
+  this.maClass = "Chiens";
+  this.ageMax = ageMax;  // Une propriété a été ajoutée, fournie en paramètre au constructeur.
+  this.son = "aboient";
+  } // constructor
+
+  AfficheInfo() {  // Exention - redéfinition de la méthode AfficheInfo
+  //=============
+  super.AfficheInfo(); // Appelle la méthode parente
+  Display("Vie au maximum" + this.ageMax, "années");
+  Display("Les " + this.maClass + " " + this.son, ".");
+  } // AfficheInfo
+} // Chiens
+
+class Chats extends Mammiferes {
+//###############################
+  constructor(couleur, nom, poils_longueur) {
+  //=========================================
+  super(couleur, nom); // Pour appeler le constructeur parent
+
+  this.maClass = "Chats";
+  this.poils_longueur = poils_longueur;  // Une propriété a été ajoutée, fournie en paramètre au constructeur.
+  this.son = "miaulent";
+  } // constructor
+
+  AfficheInfo() {  // Exention - redéfinition de la méthode AfficheInfo
+  //=============
+  super.AfficheInfo(); // Appelle la méthode parente
+  Display("Longueur de poiles = " + this.poils_longueur); // ajoute une fonctionnalité
+  Display("Les " + this.maClass + " " + this.son, ".");
+  } // AfficheInfo
+} // Chats
+
+//******************************
+
+function runCode() {
+//===================
+
+var unVertebre = new Vertebres("brun", "mon Vertébré"); // Création dun objet Vertebres
+unVertebre.AfficheInfo();
+unVertebre.ChangeNom("Change le nom du vertébré");
+unVertebre.AfficheInfo();
+unVertebre.nom = "troisième changement de nom";  // Manière plus simple et plus directe de changer le nom
+unVertebre.AfficheInfo();
+Display("--------------------------");
+
+var unMamifere = new Mammiferes("blanc", "mon Mamifère"); // Création dun objet Mamifere
+unMamifere.AfficheInfo(); 
+Display("--------------------------");
+
+var unChien = new Chiens("blanc clair", "mon Chien", 15); // Création dun objet Chien
+unChien.AfficheInfo(); 
+Display("--------------------------");
+
+var unChats = new Chats("blanc clair", "mon Chien", "Poils longs."); // Création dun objet Chien
+unChats.AfficheInfo(); 
+Display("--------------------------");
+
+Display("######################################");
+// Ce qui suit montre la force du POLYMORPHISME.
+// La fonction suivante a été écrite avant la définition des descendants de la class des Vertebres,
+// pourtant, elle appelle les méthodes des enfants de la classe Vertebres.
+Fonction_qui_ne_connait_que_les_vertebre(unVertebre);
+Display("--------------------------");
+Fonction_qui_ne_connait_que_les_vertebre(unMamifere);
+Display("--------------------------");
+Fonction_qui_ne_connait_que_les_vertebre(unChien);
+Display("--------------------------");
+Fonction_qui_ne_connait_que_les_vertebre(unChats);
+
+Display("######################################");
+} // runCode
+</script>
+
+<!-- ================================================================ -->
+<hr style="margin-left:0; width:95%">
+<p style="margin-top:0; font-size:80%">
+Plan du Site : 
+<a href="../../blockly.html ">blockly</a> &nbsp;
+<img src="../../images/arrow_right.png" alt="arrow" width="13" height="9"> &nbsp; 
+ex0350 
+</p>
+<hr style="margin-left:0; margin-bottom:0; width:95%">
+<p style="margin-top:0; font-size:80%">
+Page mise à jour le 12 février 2019 par Bernard Gisin<br>
+</p>
+<br>
+</body>
+</html>
+

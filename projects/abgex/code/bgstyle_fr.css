@@ -1,0 +1,10 @@
+/* 2018.01.03,  pour regrouper tous les textes dépendants de la langue dans un fichier. */
+
+.text_affichage:after { content:"Affichage"; }
+.text_blockly_title:after { content:"Blockly : générateur de "; }
+.text_code_javascript:after { content:"Code javascript"; }
+.text_effacer:after { content:"Effacer"; }
+.text_executer:after { content:"Exécuter"; }
+.text_getxml:after { content:"GetXML"; }
+.text_setxml:after { content:"SetXML"; }
+

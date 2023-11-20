@@ -1,0 +1,14 @@
+  <block type="card_movex1x2" x="35" y="47">
+    <data>2</data>
+    <value name="POSX1">
+      <shadow type="math_number">
+        <field name="NUM">2</field>
+      </shadow>
+    </value>
+    <value name="POSX2">
+      <shadow type="math_number">
+        <field name="NUM">1</field>
+      </shadow>
+    </value>
+  </block>
+

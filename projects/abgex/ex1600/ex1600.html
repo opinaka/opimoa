@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title id="HTML_WIN_TITLE">ex1600, jeu de cartes.</title>
+  
+  <!-- Les 4 lignes suivantes chargent les routines de Blockly -->
+  <script src="../../blockly_compressed.js"></script>
+  <script src="../../blocks_compressed.js"></script>
+  <script src="../../javascript_compressed.js"></script>
+  <script src="../../acorn_interpreter.js"></script>  <!-- Pour avoir un interpréteur javascript -->
+
+  <script src="../../bgjs/bglibrary_abase.js"></script>  <!-- Code de la librairie de Bernard Gisin. -->
+  <script src="../../bgjs/bglibrary_card.js"></script>  <!-- Code de la librairie de Bernard Gisin. -->
+  <script src="../../msg/js/fr.js"></script>  <!-- C'est ici que la langue par défaut des blocs est définie -->
+  <script src="../../bgmsg/js/fr.js"></script>  <!-- C'est ici que la langue par défaut des blocs est définie -->
+  <!-- La langue peut être redéfinie dans l'URL avec : ex1600.html?lang=en -->
+
+  <script src="msg/js/fr.js"></script>  <!-- Langue par défaut, locale à l'application -->
+  <script src="ex1600.js"></script>  <!-- Code spécifique à cette page ( cette application ). -->
+
+  <link rel="stylesheet" type="text/css" href="../../bgcss/menu.css" media="screen" />
+
+  <script type="text/javascript">
+    gloB.cHide = 'c'; // Interdit la superposition de cartes.
+  </script>
+
+</head>
+<!-- <body onmousemove="myMouseMove(event);" onload="Include_toolbox('ex1600');">  Si on n'a pas de blocs au départ. -->
+<body onmousemove="myMouseMove(event);" onload="Include_startBlocks('ex1600');"  style="margin:0px;"> 
+<!-- Une fois la page chargée, elle démarre automatiquement Blockly avec :
+ la toolbox définie dans ex1600_toolbox.xml 
+ la startBlokcs définie dans ex1600_startBlokcs.xml
+ Atention au minuscules et majuscules, qui ont de l'importance dans les noms de fichiers sur les serveurs Apach. -->
+
+
+<!-- Permet de simuler une boîte de dialogue modale -->
+<!-- Le  div  d'id 'idDialogHideWindow' recouvre toute le fenêtre en empêchant d'accéder aux éléments de celle-ci. -->
+<!-- Le div  d'id 'idDialogBoxHelp' devient visible et fait office de boite de dialogue. -->
+
+<!-- recouvre toute la fenêtre, en empêchant d'y accéder -->
+<div id='idDialogHideWindow' 
+     style="position:absolute; display:none; left:0px; top:0px; right:0px; bottom:0px; background-color:#000000; opacity:0.7; z-index:90;">
+</div>
+
+<div  id="idDialogBoxHelp"
+      style=" position:absolute; display:none; left:220px; top:260px; z-index:91;  background-color:rgb(255,255,240);
+              border-style:solid; border-width:2px; padding:0px 00px 00px 0px;"
+      onclick="myMouseDown(event, null, 'idDialogBoxHelp');">
+  <form name="idDialogBoxHelpNameForm"> 
+    <!-- http://www.w3schools.com/cssref/pr_class_cursor.asp -->
+    <div
+      style=" background-color:rgb(40,40,255); color:rgb(255,255,255); font-weight:bold; font-size:80%; cursor:grab;"	
+              onmousedown="myMouseDown(event, this, 'idDialogBoxHelp');"
+              onmouseup="this.style.cursor='grab'; gloB.oDivSel = 0;"
+              onmouseout="this.style.cursor='grab';">
+      &nbsp; <span id="HTML_MESSAGE">Message</span> &nbsp;  &nbsp;  &nbsp; 
+    </div>         
+    &nbsp;<span id="HTML_MAIN_TITLE2">Écrivez le code nécessaire pour échanger la reine et le roi de leur place.</span> &nbsp;<br> 
+    <br><br>
+
+    <button id="HTML_MESSAGE_READ" type="button" style="font-size:80%; position:absolute; display:inline-block; right:2px; bottom:2px;"
+            onclick=" document.getElementById('idDialogHideWindow').style.display='none';
+                      document.getElementById('idDialogBoxHelp').style.display='none';
+            ">OK, j'ai lu le message.
+    </button><br>
+  </form>
+</div>
+
+<!-- ********************************************************************** -->
+
+<!-- Ligne de titre -->
+<div style="position:relative; margin:0px; background-color:#0000ff; text-align:center;">
+  <span style='color:#ffffff;'>
+    <b><span id="HTML_MAIN_TITLE">Échangez le roi et la reine de leur place...</span></b> &nbsp;
+    <span id="HTML_BEEN_USED_BEFORE"></span>  
+    <b><span id="idBlocklyCoundUsed" style='color:#ff0000;'></span></b> 
+    <span id="HTML_BEEN_USED">bloc(s) ont été utilisés.</span>
+  </span><br>  
+</div>
+<!-- ''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''' -->
+
+<!-- Ligne d'icones -->
+<div style="position:relative; margin:0px; height:32px; width:100%; background-color:#e0e0e0; text-align:left;">
+  <img src="../images/FileLoad.png" alt="FileLoad" width="32" height="32" class="idButtonCommand"
+       id='HTML_IMG_OPEN' title="Ouvrire un fichier Blockly..." 
+       onclick="LoadFile();">
+  <img src="../images/FileSaveAs.png" alt="FileSaveAs" width="32" height="32" class="idButtonCommand"
+       id='HTML_IMG_SAVE' title="Sauver un fichier Blockly..."
+       onclick="SaveFile('Blockly_move_cartes_v1.xml');">
+  <img src="../images/Stop.png" alt="Stop" width="32" height="32" class="idButtonCommand"
+       id='HTML_IMG_STOP' title="Arrête l'exécution du programme."
+       onclick="StopCode();">
+  <img src="../images/ExecuteRun2.png" alt="ExecuteRun" width="43" height="32" class="idButtonCommand"
+       id='HTML_IMG_RUN' title="Lance le programme défini par les blocs dans l'espace de travail."
+       onclick="LocalRunCode_slow(2, 10);">
+  <img src="../images/Plus.png" alt="Plus" width="32" height="32" class="idButtonCommand"
+       id='HTML_IMG_FASTER' title="Avance plus vite."
+       onclick="ChangeSpeed(1, 0.5);">
+  <img src="../images/Minus.png" alt="Minus" width="32" height="32" class="idButtonCommand"
+       id='HTML_IMG_SLOWER' title="Avance moins vite."
+       onclick="ChangeSpeed(-1, 2);">
+  <img src="../images/Help.png" alt="Help" width="32" height="32" class="idButtonCommand"
+       id='HTML_IMG_HELP' title="Aide."
+       onclick="DialogHelp(true);">
+  <select id="idSelectLanguage" style="position:absolute; top:2px; right:10px;"
+          onchange="ChooseLanguage(document.getElementById('idSelectLanguage').value);">
+    <option value="de">Deutsch</option>
+    <option value="en">English</option>
+    <option value="fr" selected>Français</option>
+    <option value="es">Espagnol</option>
+  </select>
+  <canvas id="idCanvasLevel" width="300" height="32" 
+        style="background-color:#e0e0e0;"
+        onclick="CanvasClick(event);">
+Votre navigateur ne supporte pas le tag &lt;canvas&gt;.</canvas>
+</div>
+
+<!-- zone bleue claire, pour placer les cartes. -->
+<!-- data-visible indique le numéro de la carte. -->
+<!-- L'id des cartes sont définies relativement à leur position  --> 
+<!-- id = 'idPos' + (100 + n° de case) + profondeur.  
+     profondeur = 1 s'il n'y a q'une carte, 2 s'il y a une carte dessus, 3 s'il y a deux cartes dessus, ... -->
+<div id='idCartes' style="position:relative; left:0px; right:0px; top:0px; height:180px; background-color:#80e0ff;">
+  <!-- Le contenu sera rempli par le script en fin de ce fichier -->
+</div>
+
+<!-- Positionnement du code Blockly -->
+<div id="blocklyDiv" style="position:absolute; left:0px; right:0px; top:240px; bottom:80px;"></div>
+
+<!-- ********************************************************************** -->
+<!-- Une fenêtre dans la fenêtre, pour afficher les résultats de l'exécution du code -->
+<div id="idDisplay"
+	  style=" visibility:visible; position:absolute; right:20px; bottom:100px; z-index:5;
+	          background-color:rgb(220,255,220);
+			      	 border-style:solid; border-width:2px;
+				       padding:0px 0px 0px 0px;"
+			onclick="myMouseDown(event, null, 'idDisplay');">
+  <form name="idDisplayNameForm"> 
+    <!-- http://www.w3schools.com/cssref/pr_class_cursor.asp -->
+    <div
+      style=" background-color:rgb(40,40,255);
+              color:rgb(255,255,255);
+              font-weight:bold;
+              font-size:80%;
+              cursor:grab;"	
+              onmousedown="myMouseDown(event, this, 'idDisplay');"
+              onmouseup="this.style.cursor='grab'; gloB.oDivSel = 0;"
+              onmouseout="this.style.cursor='grab';">
+      &nbsp;<span id="HTML_DISPLAY"> Affichage</span> &nbsp;  &nbsp;  &nbsp; 
+
+      <button type="button" style='font-size:80%' id="HTML_BUTTON_CLEAR"
+              onclick="window.document.idDisplayNameForm.idDisplayNameTextArea.value = '';">Effacer
+      </button><br>
+    </div>         
+    
+    &nbsp;<textarea name="idDisplayNameTextArea" rows=15 cols=50 
+                    style="vertical-align:bottom; padding:5px 5px 5px 5px;"></textarea><br>
+
+  </form>
+</div>
+
+<!-- ================================================================ -->
+<!-- Pour le pied de page -->
+<div style="position:absolute; left:2px; bottom:0px;">
+  <hr style="margin-left:0; width:110%">
+  <p style="margin-top:0; font-size:80%">
+  Plan du Site : 
+  <a href="../../blockly.html ">blockly</a> &nbsp;
+  <img src="../../images/arrow_right.png" alt="arrow" width="13" height="9"> &nbsp; 
+  ex1600 
+  </p>
+  <hr style="margin-left:0; margin-bottom:0; width:95%">
+  <p style="margin-top:0; font-size:80%">
+  Page mise à jour le 16 novembre 2019 par Bernard Gisin<br>
+  </p>
+</div>
+
+</body>
+</html>

@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>ex0110, avec des bordures</title>
+  
+  <!-- Les 4 lignes suivantes chargent les routines de Blockly -->
+  <script src="../../blockly_compressed.js"></script>
+  <script src="../../blocks_compressed.js"></script>
+  <script src="../../javascript_compressed.js"></script>
+  <script src="../../msg/js/fr.js"></script>  <!-- C'est ici que la langue des blocs est définie -->
+  
+</head>
+<body>
+
+<!-- en-tête de la page -->
+<div style="position:absolute; top:2px; left:2px;  border:2px solid rgb(255,0,0);">
+  <b>ex0110, avec des bordures</b><br>
+  <button onclick="showCode();">Montre le code JavaScript</button>
+  <button onclick="runCode();">Exécute le code JavaScript</button>
+</div>
+
+<!-- Positionnement du code Blockly -->
+<div id="blocklyDiv" style="position:absolute; left:0px; top:60px; bottom:0px; width:99%; border:2px solid rgb(0,0,0);"></div>
+
+<!-- Indication des blocks désirés -->
+<!-- Si la balise <category> existe, le champs Blocky aura des scroll bar, 
+     sinon, il n'y a pas de scroll bar.
+     Ici, il n'y a pas de balise <category> -->
+<xml id="toolbox" style="display: none">
+  <block type="controls_if"></block>
+  <block type="logic_compare"></block>
+  <block type="logic_operation"></block>
+  <block type="controls_repeat_ext">
+    <value name="TIMES">
+      <block type="math_number">
+        <field name="NUM">2</field>
+      </block>
+    </value>
+  </block>
+  <block type="math_number">
+    <field name="NUM">123</field>
+  </block>
+  <block type="math_arithmetic"></block>
+  <block type="text"></block>
+  <block type="text_length"></block>
+  <block type="text_print"></block>
+</xml>
+
+<script>
+//############################################################################
+ 
+// C'est ici que l'on insert les fonctionnalités Blockly
+var demoWorkspace = Blockly.inject('blocklyDiv',
+    {media: '../../media/',
+     toolbox: document.getElementById('toolbox')});
+
+function showCode() {
+//===================
+// Generate JavaScript code and display it.
+Blockly.JavaScript.INFINITE_LOOP_TRAP = null;
+var code = Blockly.JavaScript.workspaceToCode(demoWorkspace);      
+alert(code);
+} // showCode
+
+function runCode() {
+//===================
+// Generate JavaScript code and run it.
+window.LoopTrap = 1000;
+Blockly.JavaScript.INFINITE_LOOP_TRAP =
+    'if (--window.LoopTrap == 0) throw "Infinite loop.";\n';
+var code = Blockly.JavaScript.workspaceToCode(demoWorkspace);
+Blockly.JavaScript.INFINITE_LOOP_TRAP = null;
+try {
+  eval(code);
+  } 
+catch (e) {
+  alert(e);
+  }
+} // runCode
+</script>
+
+<!-- ================================================================ -->
+<!-- Pour le pied de page -->
+<div style="position:absolute; left:205px; right:5px; bottom:0px; border:2px solid rgb(0,0,255); background-color:#ffffd0;">
+  <hr style="margin-left:0;">
+  <p style="margin-top:0; font-size:80%">
+  Plan du Site : 
+	<a href="../../blockly.html ">blockly</a> &nbsp;
+	<img src="../../images/arrow_right.png" alt="arrow" width="13" height="9"> &nbsp; 
+	ex0110 
+	</p>
+	<hr style="margin-left:0; margin-bottom:0; width:95%">
+	<p style="margin-top:0; font-size:80%">
+	Page mise à jour le 21 janvier 2019 par Bernard Gisin<br>
+	</p>
+</div>
+</body>
+</html>
+

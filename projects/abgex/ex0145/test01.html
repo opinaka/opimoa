@@ -1,0 +1,29 @@
+<html>
+<head>
+<meta charset="utf-8">
+<title>Brython test01</title>
+</head>
+
+<body onload="brython({debug: 1, indexedDB: false})">
+
+En pressant sur le bouton, une fonction python est appelée, pour générer une alerte.
+C'est un début.<br>
+<br>
+<button id="button0">display an alert box</button>
+
+<script type="text/python" id="script0">
+  from browser import document, alert
+
+  def hello(ev):
+  #=============
+      alert("Hello !")
+
+  # Lie le button0 à la fonction hello
+  document["button0"].bind("click", hello)
+</script>
+
+<script src="brython.js"></script>
+<script src="brython_stdlib.js"></script>
+
+</body>
+</html>

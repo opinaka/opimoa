@@ -1,0 +1,555 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>Blockly Demo:</title>
+  <link rel="stylesheet" href="style.css">
+  <script src="/storage.js"></script>
+  <script src="../../blockly_compressed.js"></script>
+  <script src="../../blocks_compressed.js"></script>
+  <script src="../../javascript_compressed.js"></script>
+  <script src="../../python_compressed.js"></script>
+  <script src="../../php_compressed.js"></script>
+  <script src="../../lua_compressed.js"></script>
+  <script src="../../dart_compressed.js"></script>
+  <script src="code.js"></script>
+
+  <link rel="stylesheet" href="bgstyle_fr.css"> <!-- Pour regrouper tous les textes dépendants de la langue dans un fichier. -->
+  <script src="../../bgmsg/js/fr.js"></script> <!-- Pour le texte des nouveaux blocks de code -->
+  <script src="bgblocks.js"></script> <!-- Pour les nouveaux blocks de code -->
+  <script src="bgcode.js"></script>  <!-- Pour le code spécifique à cette application -->
+</head>
+<body onmousemove="myMouseMove(event);" onload="AfterLoad();">
+  <table width="100%" height="100%">
+    <tr>
+      <td>
+        <h3><span class="text_blockly_title"></span>
+          <span id="title">...</span>
+        </h3>
+      </td>
+      <td class="farSide">
+        <select id="languageMenu"></select>
+      </td>
+    </tr>
+    <tr>
+      <td colspan=2>
+        <table width="100%">
+          <tr id="tabRow" height="1em">
+            <td id="tab_blocks" class="tabon">...</td>
+            <td class="tabmin">&nbsp;</td>
+            <td id="tab_javascript" class="taboff">JavaScript</td>
+            <td class="tabmin">&nbsp;</td>
+            <td id="tab_python" class="taboff">Python</td>
+            <td class="tabmin">&nbsp;</td>
+            <td id="tab_php" class="taboff">PHP</td>
+            <td class="tabmin">&nbsp;</td>
+            <td id="tab_lua" class="taboff">Lua</td>
+            <td class="tabmin">&nbsp;</td>
+            <td id="tab_dart" class="taboff">Dart</td>
+            <td class="tabmin">&nbsp;</td>
+            <td id="tab_xml" class="taboff">XML</td>
+            <td class="tabmax">
+              <button id="trashButton" class="notext" title="...">
+                <img src='../../media/1x1.gif' class="trash icon21">
+              </button>
+              <button id="linkButton" class="notext" title="...">
+                <img src='../../media/1x1.gif' class="link icon21">
+              </button>
+              <button id="runButton" class="notext primary" title="...">
+                <img src='../../media/1x1.gif' class="run icon21">
+              </button>
+            </td>
+          </tr>
+        </table>
+      </td>
+    </tr>
+    <tr>
+      <td height="99%" colspan=2 id="content_area">
+      </td>
+    </tr>
+  </table>
+  <div id="content_blocks" class="content"></div>
+  <pre id="content_javascript" class="content"></pre>
+  <pre id="content_python" class="content"></pre>
+  <pre id="content_php" class="content"></pre>
+  <pre id="content_lua" class="content"></pre>
+  <pre id="content_dart" class="content"></pre>
+  <textarea id="content_xml" class="content" wrap="off"></textarea>
+
+  <xml id="toolbox" style="display: none">
+    <category name="%{BKY_CATLOGIC}" colour="%{BKY_LOGIC_HUE}">
+      <block type="controls_if"></block>
+      <block type="logic_compare"></block>
+      <block type="logic_operation"></block>
+      <block type="logic_negate"></block>
+      <block type="logic_boolean"></block>
+      <block type="logic_null"></block>
+      <block type="logic_ternary"></block>
+    </category>
+    <category name="%{BKY_CATLOOPS}" colour="%{BKY_LOOPS_HUE}">
+      <block type="controls_repeat_ext">
+        <value name="TIMES">
+          <shadow type="math_number">
+            <field name="NUM">10</field>
+          </shadow>
+        </value>
+      </block>
+      <block type="controls_whileUntil"></block>
+      <block type="controls_for">
+        <value name="FROM">
+          <shadow type="math_number">
+            <field name="NUM">1</field>
+          </shadow>
+        </value>
+        <value name="TO">
+          <shadow type="math_number">
+            <field name="NUM">10</field>
+          </shadow>
+        </value>
+        <value name="BY">
+          <shadow type="math_number">
+            <field name="NUM">1</field>
+          </shadow>
+        </value>
+      </block>
+      <block type="controls_forEach"></block>
+      <block type="controls_flow_statements"></block>
+    </category>
+    <category name="%{BKY_CATMATH}" colour="%{BKY_MATH_HUE}">
+      <block type="math_number">
+        <field name="NUM">123</field>
+      </block>
+      <block type="math_arithmetic">
+        <value name="A">
+          <shadow type="math_number">
+            <field name="NUM">1</field>
+          </shadow>
+        </value>
+        <value name="B">
+          <shadow type="math_number">
+            <field name="NUM">1</field>
+          </shadow>
+        </value>
+      </block>
+      <block type="math_single">
+        <value name="NUM">
+          <shadow type="math_number">
+            <field name="NUM">9</field>
+          </shadow>
+        </value>
+      </block>
+      <block type="math_trig">
+        <value name="NUM">
+          <shadow type="math_number">
+            <field name="NUM">45</field>
+          </shadow>
+        </value>
+      </block>
+      <block type="math_constant"></block>
+      <block type="math_number_property">
+        <value name="NUMBER_TO_CHECK">
+          <shadow type="math_number">
+            <field name="NUM">0</field>
+          </shadow>
+        </value>
+      </block>
+      <block type="math_round">
+        <value name="NUM">
+          <shadow type="math_number">
+            <field name="NUM">3.1</field>
+          </shadow>
+        </value>
+      </block>
+      <block type="math_on_list"></block>
+      <block type="math_modulo">
+        <value name="DIVIDEND">
+          <shadow type="math_number">
+            <field name="NUM">64</field>
+          </shadow>
+        </value>
+        <value name="DIVISOR">
+          <shadow type="math_number">
+            <field name="NUM">10</field>
+          </shadow>
+        </value>
+      </block>
+      <block type="math_constrain">
+        <value name="VALUE">
+          <shadow type="math_number">
+            <field name="NUM">50</field>
+          </shadow>
+        </value>
+        <value name="LOW">
+          <shadow type="math_number">
+            <field name="NUM">1</field>
+          </shadow>
+        </value>
+        <value name="HIGH">
+          <shadow type="math_number">
+            <field name="NUM">100</field>
+          </shadow>
+        </value>
+      </block>
+      <block type="math_random_int">
+        <value name="FROM">
+          <shadow type="math_number">
+            <field name="NUM">1</field>
+          </shadow>
+        </value>
+        <value name="TO">
+          <shadow type="math_number">
+            <field name="NUM">100</field>
+          </shadow>
+        </value>
+      </block>
+      <block type="math_random_float"></block>
+      <block type="math_atan2">
+        <value name="X">
+          <shadow type="math_number">
+            <field name="NUM">1</field>
+          </shadow>
+        </value>
+        <value name="Y">
+          <shadow type="math_number">
+            <field name="NUM">1</field>
+          </shadow>
+        </value>
+      </block>
+    </category>
+    <category name="%{BKY_CATTEXT}" colour="%{BKY_TEXTS_HUE}">
+      <block type="text"></block>
+      <block type="text_join"></block>
+      <block type="text_append">
+        <value name="TEXT">
+          <shadow type="text"></shadow>
+        </value>
+      </block>
+      <block type="text_length">
+        <value name="VALUE">
+          <shadow type="text">
+            <field name="TEXT">abc</field>
+          </shadow>
+        </value>
+      </block>
+      <block type="text_isEmpty">
+        <value name="VALUE">
+          <shadow type="text">
+            <field name="TEXT"></field>
+          </shadow>
+        </value>
+      </block>
+      <block type="text_indexOf">
+        <value name="VALUE">
+          <block type="variables_get">
+            <field name="VAR">{textVariable}</field>
+          </block>
+        </value>
+        <value name="FIND">
+          <shadow type="text">
+            <field name="TEXT">abc</field>
+          </shadow>
+        </value>
+      </block>
+      <block type="text_charAt">
+        <value name="VALUE">
+          <block type="variables_get">
+            <field name="VAR">{textVariable}</field>
+          </block>
+        </value>
+      </block>
+      <block type="text_getSubstring">
+        <value name="STRING">
+          <block type="variables_get">
+            <field name="VAR">{textVariable}</field>
+          </block>
+        </value>
+      </block>
+      <block type="text_changeCase">
+        <value name="TEXT">
+          <shadow type="text">
+            <field name="TEXT">abc</field>
+          </shadow>
+        </value>
+      </block>
+      <block type="text_trim">
+        <value name="TEXT">
+          <shadow type="text">
+            <field name="TEXT">abc</field>
+          </shadow>
+        </value>
+      </block>
+      <block type="text_print">
+        <value name="TEXT">
+          <shadow type="text">
+            <field name="TEXT">abc</field>
+          </shadow>
+        </value>
+      </block>
+      <block type="text_affiche">
+        <value name="TEXT">
+          <shadow type="text">
+            <field name="TEXT">abc</field>
+          </shadow>
+        </value>
+      </block>
+      <block type="text_afficheln">
+        <value name="TEXT">
+          <shadow type="text">
+            <field name="TEXT">abc</field>
+          </shadow>
+        </value>
+      </block>
+      <block type="text_affichertl">
+        <value name="TEXT">
+          <shadow type="text">
+            <field name="TEXT">0</field>
+          </shadow>
+        </value>
+      </block>
+      <block type="text_prompt_ext">
+        <value name="TEXT">
+          <shadow type="text">
+            <field name="TEXT">abc</field>
+          </shadow>
+        </value>
+      </block>
+    </category>
+    <category name="%{BKY_CATLISTS}" colour="%{BKY_LISTS_HUE}">
+      <block type="lists_create_with">
+        <mutation items="0"></mutation>
+      </block>
+      <block type="lists_create_with"></block>
+      <block type="lists_repeat">
+        <value name="NUM">
+          <shadow type="math_number">
+            <field name="NUM">5</field>
+          </shadow>
+        </value>
+      </block>
+      <block type="lists_length"></block>
+      <block type="lists_isEmpty"></block>
+      <block type="lists_indexOf">
+        <value name="VALUE">
+          <block type="variables_get">
+            <field name="VAR">{listVariable}</field>
+          </block>
+        </value>
+      </block>
+      <block type="lists_getIndex">
+        <value name="VALUE">
+          <block type="variables_get">
+            <field name="VAR">{listVariable}</field>
+          </block>
+        </value>
+      </block>
+      <block type="lists_setIndex">
+        <value name="LIST">
+          <block type="variables_get">
+            <field name="VAR">{listVariable}</field>
+          </block>
+        </value>
+      </block>
+      <block type="lists_getSublist">
+        <value name="LIST">
+          <block type="variables_get">
+            <field name="VAR">{listVariable}</field>
+          </block>
+        </value>
+      </block>
+      <block type="lists_split">
+        <value name="DELIM">
+          <shadow type="text">
+            <field name="TEXT">,</field>
+          </shadow>
+        </value>
+      </block>
+      <block type="lists_sort"></block>
+    </category>
+    <category name="%{BKY_CATCOLOUR}" colour="%{BKY_COLOUR_HUE}">
+      <block type="colour_picker"></block>
+      <block type="colour_random"></block>
+      <block type="colour_rgb">
+        <value name="RED">
+          <shadow type="math_number">
+            <field name="NUM">100</field>
+          </shadow>
+        </value>
+        <value name="GREEN">
+          <shadow type="math_number">
+            <field name="NUM">50</field>
+          </shadow>
+        </value>
+        <value name="BLUE">
+          <shadow type="math_number">
+            <field name="NUM">0</field>
+          </shadow>
+        </value>
+      </block>
+      <block type="colour_blend">
+        <value name="COLOUR1">
+          <shadow type="colour_picker">
+            <field name="COLOUR">#ff0000</field>
+          </shadow>
+        </value>
+        <value name="COLOUR2">
+          <shadow type="colour_picker">
+            <field name="COLOUR">#3333ff</field>
+          </shadow>
+        </value>
+        <value name="RATIO">
+          <shadow type="math_number">
+            <field name="NUM">0.5</field>
+          </shadow>
+        </value>
+      </block>
+    </category>
+    <sep></sep>
+    <category name="%{BKY_CATVARIABLES}" colour="%{BKY_VARIABLES_HUE}" custom="VARIABLE"></category>
+    <category name="%{BKY_CATFUNCTIONS}" colour="%{BKY_PROCEDURES_HUE}" custom="PROCEDURE"></category>
+  </xml>
+
+<!-- ********************************************************************** -->
+<div id="idDisplay"
+	  style=" visibility:visible; position:absolute; 
+				 left:120px; top:500px; z-index:10;
+	          background-color:rgb(220,255,220);
+				 border-style:solid; border-width:2px;
+				 padding:0px 0px 0px 0px;"
+		 		onclick="document.getElementById('idDisplay').style.zIndex = parseInt(document.getElementById('idCodeJavascript').style.zIndex) + 1;">
+<form name="nomForm3"> 
+<!-- http://www.w3schools.com/cssref/pr_class_cursor.asp -->
+<div
+	style=" background-color:rgb(40,40,255);
+			  color:rgb(255,255,255);
+			  font-weight:bold;
+			  font-size:80%;
+			  cursor:grab;"	
+	onmousedown="myMouseDown(event, this, 'idDisplay');
+ 		document.getElementById('idDisplay').style.zIndex = parseInt(document.getElementById('idCodeJavascript').style.zIndex) + 1;"
+	onmouseup="this.style.cursor='grab'; gloDivSel = 0;"
+	onmouseout="this.style.cursor='grab';" 
+	>
+ &nbsp; <span class="text_affichage"></span> &nbsp;  &nbsp;  &nbsp; 
+
+ <button type="button" style='font-size:80%'
+		  onclick="window.document.nomForm3.nomInfo3.value = '';"><span class="text_effacer"></span></button> &nbsp;
+ <button type="button" style='font-size:80%'
+		  onclick="GetXML();"><span class="text_getxml"></span></button> &nbsp;
+ <button type="button" style='font-size:80%'
+		  onclick="SetXML();"><span class="text_setxml"></span></button><br>
+</div>
+ &nbsp;<textarea name="nomInfo3" id="idInfo3" rows=12 cols=80 
+			 style="vertical-align:bottom; padding:5px 5px 5px 5px;"></textarea> &nbsp;
+			 
+</form>
+</div>
+<!-- ********************************************************************** -->
+<div id="idCodeJavascript"
+	  style=" visibility:visible; position:absolute; left:120px; top:740px; z-index:12;
+	          background-color:rgb(220,255,220);
+				 border-style:solid; border-width:2px;
+				 padding:0px 0px 5px 0px;"
+		onclick="document.getElementById('idCodeJavascript').style.zIndex = parseInt(document.getElementById('idDisplay').style.zIndex) + 1;">
+<form name="nomForm4"> 
+<div
+	style="	background-color:rgb(40,40,255);
+				color:rgb(255,255,255);
+				font-weight:bold;
+				font-size:80%;
+				cursor:grab;"
+	onmousedown="myMouseDown(event, this, 'idCodeJavascript');
+		document.getElementById('idCodeJavascript').style.zIndex = parseInt(document.getElementById('idDisplay').style.zIndex) + 1;"
+	onmouseup="this.style.cursor='grab'; gloDivSel = 0;"
+	onmouseout="this.style.cursor='grab';"
+	>
+	
+ &nbsp; <span class="text_code_javascript"></span> &nbsp;  &nbsp;  &nbsp; 
+ 
+  <button type="button" style='font-size:80%'
+		  onclick="eval(window.document.nomForm4.nomInfo4.value);"><span class="text_executer"></span></button><br>
+</div>
+&nbsp;<textarea name="nomInfo4" id="idInfo4" rows=8 cols=100 
+			 style=" vertical-align:bottom;
+						padding:5px 5px 5px 5px;
+						font-family:Courier New, monospace;
+						font-size:10pt;
+						font-weight:bold;
+						color:rgb(0,0,0);"></textarea>
+			 
+</form>
+</div>
+<!-- ********************************************************************** -->
+
+
+<script>
+function GetXML() {
+//=================
+// Pour récupérer le code XML des blocs 
+// c.f. https://blockly-demo.appspot.com/static/tests/playground.html
+var workspace = Blockly.getMainWorkspace();
+var xml = Blockly.Xml.workspaceToDom(workspace);
+var strS = Blockly.Xml.domToPrettyText(xml); // lit le code XML des blocs
+//var strS = Blockly.Xml.domToText(xml); // lit le code XML des blocs
+// Enlève tous les " id=...", qui posent des problèmes.
+// c.f. https://www.toutjavascript.com/reference/
+
+var nnS = 0;
+var strRes = "";
+
+for (nnS=0; nnS<strS.length-4; nnS++) {
+  if ( (strS[nnS] == ' ') && (strS[nnS+1] == 'i') && (strS[nnS+2] == 'd') && (strS[nnS+3] == '=') ) { 
+    // Saute toute la chaine : id="..."  jusqu'à la fermeture des guillemets
+     nnS += 5;
+     while ( (strS[nnS] != '"') && (nnS < strS.length-4) ) nnS++;
+     nnS++; // Saute le dernier caractère qui est la fermeture des guillemets
+     }
+     
+  strRes += strS[nnS];
+  } // for
+
+// Complète la fin de la copie
+while (nnS < strS.length) { strRes += strS[nnS]; nnS++; }
+
+//strRes = strRes.substr(0, nnR); // Ne garde que la partie copiée de strS
+window.document.nomForm3.nomInfo3.value = strRes;
+}
+
+function SetXML() {
+//=================
+var workspace = Blockly.getMainWorkspace();
+var xml = Blockly.Xml.textToDom(window.document.nomForm3.nomInfo3.value);
+Blockly.Xml.domToWorkspace(xml, workspace);
+}
+
+function AfterLoad01() {
+//====================
+// Pour générer automatiquement des blocks
+var strS = '<xml><block type="controls_repeat_ext x="63" y="38"><value name="TIMES"><shadow type="math_number"><field name="NUM">10</field></shadow></value><statement name="DO"><block type="text_affiche"><value name="TEXT"><shadow type="text"><field name="TEXT">abc</field></shadow></value><next><block type="text_afficheln"><value name="TEXT"><shadow type="text"><field name="TEXT">12345</field></shadow></value></block></next></block></statement></block></xml>';
+
+var workspace = Blockly.getMainWorkspace();
+var xml = Blockly.Xml.textToDom(strS);
+Blockly.Xml.domToWorkspace(xml, workspace);
+}
+
+function AfterLoad02() {
+//====================
+// Pour générer automatiquement des blocks
+//var strS = '<xml xmlns="http://www.w3.org/1999/xhtml"><variables><variable type="" id="HCZcpaU,nN]RhGZSa.f:">x</variable></variables><block type="text_afficheln" id="{$)?DqUe(|dsfv$b?R]!" x="113" y="62"><value name="TEXT"><shadow type="text" id="4/OP0hY[mJ]{$]QwCHlu"><field name="TEXT">------------------</field></shadow></value><next><block type="variables_set" id="xM9`cw;^`Wt=LGxsTg=@"><field name="VAR" id="HCZcpaU,nN]RhGZSa.f:" variabletype="">x</field><value name="VALUE"><block type="math_number" id=")$)eg?,8CA-./.JnIt!6"><field name="NUM">0</field></block></value><next><block type="controls_repeat_ext" id="%Nq{ARwH|vr9,I*b:|{{"><value name="TIMES"><shadow type="math_number" id="9cIi5^BJj3b;k_NBzmHj"><field name="NUM">10</field></shadow></value><statement name="DO"><block type="variables_set" id="%Lv)ua@x#J;1hZ8oMYn2"><field name="VAR" id="HCZcpaU,nN]RhGZSa.f:" variabletype="">x</field><value name="VALUE"><block type="math_arithmetic" id="=lsntO,D6vbtUIk|U0]?"><field name="OP">ADD</field><value name="A"><shadow type="math_number" id="}B86;J_RT8YK(iaz/i}~"><field name="NUM">1</field></shadow><block type="variables_get" id="oE2ee=phz)@MF6ec|uA}"><field name="VAR" id="HCZcpaU,nN]RhGZSa.f:" variabletype="">x</field></block></value><value name="B"><shadow type="math_number" id="o8hN1H]%X$2?6%OT:lI`"><field name="NUM">1</field></shadow></value></block></value><next><block type="text_afficheln" id="mDf6oB%b[wVRBgL+vBS*"><value name="TEXT"><shadow type="text" id="uCw8s(DWZyLcd3|1UG[u"><field name="TEXT">12345</field></shadow><block type="variables_get" id="~|n0=@y+d3lDji2RZcY:"><field name="VAR" id="HCZcpaU,nN]RhGZSa.f:" variabletype="">x</field></block></value></block></next></block></statement></block></next></block></next></block></xml>';
+//var strS = '<xml><variables><variable type="">x</variable></variables><block type="text_afficheln" x="113" y="62"><value name="TEXT"><shadow type="text"><field name="TEXT">------------------</field></shadow></value><next><block type="variables_set"><field name="VAR" variabletype="">x</field><value name="VALUE"><block type="math_number"><field name="NUM">0</field></block></value><next><block type="controls_repeat_ext"><value name="TIMES"><shadow type="math_number"><field name="NUM">10</field></shadow></value><statement name="DO"><block type="variables_set"><field name="VAR" variabletype="">x</field><value name="VALUE"><block type="math_arithmetic"><field name="OP">ADD</field><value name="A"><shadow type="math_number"><field name="NUM">1</field></shadow><block type="variables_get"><field name="VAR" variabletype="">x</field></block></value><value name="B"><shadow type="math_number"><field name="NUM">1</field></shadow></value></block></value><next><block type="text_afficheln"><value name="TEXT"><shadow type="text"><field name="TEXT">12345</field></shadow><block type="variables_get"><field name="VAR" variabletype="">x</field></block></value></block></next></block></statement></block></next></block></next></block></xml>';
+var strS = '<xml><variables><variable type="">x</variable></variables><block type="text_afficheln" x="113" y="62"><value name="TEXT"><shadow type="text"><field name="TEXT">------------------</field></shadow></value><next><block type="variables_set"><field name="VAR" variabletype="">x</field><value name="VALUE"><block type="math_number"><field name="NUM">0</field></block></value><next><block type="controls_repeat_ext"><value name="TIMES"><shadow type="math_number"><field name="NUM">10</field></shadow></value><statement name="DO"><block type="variables_set"><field name="VAR" variabletype="">x</field><value name="VALUE"><block type="math_arithmetic"><field name="OP">ADD</field><value name="A"><shadow type="math_number"><field name="NUM">1</field></shadow><block type="variables_get"><field name="VAR" variabletype="">x</field></block></value><value name="B"><shadow type="math_number"><field name="NUM">1</field></shadow></value></block></value><next><block type="text_afficheln"><value name="TEXT"><block type="variables_get"><field name="VAR" variabletype="">x</field></block></value></block></next></block></statement></block></next></block></next></block></xml>';
+
+var workspace = Blockly.getMainWorkspace();
+var xml = Blockly.Xml.textToDom(strS);
+Blockly.Xml.domToWorkspace(xml, workspace);
+}
+
+function AfterLoad() {
+//====================
+// Pour générer automatiquement des blocks
+AfterLoad02();
+}
+
+</script> 
+ 
+</body>
+</html>

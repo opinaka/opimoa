@@ -1,0 +1,57 @@
+<html>
+<head>
+<meta charset="utf-8">
+<title>Brython demo</title>
+</head>
+<body onload="brython({debug: 1, indexedDB: false})">
+
+<form name="nomForm1"> 
+    <textarea id="idTextarea1" name="nomTextarea1" rows=12 cols=80 
+              style="vertical-align:bottom; padding:5px 5px 5px 5px;"></textarea><br>
+</form>
+<br>
+<form name="nomForm2"> 
+    <textarea id="idTextarea2" name="nomTextarea2" rows=12 cols=80 
+              style="vertical-align:bottom; padding:5px 5px 5px 5px;">
+print("Bonjour à tous")
+strNom = input("quelle est ton nom ? ")
+print("Bonjour", strNom)
+</textarea><br>
+</form>
+
+<button id="idRunPython">Run Python code</button><br>
+<br>
+<a href="https://repl.it/repls/FantasticQuirkyForce" target="_blank">
+  Le site Web qui m'a permi de rediriger le "print" vers un textarea</a>.<br>
+
+
+<script type="text/python">
+    from browser import document, alert, html
+    from io import StringIO
+    import sys
+    import traceback
+    
+    def runPython(event):
+        # Exécute le code Python et l'affiche dans le "textarea" "idTextarea1"        
+        sss = StringIO()  # Crée un buffer où le texte affiché avec "print" sera stocké
+        sys.stdout = sss  # Associe la sortie de "print" au buffer
+        theCode = document["idTextarea2"].value # Récupère le programme
+        # document["idTextarea1"].value = theCode # Teste, affiche le code
+        try:
+          exec(theCode) # Exécute le code Python
+          strOutput = sss.getvalue()  # Récupère ce qui a été affiché
+        except:
+          # Il y a eu une erreur, qui sera affiché dans le même "idTextarea1" 
+          strOutput = traceback.format_exc() # Récupère le message d'erreur
+          
+        document["idTextarea1"].value += strOutput # Ajoute le texte affiché par la commande "print" au texte de "idTextarea1" 
+        document["idTextarea1"].scrollTop = 100000  # pour rester en fin du texte.
+        
+    document["idRunPython"].bind("click", runPython)
+</script>
+
+<script src="brython.js"></script>
+<script src="brython_stdlib.js"></script>
+
+</body>
+</html>

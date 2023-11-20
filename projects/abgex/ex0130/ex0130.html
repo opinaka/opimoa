@@ -1,0 +1,715 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>ex0130, affichage dans des fenêtres</title>
+  
+  <!-- Les 4 lignes suivantes chargent les routines de Blockly -->
+  <script src="../../blockly_compressed.js"></script>
+  <script src="../../blocks_compressed.js"></script>
+  <script src="../../javascript_compressed.js"></script>
+  <script src="../../msg/js/fr.js"></script>  <!-- C'est ici que la langue des blocs est définie -->
+
+  <script>
+  // Adjonction de fonctionnalités à Blockly
+  // Il faudrait mettre ce code dans une librairie.
+
+  // Adjonction de textes personalités dans les blocs
+  goog.provide('bgBlockly.Msg.fr');
+  goog.require('bgBlockly.Msg');
+
+  bgBlockly.Msg["TEXT_AFFICHE_TITLE"] = "afficher %1";
+  bgBlockly.Msg["TEXT_AFFICHE_TOOLTIP"] = "Afficher le texte sans retour à la ligne, le nombre ou une autre valeur spécifiée.";
+  bgBlockly.Msg["TEXT_AFFICHE_HELPURL"] = "";  // untranslated
+  bgBlockly.Msg["TEXT_AFFICHELN_TITLE"] = "afficherLn %1";
+  bgBlockly.Msg["TEXT_AFFICHELN_TOOLTIP"] = "Afficher le texte avec retour à la ligne, le nombre ou une autre valeur spécifiée.";
+  bgBlockly.Msg["TEXT_AFFICHELN_HELPURL"] = "";  // untranslated
+  bgBlockly.Msg["TEXTS_HUE"] = "160";
+
+
+  function Display(strInfo) {
+  //=========================
+  // Ecrit dans une partie de la fenêtre, divers informations.
+  // La forme "nomForm1" a été définie plus bas, 
+  // sous la définition de la '<div id="blocklyDiv" ...' pour Blockly
+  var myMessage = window.document.nomForm1.nomTextarea1.value;
+  myMessage = myMessage + strInfo;
+  window.document.nomForm1.nomTextarea1.value = myMessage;
+  window.document.nomForm1.nomTextarea1.scrollTop = 100000;  // pour rester en fin du texte.
+  /// window.document.nomForm1.nomTextarea1.scrollBy(10,0);  pas correcte !?!
+  } // Display
+
+  function showCode() {
+  //===================
+  // Generate JavaScript code and display it.
+  Blockly.JavaScript.INFINITE_LOOP_TRAP = null;
+  var code = Blockly.JavaScript.workspaceToCode(demoWorkspace);      
+
+  window.document.nomForm2.nomTextarea2.value += code;
+  window.document.nomForm2.nomTextarea2.scrollTop = 100000;  // pour rester en fin du texte.
+  } // showCode
+
+  function runCode() {
+  //===================
+  // Generate JavaScript code and run it.
+  window.LoopTrap = 1000;
+  Blockly.JavaScript.INFINITE_LOOP_TRAP =
+      'if (--window.LoopTrap == 0) throw "Infinite loop.";\n';
+  var code = Blockly.JavaScript.workspaceToCode(demoWorkspace);
+  Blockly.JavaScript.INFINITE_LOOP_TRAP = null;
+  try {
+    eval(code);
+    } 
+  catch (e) {
+    alert(e);
+    }
+  } // runCode
+
+  // Ce qui suit permet de déplacer les fenêtres dans la fenêtre de Blockly
+  // ********* !!! Ajouter l'instuction : "onmousemove="myMouseMove(event);" à la balise <body> !!!! *****
+  var gloDivSel = 0; // pointeur sur le div lorsqu'il est sélectionné
+  var glnXOffset = 0; // décalage entre le clique souris et la gauche de la fenetre
+  var glnYOffset = 0; // décalage
+
+  function myMouseDown(myEvent, oAppelant, strDivName) {
+  //====================================================
+  // Permet de sélectionner un des  div  pour le déplacer.
+  gloDivSel = document.getElementById(strDivName);
+  oAppelant.style.cursor='move';
+  glnXOffset = myEvent.pageX - parseInt(gloDivSel.style.left);
+  glnYOffset = myEvent.pageY - parseInt(gloDivSel.style.top);
+  } // myMouseDown
+  
+  function myMouseMove(myEvent) {
+  //=============================
+  // Permet de déplacer le  div  si un a été sélectionné
+  if (gloDivSel != 0) {
+     gloDivSel.style.left = myEvent.pageX - glnXOffset + "px";
+     gloDivSel.style.top  = myEvent.pageY - glnYOffset + "px";
+     }
+  } // myMouseMove
+
+  //#####################################################################
+
+  // Adjonction d'un bloc permettant d'afficher du texte dans la fenêtre
+  Blockly.Blocks['text_afficheln'] = {
+  //==================================
+  // Définit l'aspect du bloc
+  init: function() {
+    this.jsonInit({
+      "message0": bgBlockly.Msg['TEXT_AFFICHELN_TITLE'],
+      "args0": [
+        {
+          "type": "input_value",
+          "name": "TEXT"
+        }
+      ],
+      "previousStatement": null,
+      "nextStatement": null,
+      "colour":  bgBlockly.Msg['TEXTS_HUE'],
+      "tooltip": bgBlockly.Msg['TEXT_AFFICHELN_TOOLTIP'],
+      "helpUrl": bgBlockly.Msg['TEXT_AFFICHELN_HELPURL']
+      });
+    }
+  };
+
+  Blockly.JavaScript['text_afficheln'] = function(block) {
+  //====================================================
+  // Défini la fonctionnalité du bloc
+  var msg = Blockly.JavaScript.valueToCode(block, 'TEXT', Blockly.JavaScript.ORDER_NONE) || '\'\'';
+  return "Display(" + (  msg + "+'\\n'") + ");\n"; // Insertion d'un retour de ligne à la fin de l'affichage : "\n"
+  };
+  
+
+  Blockly.Blocks['text_affiche'] = {
+  //================================
+  init: function() {
+    this.jsonInit({
+      "message0": bgBlockly.Msg['TEXT_AFFICHE_TITLE'],
+      "args0": [
+        {
+          "type": "input_value",
+          "name": "TEXT"
+        }
+      ],
+      "previousStatement": null,
+      "nextStatement": null,
+      "colour":  bgBlockly.Msg['TEXTS_HUE'],
+      "tooltip": bgBlockly.Msg['TEXT_AFFICHE_TOOLTIP'],  // Pour définir des textes personnalisés.
+      "helpUrl": bgBlockly.Msg['TEXT_AFFICHE_HELPURL']
+      });
+    }
+  };
+
+  Blockly.JavaScript['text_affiche'] = function(block) {
+    // Print statement.
+    var msg = Blockly.JavaScript.valueToCode(block, 'TEXT',
+        Blockly.JavaScript.ORDER_NONE) || '\'\'';
+    return "Display(" + msg + ");\n";
+  };
+  </script>
+  
+</head>
+<body onmousemove="myMouseMove(event);">
+
+<!-- en-tête de la page -->
+<div style="position:absolute; top:2px; left:2px;">
+  <b>ex0130, affichage dans des fenêtres</b><br>
+  <button onclick="showCode();">Montre le code en JavaScript</button>
+  <button onclick="runCode();">Exécute le code Blockly</button>
+</div>
+
+<!-- Positionnement du code Blockly -->
+<div id="blocklyDiv" style="position:absolute; left:0px; top:60px; bottom:0px; width:100%;"></div>
+
+<!-- ********************************************************************** -->
+<!-- Une fenêtre dans la fenêtre, pour afficher les résultats de l'exécution du code -->
+<div id="idDisplay"
+	  style=" visibility:visible; position:absolute; 
+				 left:120px; top:500px; z-index:10;
+	          background-color:rgb(220,255,220);
+				 border-style:solid; border-width:2px;
+				 padding:0px 0px 0px 0px;"
+		 		onclick="document.getElementById('idDisplay').style.zIndex = parseInt(document.getElementById('idCodeJavascript').style.zIndex) + 1;">
+  <form name="nomForm1"> 
+    <!-- http://www.w3schools.com/cssref/pr_class_cursor.asp -->
+    <div
+      style=" background-color:rgb(40,40,255);
+              color:rgb(255,255,255);
+              font-weight:bold;
+              font-size:80%;
+              cursor:grab;"	
+              onmousedown="myMouseDown(event, this, 'idDisplay');
+                          document.getElementById('idDisplay').style.zIndex = parseInt(document.getElementById('idCodeJavascript').style.zIndex) + 1;"
+              onmouseup="this.style.cursor='grab'; gloDivSel = 0;"
+              onmouseout="this.style.cursor='grab';">
+      &nbsp; Affichage &nbsp;  &nbsp;  &nbsp; 
+
+      <button type="button" style='font-size:80%'
+              onclick="window.document.nomForm1.nomTextarea1.value = '';">Effacer
+      </button><br>
+    </div>         
+    
+    &nbsp;<textarea name="nomTextarea1" id="idInfo3" rows=12 cols=80 
+                    style="vertical-align:bottom; padding:5px 5px 5px 5px;"></textarea><br>
+
+  </form>
+</div>
+
+<!-- ********************************************************************** -->
+<!-- Une fenêtre dans la fenêtre, pour afficher le code javascript -->
+<div id="idCodeJavascript"
+	  style=" visibility:visible; position:absolute; left:120px; top:740px; z-index:12;
+	          background-color:rgb(220,255,220);
+				       border-style:solid; border-width:2px;
+				       padding:0px 0px 5px 0px;"
+		onclick="document.getElementById('idCodeJavascript').style.zIndex = parseInt(document.getElementById('idDisplay').style.zIndex) + 1;">
+<form name="nomForm2"> 
+<div
+	style="	background-color:rgb(40,40,255);
+				color:rgb(255,255,255);
+				font-weight:bold;
+				font-size:80%;
+				cursor:grab;"
+	onmousedown="myMouseDown(event, this, 'idCodeJavascript');
+		            document.getElementById('idCodeJavascript').style.zIndex = parseInt(document.getElementById('idDisplay').style.zIndex) + 1;"
+	onmouseup="this.style.cursor='grab'; gloDivSel = 0;"
+	onmouseout="this.style.cursor='grab';"
+	>
+	
+ &nbsp; Code javascript &nbsp;  &nbsp; 
+ 
+  <button type="button" style='font-size:80%'
+		        onclick="eval(window.document.nomForm2.nomTextarea2.value);">Exécuter
+  </button><br>
+</div>
+&nbsp;<textarea name="nomTextarea2" id="idInfo4" rows=8 cols=100 
+			 style=" vertical-align:bottom;
+					      	padding:5px 5px 5px 5px;
+						      font-family:Courier New, monospace;
+					      	font-size:10pt;
+	 		     			font-weight:bold;
+			      			color:rgb(0,0,0);"></textarea>
+			 
+</form>
+</div>
+
+<!-- ********************************************************************** -->
+
+<!-- Indique à Blockly les blocs que l'on désire mettre à disposition -->
+<!-- Si la balise <category> existe, le champs Blocky aura des scroll bar, 
+     sinon, il n'y a pas de scroll bar. 
+     Ici, il y a des balises <category> -->
+<xml id="toolbox" style="display: none">
+  <category name="Logique" colour="%{BKY_LOGIC_HUE}">
+    <block type="controls_if"></block>
+    <block type="logic_compare"></block>
+    <block type="logic_operation"></block>
+    <block type="logic_negate"></block>
+    <block type="logic_boolean"></block>
+    <block type="logic_null"></block>
+    <block type="logic_ternary"></block>
+  </category>
+  <category name="Boucles" colour="%{BKY_LOOPS_HUE}">
+    <block type="controls_repeat_ext">
+      <value name="TIMES">
+        <shadow type="math_number">
+          <field name="NUM">10</field>
+        </shadow>
+      </value>
+    </block>
+    <block type="controls_whileUntil"></block>
+    <block type="controls_for">
+      <value name="FROM">
+        <shadow type="math_number">
+          <field name="NUM">1</field>
+        </shadow>
+      </value>
+      <value name="TO">
+        <shadow type="math_number">
+          <field name="NUM">10</field>
+        </shadow>
+      </value>
+      <value name="BY">
+        <shadow type="math_number">
+          <field name="NUM">1</field>
+        </shadow>
+      </value>
+    </block>
+    <block type="controls_forEach"></block>
+    <block type="controls_flow_statements"></block>
+  </category>
+  <category name="Math" colour="%{BKY_MATH_HUE}">
+    <block type="math_number">
+      <field name="NUM">123</field>
+    </block>
+    <block type="math_arithmetic">
+      <value name="A">
+        <shadow type="math_number">
+          <field name="NUM">1</field>
+        </shadow>
+      </value>
+      <value name="B">
+        <shadow type="math_number">
+          <field name="NUM">1</field>
+        </shadow>
+      </value>
+    </block>
+    <block type="math_single">
+      <value name="NUM">
+        <shadow type="math_number">
+          <field name="NUM">9</field>
+        </shadow>
+      </value>
+    </block>
+    <block type="math_trig">
+      <value name="NUM">
+        <shadow type="math_number">
+          <field name="NUM">45</field>
+        </shadow>
+      </value>
+    </block>
+    <block type="math_constant"></block>
+    <block type="math_number_property">
+      <value name="NUMBER_TO_CHECK">
+        <shadow type="math_number">
+          <field name="NUM">0</field>
+        </shadow>
+      </value>
+    </block>
+    <block type="math_round">
+      <value name="NUM">
+        <shadow type="math_number">
+          <field name="NUM">3.1</field>
+        </shadow>
+      </value>
+    </block>
+    <block type="math_on_list"></block>
+    <block type="math_modulo">
+      <value name="DIVIDEND">
+        <shadow type="math_number">
+          <field name="NUM">64</field>
+        </shadow>
+      </value>
+      <value name="DIVISOR">
+        <shadow type="math_number">
+          <field name="NUM">10</field>
+        </shadow>
+      </value>
+    </block>
+    <block type="math_constrain">
+      <value name="VALUE">
+        <shadow type="math_number">
+          <field name="NUM">50</field>
+        </shadow>
+      </value>
+      <value name="LOW">
+        <shadow type="math_number">
+          <field name="NUM">1</field>
+        </shadow>
+      </value>
+      <value name="HIGH">
+        <shadow type="math_number">
+          <field name="NUM">100</field>
+        </shadow>
+      </value>
+    </block>
+    <block type="math_random_int">
+      <value name="FROM">
+        <shadow type="math_number">
+          <field name="NUM">1</field>
+        </shadow>
+      </value>
+      <value name="TO">
+        <shadow type="math_number">
+          <field name="NUM">100</field>
+        </shadow>
+      </value>
+    </block>
+    <block type="math_random_float"></block>
+    <block type="math_atan2">
+      <value name="X">
+        <shadow type="math_number">
+          <field name="NUM">1</field>
+        </shadow>
+      </value>
+      <value name="Y">
+        <shadow type="math_number">
+          <field name="NUM">1</field>
+        </shadow>
+      </value>
+    </block>
+  </category>
+  <category name="Texte" colour="%{BKY_TEXTS_HUE}">
+    <block type="text"></block>
+    <block type="text_join"></block>
+    <block type="text_afficheln">
+      <value name="TEXT">
+        <shadow type="text"></shadow>
+      </value>
+    </block>
+    <block type="text_affiche">
+      <value name="TEXT">
+        <shadow type="text"></shadow>
+      </value>
+    </block>
+    <block type="text_length">
+      <value name="VALUE">
+        <shadow type="text">
+          <field name="TEXT">abc</field>
+        </shadow>
+      </value>
+    </block>
+    <block type="text_isEmpty">
+      <value name="VALUE">
+        <shadow type="text">
+          <field name="TEXT"></field>
+        </shadow>
+      </value>
+    </block>
+    <block type="text_indexOf">
+      <value name="VALUE">
+        <block type="variables_get">
+          <field name="VAR">{textVariable}</field>
+        </block>
+      </value>
+      <value name="FIND">
+        <shadow type="text">
+          <field name="TEXT">abc</field>
+        </shadow>
+      </value>
+    </block>
+    <block type="text_charAt">
+      <value name="VALUE">
+        <block type="variables_get">
+          <field name="VAR">{textVariable}</field>
+        </block>
+      </value>
+    </block>
+    <block type="text_getSubstring">
+      <value name="STRING">
+        <block type="variables_get">
+          <field name="VAR">{textVariable}</field>
+        </block>
+      </value>
+    </block>
+    <block type="text_changeCase">
+      <value name="TEXT">
+        <shadow type="text">
+          <field name="TEXT">abc</field>
+        </shadow>
+      </value>
+    </block>
+    <block type="text_trim">
+      <value name="TEXT">
+        <shadow type="text">
+          <field name="TEXT">abc</field>
+        </shadow>
+      </value>
+    </block>
+    <block type="text_prompt_ext">
+      <value name="TEXT">
+        <shadow type="text">
+          <field name="TEXT">abc</field>
+        </shadow>
+      </value>
+    </block>
+  </category>
+  <category name="Listes" colour="%{BKY_LISTS_HUE}">
+    <block type="lists_create_with">
+      <mutation items="0"></mutation>
+    </block>
+    <block type="lists_create_with"></block>
+    <block type="lists_repeat">
+      <value name="NUM">
+        <shadow type="math_number">
+          <field name="NUM">5</field>
+        </shadow>
+      </value>
+    </block>
+    <block type="lists_length"></block>
+    <block type="lists_isEmpty"></block>
+    <block type="lists_indexOf">
+      <value name="VALUE">
+        <block type="variables_get">
+          <field name="VAR">{listVariable}</field>
+        </block>
+      </value>
+    </block>
+    <block type="lists_getIndex">
+      <value name="VALUE">
+        <block type="variables_get">
+          <field name="VAR">{listVariable}</field>
+        </block>
+      </value>
+    </block>
+    <block type="lists_setIndex">
+      <value name="LIST">
+        <block type="variables_get">
+          <field name="VAR">{listVariable}</field>
+        </block>
+      </value>
+    </block>
+    <block type="lists_getSublist">
+      <value name="LIST">
+        <block type="variables_get">
+          <field name="VAR">{listVariable}</field>
+        </block>
+      </value>
+    </block>
+    <block type="lists_split">
+      <value name="DELIM">
+        <shadow type="text">
+          <field name="TEXT">,</field>
+        </shadow>
+      </value>
+    </block>
+    <block type="lists_sort"></block>
+  </category>
+  <category name="Couleur" colour="%{BKY_COLOUR_HUE}">
+    <block type="colour_picker"></block>
+    <block type="colour_random"></block>
+    <block type="colour_rgb">
+      <value name="RED">
+        <shadow type="math_number">
+          <field name="NUM">100</field>
+        </shadow>
+      </value>
+      <value name="GREEN">
+        <shadow type="math_number">
+          <field name="NUM">50</field>
+        </shadow>
+      </value>
+      <value name="BLUE">
+        <shadow type="math_number">
+          <field name="NUM">0</field>
+        </shadow>
+      </value>
+    </block>
+    <block type="colour_blend">
+      <value name="COLOUR1">
+        <shadow type="colour_picker">
+          <field name="COLOUR">#ff0000</field>
+        </shadow>
+      </value>
+      <value name="COLOUR2">
+        <shadow type="colour_picker">
+          <field name="COLOUR">#3333ff</field>
+        </shadow>
+      </value>
+      <value name="RATIO">
+        <shadow type="math_number">
+          <field name="NUM">0.5</field>
+        </shadow>
+      </value>
+    </block>
+  </category>
+  <sep></sep>
+  <category name="Variables" colour="%{BKY_VARIABLES_HUE}" custom="VARIABLE"></category>
+  <category name="Fonctions" colour="%{BKY_PROCEDURES_HUE}" custom="PROCEDURE"></category>
+</xml>
+
+<xml id="startBlocks" style="display: none">
+  <block type="variables_set" inline="false">
+    <field name="VAR">x</field>
+    <value name="VALUE">
+      <block type="math_number">
+        <field name="NUM">7</field>
+      </block>
+    </value>
+    <next>
+      <block type="controls_whileUntil" inline="true">
+        <value name="BOOL">
+          <block type="logic_compare" inline="true">
+            <value name="A">
+              <block type="variables_get">
+                <field name="VAR">x</field>
+              </block>
+            </value>
+            <field name="OP">GT</field>
+            <value name="B">
+              <block type="math_number">
+                <field name="NUM">1</field>
+              </block>
+            </value>
+          </block>
+        </value>
+        <statement name="DO">
+          <block type="controls_if" inline="false" x="20" y="20">
+            <mutation else="1"></mutation>
+            <value name="IF0">
+              <block type="math_number_property" inline="true">
+                <value name="NUMBER_TO_CHECK">
+                  <block type="variables_get">
+                    <field name="VAR">x</field>
+                  </block>
+                </value>
+                <field name="PROPERTY">EVEN</field>
+              </block>
+            </value>
+            <statement name="DO0">
+              <block type="variables_set" inline="true">
+                <field name="VAR">x</field>
+                <value name="VALUE">
+                  <block type="math_arithmetic" inline="true">
+                    <field name="OP">DIVIDE</field>
+                    <value name="A">
+                      <block type="variables_get">
+                        <field name="VAR">x</field>
+                      </block>
+                    </value>
+                    <value name="B">
+                      <block type="math_number">
+                        <field name="NUM">2</field>
+                      </block>
+                    </value>
+                  </block>
+                </value>
+                <next>
+                  <block type="text_affiche" inline="true">
+                    <value name="TEXT">
+                      <block type="text">
+                        <field name="TEXT">La valeur vaut : </field>
+                      </block>
+                    </value>
+                    <next>
+                      <block type="text_afficheln">
+                        <value name="TEXT">
+                          <block type="variables_get">
+                            <field name="VAR">x</field>
+                          </block>
+                        </value>
+                      </block>
+                    </next>
+                  </block> 
+                </next>     
+              </block>
+            </statement>
+            <statement name="ELSE">
+              <block type="variables_set" id="set_n_update" inline="true">
+                <field name="VAR">x</field>
+                <value name="VALUE">
+
+                  <block type="math_arithmetic" inline="true">
+                   <field name="OP">ADD</field>
+                   <value name="A">
+
+                    <block type="math_arithmetic" inline="true">
+                     <field name="OP">MULTIPLY</field>
+                     <value name="A">
+                      <block type="variables_get">
+                       <field name="VAR">x</field>
+                      </block>
+                     </value>
+                     <value name="B">
+                      <block type="math_number">
+                       <field name="NUM">3</field>
+                      </block>
+                     </value>
+                    </block>
+                   </value>
+
+                   <value name="B">
+                    <block type="math_number">
+                     <field name="NUM">1</field>
+                    </block>
+                   </value>
+                  </block>
+                </value>
+                <next>
+                  <block type="text_affiche" inline="true">
+                    <value name="TEXT">
+                      <block type="text">
+                        <field name="TEXT">La valeur vaut : </field>
+                      </block>
+                    </value>
+                    <next>
+                      <block type="text_afficheln">
+                        <value name="TEXT">
+                          <block type="variables_get">
+                            <field name="VAR">x</field>
+                          </block>
+                        </value>
+                      </block>
+                    </next>
+                  </block> 
+                </next>     
+              </block>
+            </statement>
+          </block>
+        </statement>
+      </block>
+    </next>     
+  </block> 
+</xml>
+
+<script>
+//############################################################################
+ 
+// C'est ici que l'on insert les fonctionnalités Blockly
+var demoWorkspace = Blockly.inject('blocklyDiv',
+    {media: '../../media/',
+     toolbox: document.getElementById('toolbox')});
+
+ // C'est ici que l'on indique d'ajouter des blocs a l'ouverture de la page
+Blockly.Xml.domToWorkspace(document.getElementById('startBlocks'), demoWorkspace);
+</script>
+
+<!-- ================================================================ -->
+<!-- Pour le pied de page -->
+<div style="position:absolute; left:130px; bottom:0px;">
+  <hr style="margin-left:0; width:110%">
+  <p style="margin-top:0; font-size:80%">
+  Plan du Site : 
+  <a href="../../blockly.html ">blockly</a> &nbsp;
+  <img src="../../images/arrow_right.png" alt="arrow" width="13" height="9"> &nbsp; 
+  ex0130 
+  </p>
+  <hr style="margin-left:0; margin-bottom:0; width:95%">
+  <p style="margin-top:0; font-size:80%">
+  Page mise à jour le 21 janvier 2019 par Bernard Gisin<br>
+  </p>
+</div>
+</body>
+</html>
+

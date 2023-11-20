@@ -1,0 +1,11 @@
+<!-- Indique à Blockly les blocs que l'on désire mettre à disposition -->
+<!-- Si la balise <category> existe, le champs Blocky aura des scroll bar, 
+     sinon, il n'y a pas de scroll bar. 
+     Ici, il y a des balises <category> -->
+
+<block type="puzzle_notebook"></block>
+<block type="puzzle_desktop"></block>
+<block type="puzzle_screen"></block>
+<block type="puzzle_keyboard"></block>
+<block type="puzzle_mouse"></block>
+

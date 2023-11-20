@@ -1,0 +1,29 @@
+
+  <block type="card_mix_cards" x="49" y="20">
+    <value name="MIXNUMBER">
+      <shadow type="math_number">
+        <field name="NUM">300</field>
+      </shadow>
+    </value>
+    <value name="MIXACCEL">
+      <shadow type="math_number">
+        <field name="NUM">50</field>
+      </shadow>
+    </value>
+    <next>
+      <block type="card_exchangex1x2">
+        <data>1</data>
+        <value name="POSX1">
+          <shadow type="math_number">
+            <field name="NUM">1</field>
+          </shadow>
+        </value>
+        <value name="POSX2">
+          <shadow type="math_number">
+            <field name="NUM">4</field>
+          </shadow>
+        </value>
+      </block>
+    </next>
+  </block>
+

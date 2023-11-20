@@ -1,0 +1,504 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>ex0400, Puzzles.</title>
+  
+  <!-- Les 4 lignes suivantes chargent les routines de Blockly -->
+  <script src="../../blockly_compressed.js"></script>
+  <script src="../../blocks_compressed.js"></script>
+  <script src="../../javascript_compressed.js"></script>
+  <script src="../../msg/js/fr.js"></script>  <!-- C'est ici que la langue des blocs est définie -->
+
+  <script src="ex0400.js"></script>  <!-- Code spécifique à cette page ( cette application ). -->
+
+<script>
+  Blockly.Blocks['text_affiche'] = {
+  init: function() {
+    this.jsonInit({
+      "message0": Blockly.Msg['TEXT_PRINT_TITLE'],
+      "args0": [
+        {
+          "type": "input_value",
+          "name": "TEXT"
+        }
+      ],
+      "previousStatement": null,
+      "nextStatement": null,
+      "colour": Blockly.Msg['TEXTS_HUE'],
+      "tooltip": Blockly.Msg['TEXT_PRINT_TOOLTIP'],
+      "helpUrl": Blockly.Msg['TEXT_PRINT_HELPURL']
+    });
+  }
+};
+
+Blockly.JavaScript['text_affiche'] = function(block) {
+  // Print statement.
+  var msg = Blockly.JavaScript.valueToCode(block, 'TEXT',
+      Blockly.JavaScript.ORDER_NONE) || '\'\'';
+  return 'Display(' + msg + ');\n';
+};
+
+Blockly.Blocks['image_head'] = {
+  init: function() {
+    this.appendDummyInput()
+        .appendField(new Blockly.FieldImage("http://www.juggling.ch/gisin/javascript/BougeImage/images/ballon3.gif", 100, 100, "Ballon 3"));
+    this.setOutput(true, null);
+    this.setColour(90);
+    this.setTooltip("C'est juste une image");
+    this.setHelpUrl("");
+  }
+};
+Blockly.JavaScript['image_head'] = function(block) {
+  var msg = "'Ballon 3'";
+  return [msg, Blockly.JavaScript.ORDER_NONE];
+};
+
+Blockly.Blocks['image_pa_cherix'] = {
+  init: function() {
+    this.appendDummyInput()
+        .appendField(new Blockly.FieldImage("../images/pierre_alain_cherix.jpeg", 100, 100, "pac"));
+    this.setOutput(true, null);
+    this.setColour(90);
+    this.setTooltip("C'est P.-A.");
+    this.setHelpUrl("");
+  }
+};
+Blockly.JavaScript['image_pa_cherix'] = function(block) {
+  var msg = "'Pierre-Alain Cherix'";
+  return [msg, Blockly.JavaScript.ORDER_NONE];
+};
+
+Blockly.Blocks['image_t_zwissig'] = {
+  init: function() {
+    this.appendDummyInput()
+        .appendField(new Blockly.FieldImage("../images/thierry_zwissig.jpeg", 100, 100, "thz"));
+    this.setOutput(true, null);
+    this.setColour(90);
+    this.setTooltip("C'est Thierry");
+    this.setHelpUrl("");
+  }
+};
+Blockly.JavaScript['image_t_zwissig'] = function(block) {
+  var msg = "'Thierry Zwissig'";
+  return [msg, Blockly.JavaScript.ORDER_NONE];
+};
+
+Blockly.Blocks['image_b_gisin'] = {
+  init: function() {
+    this.appendDummyInput()
+        .appendField(new Blockly.FieldImage("../images/bernard_gisin.jpeg", 100, 100, "thz"));
+    this.setOutput(true, null);
+    this.setColour(90);
+    this.setTooltip("C'est Bernard");
+    this.setHelpUrl("");
+  }
+};
+Blockly.JavaScript['image_b_gisin'] = function(block) {
+  var msg = "'Bernard Gisin'";
+  return [msg, Blockly.JavaScript.ORDER_NONE];
+};
+
+Blockly.Blocks['image_puzzle_test1'] = {
+  init: function() {
+    this.appendDummyInput()
+        .appendField(new Blockly.FieldImage("puzzle_test1.png", 446, 242, "p_test1"));
+    this.setOutput(true, null);
+    this.setColour(90);
+    this.setTooltip("Exemple de 'value input'");
+    this.setHelpUrl("");
+  }
+};
+Blockly.JavaScript['image_puzzle_test1'] = function(block) {
+  var msg = "'Exemple de \\'value input\\' '";
+  return [msg, Blockly.JavaScript.ORDER_NONE];
+};
+
+Blockly.Blocks['image_puzzle_test2'] = {
+  init: function() {
+    this.appendDummyInput()
+        .appendField(new Blockly.FieldImage("puzzle_test2.png", 526, 348, "p_test3"));
+    this.setOutput(true, null);
+    this.setColour(90);
+    this.setTooltip("Un 'dummy input' et deux 'value input', exemple test 2");
+    this.setHelpUrl("");
+  }
+};
+Blockly.JavaScript['image_puzzle_test2'] = function(block) {
+  var msg = "'Exemple de un \\'dumy input\\' et de deux \\'value input\\' '";
+  return [msg, Blockly.JavaScript.ORDER_NONE];
+};
+
+Blockly.Blocks['image_puzzle_test3'] = {
+//""""""""""""""""""""""""""""""""""""""
+  init: function() {
+    this.appendDummyInput()
+        .appendField(new Blockly.FieldImage("puzzle_test3.png", 492, 243, "p_test3"));
+    this.setOutput(true, null);
+    this.setColour(90);
+    this.setTooltip("Exemple de 'statement input', sans connexteur vers le haut ni vers le bas");
+    this.setHelpUrl("");
+  }
+};
+Blockly.JavaScript['image_puzzle_test3'] = function(block) {
+//==========================================================
+  var msg = "'Exemple de \\'statement input\\' , sans connexteurs vers le haut ni vers le bas.'";
+  return [msg, Blockly.JavaScript.ORDER_NONE];
+};
+
+Blockly.Blocks['image_puzzle_test4'] = {
+//""""""""""""""""""""""""""""""""""""""
+  init: function() {
+    this.appendDummyInput()
+        .appendField(new Blockly.FieldImage("puzzle_test4.png", 428, 291, "p_test3"));
+    this.setOutput(true, null);
+    this.setColour(90);
+    this.setTooltip("Exemple de 'statement input', avec connexteurs vers le haut et le bas.");
+    this.setHelpUrl("");
+  }
+};
+Blockly.JavaScript['image_puzzle_test4'] = function(block) {
+//==========================================================
+  var msg = "'Exemple de \\'statement input\\' , avec connexteurs vers le haut et le bas.'";
+  return [msg, Blockly.JavaScript.ORDER_NONE];
+};
+
+//###############################################################################3
+// Un nouveau block
+
+/*
+// Définition du blocs en javascript
+Blockly.Blocks['puzzle_noms'] = {
+  init: function() {
+    this.appendValueInput("image")
+        .setCheck(null)
+        .setAlign(Blockly.ALIGN_RIGHT)
+        .appendField("Image :");
+    this.appendDummyInput()
+        .appendField(new Blockly.FieldDropdown([["a des lunettes","Lunette"], ["est blond","blond"], ["est brun","brun"]]), "NAME");
+    this.appendStatementInput("attrib")
+        .setCheck(null)
+        .appendField("traits :");
+    this.setInputsInline(false);
+    this.setColour(120);
+ this.setTooltip("Image avec des caractéristiques");
+ this.setHelpUrl("");
+  }
+};
+*/
+
+// Définition du même bloc que le précédent, en JSON
+Blockly.Blocks['puzzle_noms'] = {
+  init: function() {
+    this.jsonInit({
+      "message0": "Image : %1 %2 %3 traits : %4",
+      "args0": [
+        {
+          "type": "input_value",
+          "name": "IMAGE",
+          "align": "RIGHT"
+        },
+        {
+          "type": "field_dropdown",
+          "name": "CARACTERISTIQUE",
+          "options": [
+            [
+              "a des lunettes",
+              "LUNETTES"
+            ],
+            [
+              "est blond",
+              "BLOND"
+            ],
+            [
+              "est brun",
+              "BRUN"
+            ]
+          ]
+        },
+        {
+          "type": "input_dummy"
+        },
+        {
+          "type": "input_statement",
+          "name": "ATTRIBUT"
+        }
+      ],
+      "inputsInline": false,
+      "colour": 120,
+      "tooltip": "Image avec des caractéristiques",
+      "helpUrl": ""
+    });
+  }
+};
+Blockly.JavaScript['puzzle_noms'] = function(block) {
+//===================================================
+// Affiche des informations
+var msg_caract = block.getFieldValue('CARACTERISTIQUE');
+var msg_img = Blockly.JavaScript.valueToCode(block, 'IMAGE',
+                        Blockly.JavaScript.ORDER_NONE) || '\'\'';
+var msg_attrib = Blockly.JavaScript.statementToCode(block, 'ATTRIBUT');
+return "Display('" + msg_caract + ">' + " + msg_img + " + '\\n');\n" + msg_attrib;
+};
+
+// Test de définitions de blocs
+Blockly.Blocks['puzzle_test1'] = {
+  init: function() {
+    this.jsonInit({
+      "message0": "Test 1 : %1",
+      "args0": [
+        {
+          "type": "input_value",
+          "name": "VALUE_INPUT",
+          "align": "RIGHT"
+        }
+      ],
+      "colour": 120,
+      "tooltip": "Value input, exemple test 1",
+      "helpUrl": ""
+    });
+  }
+};
+Blockly.JavaScript['puzzle_test1'] = function(block) {
+  // Affiche des informations
+  var msg = Blockly.JavaScript.valueToCode(block, 'VALUE_INPUT',
+      Blockly.JavaScript.ORDER_NONE) || '\'\'';
+  return 'Display(' + msg + ');\n';
+};
+
+
+// Test de définitions de blocs
+Blockly.Blocks['puzzle_test2'] = {
+  init: function() {
+    this.jsonInit({
+      "message0": "Test 2 : %1 Entrée 1 %2 Entrée 2 %3",
+      "args0": [
+        {
+          "type": "input_dummy"
+        },
+        {
+          "type": "input_value",
+          "name": "VALUE_INPUT_1",
+          "align": "RIGHT"
+        },
+        {
+          "type": "input_value",
+          "name": "VALUE_INPUT_2",
+          "align": "RIGHT"
+        }
+      ],
+      "colour": 120,
+      "tooltip": "Un 'dummy input' et deux 'value input', exemple test 2",
+      "helpUrl": ""
+    });
+  }
+};
+
+Blockly.JavaScript['puzzle_test2'] = function(block) {
+  // Affiche des informations
+  var msg = Blockly.JavaScript.valueToCode(block, 'VALUE_INPUT_1',
+      Blockly.JavaScript.ORDER_NONE) || '\'\'';
+  var msg2 = Blockly.JavaScript.valueToCode(block, 'VALUE_INPUT_2',
+      Blockly.JavaScript.ORDER_NONE) || '\'\'';
+  return 'Display(' + msg + " + ' ; ' + " + msg2 + " + '\\n');\n";
+};
+
+// Test de définitions de blocs
+Blockly.Blocks['puzzle_test3'] = {
+//""""""""""""""""""""""""""""""""
+  init: function() {
+    this.jsonInit({
+      "message0": "Ceci est le teste 3 %1",
+      "args0": [
+        {
+          "type": "input_statement",
+          "name": "STATEMENT_INPUT"
+        }
+      ],
+      "inputsInline": false,
+      "colour": 120,
+      "tooltip": "Statement input, exemples test 3",
+      "helpUrl": ""
+    });
+  }
+};
+Blockly.JavaScript['puzzle_test3'] = function(block) {
+//====================================================
+  // Ajoute la suite d'instructions
+  var branch = Blockly.JavaScript.statementToCode(block, 'STATEMENT_INPUT');
+  branch = Blockly.JavaScript.addLoopTrap(branch, block.id);
+  return "Display('Liste : ---\\n');\n" + branch + "Display('--- Fin de liste.\\n');\n";
+};
+
+// Test de définitions de blocs
+Blockly.Blocks['puzzle_test4'] = {
+//""""""""""""""""""""""""""""""""
+  init: function() {
+    this.jsonInit({
+      "message0": "Ceci est le teste 4 %1",
+      "args0": [
+        {
+          "type": "input_statement",
+          "name": "STATEMENT_INPUT"
+        }
+      ],
+      "previousStatement": null,
+      "nextStatement": null,
+      "colour": 120,
+      "tooltip": "Statement input, exemples test 4",
+      "helpUrl": ""
+    });
+  }
+};
+
+Blockly.JavaScript['puzzle_test4'] = function(block) {
+//====================================================
+  // Ajoute la suite d'instructions
+  var branch = Blockly.JavaScript.statementToCode(block, 'STATEMENT_INPUT');
+  branch = Blockly.JavaScript.addLoopTrap(branch, block.id);
+  return "Display('Liste : ---\\n');\n" + branch + "Display('--- Fin de liste.\\n');\n";
+};
+
+</script>
+
+</head>
+<!-- <body onmousemove="myMouseMove(event);" onload="Include_toolbox('ex0400');">  Si on n'a pas de blocs au départ. -->
+<body onmousemove="myMouseMove(event);" onload="Include_startBlocks('ex0400');">
+<!-- Une fois la page chargée, elle démarre automatiquement Blockly avec :
+ la toolbox définie dans ex0400_toolbox.xml 
+ la startBlokcs définie dans ex0400_startBlokcs.xml
+ Atention au minuscules et majuscules, qui ont de l'importance dans les noms de fichiers sur les serveurs Apach. -->
+
+<!-- en-tête de la page -->
+<div style="position:absolute; top:2px; left:2px;">
+  <b>ex0400, get code XML, save, load</b><br>
+  <button onclick="showCode();">Montre le code en JavaScript</button>
+  <button onclick="runCode();">Exécute le code Blockly</button>
+  <button onclick="SaveFile('Syracuse_Blockly_v1.xml');">Sauve le code Blockly</button>
+  <button onclick="LoadFile();">Charge le code Blockly</button>
+</div>
+
+<!-- Positionnement du code Blockly -->
+<div id="blocklyDiv" style="position:absolute; left:0px; right:0px; top:60px; bottom:0px;"></div>
+
+<!-- ********************************************************************** -->
+<!-- Une fenêtre dans la fenêtre, pour afficher les résultats de l'exécution du code -->
+<div id="idDisplay"
+	  style=" visibility:visible; position:absolute; 
+				 left:120px; top:500px; z-index:5;
+	          background-color:rgb(220,255,220);
+				 border-style:solid; border-width:2px;
+				 padding:0px 0px 0px 0px;"
+		 		onclick="myMouseDown(event, null, 'idDisplay');">
+  <form name="nomForm1"> 
+    <!-- http://www.w3schools.com/cssref/pr_class_cursor.asp -->
+    <div
+      style=" background-color:rgb(40,40,255);
+              color:rgb(255,255,255);
+              font-weight:bold;
+              font-size:80%;
+              cursor:grab;"	
+              onmousedown="myMouseDown(event, this, 'idDisplay');"
+              onmouseup="this.style.cursor='grab'; gloDivSel = 0;"
+              onmouseout="this.style.cursor='grab';">
+      &nbsp; Affichage &nbsp;  &nbsp;  &nbsp; 
+
+      <button type="button" style='font-size:80%'
+              onclick="window.document.nomForm1.nomTextarea1.value = '';">Effacer
+      </button><br>
+    </div>         
+    
+    &nbsp;<textarea name="nomTextarea1" rows=12 cols=80 
+                    style="vertical-align:bottom; padding:5px 5px 5px 5px;"></textarea><br>
+
+  </form>
+</div>
+
+<!-- ********************************************************************** -->
+<!-- Une fenêtre dans la fenêtre, pour afficher le code javascript -->
+<div id="idCodeJavascript"
+	  style=" visibility:visible; position:absolute; left:120px; top:740px; z-index:5;
+	          background-color:rgb(220,255,220);
+				       border-style:solid; border-width:2px;
+				       padding:0px 0px 5px 0px;"
+		onclick="myMouseDown(event, null, 'idCodeJavascript');">
+<form name="nomForm2"> 
+<div
+	style="	background-color:rgb(40,40,255);
+				color:rgb(255,255,255);
+				font-weight:bold;
+				font-size:80%;
+				cursor:grab;"
+	onmousedown="myMouseDown(event, this, 'idCodeJavascript');"
+	onmouseup="this.style.cursor='grab'; gloDivSel = 0;"
+	onmouseout="this.style.cursor='grab';"
+	>
+	
+ &nbsp; Code javascript &nbsp;  &nbsp; 
+ 
+  <button type="button" style='font-size:80%'
+		        onclick="eval(window.document.nomForm2.nomTextarea2.value);">Exécuter
+  </button><br>
+</div>
+&nbsp;<textarea name="nomTextarea2" rows=8 cols=100 
+			 style=" vertical-align:bottom;
+					      	padding:5px 5px 5px 5px;
+						      font-family:Courier New, monospace;
+					      	font-size:10pt;
+	 		     			font-weight:bold;
+			      			color:rgb(0,0,0);"></textarea>
+			 
+</form>
+</div>
+
+<!-- ********************************************************************** -->
+<!-- Une fenêtre dans la fenêtre, pour afficher les résultats de l'exécution du code -->
+<div id="idCodeXML"
+	  style=" visibility:visible; position:absolute; 
+				 left:740px; top:500px; z-index:5;
+	          background-color:rgb(220,255,220);
+				 border-style:solid; border-width:2px;
+				 padding:0px 0px 0px 0px;"
+		 		onclick="myMouseDown(event, null, 'idCodeXML');">
+  <form name="nomForm3"> 
+    <!-- http://www.w3schools.com/cssref/pr_class_cursor.asp -->
+    <div
+      style=" background-color:rgb(40,40,255);
+              color:rgb(255,255,255);
+              font-weight:bold;
+              font-size:80%;
+              cursor:grab;"	
+              onmousedown="myMouseDown(event, this, 'idCodeXML');"
+              onmouseup="this.style.cursor='grab'; gloDivSel = 0;"
+              onmouseout="this.style.cursor='grab';">
+      &nbsp; Code XML &nbsp;  &nbsp;  &nbsp; 
+
+      <button type="button" style='font-size:80%'
+              onclick="GetXML();">Get XML
+      </button><br>
+    </div>         
+    
+    &nbsp;<textarea name="nomTextarea3" rows=12 cols=60 
+                    style="vertical-align:bottom; padding:5px 5px 5px 5px;"></textarea><br>
+
+  </form>
+</div>
+
+<!-- ================================================================ -->
+<!-- Pour le pied de page -->
+<div style="position:absolute; left:130px; bottom:0px;">
+  <hr style="margin-left:0; width:110%">
+  <p style="margin-top:0; font-size:80%">
+  Plan du Site : 
+  <a href="../../blockly.html ">blockly</a> &nbsp;
+  <img src="../../images/arrow_right.png" alt="arrow" width="13" height="9"> &nbsp; 
+  ex0400
+  </p>
+  <hr style="margin-left:0; margin-bottom:0; width:95%">
+  <p style="margin-top:0; font-size:80%">
+  Page mise à jour le 21 janvier 2019 par Bernard Gisin<br>
+  </p>
+</div>
+</body>
+</html>
+

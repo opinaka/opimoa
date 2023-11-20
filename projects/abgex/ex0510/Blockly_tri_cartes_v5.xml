@@ -1,0 +1,276 @@
+<xml xmlns="http://www.w3.org/1999/xhtml">
+  <variables>
+    <variable type="">x</variable>
+    <variable type="">y</variable>
+    <variable type="">nn</variable>
+    <variable type="">nMin</variable>
+    <variable type="">i</variable>
+  </variables>
+  <block type="variables_set" x="26" y="28">
+    <field name="VAR" variabletype="">nn</field>
+    <value name="VALUE">
+      <block type="math_number">
+        <field name="NUM">0</field>
+      </block>
+    </value>
+    <next>
+      <block type="controls_repeat_ext">
+        <value name="TIMES">
+          <shadow type="math_number">
+            <field name="NUM">50</field>
+          </shadow>
+        </value>
+        <statement name="DO">
+          <block type="variables_set">
+            <field name="VAR" variabletype="">nn</field>
+            <value name="VALUE">
+              <block type="math_arithmetic">
+                <field name="OP">ADD</field>
+                <value name="A">
+                  <shadow type="math_number">
+                    <field name="NUM">1</field>
+                  </shadow>
+                  <block type="variables_get">
+                    <field name="VAR" variabletype="">nn</field>
+                  </block>
+                </value>
+                <value name="B">
+                  <shadow type="math_number">
+                    <field name="NUM">1</field>
+                  </shadow>
+                </value>
+              </block>
+            </value>
+            <next>
+              <block type="variables_set">
+                <field name="VAR" variabletype="">nMin</field>
+                <value name="VALUE">
+                  <block type="variables_get">
+                    <field name="VAR" variabletype="">nn</field>
+                  </block>
+                </value>
+                <next>
+                  <block type="controls_for">
+                    <field name="VAR" variabletype="">i</field>
+                    <value name="FROM">
+                      <shadow type="math_number">
+                        <field name="NUM">1</field>
+                      </shadow>
+                      <block type="variables_get">
+                        <field name="VAR" variabletype="">nn</field>
+                      </block>
+                    </value>
+                    <value name="TO">
+                      <shadow type="math_number">
+                        <field name="NUM">89</field>
+                      </shadow>
+                    </value>
+                    <value name="BY">
+                      <shadow type="math_number">
+                        <field name="NUM">1</field>
+                      </shadow>
+                    </value>
+                    <statement name="DO">
+                      <block type="controls_if">
+                        <value name="IF0">
+                          <block type="logic_compare">
+                            <field name="OP">GT</field>
+                            <value name="A">
+                              <block type="logo_get_card">
+                                <value name="POSX">
+                                  <shadow type="math_number">
+                                    <field name="NUM">3</field>
+                                  </shadow>
+                                  <block type="variables_get">
+                                    <field name="VAR" variabletype="">i</field>
+                                  </block>
+                                </value>
+                              </block>
+                            </value>
+                            <value name="B">
+                              <block type="logo_get_card">
+                                <value name="POSX">
+                                  <shadow type="math_number">
+                                    <field name="NUM">3</field>
+                                  </shadow>
+                                  <block type="variables_get">
+                                    <field name="VAR" variabletype="">nMin</field>
+                                  </block>
+                                </value>
+                              </block>
+                            </value>
+                          </block>
+                        </value>
+                        <statement name="DO0">
+                          <block type="variables_set">
+                            <field name="VAR" variabletype="">nMin</field>
+                            <value name="VALUE">
+                              <block type="variables_get">
+                                <field name="VAR" variabletype="">i</field>
+                              </block>
+                            </value>
+                          </block>
+                        </statement>
+                      </block>
+                    </statement>
+                    <next>
+                      <block type="text_affiche">
+                        <value name="TEXT">
+                          <shadow type="text">
+                            <field name="TEXT"></field>
+                          </shadow>
+                          <block type="logo_get_card">
+                            <value name="POSX">
+                              <shadow type="math_number">
+                                <field name="NUM">3</field>
+                              </shadow>
+                              <block type="variables_get">
+                                <field name="VAR" variabletype="">nMin</field>
+                              </block>
+                            </value>
+                          </block>
+                        </value>
+                        <next>
+                          <block type="text_affiche">
+                            <value name="TEXT">
+                              <shadow type="text">
+                                <field name="TEXT"> .. </field>
+                              </shadow>
+                            </value>
+                            <next>
+                              <block type="text_afficheln">
+                                <value name="TEXT">
+                                  <shadow type="text">
+                                    <field name="TEXT"></field>
+                                  </shadow>
+                                  <block type="variables_get">
+                                    <field name="VAR" variabletype="">nMin</field>
+                                  </block>
+                                </value>
+                                <next>
+                                  <block type="controls_if">
+                                    <value name="IF0">
+                                      <block type="logic_compare">
+                                        <field name="OP">NEQ</field>
+                                        <value name="A">
+                                          <block type="variables_get">
+                                            <field name="VAR" variabletype="">nMin</field>
+                                          </block>
+                                        </value>
+                                        <value name="B">
+                                          <block type="variables_get">
+                                            <field name="VAR" variabletype="">nn</field>
+                                          </block>
+                                        </value>
+                                      </block>
+                                    </value>
+                                    <statement name="DO0">
+                                      <block type="procedures_callnoreturn">
+                                        <mutation name="Echange">
+                                          <arg name="x"></arg>
+                                          <arg name="y"></arg>
+                                        </mutation>
+                                        <value name="ARG0">
+                                          <block type="variables_get">
+                                            <field name="VAR" variabletype="">nMin</field>
+                                          </block>
+                                        </value>
+                                        <value name="ARG1">
+                                          <block type="variables_get">
+                                            <field name="VAR" variabletype="">nn</field>
+                                          </block>
+                                        </value>
+                                      </block>
+                                    </statement>
+                                  </block>
+                                </next>
+                              </block>
+                            </next>
+                          </block>
+                        </next>
+                      </block>
+                    </next>
+                  </block>
+                </next>
+              </block>
+            </next>
+          </block>
+        </statement>
+        <next>
+          <block type="text_afficheln">
+            <value name="TEXT">
+              <shadow type="text">
+                <field name="TEXT">*** TERMINE ***</field>
+              </shadow>
+            </value>
+          </block>
+        </next>
+      </block>
+    </next>
+  </block>
+  <block type="procedures_defnoreturn" x="663" y="28">
+    <mutation>
+      <arg name="x" varid="k_0O/.:J,+Jy[y~di3rO"></arg>
+      <arg name="y" varid="F,+AG{YAV9o)7Fs5N)x9"></arg>
+    </mutation>
+    <field name="NAME">Echange</field>
+    <comment pinned="false" h="80" w="160">Décrire cette fonction…</comment>
+    <statement name="STACK">
+      <block type="logo_movex1x2">
+        <data>2</data>
+        <value name="POSX1">
+          <shadow type="math_number">
+            <field name="NUM">3</field>
+          </shadow>
+          <block type="variables_get">
+            <field name="VAR" variabletype="">x</field>
+          </block>
+        </value>
+        <value name="POSX2">
+          <shadow type="math_number">
+            <field name="NUM">92</field>
+          </shadow>
+        </value>
+        <next>
+          <block type="logo_movex1x2">
+            <data>2</data>
+            <value name="POSX1">
+              <shadow type="math_number">
+                <field name="NUM">3</field>
+              </shadow>
+              <block type="variables_get">
+                <field name="VAR" variabletype="">y</field>
+              </block>
+            </value>
+            <value name="POSX2">
+              <shadow type="math_number">
+                <field name="NUM">3</field>
+              </shadow>
+              <block type="variables_get">
+                <field name="VAR" variabletype="">x</field>
+              </block>
+            </value>
+            <next>
+              <block type="logo_movex1x2">
+                <data>2</data>
+                <value name="POSX1">
+                  <shadow type="math_number">
+                    <field name="NUM">92</field>
+                  </shadow>
+                </value>
+                <value name="POSX2">
+                  <shadow type="math_number">
+                    <field name="NUM">3</field>
+                  </shadow>
+                  <block type="variables_get">
+                    <field name="VAR" variabletype="">y</field>
+                  </block>
+                </value>
+              </block>
+            </next>
+          </block>
+        </next>
+      </block>
+    </statement>
+  </block>
+</xml>

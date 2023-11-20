@@ -1,0 +1,492 @@
+<xml xmlns="http://www.w3.org/1999/xhtml">
+  <variables>
+    <variable type="">gau</variable>
+    <variable type="">dro</variable>
+    <variable type="">g</variable>
+    <variable type="">d</variable>
+    <variable type="">x</variable>
+    <variable type="">y</variable>
+    <variable type="">pivot</variable>
+  </variables>
+  <block type="procedures_defnoreturn" x="11" y="6">
+    <mutation>
+      <arg name="gau" varid="{C;ORDVxwt4*kW^4VY|Q"></arg>
+      <arg name="dro" varid="I`,NBu{f4Rd2(!Q`%G=v"></arg>
+      <arg name="g" varid="$)H2z}Rav~DGibTg|}GB"></arg>
+      <arg name="d" varid="bRGSBo2PTl48nDI(t-q-"></arg>
+    </mutation>
+    <field name="NAME">tri</field>
+    <comment pinned="false" h="80" w="160">Décrire cette fonction…</comment>
+    <statement name="STACK">
+      <block type="variables_set">
+        <field name="VAR" variabletype="">pivot</field>
+        <value name="VALUE">
+          <block type="card_get_card">
+            <value name="POSX">
+              <shadow type="math_number">
+                <field name="NUM">3</field>
+              </shadow>
+              <block type="math_round">
+                <field name="OP">ROUND</field>
+                <value name="NUM">
+                  <shadow type="math_number">
+                    <field name="NUM">3.1</field>
+                  </shadow>
+                  <block type="math_arithmetic">
+                    <field name="OP">DIVIDE</field>
+                    <value name="A">
+                      <shadow type="math_number">
+                        <field name="NUM">1</field>
+                      </shadow>
+                      <block type="math_arithmetic">
+                        <field name="OP">ADD</field>
+                        <value name="A">
+                          <shadow type="math_number">
+                            <field name="NUM">1</field>
+                          </shadow>
+                          <block type="variables_get">
+                            <field name="VAR" variabletype="">gau</field>
+                          </block>
+                        </value>
+                        <value name="B">
+                          <shadow type="math_number">
+                            <field name="NUM">1</field>
+                          </shadow>
+                          <block type="variables_get">
+                            <field name="VAR" variabletype="">dro</field>
+                          </block>
+                        </value>
+                      </block>
+                    </value>
+                    <value name="B">
+                      <shadow type="math_number">
+                        <field name="NUM">2</field>
+                      </shadow>
+                    </value>
+                  </block>
+                </value>
+              </block>
+            </value>
+          </block>
+        </value>
+        <next>
+          <block type="card_cardbackground">
+            <value name="CARD">
+              <shadow type="math_number">
+                <field name="NUM">3</field>
+              </shadow>
+              <block type="variables_get">
+                <field name="VAR" variabletype="">pivot</field>
+              </block>
+            </value>
+            <value name="COLOR">
+              <shadow type="text">
+                <field name="TEXT">#00ff00</field>
+              </shadow>
+            </value>
+            <next>
+              <block type="text_affiche">
+                <value name="TEXT">
+                  <shadow type="text">
+                    <field name="TEXT"></field>
+                  </shadow>
+                  <block type="variables_get">
+                    <field name="VAR" variabletype="">gau</field>
+                  </block>
+                </value>
+                <next>
+                  <block type="text_affiche">
+                    <value name="TEXT">
+                      <shadow type="text">
+                        <field name="TEXT"> .. </field>
+                      </shadow>
+                    </value>
+                    <next>
+                      <block type="text_afficheln">
+                        <value name="TEXT">
+                          <shadow type="text">
+                            <field name="TEXT"></field>
+                          </shadow>
+                          <block type="variables_get">
+                            <field name="VAR" variabletype="">dro</field>
+                          </block>
+                        </value>
+                        <next>
+                          <block type="controls_whileUntil">
+                            <field name="MODE">UNTIL</field>
+                            <value name="BOOL">
+                              <block type="logic_compare">
+                                <field name="OP">GT</field>
+                                <value name="A">
+                                  <block type="variables_get">
+                                    <field name="VAR" variabletype="">g</field>
+                                  </block>
+                                </value>
+                                <value name="B">
+                                  <block type="variables_get">
+                                    <field name="VAR" variabletype="">d</field>
+                                  </block>
+                                </value>
+                              </block>
+                            </value>
+                            <statement name="DO">
+                              <block type="controls_whileUntil">
+                                <field name="MODE">WHILE</field>
+                                <value name="BOOL">
+                                  <block type="logic_compare">
+                                    <field name="OP">LT</field>
+                                    <value name="A">
+                                      <block type="card_get_card">
+                                        <value name="POSX">
+                                          <shadow type="math_number">
+                                            <field name="NUM">3</field>
+                                          </shadow>
+                                          <block type="variables_get">
+                                            <field name="VAR" variabletype="">g</field>
+                                          </block>
+                                        </value>
+                                      </block>
+                                    </value>
+                                    <value name="B">
+                                      <block type="variables_get">
+                                        <field name="VAR" variabletype="">pivot</field>
+                                      </block>
+                                    </value>
+                                  </block>
+                                </value>
+                                <statement name="DO">
+                                  <block type="variables_set">
+                                    <field name="VAR" variabletype="">g</field>
+                                    <value name="VALUE">
+                                      <block type="math_arithmetic">
+                                        <field name="OP">ADD</field>
+                                        <value name="A">
+                                          <shadow type="math_number">
+                                            <field name="NUM">1</field>
+                                          </shadow>
+                                          <block type="variables_get">
+                                            <field name="VAR" variabletype="">g</field>
+                                          </block>
+                                        </value>
+                                        <value name="B">
+                                          <shadow type="math_number">
+                                            <field name="NUM">1</field>
+                                          </shadow>
+                                        </value>
+                                      </block>
+                                    </value>
+                                  </block>
+                                </statement>
+                                <next>
+                                  <block type="controls_whileUntil">
+                                    <field name="MODE">WHILE</field>
+                                    <value name="BOOL">
+                                      <block type="logic_compare">
+                                        <field name="OP">GT</field>
+                                        <value name="A">
+                                          <block type="card_get_card">
+                                            <value name="POSX">
+                                              <shadow type="math_number">
+                                                <field name="NUM">3</field>
+                                              </shadow>
+                                              <block type="variables_get">
+                                                <field name="VAR" variabletype="">d</field>
+                                              </block>
+                                            </value>
+                                          </block>
+                                        </value>
+                                        <value name="B">
+                                          <block type="variables_get">
+                                            <field name="VAR" variabletype="">pivot</field>
+                                          </block>
+                                        </value>
+                                      </block>
+                                    </value>
+                                    <statement name="DO">
+                                      <block type="variables_set">
+                                        <field name="VAR" variabletype="">d</field>
+                                        <value name="VALUE">
+                                          <block type="math_arithmetic">
+                                            <field name="OP">MINUS</field>
+                                            <value name="A">
+                                              <shadow type="math_number">
+                                                <field name="NUM">1</field>
+                                              </shadow>
+                                              <block type="variables_get">
+                                                <field name="VAR" variabletype="">d</field>
+                                              </block>
+                                            </value>
+                                            <value name="B">
+                                              <shadow type="math_number">
+                                                <field name="NUM">1</field>
+                                              </shadow>
+                                            </value>
+                                          </block>
+                                        </value>
+                                      </block>
+                                    </statement>
+                                    <next>
+                                      <block type="controls_if">
+                                        <value name="IF0">
+                                          <block type="logic_compare">
+                                            <field name="OP">LTE</field>
+                                            <value name="A">
+                                              <block type="variables_get">
+                                                <field name="VAR" variabletype="">g</field>
+                                              </block>
+                                            </value>
+                                            <value name="B">
+                                              <block type="variables_get">
+                                                <field name="VAR" variabletype="">d</field>
+                                              </block>
+                                            </value>
+                                          </block>
+                                        </value>
+                                        <statement name="DO0">
+                                          <block type="procedures_callnoreturn">
+                                            <mutation name="Echange">
+                                              <arg name="x"></arg>
+                                              <arg name="y"></arg>
+                                            </mutation>
+                                            <value name="ARG0">
+                                              <block type="variables_get">
+                                                <field name="VAR" variabletype="">d</field>
+                                              </block>
+                                            </value>
+                                            <value name="ARG1">
+                                              <block type="variables_get">
+                                                <field name="VAR" variabletype="">g</field>
+                                              </block>
+                                            </value>
+                                            <next>
+                                              <block type="variables_set">
+                                                <field name="VAR" variabletype="">g</field>
+                                                <value name="VALUE">
+                                                  <block type="math_arithmetic">
+                                                    <field name="OP">ADD</field>
+                                                    <value name="A">
+                                                      <shadow type="math_number">
+                                                        <field name="NUM">1</field>
+                                                      </shadow>
+                                                      <block type="variables_get">
+                                                        <field name="VAR" variabletype="">g</field>
+                                                      </block>
+                                                    </value>
+                                                    <value name="B">
+                                                      <shadow type="math_number">
+                                                        <field name="NUM">1</field>
+                                                      </shadow>
+                                                    </value>
+                                                  </block>
+                                                </value>
+                                                <next>
+                                                  <block type="variables_set">
+                                                    <field name="VAR" variabletype="">d</field>
+                                                    <value name="VALUE">
+                                                      <block type="math_arithmetic">
+                                                        <field name="OP">MINUS</field>
+                                                        <value name="A">
+                                                          <shadow type="math_number">
+                                                            <field name="NUM">1</field>
+                                                          </shadow>
+                                                          <block type="variables_get">
+                                                            <field name="VAR" variabletype="">d</field>
+                                                          </block>
+                                                        </value>
+                                                        <value name="B">
+                                                          <shadow type="math_number">
+                                                            <field name="NUM">1</field>
+                                                          </shadow>
+                                                        </value>
+                                                      </block>
+                                                    </value>
+                                                  </block>
+                                                </next>
+                                              </block>
+                                            </next>
+                                          </block>
+                                        </statement>
+                                      </block>
+                                    </next>
+                                  </block>
+                                </next>
+                              </block>
+                            </statement>
+                            <next>
+                              <block type="controls_if">
+                                <value name="IF0">
+                                  <block type="logic_compare">
+                                    <field name="OP">LT</field>
+                                    <value name="A">
+                                      <block type="variables_get">
+                                        <field name="VAR" variabletype="">gau</field>
+                                      </block>
+                                    </value>
+                                    <value name="B">
+                                      <block type="variables_get">
+                                        <field name="VAR" variabletype="">d</field>
+                                      </block>
+                                    </value>
+                                  </block>
+                                </value>
+                                <statement name="DO0">
+                                  <block type="procedures_callnoreturn">
+                                    <mutation name="tri">
+                                      <arg name="gau"></arg>
+                                      <arg name="dro"></arg>
+                                      <arg name="g"></arg>
+                                      <arg name="d"></arg>
+                                    </mutation>
+                                    <value name="ARG0">
+                                      <block type="variables_get">
+                                        <field name="VAR" variabletype="">gau</field>
+                                      </block>
+                                    </value>
+                                    <value name="ARG1">
+                                      <block type="variables_get">
+                                        <field name="VAR" variabletype="">d</field>
+                                      </block>
+                                    </value>
+                                    <value name="ARG2">
+                                      <block type="variables_get">
+                                        <field name="VAR" variabletype="">gau</field>
+                                      </block>
+                                    </value>
+                                    <value name="ARG3">
+                                      <block type="variables_get">
+                                        <field name="VAR" variabletype="">d</field>
+                                      </block>
+                                    </value>
+                                  </block>
+                                </statement>
+                                <next>
+                                  <block type="controls_if">
+                                    <value name="IF0">
+                                      <block type="logic_compare">
+                                        <field name="OP">LT</field>
+                                        <value name="A">
+                                          <block type="variables_get">
+                                            <field name="VAR" variabletype="">g</field>
+                                          </block>
+                                        </value>
+                                        <value name="B">
+                                          <block type="variables_get">
+                                            <field name="VAR" variabletype="">dro</field>
+                                          </block>
+                                        </value>
+                                      </block>
+                                    </value>
+                                    <statement name="DO0">
+                                      <block type="procedures_callnoreturn">
+                                        <mutation name="tri">
+                                          <arg name="gau"></arg>
+                                          <arg name="dro"></arg>
+                                          <arg name="g"></arg>
+                                          <arg name="d"></arg>
+                                        </mutation>
+                                        <value name="ARG0">
+                                          <block type="variables_get">
+                                            <field name="VAR" variabletype="">g</field>
+                                          </block>
+                                        </value>
+                                        <value name="ARG1">
+                                          <block type="variables_get">
+                                            <field name="VAR" variabletype="">dro</field>
+                                          </block>
+                                        </value>
+                                        <value name="ARG2">
+                                          <block type="variables_get">
+                                            <field name="VAR" variabletype="">g</field>
+                                          </block>
+                                        </value>
+                                        <value name="ARG3">
+                                          <block type="variables_get">
+                                            <field name="VAR" variabletype="">dro</field>
+                                          </block>
+                                        </value>
+                                      </block>
+                                    </statement>
+                                  </block>
+                                </next>
+                              </block>
+                            </next>
+                          </block>
+                        </next>
+                      </block>
+                    </next>
+                  </block>
+                </next>
+              </block>
+            </next>
+          </block>
+        </next>
+      </block>
+    </statement>
+  </block>
+  <block type="procedures_defnoreturn" x="730" y="17">
+    <mutation>
+      <arg name="x" varid="!;^gS5I]=c{BC,-m^(p3"></arg>
+      <arg name="y" varid="d/~pPh/rOEo;jmKxET?d"></arg>
+    </mutation>
+    <field name="NAME">Echange</field>
+    <comment pinned="false" h="80" w="160">Décrire cette fonction…</comment>
+    <statement name="STACK">
+      <block type="card_exchangex1x2">
+        <data>1</data>
+        <value name="POSX1">
+          <shadow type="math_number">
+            <field name="NUM">3</field>
+          </shadow>
+          <block type="variables_get">
+            <field name="VAR" variabletype="">x</field>
+          </block>
+        </value>
+        <value name="POSX2">
+          <shadow type="math_number">
+            <field name="NUM">2</field>
+          </shadow>
+          <block type="variables_get">
+            <field name="VAR" variabletype="">y</field>
+          </block>
+        </value>
+      </block>
+    </statement>
+  </block>
+  <block type="procedures_callnoreturn" x="727" y="192">
+    <mutation name="tri">
+      <arg name="gau"></arg>
+      <arg name="dro"></arg>
+      <arg name="g"></arg>
+      <arg name="d"></arg>
+    </mutation>
+    <value name="ARG0">
+      <block type="math_number">
+        <field name="NUM">1</field>
+      </block>
+    </value>
+    <value name="ARG1">
+      <block type="math_number">
+        <field name="NUM">10</field>
+      </block>
+    </value>
+    <value name="ARG2">
+      <block type="math_number">
+        <field name="NUM">1</field>
+      </block>
+    </value>
+    <value name="ARG3">
+      <block type="math_number">
+        <field name="NUM">10</field>
+      </block>
+    </value>
+    <next>
+      <block type="text_afficheln">
+        <value name="TEXT">
+          <shadow type="text">
+            <field name="TEXT">*** TERMINE ***</field>
+          </shadow>
+        </value>
+      </block>
+    </next>
+  </block>
+</xml>

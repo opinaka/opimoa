@@ -1,0 +1,108 @@
+/* Ceci est un commentaire. <style>  est la balise indiquant que ce qui suit est du code CSS */ 
+#idBlocklyMenu {
+  position:relative;
+  left:0px; 
+  top:0px;
+  background-color:#d0d0d0;
+  color:#000000;
+  height:25px; width:100%;
+  z-index:991;
+  padding-top:5px;
+  padding-left:8px;
+  cursor:default;
+}
+
+/* Padding (espacement) pour chaque ligne de menu */
+/* Pour des exemples de 'cursor'  c.f. : http://www.juggling.ch/gisin/bgweb/a2css1010_liste_exemples_style.html */
+.cMenu {
+  display:inline-block;    /* none; inline; block; inline-block; */
+  padding-left:6px;
+  padding-top:6px;
+  cursor:default;
+  white-space:nowrap;  /* c.f. https://www.w3schools.com/cssref/pr_text_white-space.asp */
+}
+
+/* Pour mettre en évidence la ligne sélectionnée du menu */
+.cMenu:hover {
+  background-color:#c0c0c0;
+}
+
+.cMenu_top {
+  position:relative; /* absolute; fixed; relative; static; */ 
+  display:inline-block;    /*  inline; block; inline-block; */
+  text-align:left; 
+  vertical-align:top;
+  top:0px;
+  left:0px;
+  /* border:2px solid rgb(255,0,0);  /* */ 
+}
+
+.cMenu_ouvert { 
+  position:absolute; /* absolute; fixed; relative; static; */ 
+  display:inline-block; /* c.f. http://www.w3schools.com/cssref/pr_class_display.asp */
+  visibility:hidden;
+  /* display:inline-block; /* c.f. http://www.w3schools.com/cssref/pr_class_display.asp */
+  left:0px;
+  top:18px; 
+  padding-top:4px;
+  /* width:170px;
+  height:65px; */
+  font-size:12pt;
+  font-weight:normal;
+  font-style:normal;
+  /* border:2px solid rgb(0,255,0);  */
+}
+
+.cMenu_interieur { 
+  position:relative;
+  display:inline-block;    /*  inline; block; inline-block; */
+  /* padding-left:6px;   padding-right:6px;  */
+  background-color:#e0e0e0;
+  border-style:solid;
+  border-radius:2px;
+  border-color:#808080; /* gris moyen */
+  border-width:1px;
+  /* border-top-color:rgb(255,255,255); */
+}
+
+.idButtonCommand:hover {
+  background-color:#c0c0c0;
+  } 
+
+/*########################################################*/
+/* Pour 'hover' c.f. : https://www.w3schools.com/css/css_pseudo_classes.asp */
+
+#menu1:hover #menu1_ouvert{
+  /* Fait apparaître le block contenant le texte */ 
+  visibility:visible;
+  transition-delay: 0.4s; /* Retarde l'ouverture. c.f. : https://www.w3schools.com/css/css3_transitions.asp */
+}
+/*=========================================*/
+
+#menu2:hover #menu2_ouvert{
+  /* Fait apparaître le block contenant le texte */ 
+  visibility:visible;
+  transition-delay: 0.4s; 
+}
+/*=========================================*/
+
+#menu3:hover #menu3_ouvert{
+  /* Fait apparaître le block contenant le texte */ 
+  visibility:visible;
+  transition-delay: 0.4s; 
+}
+/*=========================================*/
+
+#menu4:hover #menu4_ouvert{
+  /* Fait apparaître le block contenant le texte */ 
+  visibility:visible;
+  transition-delay: 0.4s; 
+}
+/*=========================================*/
+
+#menu5:hover #menu5_ouvert{
+  /* Fait apparaître le block contenant le texte */ 
+  visibility:visible;
+  transition-delay: 0.4s; 
+}
+/*=========================================*/

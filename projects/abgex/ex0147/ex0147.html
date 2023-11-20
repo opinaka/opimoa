@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+<html onmousemove="myMouseMove(event);" onmouseout="myMouseOut(event);">
+<head>
+  <meta charset="utf-8">
+  <title>ex0147, affichage dans des fenêtres, code mis dans un fichier.</title>
+  
+  <!-- Les 4 lignes suivantes chargent les routines de Blockly -->
+  <script src="../../blockly_compressed.js"></script>
+  <script src="../../blocks_compressed.js"></script>
+  <script src="../../javascript_compressed.js"></script>
+  <script src="../../python_compressed.js"></script>
+  <script src="../../php_compressed.js"></script>
+  <script src="../../lua_compressed.js"></script>
+  <script src="../../dart_compressed.js"></script>
+  <script src="../../bgjs/python/text.js"></script> <!-- Pour le texte des nouveaux blocks de code -->
+
+  <!--
+  <script src="/storage.js"></script>
+  <script src="code.js"></script>
+  <link rel="stylesheet" href="bgstyle_fr.css"> - Pour regrouper tous les textes dépendants de la langue dans un fichier. -
+  <script src="../../bgmsg/js/fr.js"></script> - Pour le texte des nouveaux blocks de code -
+  <script src="bgblocks.js"></script> - Pour les nouveaux blocks de code -
+  <script src="bgcode.js"></script>  - Pour le code spécifique à cette application -
+  -->
+  
+  <script src="../../msg/js/fr.js"></script>  <!-- C'est ici que la langue des blocs est définie -->
+
+<!-- <script src="jquery.min.js" type="text/javascript"></script>  -->
+<script src="skulpt.min.js" type="text/javascript"></script> 
+<script src="skulpt-stdlib.js" type="text/javascript"></script> 
+
+  <script src="ex0147.js"></script>  <!-- Code spécifique à cette page ( cette application ). -->
+
+<script type="text/javascript">
+</script>
+
+</head>
+<!-- <body onmousemove="myMouseMove(event);" onload="Include_toolbox('ex0147');">  Si on n'a pas de blocs au départ. -->
+<body onload="Include_startBlocks('ex0147');">
+<!-- Une fois la page chargée, elle démarre automatiquement Blockly avec :
+ la toolbox définie dans ex0147_toolbox.xml 
+ la startBlokcs définie dans ex0147_startBlokcs.xml
+ Atention au minuscules et majuscules, qui ont de l'importance dans les noms de fichiers sur les serveurs Apach. -->
+
+<!-- ********************************************************************** -->
+<!-- Une fenêtre dans la fenêtre, pour afficher les résultats de l'exécution du code -->
+<div id="idCodeBlockly"
+	  style=" visibility:visible; position:absolute; 
+				 left:0px; top:0px; width:700px; height:600px;
+         z-index:5;
+	       background-color:rgb(220,255,220);
+				 border-style:solid; border-width:2px;
+				 padding:0px 0px 0px 0px;"
+		 		onclick="myMouseDown(event, null, 'idCodeBlockly', 0);">
+  
+    <div
+      style=" background-color:rgb(40,40,255);
+              color:rgb(255,255,255);
+              font-weight:bold;
+              font-size:80%;
+              cursor:grab;"	
+      onmousedown="myMouseDown(event, this, 'idCodeBlockly', 0);"
+      onmouseup="this.style.cursor='grab'; gloDivSel = 0;">
+      <!-- onmouseout="this.style.cursor='grab';"> -->
+      &nbsp; Code Blockly &nbsp;  &nbsp;  &nbsp; 
+
+      <button type="button" style='font-size:80%'
+              onclick="runCode();">Exécute
+      </button> &nbsp;
+      <button onclick="showCode();">Code JavaScript</button> &nbsp;
+      <button onclick="showCodePython();">Code Python</button><br>
+    </div>         
+
+  <!-- Positionnement du code Blockly -->
+  <div id="blocklyDiv" style="position:absolute; left:0px; top:24px; width:700px; height:576px;"></div> 
+
+  <img src="../images/traits_obliques_3x.png" alt="traits" width="12" height="12"
+       style="position:absolute; right:0px; bottom:0px; z-index:1000; cursor:nwse-resize;"
+       onmousedown="myMouseDown(event, this, 'idCodeBlockly', 1); return false;"
+       onmouseup="this.style.cursor='nwse-resize'; gloDivSel = 0;">
+
+</div>
+
+<!-- ********************************************************************** -->
+<!-- Une fenêtre dans la fenêtre, pour afficher les résultats de l'exécution du code -->
+<div id="idDisplay"
+	  style=" visibility:visible; position:absolute; 
+				 left:710px; top:0px; z-index:5;
+	          background-color:rgb(220,255,220);
+				 border-style:solid; border-width:2px;
+				 padding:0px 0px 0px 0px;"
+		 		onclick="myMouseDown(event, null, 'idDisplay', 0);">
+  <form name="nomForm1"> 
+    <!-- http://www.w3schools.com/cssref/pr_class_cursor.asp -->
+    <div
+      style=" background-color:rgb(40,40,255);
+              color:rgb(255,255,255);
+              font-weight:bold;
+              font-size:80%;
+              cursor:grab;"	
+      onmousedown="myMouseDown(event, this, 'idDisplay', 0);"
+      onmouseup="this.style.cursor='grab'; gloDivSel = 0;">
+      <!-- onmouseout="this.style.cursor='grab';"> -->
+      &nbsp; Affichage &nbsp;  &nbsp;  &nbsp; 
+
+      <button type="button" style='font-size:80%'
+              onclick="window.document.nomForm1.nomTextarea1.value = '';">Effacer
+      </button><br>
+    </div>         
+    
+    <textarea id="idTextarea1" name="nomTextarea1" rows=32 cols=80 
+              style="vertical-align:bottom; padding:5px 5px 5px 5px;"></textarea><br>
+
+  </form>
+</div>
+
+<!-- ********************************************************************** -->
+<!-- Une fenêtre dans la fenêtre, pour afficher le code javascript -->
+<div id="idCodeJavascript"
+	  style=" visibility:visible; position:absolute; left:710px; top:540px; z-index:5;
+	          background-color:rgb(220,255,220);
+				       border-style:solid; border-width:2px;
+				       padding:0px 0px 0px 0px;"
+		onclick="myMouseDown(event, null, 'idCodeJavascript', 0);">
+<form name="nomForm2"> 
+<div
+	style="	background-color:rgb(40,40,255);
+				color:rgb(255,255,255);
+				font-weight:bold;
+				font-size:80%;
+				cursor:grab;"
+	onmousedown="myMouseDown(event, this, 'idCodeJavascript', 0);"
+	onmouseup="this.style.cursor='grab'; gloDivSel = 0;">
+  <!-- onmouseout="this.style.cursor='grab';"> -->
+	
+ &nbsp; Code javascript &nbsp;  &nbsp; 
+ 
+  <button type="button" style='font-size:80%'
+		        onclick="eval(window.document.nomForm2.nomTextarea2.value);">Exécuter
+  </button>
+  <button type="button" style="font-size:80%; position:absolute; right:2px;"
+          onclick="window.document.nomForm2.nomTextarea2.value = '';">Effacer
+  </button>
+</div>
+  
+<textarea name="nomTextarea2" rows=18 cols=70
+			 style=" vertical-align:bottom;
+               padding:5px 5px 5px 5px;
+               font-family:Courier New, monospace;
+               font-size:10pt;
+               font-weight:bold;
+               color:rgb(0,0,0);"></textarea></form>
+</div>
+
+<!-- ********************************************************************** -->
+<!-- Une fenêtre dans la fenêtre, pour afficher le code python -->
+<div id="idCodePython"
+	  style=" visibility:visible; position:absolute; left:700px; top:640px; z-index:5;
+	          background-color:rgb(220,255,220);
+				       border-style:solid; border-width:2px;
+				       padding:0px 0px 0px 0px;"
+		onclick="myMouseDown(event, null, 'idCodePython', 0);">
+<form name="nomForm3"> 
+<div
+	style="	background-color:rgb(40,40,255);
+				color:rgb(255,255,255);
+				font-weight:bold;
+				font-size:80%;
+				cursor:grab;"
+	onmousedown="myMouseDown(event, this, 'idCodePython', 0);"
+	onmouseup="this.style.cursor='grab'; gloDivSel = 0;">
+  <!-- onmouseout="this.style.cursor='grab';"> -->
+	
+ &nbsp; Code python &nbsp;  &nbsp; 
+ 
+  <button id="idExecPython" type="button" style='font-size:80%'
+		      onclick="RunCodePython();">Exécuter
+  </button>
+  <button type="button" style="font-size:80%; position:absolute; right:2px;"
+          onclick="window.document.nomForm3.nomTextarea3.value = '';">Effacer
+  </button>
+</div>
+  
+<textarea id="idTextarea3" name="nomTextarea3" rows=18 cols=70
+			 style=" vertical-align:bottom;
+               padding:5px 5px 5px 5px;
+               font-family:Courier New, monospace;
+               font-size:10pt;
+               font-weight:bold;
+               color:rgb(0,0,0);"></textarea></form>
+</div>
+
+<!-- <span id="idZone1">Initial content</span><br> -->
+<br>
+
+<script type="text/javascript"> 
+// output functions are configurable.  This one just appends some text
+// to a pre element.
+function outf(myMessage) { 
+//========================
+window.document.nomForm1.nomTextarea1.value += myMessage;
+window.document.nomForm1.nomTextarea1.scrollTop = 100000;  // pour rester en fin du texte.
+} // outf
+
+function builtinRead(x) {
+//=======================
+if (Sk.builtinFiles === undefined || Sk.builtinFiles["files"][x] === undefined)
+        throw "File not found: '" + x + "'";
+return Sk.builtinFiles["files"][x];
+} // builtinRead
+
+// Here's everything you need to run a python program in skulpt
+// grab the code from your textarea
+// get a reference to your pre element for output
+// configure the output function
+// call Sk.importMainWithBody()
+function RunCodePython() {
+//========================
+var prog = window.document.nomForm3.nomTextarea3.value; 
+//var mypre = document.getElementById("idTextarea1"); 
+ 
+//Sk.pre = "idTextarea1";
+Sk.configure({output:outf, read:builtinRead}); 
+(Sk.TurtleGraphics || (Sk.TurtleGraphics = {})).target = 'mycanvas';
+
+var myPromise = Sk.misceval.asyncToPromise(function() {
+    return Sk.importMainWithBody("<stdin>", false, prog, true);
+});
+
+myPromise.then(function(mod) {
+    console.log('success');
+},
+    function(err) {
+    console.log(err.toString());
+    window.document.nomForm1.nomTextarea1.value += err.toString() + "\n";
+    window.document.nomForm1.nomTextarea1.scrollTop = 100000;  // pour rester en fin du texte.
+});
+} // RunCodePython
+</script> 
+
+<!-- ================================================================ -->
+<!-- Pour le pied de page -->
+<div style="position:absolute; left:0px; bottom:0px;">
+  <hr style="margin-left:0; width:110%">
+  <p style="margin-top:0; font-size:80%">
+  Plan du Site : 
+  <a href="../../blockly.html ">blockly</a> &nbsp;
+  <img src="../../images/arrow_right.png" alt="arrow" width="13" height="9"> &nbsp; 
+  ex0147 
+  </p>
+  <hr style="margin-left:0; margin-bottom:0; width:95%">
+  <p style="margin-top:0; font-size:80%">
+  Page mise à jour le 8 novembre 2019 par Bernard Gisin<br>
+  </p>
+</div>
+</body>
+</html>
+

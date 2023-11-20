@@ -1,0 +1,57 @@
+<!-- English -->
+<xml>
+<lang id="_HTML_WIN_TITLE">ex0810, cards, multilanguages version</lang>
+<lang id="_HTML_MAIN_TITLE">Have a lot of fun...</lang>
+<lang id="_HTML_FILES">Files</lang>
+<lang id="_HTML_EXECUTE">Execute</lang>
+<lang id="_HTML_VIEW">View</lang>
+<lang id="_HTML_PARAMETERS">Parameters</lang>
+
+<lang id="_HTML_SHOW_CODE">Show the Javascript code</lang>
+<lang id="_HTML_EXECUTE_BLOCKLY_CODE">Execute</lang>
+<lang id="_HTML_SAVE_BLOCKLY_CODE">Save...</lang>
+<lang id="_HTML_LOAD_BLOCKLY_CODE">Load...</lang>
+<lang id="_HTML_DISPLAY">Display</lang>
+<lang id="_HTML_BUTTON_CLEAR">Clear</lang>
+<lang id="_HTML_CODE_JAVASCRIPT">Javascript code</lang>
+<lang id="_HTML_EXECUTE">Execute</lang>
+
+<!-- Message de l'aide -->
+<lang id="_HTML_HELP">Help</lang>
+<lang id="_HTML_HELP2">Help...</lang>
+<lang id="_HTML_MESSAGE">Message</lang>
+<lang id="_HTML_MESSAGE_READ">OK, message read</lang>
+<lang id="_HTML_MAIN_TITLE2">Have a lot of fun !!!</lang>
+
+<!-- Message de l'à propos -->
+<lang id="_HTML_ABOUT">About...</lang>
+<lang id="_HTML_ABOUT2">
+    &nbsp;This programm has been developped À CONTINUER... a été développé par Bernard Gisin pour tester les possibilités de Blockly &nbsp;<br> 
+    &nbsp;et pour donner des exemples à des enseignants informaticiens &nbsp;<br> 
+    &nbsp;qui désirent développer des modules pour des élèves. &nbsp;<br> 
+    <br>
+    &nbsp;À partir de l'ex1000, les développement seront multilangues, &nbsp;<br> 
+    &nbsp;il n'y aura qu'a taduire certains textes se trouvant dans des fichiesr séparés. &nbsp;<br> 
+    &nbsp;Ils utiliseront également une librairie, pour permettre de ne pas devoir écrire trop de code. &nbsp;<br> 
+    &nbsp;À partir de l'ex2000, le développement devraient être assez complet pour être utilisable avec des élèves. &nbsp;<br>     
+    <br><br>
+</lang>
+<lang id="_HTML_MESSAGE_READ2">OK, message read</lang>
+
+<!-- Modify the startBlocks texts -->
+<lang id="_XML_SB_VALUE_IS">The value is :</lang>
+<lang id="_XML_SB_VALUE_IS2">The value is :</lang>
+
+<!-- Modify the toolBox texts -->
+<!-- Not used, traductions must be in en.js
+<lang2 id="_XML_CAT_LOGIC">Logic</lang2>
+<lang2 id="_XML_CAT_LOOPS">Loops</lang2>
+<lang2 id="_XML_CAT_MATH">Math</lang2>
+<lang2 id="_XML_CAT_TEXT">Text</lang2>
+<lang2 id="_XML_CAT_LISTS">Lists</lang2>
+<lang2 id="_XML_CAT_MOVE">Move</lang2>
+<lang2 id="_XML_CAT_COLOUR">Colour</lang2>
+<lang2 id="_XML_CAT_VARIABLES">Variables</lang2>
+<lang2 id="_XML_CAT_FUNCTIONS">Functions</lang2>
+-->
+</xml>

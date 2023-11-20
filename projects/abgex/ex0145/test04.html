@@ -1,0 +1,47 @@
+<html>
+
+<head>
+<meta charset="utf-8">
+<title>Brython test04</title>
+<style>
+
+.up{
+    font-size: 1.2em;
+    color:rgb(255,0,0);
+    background-color:#ff0;
+}
+.down{
+    font-size:0.8em;   
+    color:blue;
+    background-color:#8f8;
+}
+</style>
+
+</head>
+<body onload="brython({debug: 1, indexedDB: false})">
+
+<button id="button_class">change the class of an element</button> &nbsp;
+<span id="zone_class"> Some text</span>
+
+<script type="text/python" id="script_class">
+    from browser import document
+
+    element = document["zone_class"]
+    element.classList.add("down")
+
+    def change_class(event):
+        if "up" in element.classList:
+            element.classList.remove("up")
+            element.classList.add("down")
+        else:
+            element.classList.remove("down")
+            element.classList.add("up")
+
+    document["button_class"].bind("click", change_class)
+</script>
+
+<script src="brython.js"></script>
+<script src="brython_stdlib.js"></script>
+
+</body>
+</html>

@@ -1,0 +1,150 @@
+<xml xmlns="http://www.w3.org/1999/xhtml">
+  <variables>
+    <variable type="">x</variable>
+  </variables>
+  <block type="text_afficheln" x="38" y="13">
+    <value name="TEXT">
+      <shadow type="text">
+        <field name="TEXT">------------------</field>
+      </shadow>
+    </value>
+    <next>
+      <block type="variables_set">
+        <field name="VAR" variabletype="">x</field>
+        <value name="VALUE">
+          <block type="math_number">
+            <field name="NUM">50</field>
+          </block>
+        </value>
+        <next>
+          <block type="controls_whileUntil">
+            <field name="MODE">WHILE</field>
+            <value name="BOOL">
+              <block type="logic_compare">
+                <field name="OP">GT</field>
+                <value name="A">
+                  <block type="variables_get">
+                    <field name="VAR" variabletype="">x</field>
+                  </block>
+                </value>
+                <value name="B">
+                  <block type="math_number">
+                    <field name="NUM">0</field>
+                  </block>
+                </value>
+              </block>
+            </value>
+            <statement name="DO">
+              <block type="controls_if">
+                <mutation else="1"></mutation>
+                <value name="IF0">
+                  <block type="math_number_property">
+                    <mutation divisor_input="false"></mutation>
+                    <field name="PROPERTY">EVEN</field>
+                    <value name="NUMBER_TO_CHECK">
+                      <shadow xmlns="" type="math_number">
+                        <field name="NUM">0</field>
+                      </shadow>
+                      <block type="variables_get">
+                        <field name="VAR" variabletype="">x</field>
+                      </block>
+                    </value>
+                  </block>
+                </value>
+                <statement name="DO0">
+                  <block type="variables_set">
+                    <field name="VAR" variabletype="">x</field>
+                    <value name="VALUE">
+                      <block type="math_arithmetic">
+                        <field name="OP">DIVIDE</field>
+                        <value name="A">
+                          <shadow xmlns="" type="math_number">
+                            <field name="NUM">1</field>
+                          </shadow>
+                          <block type="variables_get">
+                            <field name="VAR" variabletype="">x</field>
+                          </block>
+                        </value>
+                        <value name="B">
+                          <shadow type="math_number">
+                            <field name="NUM">2</field>
+                          </shadow>
+                        </value>
+                      </block>
+                    </value>
+                    <next>
+                      <block type="text_affichertl">
+                        <value name="TEXT">
+                          <shadow type="text">
+                            <field name="TEXT">0</field>
+                          </shadow>
+                        </value>
+                      </block>
+                    </next>
+                  </block>
+                </statement>
+                <statement name="ELSE">
+                  <block type="variables_set">
+                    <field name="VAR" variabletype="">x</field>
+                    <value name="VALUE">
+                      <block type="math_arithmetic">
+                        <field name="OP">DIVIDE</field>
+                        <value name="A">
+                          <shadow xmlns="" type="math_number">
+                            <field name="NUM">1</field>
+                          </shadow>
+                          <block type="math_arithmetic">
+                            <field name="OP">MINUS</field>
+                            <value name="A">
+                              <shadow xmlns="" type="math_number">
+                                <field name="NUM">1</field>
+                              </shadow>
+                              <block type="variables_get">
+                                <field name="VAR" variabletype="">x</field>
+                              </block>
+                            </value>
+                            <value name="B">
+                              <shadow type="math_number">
+                                <field name="NUM">1</field>
+                              </shadow>
+                            </value>
+                          </block>
+                        </value>
+                        <value name="B">
+                          <shadow type="math_number">
+                            <field name="NUM">2</field>
+                          </shadow>
+                        </value>
+                      </block>
+                    </value>
+                    <next>
+                      <block type="text_affichertl">
+                        <value name="TEXT">
+                          <shadow type="text">
+                            <field name="TEXT">1</field>
+                          </shadow>
+                        </value>
+                      </block>
+                    </next>
+                  </block>
+                </statement>
+              </block>
+            </statement>
+            <next>
+              <block type="text_afficheln">
+                <value name="TEXT">
+                  <shadow type="text">
+                    <field name="TEXT">abc</field>
+                  </shadow>
+                  <block type="text">
+                    <field name="TEXT"></field>
+                  </block>
+                </value>
+              </block>
+            </next>
+          </block>
+        </next>
+      </block>
+    </next>
+  </block>
+</xml>

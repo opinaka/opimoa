@@ -1,0 +1,28 @@
+<!-- English -->
+<xml>
+<lang id="_HTML_WIN_TITLE">ex0800, ENGLISH VERSION in the main title bar</lang>
+<lang id="_HTML_MAIN_TITLE">ex0800, ENGLISH VERSION</lang>
+<lang id="_HTML_SHOW_CODE">Show the Javascript code</lang>
+<lang id="_HTML_EXECUTE_BLOCKLY_CODE">Execute Blockly code</lang>
+<lang id="_HTML_SAVE_BLOCKLY_CODE">Save Blockly code</lang>
+<lang id="_HTML_LOAD_BLOCKLY_CODE">Load Blockly code</lang>
+<lang id="_HTML_DISPLAY">Display</lang>
+<lang id="_HTML_BUTTON_CLEAR">Clear</lang>
+<lang id="_HTML_CODE_JAVASCRIPT">Javascript code</lang>
+<lang id="_HTML_EXECUTE">Execute</lang>
+
+<!-- Modify the startBlocks texts -->
+<lang id="_XML_SB_VALUE_IS">The value is :</lang>
+<lang id="_XML_SB_VALUE_IS2">The value is :</lang>
+
+<!-- Modify the toolBox texts -->
+<lang2 id="_XML_CAT_LOGIC">Logic</lang2>
+<lang2 id="_XML_CAT_LOOPS">Loops</lang2>
+<lang2 id="_XML_CAT_MATH">Math</lang2>
+<lang2 id="_XML_CAT_TEXT">Text</lang2>
+<lang2 id="_XML_CAT_LISTS">Lists</lang2>
+<lang2 id="_XML_CAT_COLOUR">Colour</lang2>
+<lang2 id="_XML_CAT_VARIABLES">Variables</lang2>
+<lang2 id="_XML_CAT_FUNCTIONS">Functions</lang2>
+
+</xml>

@@ -1,0 +1,31 @@
+<html>
+<head>
+<meta charset="utf-8">
+<title>Brython test06</title>
+</head>
+<body onload="brython({debug: 1, indexedDB: false})">
+
+<button id="button6_std">insert an element (standard DOM methods)</button>
+<span id="zone6_std">initial content</span>
+
+<script type="text/python" id="script6_std">
+    from browser import document, html
+
+    element = document.getElementById("zone6_std")
+    nb = 0
+
+    def change(event):
+        global nb
+        elt = document.createElement("B")
+        txt = document.createTextNode(f" {nb}")
+        elt.appendChild(txt)
+        element.appendChild(elt)
+        nb += 1
+
+    document["button6_std"].addEventListener("click", change)
+</script>
+<script src="brython.js"></script>
+<script src="brython_stdlib.js"></script>
+
+</body>
+</html>

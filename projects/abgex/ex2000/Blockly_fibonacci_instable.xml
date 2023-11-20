@@ -1,0 +1,158 @@
+<xml xmlns="http://www.w3.org/1999/xhtml">
+  <variables>
+    <variable type="">N</variable>
+    <variable type="">y</variable>
+    <variable type="">z</variable>
+    <variable type="">x</variable>
+  </variables>
+  <block type="variables_set" x="15" y="54">
+    <field name="VAR" variabletype="">N</field>
+    <value name="VALUE">
+      <block type="math_number">
+        <field name="NUM">40</field>
+      </block>
+    </value>
+    <next>
+      <block type="variables_set" inline="false">
+        <field name="VAR" variabletype="">y</field>
+        <value name="VALUE">
+          <block type="math_number">
+            <field name="NUM">0.1</field>
+          </block>
+        </value>
+        <next>
+          <block type="variables_set">
+            <field name="VAR" variabletype="">z</field>
+            <value name="VALUE">
+              <block type="math_number">
+                <field name="NUM">0.1</field>
+              </block>
+            </value>
+            <next>
+              <block type="controls_repeat_ext">
+                <value name="TIMES">
+                  <shadow type="math_number">
+                    <field name="NUM">6</field>
+                  </shadow>
+                  <block type="variables_get">
+                    <field name="VAR" variabletype="">N</field>
+                  </block>
+                </value>
+                <statement name="DO">
+                  <block type="variables_set" inline="true">
+                    <field name="VAR" variabletype="">x</field>
+                    <value name="VALUE">
+                      <block type="variables_get">
+                        <field name="VAR" variabletype="">y</field>
+                      </block>
+                    </value>
+                    <next>
+                      <block type="variables_set" inline="true">
+                        <field name="VAR" variabletype="">y</field>
+                        <value name="VALUE">
+                          <block type="variables_get">
+                            <field name="VAR" variabletype="">z</field>
+                          </block>
+                        </value>
+                        <next>
+                          <block type="variables_set" inline="true">
+                            <field name="VAR" variabletype="">z</field>
+                            <value name="VALUE">
+                              <block type="math_arithmetic">
+                                <field name="OP">ADD</field>
+                                <value name="A">
+                                  <block type="variables_get">
+                                    <field name="VAR" variabletype="">x</field>
+                                  </block>
+                                </value>
+                                <value name="B">
+                                  <block type="variables_get">
+                                    <field name="VAR" variabletype="">y</field>
+                                  </block>
+                                </value>
+                              </block>
+                            </value>
+                            <next>
+                              <block type="text_afficheln">
+                                <value name="TEXT">
+                                  <block type="variables_get">
+                                    <field name="VAR" variabletype="">z</field>
+                                  </block>
+                                </value>
+                              </block>
+                            </next>
+                          </block>
+                        </next>
+                      </block>
+                    </next>
+                  </block>
+                </statement>
+                <next>
+                  <block type="controls_repeat_ext">
+                    <value name="TIMES">
+                      <shadow type="math_number">
+                        <field name="NUM">6</field>
+                      </shadow>
+                      <block type="variables_get">
+                        <field name="VAR" variabletype="">N</field>
+                      </block>
+                    </value>
+                    <statement name="DO">
+                      <block type="variables_set" inline="true">
+                        <field name="VAR" variabletype="">z</field>
+                        <value name="VALUE">
+                          <block type="variables_get">
+                            <field name="VAR" variabletype="">y</field>
+                          </block>
+                        </value>
+                        <next>
+                          <block type="variables_set" inline="true">
+                            <field name="VAR" variabletype="">y</field>
+                            <value name="VALUE">
+                              <block type="variables_get">
+                                <field name="VAR" variabletype="">x</field>
+                              </block>
+                            </value>
+                            <next>
+                              <block type="variables_set" inline="true">
+                                <field name="VAR" variabletype="">x</field>
+                                <value name="VALUE">
+                                  <block type="math_arithmetic">
+                                    <field name="OP">MINUS</field>
+                                    <value name="A">
+                                      <block type="variables_get">
+                                        <field name="VAR" variabletype="">z</field>
+                                      </block>
+                                    </value>
+                                    <value name="B">
+                                      <block type="variables_get">
+                                        <field name="VAR" variabletype="">y</field>
+                                      </block>
+                                    </value>
+                                  </block>
+                                </value>
+                                <next>
+                                  <block type="text_afficheln">
+                                    <value name="TEXT">
+                                      <block type="variables_get">
+                                        <field name="VAR" variabletype="">z</field>
+                                      </block>
+                                    </value>
+                                  </block>
+                                </next>
+                              </block>
+                            </next>
+                          </block>
+                        </next>
+                      </block>
+                    </statement>
+                  </block>
+                </next>
+              </block>
+            </next>
+          </block>
+        </next>
+      </block>
+    </next>
+  </block>
+</xml>

@@ -1,0 +1,31 @@
+<html>
+<head>
+<meta charset="utf-8">
+<title>Brython test03</title>
+</head>
+<body onload="brython({debug: 1, indexedDB: false})">
+
+<button id="button2">change the style of an element</button> &nbsp;
+<span id="zone2" style="color:blue;background-color:#aad;">coloured content</span>
+
+<script type="text/python" id="script2">
+    from browser import document
+
+    element = document["zone2"]
+
+    def change(event):
+        style = element.style
+        color = style.color
+        style.color = "#cc8" if color == "blue" else "blue"
+        style.backgroundColor = "gray" if color == "blue" else "#aad"
+        style.fontWeight = "bold" if color == "blue" else "normal"
+        style.fontSize = "18px" if color == "blue" else "14px"
+
+    document["button2"].bind("click", change)
+</script>
+
+<script src="brython.js"></script>
+<script src="brython_stdlib.js"></script>
+
+</body>
+</html>

@@ -1,0 +1,97 @@
+<xml xmlns="http://www.w3.org/1999/xhtml">
+  <variables>
+    <variable type="">str</variable>
+    <variable type="">i</variable>
+  </variables>
+  <block type="variables_set" x="32" y="31">
+    <field name="VAR" variabletype="">str</field>
+    <value name="VALUE">
+      <block type="text">
+        <field name="TEXT">110101001010</field>
+      </block>
+    </value>
+    <next>
+      <block type="variables_set">
+        <field name="VAR" variabletype="">i</field>
+        <value name="VALUE">
+          <block type="text_length">
+            <value name="VALUE">
+              <shadow type="text">
+                <field name="TEXT">abc</field>
+              </shadow>
+              <block type="variables_get">
+                <field name="VAR" variabletype="">str</field>
+              </block>
+            </value>
+          </block>
+        </value>
+        <next>
+          <block type="controls_whileUntil">
+            <field name="MODE">WHILE</field>
+            <value name="BOOL">
+              <block type="logic_compare">
+                <field name="OP">GT</field>
+                <value name="A">
+                  <block type="variables_get">
+                    <field name="VAR" variabletype="">i</field>
+                  </block>
+                </value>
+                <value name="B">
+                  <block type="math_number">
+                    <field name="NUM">4</field>
+                  </block>
+                </value>
+              </block>
+            </value>
+            <statement name="DO">
+              <block type="variables_set">
+                <field name="VAR" variabletype="">i</field>
+                <value name="VALUE">
+                  <block type="math_arithmetic">
+                    <field name="OP">MINUS</field>
+                    <value name="A">
+                      <shadow type="math_number">
+                        <field name="NUM">1</field>
+                      </shadow>
+                      <block type="variables_get">
+                        <field name="VAR" variabletype="">i</field>
+                      </block>
+                    </value>
+                    <value name="B">
+                      <shadow type="math_number">
+                        <field name="NUM">1</field>
+                      </shadow>
+                    </value>
+                  </block>
+                </value>
+                <next>
+                  <block type="text_afficheln">
+                    <value name="TEXT">
+                      <shadow type="text">
+                        <field name="TEXT"></field>
+                      </shadow>
+                      <block type="text_charAt">
+                        <mutation at="true"></mutation>
+                        <field name="WHERE">FROM_START</field>
+                        <value name="VALUE">
+                          <block type="variables_get">
+                            <field name="VAR" variabletype="">str</field>
+                          </block>
+                        </value>
+                        <value name="AT">
+                          <block type="variables_get">
+                            <field name="VAR" variabletype="">i</field>
+                          </block>
+                        </value>
+                      </block>
+                    </value>
+                  </block>
+                </next>
+              </block>
+            </statement>
+          </block>
+        </next>
+      </block>
+    </next>
+  </block>
+</xml>

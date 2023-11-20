@@ -1,0 +1,123 @@
+<xml xmlns="http://www.w3.org/1999/xhtml">
+  <variables>
+    <variable type="">x</variable>
+    <variable type="">y</variable>
+  </variables>
+  <block type="procedures_defnoreturn" x="21" y="10">
+    <mutation>
+      <arg name="x" varid="C_k${PVQf%/k,uD)+U.T"></arg>
+      <arg name="y" varid="MdSO^`G^l@4yC[fn^H5m"></arg>
+    </mutation>
+    <field name="NAME">Echange</field>
+    <comment pinned="false" h="80" w="160">Décrire cette fonction…</comment>
+    <statement name="STACK">
+      <block type="card_movex1x2">
+        <data>2</data>
+        <value name="POSX1">
+          <shadow type="math_number">
+            <field name="NUM">1</field>
+          </shadow>
+          <block type="variables_get">
+            <field name="VAR" variabletype="">x</field>
+          </block>
+        </value>
+        <value name="POSX2">
+          <shadow type="math_number">
+            <field name="NUM">3</field>
+          </shadow>
+        </value>
+        <next>
+          <block type="card_movex1x2">
+            <data>2</data>
+            <value name="POSX1">
+              <shadow type="math_number">
+                <field name="NUM">2</field>
+              </shadow>
+              <block type="variables_get">
+                <field name="VAR" variabletype="">y</field>
+              </block>
+            </value>
+            <value name="POSX2">
+              <shadow type="math_number">
+                <field name="NUM">1</field>
+              </shadow>
+              <block type="variables_get">
+                <field name="VAR" variabletype="">x</field>
+              </block>
+            </value>
+            <next>
+              <block type="card_movex1x2">
+                <data>2</data>
+                <value name="POSX1">
+                  <shadow type="math_number">
+                    <field name="NUM">3</field>
+                  </shadow>
+                </value>
+                <value name="POSX2">
+                  <shadow type="math_number">
+                    <field name="NUM">2</field>
+                  </shadow>
+                  <block type="variables_get">
+                    <field name="VAR" variabletype="">y</field>
+                  </block>
+                </value>
+              </block>
+            </next>
+          </block>
+        </next>
+      </block>
+    </statement>
+  </block>
+  <block type="procedures_callnoreturn" x="34" y="176">
+    <mutation name="Echange">
+      <arg name="x"></arg>
+      <arg name="y"></arg>
+    </mutation>
+    <value name="ARG0">
+      <block type="math_number">
+        <field name="NUM">1</field>
+      </block>
+    </value>
+    <value name="ARG1">
+      <block type="math_number">
+        <field name="NUM">2</field>
+      </block>
+    </value>
+    <next>
+      <block type="procedures_callnoreturn">
+        <mutation name="Echange">
+          <arg name="x"></arg>
+          <arg name="y"></arg>
+        </mutation>
+        <value name="ARG0">
+          <block type="math_number">
+            <field name="NUM">4</field>
+          </block>
+        </value>
+        <value name="ARG1">
+          <block type="math_number">
+            <field name="NUM">5</field>
+          </block>
+        </value>
+        <next>
+          <block type="procedures_callnoreturn">
+            <mutation name="Echange">
+              <arg name="x"></arg>
+              <arg name="y"></arg>
+            </mutation>
+            <value name="ARG0">
+              <block type="math_number">
+                <field name="NUM">7</field>
+              </block>
+            </value>
+            <value name="ARG1">
+              <block type="math_number">
+                <field name="NUM">8</field>
+              </block>
+            </value>
+          </block>
+        </next>
+      </block>
+    </next>
+  </block>
+</xml>

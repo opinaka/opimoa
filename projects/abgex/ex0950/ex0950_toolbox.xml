@@ -1,0 +1,56 @@
+<!-- Indique à Blockly les blocs que l'on désire mettre à disposition -->
+<!-- Si la balise <category> existe, le champs Blocky aura des scroll bar, 
+     sinon, il n'y a pas de scroll bar. 
+     Ici, il y a des balises <category> -->
+
+<block type="puzzle_characteristics">
+  <data>XML_CHAR_BEE,BEE</data>
+</block>
+<block type="puzzle_characteristics">
+  <data>XML_CHAR_CAT,CAT</data>
+</block>
+<block type="puzzle_characteristics">
+  <data>XML_CHAR_DUCK,DUCK</data>
+</block>
+<block type="puzzle_characteristics">
+  <data>XML_CHAR_SNAIL,SNAIL</data>
+</block>
+<block type="puzzle_image100x70">
+  <data>bee,BEE</data>
+</block>
+<block type="puzzle_image100x70">
+  <data>cat,CAT</data>
+</block>
+<block type="puzzle_image100x70">
+  <data>duck,DUCK</data>
+</block>
+<block type="puzzle_image100x70">
+  <data>snail,SNAIL</data>
+</block>
+<block type="puzzle_image100x70">
+  <data>mouse,MOUSE</data>
+</block>
+<block type="puzzle_traits">
+  <data>XML_TRAITS_HONEY,HON</data>
+</block>
+<block type="puzzle_traits">
+  <data>XML_TRAITS_STINGER,STI</data>
+</block>
+<block type="puzzle_traits">
+  <data>XML_TRAITS_FUR,FUR</data>
+</block>
+<block type="puzzle_traits">
+  <data>XML_TRAITS_WHISKERS,WHI</data>
+</block>
+<block type="puzzle_traits">
+  <data>XML_TRAITS_FEATHERS,FEA</data>
+</block>
+<block type="puzzle_traits">
+  <data>XML_TRAITS_BEAK,BEA</data>
+</block>
+<block type="puzzle_traits">
+  <data>XML_TRAITS_SHELL,SHE</data>
+</block>
+<block type="puzzle_traits">
+  <data>XML_TRAITS_SLIME,SLI</data>
+</block>

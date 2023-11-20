@@ -1,0 +1,335 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>ex0060, code de Syracuse préexistant dans la fenêtre Blockly</title>
+  
+  <!-- Les 4 lignes suivantes chargent les routines de Blockly -->
+  <script src="../../blockly_compressed.js"></script>
+  <script src="../../blocks_compressed.js"></script>
+  <script src="../../javascript_compressed.js"></script>
+  <script src="../../msg/js/fr.js"></script>  <!-- C'est ici que la langue des blocs est définie -->
+  
+  <script>
+  // Adjonction de fonctionnalités à Blockly
+  // Il faudrait mettre ce code dans une librairie.
+
+  // Adjonction de textes personalités dans les blocs
+  goog.provide('bgBlockly.Msg.fr');
+  goog.require('bgBlockly.Msg');
+
+  bgBlockly.Msg["TEXT_AFFICHE_TITLE"] = "afficher %1";
+  bgBlockly.Msg["TEXT_AFFICHE_TOOLTIP"] = "Afficher le texte sans retour à la ligne, le nombre ou une autre valeur spécifiée.";
+  bgBlockly.Msg["TEXT_AFFICHE_HELPURL"] = "";  // untranslated
+  bgBlockly.Msg["TEXT_AFFICHELN_TITLE"] = "afficherLn %1";
+  bgBlockly.Msg["TEXT_AFFICHELN_TOOLTIP"] = "Afficher le texte avec retour à la ligne, le nombre ou une autre valeur spécifiée.";
+  bgBlockly.Msg["TEXT_AFFICHELN_HELPURL"] = "";  // untranslated
+  bgBlockly.Msg["TEXTS_HUE"] = "160";
+
+
+    function Display(strInfo) {
+    //=========================
+    // Ecrit dans une partie de la fenêtre, divers informations.
+    // La forme "nomForm1" a été définie plus bas, 
+    // sous la définition de la '<div id="blocklyDiv" ...' pour Blockly
+    var myMessage = window.document.nomForm1.nomTextarea1.value;
+    myMessage = myMessage + strInfo;
+    window.document.nomForm1.nomTextarea1.value = myMessage;
+    window.document.nomForm1.nomTextarea1.scrollTop = 100000;  // pour rester en fin du texte.
+    /// window.document.nomForm1.nomTextarea1.scrollBy(10,0);  pas correcte !?!
+    } // Display
+
+    // Adjonction d'un bloc permettant d'afficher du texte dans la fenêtre
+    Blockly.Blocks['text_afficheln'] = {
+    //==================================
+    // Définit l'aspect du bloc
+    init: function() {
+      this.jsonInit({
+        "message0": bgBlockly.Msg['TEXT_AFFICHELN_TITLE'],
+        "args0": [
+          {
+            "type": "input_value",
+            "name": "TEXT"
+          }
+        ],
+        "previousStatement": null,
+        "nextStatement": null,
+        "colour":  bgBlockly.Msg['TEXTS_HUE'],
+        "tooltip": bgBlockly.Msg['TEXT_AFFICHELN_TOOLTIP'],
+        "helpUrl": bgBlockly.Msg['TEXT_AFFICHELN_HELPURL']
+      });
+    }
+  };
+
+  Blockly.JavaScript['text_afficheln'] = function(block) {
+  //====================================================
+  // Défini la fonctionnalité du bloc
+  var msg = Blockly.JavaScript.valueToCode(block, 'TEXT', Blockly.JavaScript.ORDER_NONE) || '\'\'';
+  return "Display(" + (  msg + "+'\\n'") + ");\n"; // Insertion d'un retour de ligne à la fin de l'affichage : "\n"
+  };
+  
+
+  Blockly.Blocks['text_affiche'] = {
+  //================================
+  init: function() {
+    this.jsonInit({
+      "message0": bgBlockly.Msg['TEXT_AFFICHE_TITLE'],
+      "args0": [
+        {
+          "type": "input_value",
+          "name": "TEXT"
+        }
+      ],
+      "previousStatement": null,
+      "nextStatement": null,
+      "colour":  bgBlockly.Msg['TEXTS_HUE'],
+      "tooltip": bgBlockly.Msg['TEXT_AFFICHE_TOOLTIP'],  // Pour définir des textes personnalisés.
+      "helpUrl": bgBlockly.Msg['TEXT_AFFICHE_HELPURL']
+      });
+    }
+  };
+
+  Blockly.JavaScript['text_affiche'] = function(block) {
+    // Print statement.
+    var msg = Blockly.JavaScript.valueToCode(block, 'TEXT',
+        Blockly.JavaScript.ORDER_NONE) || '\'\'';
+    return "Display(" + msg + ");\n";
+  };
+  
+  </script>
+
+</head>
+<body>
+<h2>ex0060, code de Syracuse préexistant dans la fenêtre Blockly</h2>
+
+<p>
+  <button onclick="showCode()">Montre le code JavaScript</button>
+  <button onclick="runCode()">Exécute le code JavaScript</button>
+</p>
+
+<!-- C'est ici que les blocs se trouveront. Largeur et hauteur fixe -->
+<div id="blocklyDiv" style="display:inline-block; width:720px; height:660px;"></div>
+
+<!-- C'est ici que le texte sera affiché -->
+<div style="display:inline-block; vertical-align:top;">
+  <form name=nomForm1>
+    <textarea rows=35 COLS=40 NAME=nomTextarea1></textarea><br>
+    <br>
+    <input type="button" value="Efface les lignes"
+           onclick="window.document.nomForm1.nomTextarea1.value = ''">
+  </form>
+</div>
+
+<!-- Indique à Blockly les blocs que l'on désire mettre à disposition -->
+<!-- Si la balise <category> existe, le champs Blocky aura des scroll bar, 
+     sinon, il n'y a pas de scroll bar. 
+     Ici, il n'y a pas de balise <category> -->
+<xml id="toolbox" style="display: none">
+  <block type="controls_if"></block>
+  <block type="logic_compare"></block>
+  <block type="logic_operation"></block>
+  <block type="controls_whileUntil"></block>
+  <block type="math_number">
+    <field name="NUM">123</field>
+  </block>
+  <block type="math_arithmetic"></block>
+  <block type="text"></block>
+  <block type="text_length"></block>
+  <!-- <block type="text_print"></block>  est remplacé par la ligne suivante -->
+  <block type="text_afficheln"></block>
+  <block type="text_affiche"></block>
+</xml>
+
+<!-- Indication de blocs préexistants dans la partie Blockly,
+     à l'ouverture de la page. 
+     Cette partie est utilisé plus bas dans "Blockly.Xml.domToWorkspace(..." 
+     On triche un peu, car deux variables sont utilisées, 
+     mais on n'a pas encore vu comment les introduire.
+-->
+<xml id="startBlocks" style="display: none">
+  <block type="variables_set" inline="false">
+    <field name="VAR">x</field>
+    <value name="VALUE">
+      <block type="math_number">
+        <field name="NUM">7</field>
+      </block>
+    </value>
+    <next>
+      <block type="controls_whileUntil" inline="true">
+        <value name="BOOL">
+          <block type="logic_compare" inline="true">
+            <value name="A">
+              <block type="variables_get">
+                <field name="VAR">x</field>
+              </block>
+            </value>
+            <field name="OP">GT</field>
+            <value name="B">
+              <block type="math_number">
+                <field name="NUM">1</field>
+              </block>
+            </value>
+          </block>
+        </value>
+        <statement name="DO">
+          <block type="controls_if" inline="false" x="20" y="20">
+            <mutation else="1"></mutation>
+            <value name="IF0">
+              <block type="math_number_property" inline="true">
+                <value name="NUMBER_TO_CHECK">
+                  <block type="variables_get">
+                    <field name="VAR">x</field>
+                  </block>
+                </value>
+                <field name="PROPERTY">EVEN</field>
+              </block>
+            </value>
+            <statement name="DO0">
+              <block type="variables_set" inline="true">
+                <field name="VAR">x</field>
+                <value name="VALUE">
+                  <block type="math_arithmetic" inline="true">
+                    <field name="OP">DIVIDE</field>
+                    <value name="A">
+                      <block type="variables_get">
+                        <field name="VAR">x</field>
+                      </block>
+                    </value>
+                    <value name="B">
+                      <block type="math_number">
+                        <field name="NUM">2</field>
+                      </block>
+                    </value>
+                  </block>
+                </value>
+                <next>
+                  <block type="text_affiche" inline="true">
+                    <value name="TEXT">
+                      <block type="text">
+                        <field name="TEXT">La valeur vaut : </field>
+                      </block>
+                    </value>
+                    <next>
+                      <block type="text_afficheln">
+                        <value name="TEXT">
+                          <block type="variables_get">
+                            <field name="VAR">x</field>
+                          </block>
+                        </value>
+                      </block>
+                    </next>
+                  </block> 
+                </next>     
+              </block>
+            </statement>
+            <statement name="ELSE">
+              <block type="variables_set" id="set_n_update" inline="true">
+                <field name="VAR">x</field>
+                <value name="VALUE">
+
+                  <block type="math_arithmetic" inline="true">
+                   <field name="OP">ADD</field>
+                   <value name="A">
+
+                    <block type="math_arithmetic" inline="true">
+                     <field name="OP">MULTIPLY</field>
+                     <value name="A">
+                      <block type="variables_get">
+                       <field name="VAR">x</field>
+                      </block>
+                     </value>
+                     <value name="B">
+                      <block type="math_number">
+                       <field name="NUM">3</field>
+                      </block>
+                     </value>
+                    </block>
+                   </value>
+
+                   <value name="B">
+                    <block type="math_number">
+                     <field name="NUM">1</field>
+                    </block>
+                   </value>
+                  </block>
+                </value>
+                <next>
+                  <block type="text_affiche" inline="true">
+                    <value name="TEXT">
+                      <block type="text">
+                        <field name="TEXT">La valeur vaut : </field>
+                      </block>
+                    </value>
+                    <next>
+                      <block type="text_afficheln">
+                        <value name="TEXT">
+                          <block type="variables_get">
+                            <field name="VAR">x</field>
+                          </block>
+                        </value>
+                      </block>
+                    </next>
+                  </block> 
+                </next>     
+              </block>
+            </statement>
+          </block>
+        </statement>
+      </block>
+    </next>     
+  </block> 
+</xml>
+
+<script>
+//############################################################################
+
+// C'est ici que l'on insert les fonctionnalités Blockly
+var demoWorkspace = Blockly.inject('blocklyDiv',
+    {media: '../../media/',
+     toolbox: document.getElementById('toolbox')});
+
+ // C'est ici que l'on indique d'ajouter des blocs a l'ouverture de la page
+Blockly.Xml.domToWorkspace(document.getElementById('startBlocks'), demoWorkspace);
+
+function showCode() {
+//===================
+// Generate JavaScript code and display it.
+Blockly.JavaScript.INFINITE_LOOP_TRAP = null;
+var code = Blockly.JavaScript.workspaceToCode(demoWorkspace);      
+Display(code);
+// ************* L'instruction "alert(code)" a été remplacé par "Display(code)"
+} // showCode
+
+function runCode() {
+//===================
+// Generate JavaScript code and run it.
+window.LoopTrap = 1000;
+Blockly.JavaScript.INFINITE_LOOP_TRAP =
+    'if (--window.LoopTrap == 0) throw "Infinite loop.";\n';
+var code = Blockly.JavaScript.workspaceToCode(demoWorkspace);
+Blockly.JavaScript.INFINITE_LOOP_TRAP = null;
+try {
+  eval(code);
+  } 
+catch (e) {
+  alert(e);
+  }
+} // runCode
+</script>
+
+<!-- ================================================================ -->
+<hr style="margin-left:0; width:95%">
+<p style="margin-top:0; font-size:80%">
+Plan du Site : 
+<a href="../../blockly.html ">blockly</a> &nbsp;
+<img src="../../images/arrow_right.png" alt="arrow" width="13" height="9"> &nbsp; 
+ex0060 
+</p>
+<hr style="margin-left:0; margin-bottom:0; width:95%">
+<p style="margin-top:0; font-size:80%">
+Page mise à jour le 21 janvier 2019 par Bernard Gisin<br>
+</p>
+<br>
+</body>
+</html>
+

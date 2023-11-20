@@ -1,0 +1,47 @@
+<html>
+<head>
+<meta charset="utf-8">
+<title>Brython test15 get value of form fields</title>
+
+</head>
+<body onload="brython({debug: 1, indexedDB: false})">
+
+<button id="button16">get the value of form fields</button><br>
+<br>
+<div id="zone16"></div>
+<br>
+
+<div style="width:30%; padding-left:3em; background-color:#ddd;">
+  <input id="input16" autocomplete="off" value="test"><br>
+  <br>
+  <select id="select16" autocomplete="off">
+            <option value="one">one
+            <option value="two">two
+            <option value="three">three
+  </select><br>
+  <br>
+  <textarea id="textarea16" rows=3 cols=30 autocomplete="off">your content here !...</textarea>
+</div>
+
+<script type="text/python" id="script16">
+    from browser import document, html
+
+    def show_values(event):
+        input = document["input16"].value
+        select = document["select16"]
+        option = select.options[select.selectedIndex].value
+        text = document["textarea16"].value
+        document["zone16"].clear()
+        document["zone16"] <= (f"Value in INPUT field: {input}",
+            html.BR(), f"Selected option: {option}",
+            html.BR(), f"Value in TEXTAREA field: {text}"
+            )
+
+    document["button16"].bind("click", show_values)
+</script>
+
+<script src="brython.js"></script>
+<script src="brython_stdlib.js"></script>
+
+</body>
+</html>

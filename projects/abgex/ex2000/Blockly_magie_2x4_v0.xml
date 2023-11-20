@@ -1,0 +1,104 @@
+<xml xmlns="http://www.w3.org/1999/xhtml">
+  <block type="text_comment" x="10" y="10">
+    <value name="COMMENT">
+      <shadow type="text">
+        <field name="TEXT">Juste un exemple, à effacer.</field>
+      </shadow>
+    </value>
+    <next>
+      <block type="card_add_one_card">
+        <data>1</data>
+        <value name="CARD">
+          <shadow type="math_number">
+            <field name="NUM">401</field>
+          </shadow>
+        </value>
+        <value name="BACK">
+          <shadow type="math_number">
+            <field name="NUM">900</field>
+          </shadow>
+        </value>
+        <value name="FRAME2">
+          <shadow type="math_number">
+            <field name="NUM">1</field>
+          </shadow>
+        </value>
+        <next>
+          <block type="card_movef1f2">
+            <data>1</data>
+            <value name="FRAME1">
+              <shadow type="math_number">
+                <field name="NUM">1</field>
+              </shadow>
+            </value>
+            <value name="FRAME2">
+              <shadow type="math_number">
+                <field name="NUM">20</field>
+              </shadow>
+            </value>
+            <next>
+              <block type="text_pause">
+                <field name="SPEED">NONE</field>
+                <value name="TIME">
+                  <shadow type="math_number">
+                    <field name="NUM">1</field>
+                  </shadow>
+                </value>
+                <next>
+                  <block type="card_flip">
+                    <data>1</data>
+                    <value name="FRAME1">
+                      <shadow type="math_number">
+                        <field name="NUM">20</field>
+                      </shadow>
+                    </value>
+                    <next>
+                      <block type="text_pause">
+                        <field name="SPEED">NONE</field>
+                        <value name="TIME">
+                          <shadow type="math_number">
+                            <field name="NUM">1</field>
+                          </shadow>
+                        </value>
+                        <next>
+                          <block type="card_flip">
+                            <data>1</data>
+                            <value name="FRAME1">
+                              <shadow type="math_number">
+                                <field name="NUM">20</field>
+                              </shadow>
+                            </value>
+                            <next>
+                              <block type="text_pause">
+                                <field name="SPEED">NONE</field>
+                                <value name="TIME">
+                                  <shadow type="math_number">
+                                    <field name="NUM">1</field>
+                                  </shadow>
+                                </value>
+                                <next>
+                                  <block type="card_remove_one_card">
+                                    <data>1</data>
+                                    <value name="FRAME1">
+                                      <shadow type="math_number">
+                                        <field name="NUM">20</field>
+                                      </shadow>
+                                    </value>
+                                  </block>
+                                </next>
+                              </block>
+                            </next>
+                          </block>
+                        </next>
+                      </block>
+                    </next>
+                  </block>
+                </next>
+              </block>
+            </next>
+          </block>
+        </next>
+      </block>
+    </next>
+  </block>
+</xml>

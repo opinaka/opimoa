@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>ex0020, blocs dans un menu, générateur de JavaScript avec Blockly</title>
+  
+  <!-- Les 4 lignes suivantes chargent les routines de Blockly -->
+  <script src="../../blockly_compressed.js"></script>
+  <script src="../../blocks_compressed.js"></script>
+  <script src="../../javascript_compressed.js"></script>
+  <script src="../../msg/js/fr.js"></script>  <!-- C'est ici que la langue des blocs est définie -->
+  
+</head>
+<body>
+<h2>ex0020, blocs dans un menu, générateur de JavaScript avec Blockly</h2>
+
+<p>
+  <button onclick="showCode()">Montre le code JavaScript</button>
+  <button onclick="runCode()">Exécute le code JavaScript</button>
+</p>
+
+<!-- C'est ici que les blocs se trouveront. Largeur et hauteur fixe -->
+<div id="blocklyDiv" style="display:inline-block; width:80%; height:600px;"></div>
+
+<!-- Indique à Blockly les blocs que l'on désire mettre à disposition -->
+<!-- Si la balise <category> existe, le champs Blocky aura des scroll bar, 
+     sinon, il n'y a pas de scroll bar. 
+     Ici, il y a des balises <category> -->
+<xml id="toolbox" style="display: none">
+  <category name="Logique" colour="%{BKY_LOGIC_HUE}">
+    <block type="controls_if"></block>
+    <block type="logic_compare"></block>
+    <block type="logic_operation"></block>
+    <block type="logic_negate"></block>
+    <block type="logic_boolean"></block>
+  </category>
+  <category name="Boucles" colour="%{BKY_LOOPS_HUE}">
+    <block type="controls_repeat_ext">
+      <value name="TIMES">
+        <block type="math_number">
+          <field name="NUM">10</field>
+        </block>
+      </value>
+    </block>
+  </category>
+  <category name="Math" colour="%{BKY_MATH_HUE}">
+    <block type="math_number">
+      <field name="NUM">123</field>
+    </block>
+    <block type="math_arithmetic"></block>
+    <block type="math_single"></block>
+  </category>
+  <category name="Texte" colour="%{BKY_TEXTS_HUE}">
+    <block type="text"></block>
+    <block type="text_length"></block>
+    <block type="text_print"></block>
+  </category>
+</xml>
+
+<script>
+//############################################################################
+
+// C'est ici que l'on insert les fonctionnalités Blockly
+var demoWorkspace = Blockly.inject('blocklyDiv',
+    {media: '../../media/',
+     toolbox: document.getElementById('toolbox')});
+
+function showCode() {
+//===================
+// Generate JavaScript code and display it.
+Blockly.JavaScript.INFINITE_LOOP_TRAP = null;
+var code = Blockly.JavaScript.workspaceToCode(demoWorkspace);      
+alert(code);
+} // showCode
+
+function runCode() {
+//===================
+// Generate JavaScript code and run it.
+window.LoopTrap = 1000;
+Blockly.JavaScript.INFINITE_LOOP_TRAP =
+    'if (--window.LoopTrap == 0) throw "Infinite loop.";\n';
+var code = Blockly.JavaScript.workspaceToCode(demoWorkspace);
+Blockly.JavaScript.INFINITE_LOOP_TRAP = null;
+try {
+  eval(code);
+  } 
+catch (e) {
+  alert(e);
+  }
+} // runCode
+</script>
+
+<!-- ================================================================ -->
+<hr style="margin-left:0; width:95%">
+<p style="margin-top:0; font-size:80%">
+Plan du Site : 
+<a href="../../blockly.html ">blockly</a> &nbsp;
+<img src="../../images/arrow_right.png" alt="arrow" width="13" height="9"> &nbsp; 
+ex0020 
+</p>
+<hr style="margin-left:0; margin-bottom:0; width:95%">
+<p style="margin-top:0; font-size:80%">
+Page mise à jour le 21 janvier 2019 par Bernard Gisin<br>
+</p>
+<br>
+</body>
+</html>
+

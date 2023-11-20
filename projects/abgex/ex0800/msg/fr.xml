@@ -1,0 +1,28 @@
+<!-- Français -->
+<xml>
+<lang id="_HTML_WIN_TITLE">ex0801, get code XML, save, load.</lang>
+<lang id="_HTML_MAIN_TITLE">ex0801, get code XML, save, load</lang>
+<lang id="_HTML_SHOW_CODE">Montre le code en JavaScript</lang>
+<lang id="_HTML_EXECUTE_BLOCKLY_CODE">Exécute le code Blockly</lang>
+<lang id="_HTML_SAVE_BLOCKLY_CODE">Sauve le code Blockly</lang>
+<lang id="_HTML_LOAD_BLOCKLY_CODE">Charge le code Blockly</lang>
+<lang id="_HTML_DISPLAY">Affichage</lang>
+<lang id="_HTML_BUTTON_CLEAR">Effacer</lang>
+<lang id="_HTML_CODE_JAVASCRIPT">Code javascript</lang>
+<lang id="_HTML_EXECUTE">Execute</lang>
+
+<!-- Modifie les textes de la startBlocks -->
+<lang id="_XML_SB_VALUE_IS">The value is :</lang>
+<lang id="_XML_SB_VALUE_IS2">The value is :</lang>
+
+<!-- Modifie les textes de la toolBox -->
+<lang2 id="_XML_CAT_LOGIC">Logic</lang2>
+<lang2 id="_XML_CAT_LOOPS">Loops</lang2>
+<lang2 id="_XML_CAT_MATH">Math</lang2>
+<lang2 id="_XML_CAT_TEXT">Text</lang2>
+<lang2 id="_XML_CAT_LISTS">Lists</lang2>
+<lang2 id="_XML_CAT_COLOUR">Colour</lang2>
+<lang2 id="_XML_CAT_VARIABLES">Variables</lang2>
+<lang2 id="_XML_CAT_FUNCTIONS">Functions</lang2>
+
+</xml>

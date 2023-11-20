@@ -1,0 +1,64 @@
+<xml xmlns="http://www.w3.org/1999/xhtml">
+  <variables>
+    <variable type="">k</variable>
+    <variable type="">n</variable>
+  </variables>
+  <block type="controls_for" x="69" y="105">
+    <field name="VAR" variabletype="">k</field>
+    <value name="FROM">
+      <shadow type="math_number">
+        <field name="NUM">1</field>
+      </shadow>
+    </value>
+    <value name="TO">
+      <shadow type="math_number">
+        <field name="NUM">10</field>
+      </shadow>
+    </value>
+    <value name="BY">
+      <shadow type="math_number">
+        <field name="NUM">1</field>
+      </shadow>
+    </value>
+    <statement name="DO">
+      <block type="controls_for">
+        <field name="VAR" variabletype="">n</field>
+        <value name="FROM">
+          <shadow type="math_number">
+            <field name="NUM">0</field>
+          </shadow>
+        </value>
+        <value name="TO">
+          <shadow type="math_number">
+            <field name="NUM">10</field>
+          </shadow>
+        </value>
+        <value name="BY">
+          <shadow type="math_number">
+            <field name="NUM">1</field>
+          </shadow>
+          <block type="variables_get">
+            <field name="VAR" variabletype="">k</field>
+          </block>
+        </value>
+        <statement name="DO">
+          <block type="card_cardbackground">
+            <value name="CARD">
+              <shadow type="math_number">
+                <field name="NUM">3</field>
+              </shadow>
+              <block type="variables_get">
+                <field name="VAR" variabletype="">n</field>
+              </block>
+            </value>
+            <value name="COLOR">
+              <shadow type="text">
+                <field name="TEXT">#0000ff</field>
+              </shadow>
+            </value>
+          </block>
+        </statement>
+      </block>
+    </statement>
+  </block>
+</xml>

@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html onmousemove="myMouseMove(event);" onmouseout="myMouseOut(event);">
+<head>
+  <meta charset="utf-8">
+  <title>ex0146, affichage dans des fenêtres, code mis dans un fichier.</title>
+  
+  <!-- Les 4 lignes suivantes chargent les routines de Blockly -->
+  <script src="../../blockly_compressed.js"></script>
+  <script src="../../blocks_compressed.js"></script>
+  <script src="../../javascript_compressed.js"></script>
+  <script src="../../python_compressed.js"></script>
+  <script src="../../php_compressed.js"></script>
+  <script src="../../lua_compressed.js"></script>
+  <script src="../../dart_compressed.js"></script>
+  
+  <script src="../../msg/js/fr.js"></script>  <!-- C'est ici que la langue des blocs est définie -->
+
+  <script src="ex0146.js"></script>  <!-- Code spécifique à cette page ( cette application ). -->
+
+<script type="text/javascript">
+</script>
+
+</head>
+<!-- <body onmousemove="myMouseMove(event);" onload="Include_toolbox('ex0146');">  Si on n'a pas de blocs au départ. -->
+<body onload="Include_startBlocks('ex0146');">
+<!-- Une fois la page chargée, elle démarre automatiquement Blockly avec :
+ la toolbox définie dans ex0146_toolbox.xml 
+ la startBlokcs définie dans ex0146_startBlokcs.xml
+ Atention au minuscules et majuscules, qui ont de l'importance dans les noms de fichiers sur les serveurs Apach. -->
+
+<!-- ********************************************************************** -->
+<!-- Une fenêtre dans la fenêtre, pour afficher les résultats de l'exécution du code -->
+<div id="idCodeBlockly"
+	  style=" visibility:visible; position:absolute; 
+				 left:0px; top:0px; width:700px; height:600px;
+         z-index:5;
+	       background-color:rgb(220,255,220);
+				 border-style:solid; border-width:2px;
+				 padding:0px 0px 0px 0px;"
+		 		onclick="myMouseDown(event, null, 'idCodeBlockly', 0);">
+  
+    <div
+      style=" background-color:rgb(40,40,255);
+              color:rgb(255,255,255);
+              font-weight:bold;
+              font-size:80%;
+              cursor:grab;"	
+      onmousedown="myMouseDown(event, this, 'idCodeBlockly', 0);"
+      onmouseup="this.style.cursor='grab'; gloDivSel = 0;">
+      <!-- onmouseout="this.style.cursor='grab';"> -->
+      &nbsp; Code Blockly &nbsp;  &nbsp;  &nbsp; 
+
+      <button type="button" style='font-size:80%'
+              onclick="runCode();">Exécute
+      </button> &nbsp;
+      <button onclick="showCode();">Code JavaScript</button> &nbsp;
+      <button onclick="showCodeLua();">Code Lua</button><br>
+    </div>         
+
+  <!-- Positionnement du code Blockly -->
+  <div id="blocklyDiv" style="position:absolute; left:0px; top:24px; width:700px; height:576px;"></div> 
+
+  <img src="../images/traits_obliques_3x.png" alt="traits" width="12" height="12"
+       style="position:absolute; right:0px; bottom:0px; z-index:1000; cursor:nwse-resize;"
+       onmousedown="myMouseDown(event, this, 'idCodeBlockly', 1); return false;"
+       onmouseup="this.style.cursor='nwse-resize'; gloDivSel = 0;">
+
+</div>
+
+<!-- ********************************************************************** -->
+<!-- Une fenêtre dans la fenêtre, pour afficher les résultats de l'exécution du code -->
+<div id="idDisplay"
+	  style=" visibility:visible; position:absolute; 
+				 left:710px; top:0px; z-index:5;
+	          background-color:rgb(220,255,220);
+				 border-style:solid; border-width:2px;
+				 padding:0px 0px 0px 0px;"
+		 		onclick="myMouseDown(event, null, 'idDisplay', 0);">
+  <form name="nomForm1"> 
+    <!-- http://www.w3schools.com/cssref/pr_class_cursor.asp -->
+    <div
+      style=" background-color:rgb(40,40,255);
+              color:rgb(255,255,255);
+              font-weight:bold;
+              font-size:80%;
+              cursor:grab;"	
+      onmousedown="myMouseDown(event, this, 'idDisplay', 0);"
+      onmouseup="this.style.cursor='grab'; gloDivSel = 0;">
+      <!-- onmouseout="this.style.cursor='grab';"> -->
+      &nbsp; Affichage &nbsp;  &nbsp;  &nbsp; 
+
+      <button type="button" style='font-size:80%'
+              onclick="window.document.nomForm1.nomTextarea1.value = '';">Effacer
+      </button><br>
+    </div>         
+    
+    <textarea id="idTextarea1" name="nomTextarea1" rows=32 cols=80 
+              style="vertical-align:bottom; padding:5px 5px 5px 5px;"></textarea><br>
+
+  </form>
+</div>
+
+<!-- ********************************************************************** -->
+<!-- Une fenêtre dans la fenêtre, pour afficher le code javascript -->
+<div id="idCodeJavascript"
+	  style=" visibility:visible; position:absolute; left:710px; top:540px; z-index:5;
+	          background-color:rgb(220,255,220);
+				       border-style:solid; border-width:2px;
+				       padding:0px 0px 0px 0px;"
+		onclick="myMouseDown(event, null, 'idCodeJavascript', 0);">
+<form name="nomForm2"> 
+<div
+	style="	background-color:rgb(40,40,255);
+				color:rgb(255,255,255);
+				font-weight:bold;
+				font-size:80%;
+				cursor:grab;"
+	onmousedown="myMouseDown(event, this, 'idCodeJavascript', 0);"
+	onmouseup="this.style.cursor='grab'; gloDivSel = 0;">
+  <!-- onmouseout="this.style.cursor='grab';"> -->
+	
+ &nbsp; Code javascript &nbsp;  &nbsp; 
+ 
+  <button type="button" style='font-size:80%'
+		        onclick="eval(window.document.nomForm2.nomTextarea2.value);">Exécuter
+  </button>
+  <button type="button" style="font-size:80%; position:absolute; right:2px;"
+          onclick="window.document.nomForm2.nomTextarea2.value = '';">Effacer
+  </button>
+</div>
+  
+<textarea name="nomTextarea2" rows=18 cols=70
+			 style=" vertical-align:bottom;
+               padding:5px 5px 5px 5px;
+               font-family:Courier New, monospace;
+               font-size:10pt;
+               font-weight:bold;
+               color:rgb(0,0,0);"></textarea></form>
+</div>
+
+<!-- ********************************************************************** -->
+<!-- Une fenêtre dans la fenêtre, pour afficher le code python -->
+<div id="idCodeLua"
+	  style=" visibility:visible; position:absolute; left:700px; top:640px; z-index:5;
+	          background-color:rgb(220,255,220);
+				       border-style:solid; border-width:2px;
+				       padding:0px 0px 0px 0px;"
+		onclick="myMouseDown(event, null, 'idCodeLua', 0);">
+<form name="nomForm4"> 
+<div
+	style="	background-color:rgb(40,40,255);
+				color:rgb(255,255,255);
+				font-weight:bold;
+				font-size:80%;
+				cursor:grab;"
+	onmousedown="myMouseDown(event, this, 'idCodeLua', 0);"
+	onmouseup="this.style.cursor='grab'; gloDivSel = 0;">
+  <!-- onmouseout="this.style.cursor='grab';"> -->
+	
+ &nbsp; Code Lua &nbsp;  &nbsp; 
+ 
+  <button id="idExecLua" type="button" style='font-size:80%'>Exécuter
+		      
+  </button>
+  <button type="button" style="font-size:80%; position:absolute; right:2px;"
+          onclick="window.document.nomForm4.nomTextarea4.value = '';">Effacer
+  </button>
+</div>
+  
+<textarea id="idTextarea4" name="nomTextarea4" rows=18 cols=70
+			 style=" vertical-align:bottom;
+               padding:5px 5px 5px 5px;
+               font-family:Courier New, monospace;
+               font-size:10pt;
+               font-weight:bold;
+               color:rgb(0,0,0);"></textarea></form>
+</div>
+<br>
+
+<!-- WARNING! These will only work if you load the starlight library later --> 
+<script type="application/lua">
+--"c.f. http://lua.space/webdev/why-we-rewrote-lua-in-js"
+--"c.f. http://starlight.paulcuth.me.uk/"
+        
+  window.extract()
+
+  local ui = {
+    button = document:getElementById('idExecLua'),
+    textarea1 = document:getElementById('idTextarea1'),
+    textarea4 = document:getElementById('idTextarea4')
+  }
+  
+  print = function(strS)
+  --"==================="
+  --"Redéfinition de la fonction print de Lua"
+    ui.textarea1.value = ui.textarea1.value .. strS
+    ui.textarea1.scrollTop = 100000  --"pour rester en fin du texte.
+  end --"print"
+   
+  function runLuaCode ()
+  --"==================="
+    strS = ui.textarea4.value --"Récupère le code Lua"
+    func = loadstring(strS) --"Convertir le code en une fonction"
+    func()  --"Exécute la fonction créée à la ligne précédente."
+  end
+   
+  function init ()
+  --"============="
+  --"Associe le bouton Exécuter de Lua à la fonction 'runLuaCode'."
+    ui.button:addEventListener('click', runLuaCode)
+  end
+   
+  init()
+
+ 
+</script>
+  
+<!-- Here we load the library for Lua -->
+<!--<script src="h/cdnjs.cloudflare.com/ajax/libs/babel-core/5.8.34/browser.min.js"></script>-->
+
+<!--<script src="http://paulcuth.me.uk/starlight/browser-lib/starlight.js" data-run-script-tags></script>-->
+<script src="starlight.js" data-run-script-tags></script>
+
+
+<!-- ================================================================ -->
+<!-- Pour le pied de page -->
+<div style="position:absolute; left:0px; bottom:0px;">
+  <hr style="margin-left:0; width:110%">
+  <p style="margin-top:0; font-size:80%">
+  Plan du Site : 
+  <a href="../../blockly.html ">blockly</a> &nbsp;
+  <img src="../../images/arrow_right.png" alt="arrow" width="13" height="9"> &nbsp; 
+  ex0146 
+  </p>
+  <hr style="margin-left:0; margin-bottom:0; width:95%">
+  <p style="margin-top:0; font-size:80%">
+  Page mise à jour le 5 novembre 2019 par Bernard Gisin<br>
+  </p>
+</div>
+</body>
+</html>
+

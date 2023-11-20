@@ -1,0 +1,498 @@
+<xml xmlns="http://www.w3.org/1999/xhtml">
+  <variables>
+    <variable type="">Jour</variable>
+    <variable type="">Mois</variable>
+    <variable type="">Annee</variable>
+    <variable type="">c</variable>
+    <variable type="">a</variable>
+    <variable type="">m</variable>
+    <variable type="">nb</variable>
+    <variable type="">j</variable>
+    <variable type="">Semaine</variable>
+  </variables>
+  <block type="variables_set" x="8" y="5">
+    <field name="VAR" variabletype="">Jour</field>
+    <value name="VALUE">
+      <block type="math_number">
+        <field name="NUM">10</field>
+      </block>
+    </value>
+    <next>
+      <block type="variables_set">
+        <field name="VAR" variabletype="">Mois</field>
+        <value name="VALUE">
+          <block type="math_number">
+            <field name="NUM">1</field>
+          </block>
+        </value>
+        <next>
+          <block type="variables_set">
+            <field name="VAR" variabletype="">Annee</field>
+            <value name="VALUE">
+              <block type="math_number">
+                <field name="NUM">2020</field>
+              </block>
+            </value>
+            <next>
+              <block type="variables_set">
+                <field name="VAR" variabletype="">c</field>
+                <value name="VALUE">
+                  <block type="math_number">
+                    <field name="NUM">0</field>
+                  </block>
+                </value>
+                <next>
+                  <block type="controls_if">
+                    <value name="IF0">
+                      <block type="logic_compare">
+                        <field name="OP">LTE</field>
+                        <value name="A">
+                          <block type="variables_get">
+                            <field name="VAR" variabletype="">Mois</field>
+                          </block>
+                        </value>
+                        <value name="B">
+                          <block type="math_number">
+                            <field name="NUM">2</field>
+                          </block>
+                        </value>
+                      </block>
+                    </value>
+                    <statement name="DO0">
+                      <block type="variables_set">
+                        <field name="VAR" variabletype="">c</field>
+                        <value name="VALUE">
+                          <block type="math_number">
+                            <field name="NUM">1</field>
+                          </block>
+                        </value>
+                      </block>
+                    </statement>
+                    <next>
+                      <block type="variables_set">
+                        <field name="VAR" variabletype="">a</field>
+                        <value name="VALUE">
+                          <block type="math_arithmetic">
+                            <field name="OP">MINUS</field>
+                            <value name="A">
+                              <shadow type="math_number">
+                                <field name="NUM">1</field>
+                              </shadow>
+                              <block type="variables_get">
+                                <field name="VAR" variabletype="">Annee</field>
+                              </block>
+                            </value>
+                            <value name="B">
+                              <shadow type="math_number">
+                                <field name="NUM">1</field>
+                              </shadow>
+                              <block type="variables_get">
+                                <field name="VAR" variabletype="">c</field>
+                              </block>
+                            </value>
+                          </block>
+                        </value>
+                        <next>
+                          <block type="variables_set">
+                            <field name="VAR" variabletype="">m</field>
+                            <value name="VALUE">
+                              <block type="math_arithmetic">
+                                <field name="OP">ADD</field>
+                                <value name="A">
+                                  <shadow type="math_number">
+                                    <field name="NUM">1</field>
+                                  </shadow>
+                                  <block type="math_arithmetic">
+                                    <field name="OP">MINUS</field>
+                                    <value name="A">
+                                      <shadow type="math_number">
+                                        <field name="NUM">1</field>
+                                      </shadow>
+                                      <block type="variables_get">
+                                        <field name="VAR" variabletype="">Mois</field>
+                                      </block>
+                                    </value>
+                                    <value name="B">
+                                      <shadow type="math_number">
+                                        <field name="NUM">2</field>
+                                      </shadow>
+                                    </value>
+                                  </block>
+                                </value>
+                                <value name="B">
+                                  <shadow type="math_number">
+                                    <field name="NUM">1</field>
+                                  </shadow>
+                                  <block type="math_arithmetic">
+                                    <field name="OP">MULTIPLY</field>
+                                    <value name="A">
+                                      <shadow type="math_number">
+                                        <field name="NUM">12</field>
+                                      </shadow>
+                                    </value>
+                                    <value name="B">
+                                      <shadow type="math_number">
+                                        <field name="NUM">12</field>
+                                      </shadow>
+                                      <block type="variables_get">
+                                        <field name="VAR" variabletype="">c</field>
+                                      </block>
+                                    </value>
+                                  </block>
+                                </value>
+                              </block>
+                            </value>
+                            <next>
+                              <block type="variables_set">
+                                <field name="VAR" variabletype="">nb</field>
+                                <value name="VALUE">
+                                  <block type="math_arithmetic">
+                                    <field name="OP">ADD</field>
+                                    <value name="A">
+                                      <shadow type="math_number">
+                                        <field name="NUM">1</field>
+                                      </shadow>
+                                      <block type="variables_get">
+                                        <field name="VAR" variabletype="">Jour</field>
+                                      </block>
+                                    </value>
+                                    <value name="B">
+                                      <shadow type="math_number">
+                                        <field name="NUM">4</field>
+                                      </shadow>
+                                      <block type="variables_get">
+                                        <field name="VAR" variabletype="">a</field>
+                                      </block>
+                                    </value>
+                                  </block>
+                                </value>
+                                <next>
+                                  <block type="variables_set">
+                                    <field name="VAR" variabletype="">nb</field>
+                                    <value name="VALUE">
+                                      <block type="math_arithmetic">
+                                        <field name="OP">ADD</field>
+                                        <value name="A">
+                                          <shadow type="math_number">
+                                            <field name="NUM">1</field>
+                                          </shadow>
+                                          <block type="variables_get">
+                                            <field name="VAR" variabletype="">nb</field>
+                                          </block>
+                                        </value>
+                                        <value name="B">
+                                          <shadow type="math_number">
+                                            <field name="NUM">12</field>
+                                          </shadow>
+                                          <block type="math_round">
+                                            <field name="OP">ROUNDDOWN</field>
+                                            <value name="NUM">
+                                              <shadow type="math_number">
+                                                <field name="NUM">3.1</field>
+                                              </shadow>
+                                              <block type="math_arithmetic">
+                                                <field name="OP">DIVIDE</field>
+                                                <value name="A">
+                                                  <shadow type="math_number">
+                                                    <field name="NUM">1</field>
+                                                  </shadow>
+                                                  <block type="variables_get">
+                                                    <field name="VAR" variabletype="">a</field>
+                                                  </block>
+                                                </value>
+                                                <value name="B">
+                                                  <shadow type="math_number">
+                                                    <field name="NUM">4</field>
+                                                  </shadow>
+                                                </value>
+                                              </block>
+                                            </value>
+                                          </block>
+                                        </value>
+                                      </block>
+                                    </value>
+                                    <next>
+                                      <block type="variables_set">
+                                        <field name="VAR" variabletype="">nb</field>
+                                        <value name="VALUE">
+                                          <block type="math_arithmetic">
+                                            <field name="OP">MINUS</field>
+                                            <value name="A">
+                                              <shadow type="math_number">
+                                                <field name="NUM">1</field>
+                                              </shadow>
+                                              <block type="variables_get">
+                                                <field name="VAR" variabletype="">nb</field>
+                                              </block>
+                                            </value>
+                                            <value name="B">
+                                              <shadow type="math_number">
+                                                <field name="NUM">12</field>
+                                              </shadow>
+                                              <block type="math_round">
+                                                <field name="OP">ROUNDDOWN</field>
+                                                <value name="NUM">
+                                                  <shadow type="math_number">
+                                                    <field name="NUM">3.1</field>
+                                                  </shadow>
+                                                  <block type="math_arithmetic">
+                                                    <field name="OP">DIVIDE</field>
+                                                    <value name="A">
+                                                      <shadow type="math_number">
+                                                        <field name="NUM">1</field>
+                                                      </shadow>
+                                                      <block type="variables_get">
+                                                        <field name="VAR" variabletype="">a</field>
+                                                      </block>
+                                                    </value>
+                                                    <value name="B">
+                                                      <shadow type="math_number">
+                                                        <field name="NUM">100</field>
+                                                      </shadow>
+                                                    </value>
+                                                  </block>
+                                                </value>
+                                              </block>
+                                            </value>
+                                          </block>
+                                        </value>
+                                        <next>
+                                          <block type="variables_set">
+                                            <field name="VAR" variabletype="">nb</field>
+                                            <value name="VALUE">
+                                              <block type="math_arithmetic">
+                                                <field name="OP">ADD</field>
+                                                <value name="A">
+                                                  <shadow type="math_number">
+                                                    <field name="NUM">1</field>
+                                                  </shadow>
+                                                  <block type="variables_get">
+                                                    <field name="VAR" variabletype="">nb</field>
+                                                  </block>
+                                                </value>
+                                                <value name="B">
+                                                  <shadow type="math_number">
+                                                    <field name="NUM">12</field>
+                                                  </shadow>
+                                                  <block type="math_round">
+                                                    <field name="OP">ROUNDDOWN</field>
+                                                    <value name="NUM">
+                                                      <shadow type="math_number">
+                                                        <field name="NUM">3.1</field>
+                                                      </shadow>
+                                                      <block type="math_arithmetic">
+                                                        <field name="OP">DIVIDE</field>
+                                                        <value name="A">
+                                                          <shadow type="math_number">
+                                                            <field name="NUM">1</field>
+                                                          </shadow>
+                                                          <block type="variables_get">
+                                                            <field name="VAR" variabletype="">a</field>
+                                                          </block>
+                                                        </value>
+                                                        <value name="B">
+                                                          <shadow type="math_number">
+                                                            <field name="NUM">400</field>
+                                                          </shadow>
+                                                        </value>
+                                                      </block>
+                                                    </value>
+                                                  </block>
+                                                </value>
+                                              </block>
+                                            </value>
+                                            <next>
+                                              <block type="variables_set">
+                                                <field name="VAR" variabletype="">nb</field>
+                                                <value name="VALUE">
+                                                  <block type="math_arithmetic">
+                                                    <field name="OP">ADD</field>
+                                                    <value name="A">
+                                                      <shadow type="math_number">
+                                                        <field name="NUM">1</field>
+                                                      </shadow>
+                                                      <block type="variables_get">
+                                                        <field name="VAR" variabletype="">nb</field>
+                                                      </block>
+                                                    </value>
+                                                    <value name="B">
+                                                      <shadow type="math_number">
+                                                        <field name="NUM">12</field>
+                                                      </shadow>
+                                                      <block type="math_round">
+                                                        <field name="OP">ROUNDDOWN</field>
+                                                        <value name="NUM">
+                                                          <shadow type="math_number">
+                                                            <field name="NUM">3.1</field>
+                                                          </shadow>
+                                                          <block type="math_arithmetic">
+                                                            <field name="OP">DIVIDE</field>
+                                                            <value name="A">
+                                                              <shadow type="math_number">
+                                                                <field name="NUM">1</field>
+                                                              </shadow>
+                                                              <block type="math_arithmetic">
+                                                                <field name="OP">MULTIPLY</field>
+                                                                <value name="A">
+                                                                  <shadow type="math_number">
+                                                                    <field name="NUM">1</field>
+                                                                  </shadow>
+                                                                  <block type="variables_get">
+                                                                    <field name="VAR" variabletype="">m</field>
+                                                                  </block>
+                                                                </value>
+                                                                <value name="B">
+                                                                  <shadow type="math_number">
+                                                                    <field name="NUM">31</field>
+                                                                  </shadow>
+                                                                </value>
+                                                              </block>
+                                                            </value>
+                                                            <value name="B">
+                                                              <shadow type="math_number">
+                                                                <field name="NUM">12</field>
+                                                              </shadow>
+                                                            </value>
+                                                          </block>
+                                                        </value>
+                                                      </block>
+                                                    </value>
+                                                  </block>
+                                                </value>
+                                                <next>
+                                                  <block type="variables_set">
+                                                    <field name="VAR" variabletype="">j</field>
+                                                    <value name="VALUE">
+                                                      <block type="math_modulo">
+                                                        <value name="DIVIDEND">
+                                                          <shadow type="math_number">
+                                                            <field name="NUM">64</field>
+                                                          </shadow>
+                                                          <block type="variables_get">
+                                                            <field name="VAR" variabletype="">nb</field>
+                                                          </block>
+                                                        </value>
+                                                        <value name="DIVISOR">
+                                                          <shadow type="math_number">
+                                                            <field name="NUM">7</field>
+                                                          </shadow>
+                                                        </value>
+                                                      </block>
+                                                    </value>
+                                                    <next>
+                                                      <block type="variables_set">
+                                                        <field name="VAR" variabletype="">Semaine</field>
+                                                        <value name="VALUE">
+                                                          <block type="lists_create_with">
+                                                            <mutation items="7"></mutation>
+                                                            <value name="ADD0">
+                                                              <block type="text">
+                                                                <field name="TEXT">Dimanche</field>
+                                                              </block>
+                                                            </value>
+                                                            <value name="ADD1">
+                                                              <block type="text">
+                                                                <field name="TEXT">Lundi</field>
+                                                              </block>
+                                                            </value>
+                                                            <value name="ADD2">
+                                                              <block type="text">
+                                                                <field name="TEXT">Mardi</field>
+                                                              </block>
+                                                            </value>
+                                                            <value name="ADD3">
+                                                              <block type="text">
+                                                                <field name="TEXT">Mercredi</field>
+                                                              </block>
+                                                            </value>
+                                                            <value name="ADD4">
+                                                              <block type="text">
+                                                                <field name="TEXT">Jeudi</field>
+                                                              </block>
+                                                            </value>
+                                                            <value name="ADD5">
+                                                              <block type="text">
+                                                                <field name="TEXT">Vendredi</field>
+                                                              </block>
+                                                            </value>
+                                                            <value name="ADD6">
+                                                              <block type="text">
+                                                                <field name="TEXT">Samedi</field>
+                                                              </block>
+                                                            </value>
+                                                          </block>
+                                                        </value>
+                                                        <next>
+                                                          <block type="text_affiche">
+                                                            <value name="TEXT">
+                                                              <shadow type="text">
+                                                                <field name="TEXT">Le jour de la semaine correspondant est : </field>
+                                                              </shadow>
+                                                            </value>
+                                                            <next>
+                                                              <block type="text_afficheln">
+                                                                <value name="TEXT">
+                                                                  <shadow type="text">
+                                                                    <field name="TEXT"></field>
+                                                                  </shadow>
+                                                                  <block type="lists_getIndex">
+                                                                    <mutation statement="false" at="true"></mutation>
+                                                                    <field name="MODE">GET</field>
+                                                                    <field name="WHERE">FROM_START</field>
+                                                                    <value name="VALUE">
+                                                                      <block type="variables_get">
+                                                                        <field name="VAR" variabletype="">Semaine</field>
+                                                                      </block>
+                                                                    </value>
+                                                                    <value name="AT">
+                                                                      <block type="math_arithmetic">
+                                                                        <field name="OP">ADD</field>
+                                                                        <value name="A">
+                                                                          <shadow type="math_number">
+                                                                            <field name="NUM">1</field>
+                                                                          </shadow>
+                                                                          <block type="variables_get">
+                                                                            <field name="VAR" variabletype="">j</field>
+                                                                          </block>
+                                                                        </value>
+                                                                        <value name="B">
+                                                                          <shadow type="math_number">
+                                                                            <field name="NUM">1</field>
+                                                                          </shadow>
+                                                                        </value>
+                                                                      </block>
+                                                                    </value>
+                                                                  </block>
+                                                                </value>
+                                                              </block>
+                                                            </next>
+                                                          </block>
+                                                        </next>
+                                                      </block>
+                                                    </next>
+                                                  </block>
+                                                </next>
+                                              </block>
+                                            </next>
+                                          </block>
+                                        </next>
+                                      </block>
+                                    </next>
+                                  </block>
+                                </next>
+                              </block>
+                            </next>
+                          </block>
+                        </next>
+                      </block>
+                    </next>
+                  </block>
+                </next>
+              </block>
+            </next>
+          </block>
+        </next>
+      </block>
+    </next>
+  </block>
+</xml>

@@ -1,0 +1,52 @@
+<block type="puzzle_characteristics" x="6" y="9">
+  <field name="LEGS">0</field>
+  <data>XML_CHAR_BEE,BEE</data>
+</block>
+<block type="puzzle_characteristics" x="802" y="10">
+  <field name="LEGS">0</field>
+  <data>XML_CHAR_CAT,CAT</data>
+</block>
+<block type="puzzle_characteristics" x="267" y="14">
+  <field name="LEGS">0</field>
+  <data>XML_CHAR_DUCK,DUCK</data>
+</block>
+<block type="puzzle_characteristics" x="536" y="8">
+  <field name="LEGS">0</field>
+  <data>XML_CHAR_SNAIL,SNAIL</data>
+</block>
+<block type="puzzle_image100x70" x="30" y="163">
+  <data>bee,BEE</data>
+</block>
+<block type="puzzle_image100x70" x="284" y="173">
+  <data>duck,DUCK</data>
+</block>
+<block type="puzzle_image100x70" x="581" y="175">
+  <data>snail,SNAIL</data>
+</block>
+<block type="puzzle_image100x70" x="840" y="182">
+  <data>cat,CAT</data>
+</block>
+<block type="puzzle_traits" x="51" y="305">
+  <data>XML_TRAITS_HONEY,HON</data>
+</block>
+<block type="puzzle_traits" x="52" y="360">
+  <data>XML_TRAITS_STINGER,STI</data>
+</block>
+<block type="puzzle_traits" x="879" y="303">
+  <data>XML_TRAITS_FUR,FUR</data>
+</block>
+<block type="puzzle_traits" x="875" y="362">
+  <data>XML_TRAITS_WHISKERS,WHI</data>
+</block>
+<block type="puzzle_traits" x="315" y="385">
+  <data>XML_TRAITS_BEAK,BEA</data>
+</block>
+<block type="puzzle_traits" x="300" y="323">
+  <data>XML_TRAITS_FEATHERS,FEA</data>
+</block>
+<block type="puzzle_traits" x="620" y="311">
+  <data>XML_TRAITS_SHELL,SHE</data>
+</block><block type="puzzle_traits" x="636" y="379">
+  <data>XML_TRAITS_SLIME,SLI</data>
+</block>
+

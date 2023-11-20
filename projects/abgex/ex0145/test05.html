@@ -1,0 +1,25 @@
+<html>
+<head>
+<meta charset="utf-8">
+<title>Brython test05</title>
+</head>
+<body onload="brython({debug: 1, indexedDB: false})">
+
+<button id="button3">hide or show an element</button> &nbsp;
+<span id="zone3">on / off</span>
+
+<script type="text/python">
+    from browser import bind, document
+
+    @bind("#button3", "click")
+    def change(event):
+        display = document["zone3"].style.display
+        document["zone3"].style.display = "inline" if display == "none" else "none"
+
+</script>
+
+<script src="brython.js"></script>
+<script src="brython_stdlib.js"></script>
+
+</body>
+</html>

@@ -1,0 +1,73 @@
+<html>
+<head>
+<meta charset="utf-8">
+<title>Brython demo</title>
+</head>
+<body onload="brython({debug:0, indexedDB:false})">
+
+<!-- Exemple de fonction Brython, qui appelle une fonction javascript -->
+<!-- Et exemple de fonction javascript, qui appelle une fonction Brython -->
+
+<form name="nomForm1"> 
+    <textarea id="idTextarea1" name="nomTextarea1" rows=12 cols=80 
+              style="vertical-align:bottom; padding:5px 5px 5px 5px;"></textarea><br>
+</form>
+<br>
+
+<button id="idRunPython">Appelle la fonction Python qui appellera la fonction javascript</button><br>
+<br>
+<button onclick="funcJ2(event);" >Appelle la fonction javascript qui appellera la fonction Brython</button><br>
+
+<script type="text/javascript">
+
+function funcJ1(myMessage) {
+//==========================
+// Une fonction en javascript qui sera appelée par une fonction en Brython
+// Voir aussi : https://brython.info/static_doc/en/javascript.html
+
+window.document.nomForm1.nomTextarea1.value += myMessage + "\n";
+window.document.nomForm1.nomTextarea1.scrollTop = 100000;  // pour rester en fin du texte.
+} //funcJ1
+
+function funcJ2(event) {
+//======================
+// Une fonction en javascript qui appelle une fonction en Brython
+// Voir : https://brython.info/static_doc/en/jsobjects.html
+// Par défaut, une fonction javascript ne peut pas accéder à une fonction Brython.
+
+//console.log("dans funcJ2");
+
+// Fonction définie dans Brython
+funcB2("Dans funcJ2, pour appeler funcB2");
+} //funcJ2
+
+</script>
+
+<script type="text/python">
+    from browser import document, window
+
+    def funcB1(event):
+    #=================
+        # une fonction en Brython, qui appelle une fonction en javascript
+        window.funcJ1("Bonjour, de Brython, appelant une fonction javascript."); 
+
+    def funcB2(monMessage):
+    #======================
+        # une fonction en Brython, qui sera appellée par une fonction en javascript
+        # Voir : https://brython.info/static_doc/en/jsobjects.html
+        
+        document["idTextarea1"].value += monMessage + "\n"
+        document["idTextarea1"].scrollTop = 100000  # pour rester en fin du texte.
+
+    # Lie le bouton "idRunPython" à la fonction "funcB1" de Brython.
+    document["idRunPython"].bind("click", funcB1)    
+
+    # Crée une fonction javascript "funcB2", qui appellera la fonction "funcB2" de Brython.
+    window.funcB2 = funcB2
+</script>
+
+<script src="brython.js"></script>
+<script src="brython_stdlib.js"></script>
+
+</body>
+</html>

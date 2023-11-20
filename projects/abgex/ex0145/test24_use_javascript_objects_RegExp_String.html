@@ -1,0 +1,26 @@
+<html>
+<head>
+<meta charset="utf-8">
+<title>Brython demo</title>
+</head>
+<body onload="brython({debug: 1, indexedDB: false})">
+
+<button id="button17">use javascript objects : RegExp, String</button>
+<span id="zone17" class="zone"></span>
+
+<script type="text/python" id="script17">
+    from browser import document
+    import javascript
+
+    def change(event):
+        s = javascript.String.new("abracadabra")
+        document["zone17"].text = s.replace(javascript.RegExp.new("a", "g"), "i")
+
+    document["button17"].bind("click", change)
+</script>
+
+<script src="brython.js"></script>
+<script src="brython_stdlib.js"></script>
+
+</body>
+</html>

@@ -1,0 +1,139 @@
+<xml xmlns="http://www.w3.org/1999/xhtml">
+  <variables>
+    <variable type="">count</variable>
+  </variables>
+  <block type="text_comment" x="9" y="8">
+    <value name="COMMENT">
+      <shadow type="text">
+        <field name="TEXT">Test la possibilité de gérer des événements.</field>
+      </shadow>
+    </value>
+    <next>
+      <block type="text_pause">
+        <field name="SPEED">MEDIUM</field>
+        <value name="TIME">
+          <shadow type="math_number">
+            <field name="NUM">0.01</field>
+          </shadow>
+        </value>
+        <next>
+          <block type="text_affiche_efface">
+            <next>
+              <block type="card_reset_click_count">
+                <value name="FRAME1">
+                  <shadow type="math_number">
+                    <field name="NUM">1</field>
+                  </shadow>
+                </value>
+                <next>
+                  <block type="variables_set">
+                    <field name="VAR" variabletype="">count</field>
+                    <value name="VALUE">
+                      <block type="math_number">
+                        <field name="NUM">0</field>
+                      </block>
+                    </value>
+                    <next>
+                      <block type="controls_repeat_ext">
+                        <value name="TIMES">
+                          <shadow type="math_number">
+                            <field name="NUM">300</field>
+                          </shadow>
+                        </value>
+                        <statement name="DO">
+                          <block type="text_pause">
+                            <field name="SPEED">NONE</field>
+                            <value name="TIME">
+                              <shadow type="math_number">
+                                <field name="NUM">0.01</field>
+                              </shadow>
+                            </value>
+                            <next>
+                              <block type="controls_if">
+                                <value name="IF0">
+                                  <block type="logic_compare">
+                                    <field name="OP">GT</field>
+                                    <value name="A">
+                                      <block type="card_get_card_click_count">
+                                        <value name="FRAME1">
+                                          <shadow type="math_number">
+                                            <field name="NUM">1</field>
+                                          </shadow>
+                                        </value>
+                                      </block>
+                                    </value>
+                                    <value name="B">
+                                      <block type="variables_get">
+                                        <field name="VAR" variabletype="">count</field>
+                                      </block>
+                                    </value>
+                                  </block>
+                                </value>
+                                <statement name="DO0">
+                                  <block type="text_afficheln">
+                                    <value name="TEXT">
+                                      <shadow type="text">
+                                        <field name="TEXT"></field>
+                                      </shadow>
+                                      <block type="card_get_card_click_count">
+                                        <value name="FRAME1">
+                                          <shadow type="math_number">
+                                            <field name="NUM">1</field>
+                                          </shadow>
+                                        </value>
+                                      </block>
+                                    </value>
+                                    <next>
+                                      <block type="variables_set">
+                                        <field name="VAR" variabletype="">count</field>
+                                        <value name="VALUE">
+                                          <block type="card_get_card_click_count">
+                                            <value name="FRAME1">
+                                              <shadow type="math_number">
+                                                <field name="NUM">1</field>
+                                              </shadow>
+                                            </value>
+                                          </block>
+                                        </value>
+                                        <next>
+                                          <block type="card_flip">
+                                            <data>1</data>
+                                            <value name="FRAME1">
+                                              <shadow type="math_number">
+                                                <field name="NUM">3</field>
+                                              </shadow>
+                                              <block type="variables_get">
+                                                <field name="VAR" variabletype="">count</field>
+                                              </block>
+                                            </value>
+                                          </block>
+                                        </next>
+                                      </block>
+                                    </next>
+                                  </block>
+                                </statement>
+                              </block>
+                            </next>
+                          </block>
+                        </statement>
+                        <next>
+                          <block type="text_afficheln">
+                            <value name="TEXT">
+                              <shadow type="text">
+                                <field name="TEXT">Terminé</field>
+                              </shadow>
+                            </value>
+                          </block>
+                        </next>
+                      </block>
+                    </next>
+                  </block>
+                </next>
+              </block>
+            </next>
+          </block>
+        </next>
+      </block>
+    </next>
+  </block>
+</xml>

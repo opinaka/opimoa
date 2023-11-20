@@ -1,0 +1,27 @@
+Le 2.11.2019 Information sur Brython.
+
+Brython permet d'écrire des script python dans des pages Web.
+
+
+https://deusyss.developpez.com/tutoriels/Python/web/brython/
+Une bonne documentation sur Brython
+
+https://brython.info/
+Le site Web de référence sur Brython.
+
+https://repl.it/repls/FantasticQuirkyForce
+M'a permit de rediriger le "print" dans un textarea
+
+c.f. 
+https://deusyss.developpez.com/tutoriels/Python/web/brython/
+
+Information sur des liens entre Bryton et Javascript
+https://brython.info/static_doc/en/javascript.html
+
+Pour appeler du code javascript depuis le code Brython :
+https://brython.info/static_doc/en/jsobjects.html
+
+
+c.f. aussi :
+
+

@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>ex0030, affichage des résultats dans la fenêtre, avec Blockly</title>
+  
+  <!-- Les 4 lignes suivantes chargent les routines de Blockly -->
+  <script src="../../blockly_compressed.js"></script>
+  <script src="../../blocks_compressed.js"></script>
+  <script src="../../javascript_compressed.js"></script>
+  <script src="../../msg/js/fr.js"></script>  <!-- C'est ici que la langue des blocs est définie -->
+  
+  <script>
+    // Adjonction de fonctionnalités à Blockly
+    // Il faudrait mettre ce code dans une librairie.
+
+    function Display(strInfo) {
+    //=========================
+    // Ecrit dans une partie de la fenêtre, divers informations.
+    // La forme "nomForm1" a été définie plus bas, 
+    // sous la définition de la '<div id="blocklyDiv" ...' pour Blockly
+    var myMessage = window.document.nomForm1.nomTextarea1.value;
+    myMessage = myMessage + strInfo + '\n';
+    window.document.nomForm1.nomTextarea1.value = myMessage;
+    window.document.nomForm1.nomTextarea1.scrollTop = 100000;  // pour rester en fin du texte.
+    /// window.document.nomForm1.nomTextarea1.scrollBy(10,0);  pas correcte !?!
+    } // Display
+
+    // Adjonction d'un bloc permettant d'afficher du texte dans la fenêtre
+    Blockly.Blocks['text_affiche'] = {
+    //================================
+    // Définit l'aspect du bloc
+    init: function() {
+      this.jsonInit({
+        "message0": Blockly.Msg['TEXT_PRINT_TITLE'],
+        "args0": [
+          {
+            "type": "input_value",
+            "name": "TEXT"
+          }
+        ],
+        "previousStatement": null,
+        "nextStatement": null,
+        "colour": Blockly.Msg['TEXTS_HUE'],
+        "tooltip": Blockly.Msg['TEXT_PRINT_TOOLTIP'],
+        "helpUrl": Blockly.Msg['TEXT_PRINT_HELPURL']
+      });
+    }
+  };
+
+  Blockly.JavaScript['text_affiche'] = function(block) {
+  //====================================================
+  // Défini la fonctionnalité du bloc
+  var msg = Blockly.JavaScript.valueToCode(block, 'TEXT', Blockly.JavaScript.ORDER_NONE) || '\'\'';
+  return 'Display(' + msg + ');\n';
+  };
+  </script>
+
+</head>
+<body>
+<h2>ex0030, affichage des résultats dans la fenêtre, avec Blockly</h2>
+
+<p>
+  <button onclick="showCode()">Montre le code JavaScript</button>
+  <button onclick="runCode()">Exécute le code JavaScript</button>
+</p>
+
+<!-- C'est ici que les blocs se trouveront. Largeur et hauteur fixe -->
+<div id="blocklyDiv" style="display:inline-block; width:560px; height:600px;"></div>
+
+<!-- C'est ici que le texte sera affiché -->
+<div style="display:inline-block; vertical-align:top; height: 480px;">
+  <form name=nomForm1>
+    <textarea rows=35 COLS=60 NAME=nomTextarea1></textarea><br>
+    <br>
+    <input type="button" value="Efface les lignes"
+           onclick="window.document.nomForm1.nomTextarea1.value = ''">
+  </form>
+</div>
+
+<!-- Indique à Blockly les blocs que l'on désire mettre à disposition -->
+<!-- Si la balise <category> existe, le champs Blocky aura des scroll bar, 
+     sinon, il n'y a pas de scroll bar. 
+     Ici, il n'y a pas de balise <category> -->
+<xml id="toolbox" style="display: none">
+  <block type="controls_if"></block>
+  <block type="logic_compare"></block>
+  <block type="logic_operation"></block>
+  <block type="controls_repeat_ext">
+    <value name="TIMES">
+      <block type="math_number">
+        <field name="NUM">2</field>
+      </block>
+    </value>
+  </block>
+  <block type="math_number">
+    <field name="NUM">123</field>
+  </block>
+  <block type="math_arithmetic"></block>
+  <block type="text"></block>
+  <block type="text_length"></block>
+  <!-- <block type="text_print"></block>  est remplacé par la ligne suivante -->
+  <block type="text_affiche"></block>
+</xml>
+
+<script>
+//############################################################################
+
+// C'est ici que l'on insert les fonctionnalités Blockly
+var demoWorkspace = Blockly.inject('blocklyDiv',
+    {media: '../../media/',
+     toolbox: document.getElementById('toolbox')});
+
+function showCode() {
+//===================
+// Generate JavaScript code and display it.
+Blockly.JavaScript.INFINITE_LOOP_TRAP = null;
+var code = Blockly.JavaScript.workspaceToCode(demoWorkspace);      
+Display(code);
+// ************* L'instruction "alert(code)" a été remplacé par "Display(code)"
+} // showCode
+
+function runCode() {
+//===================
+// Generate JavaScript code and run it.
+window.LoopTrap = 1000;
+Blockly.JavaScript.INFINITE_LOOP_TRAP =
+    'if (--window.LoopTrap == 0) throw "Infinite loop.";\n';
+var code = Blockly.JavaScript.workspaceToCode(demoWorkspace);
+Blockly.JavaScript.INFINITE_LOOP_TRAP = null;
+try {
+  eval(code);
+  } 
+catch (e) {
+  alert(e);
+  }
+} // runCode
+</script>
+
+<!-- ================================================================ -->
+<hr style="margin-left:0; width:95%">
+<p style="margin-top:0; font-size:80%">
+Plan du Site : 
+<a href="../../blockly.html ">blockly</a> &nbsp;
+<img src="../../images/arrow_right.png" alt="arrow" width="13" height="9"> &nbsp; 
+ex0030 
+</p>
+<hr style="margin-left:0; margin-bottom:0; width:95%">
+<p style="margin-top:0; font-size:80%">
+Page mise à jour le 21 janvier 2019 par Bernard Gisin<br>
+</p>
+<br>
+</body>
+</html>
+

@@ -1,0 +1,2211 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta content="Bernard Gisin" name="author">
+<link rel="shortcut icon" href="images/faviconBlockly.png" type="image/icon"> <!-- pour l'icone dans l'adresse-->
+<script type="text/javascript" src="../../courriel.js"></script>
+<style>
+ .indent { padding-left:18px; text-indent:-18px;} 
+ .w15 { vertical-align:top; text-align:left; width:15px; }
+ .w15:after { content:"°"; }
+ pre {background-color:rgb(255,255,255); display:inline-block; margin-top:2pt; margin-left:-10px;
+     padding:5px 15px 5px 10px; border:solid 1px; border-color:#c0c0c0; }
+</style>
+<title>ex0170, Blockly Factory, construire des blocs d'instructions</title>
+</head>
+<body style="background-color:rgb(255,255,224);">
+<div style="text-align:center">
+  <h2>ex0170, Blockly Factory, construire des blocs d'instructions</h2>
+</div>
+  
+Le but de ce qui suit est de donner des informations sur la définition de nouveaux blocs d'instructions.<br>
+Beaucoup d'informations sont donnés dans le lien suivant :  
+ <a href ="https://developers.google.com/blockly/guides/create-custom-blocks/blockly-developer-tools" target="_blank">
+  Blockly Developer Tools</a>
+et les liens suivants de cette page : "Deine Blocks", "Block Colour", "Localize Blocks", etc.<br>
+
+<a href ="https://youtu.be/s2_xaEvcVI0" target="_blank">La vidéo</a> 
+se trouvant dans la page référencée est très instructive.<br>
+
+<br>
+Voici une liste <b>d'exemples de blocs</b>, avec :<br>
+° leur designe dans la 
+  <a href="https://blockly-demo.appspot.com/static/demos/blockfactory/index.html" target="_blank">
+  <b>Blockly > Demos > Blockly Developer Tools</b></a> <br>
+  ° le code <b>json</b> et de code <b>javascript</b> de la définition du bloc <br>
+° le <b>code javascript généré</b> par le bloc <br>
+° le <b>code xml a ajouter dans la toolbox</b> pour avoir ce bloc à disposition.<br>
+<br>
+
+<!-- #############################################################################################################3 -->
+<img src="images/text_afficheln.png" alt="text_afficheln" width="97" height="32" style="vertical-align:middle;"
+     title="Utilisé dans beaucoup d'exemples, tel que ex0920 et ex0160"> &nbsp; 
+text_afficheln &nbsp;
+<span id="id_text_afficheln_more" style="display:inline; font-size:80%;">
+  <a href="javascript:void(0)"
+     onclick="document.getElementById('id_text_afficheln_less').style.display='inline';  
+              document.getElementById('id_text_afficheln_more').style.display='none';">voir</a><br>
+</span>
+<div id="id_text_afficheln_less" style="display:none;">
+<a href="javascript:void(0)"  style="font-size:80%;"
+	  onclick="document.getElementById('id_text_afficheln_less').style.display='none';
+				        document.getElementById('id_text_afficheln_more').style.display='inline';">cacher</a><br>
+<img src="images/text_afficheln_factory.png" alt="text_afficheln_factory" width="661" height="288"><br>
+
+<div style="display:inline-block; vertical-align:top;">
+<b>code json</b> de définition de ce bloc :<br>
+<pre>
+Blockly.Blocks['text_afficheln'] = {
+//==================================
+// Définit l'aspect du bloc
+init: function() {
+  this.jsonInit({
+    "type": "text_afficheln",
+    "message0": "afficherLn %1",
+    "args0": [
+      {
+        "type": "input_value",
+        "name": "TEXT"
+      }
+    ],
+    "previousStatement": null,
+    "nextStatement": null,
+    "colour":  160,
+    "tooltip": "Afficher le texte avec retour à la ligne ...",
+    "helpUrl": ""
+    });
+  }
+};
+</pre><br>
+<b>code xml</b> à ajouter dans la toolbox :<br>
+<pre>
+&lt;block type="text_afficheln">&lt;/block>
+</pre><br>
+
+</div>
+&nbsp;
+<div style="display:inline-block;">
+<b>code javascript</b> de définition de ce bloc :<br>
+<pre>
+Blockly.Blocks['text_afficheln'] = {
+  init: function() {
+    this.appendValueInput("TEXT")
+        .setCheck(null)
+        .appendField("afficheLn");
+    this.setPreviousStatement(true, null);
+    this.setNextStatement(true, null);
+    this.setColour(160);
+ this.setTooltip("Afficher le texte avec retour à la ligne, ...");
+ this.setHelpUrl("");
+  }
+};
+</pre><br>
+<b>code javascript</b> de génération de code :<br>
+<pre>
+Blockly.JavaScript['text_afficheln'] = function(block) {
+//======================================================
+// Défini la fonctionnalité du bloc
+var msg = Blockly.JavaScript.valueToCode(block, 'TEXT', Blockly.JavaScript.ORDER_ATOMIC) || '\'\'';
+return "Display(" + (  msg + "+'\\n'") + ");\n"; 
+// Insertion d'un retour de ligne à la fin de l'affichage : "\n"
+};
+</pre>
+</div>
+
+<br>
+Pour être multilangue, il faut remplacer :<br>
+<pre>
+"afficherLn %1" par bgBlockly.Msg['TEXT_AFFICHELN_TITLE']
+"Afficher le texte avec retour à la ligne ..." par bgBlockly.Msg['TEXT_AFFICHELN_TOOLTIP']
+"colour": 160 par "colour": bgBlockly.Msg["TEXTS_HUE"]
+</pre><br>
+et avoir défini :<br>
+<pre>
+bgBlockly.Msg["TEXT_AFFICHELN_TITLE"] = "afficherLn %1";
+bgBlockly.Msg["TEXT_AFFICHELN_TOOLTIP"] = "Afficher le texte avec retour à la ligne" 
+                                      + ", le nombre ou une autre valeur spécifiée.";
+bgBlockly.Msg["TEXTS_HUE"] = "160";
+</pre>
+
+<hr style="margin-left:0;">
+</div>
+
+<!-- #############################################################################################################3 -->
+<img src="images/puzzle_power_plug.png" alt="puzzle_power_plug" width="131" height="138" style="vertical-align:middle;"
+     title="c.f. ex0932 et ex0412"> &nbsp; 
+puzzle_power_plug &nbsp;
+<span id="id_puzzle_power_plug_more" style="display:inline; font-size:80%;">
+  <a href="javascript:void(0)"
+     onclick="document.getElementById('id_puzzle_power_plug_less').style.display='inline';  
+              document.getElementById('id_puzzle_power_plug_more').style.display='none';">voir</a><br>
+</span>
+<div id="id_puzzle_power_plug_less" style="display:none;">
+<a href="javascript:void(0)"  style="font-size:80%;"
+	  onclick="document.getElementById('id_puzzle_power_plug_less').style.display='none';
+				        document.getElementById('id_puzzle_power_plug_more').style.display='inline';">cacher</a><br>
+<img src="images/puzzle_power_plug_factory.png" alt="puzzle_power_plug_factory" width="505" height="330"><br>
+
+<div style="display:inline-block; vertical-align:top;">
+<b>code json</b> de définition de ce bloc :<br>
+<pre>
+Blockly.Blocks['puzzle_power_plug'] = {
+//"""""""""""""""""""""""""""""""""""""
+  init: function() {
+    this.jsonInit({
+      "type": "puzzle_power_plug",
+      "message0":"Prise 230 V %1 %2 %3",
+      "args0": [
+        {
+          "type": "input_dummy"
+        },
+        {
+          "type": "field_image",
+          "src": "images/puzzle_power_plug.jpg",
+          "width": 100,
+          "height": 100,
+          "alt": "230 V"
+        },
+        {
+          "type": "input_value",
+          "name": "APPAREIL",
+          "align": "CENTRE"
+        }
+      ],
+      "inputsInline": false,
+      "colour": 230,
+      "tooltip": "Prise de courant 230 V",
+      "helpUrl": ""      
+    });
+  }
+};
+</pre><br>
+<b>code xml</b> à ajouter dans la toolbox :<br>
+<pre>
+&lt;block type="puzzle_power_plug">&lt;/block>
+</pre><br>
+
+</div>
+&nbsp;
+<div style="display:inline-block;">
+<b>code javascript</b> de définition de ce bloc :<br>
+<pre>
+Blockly.Blocks['puzzle_power_plug'] = {
+  init: function() {
+    this.appendDummyInput()
+        .appendField("Prise 230 V");
+    this.appendValueInput("APPAREIL")
+        .setCheck(null)
+        .setAlign(Blockly.ALIGN_CENTRE)
+        .appendField(new Blockly.FieldImage("images/puzzle_power_plug.jpg", 100, 100, "230 V"));
+    this.setInputsInline(false);
+    this.setColour(230);
+ this.setTooltip("Prise de courant 230 V");
+ this.setHelpUrl("");
+  }
+};
+</pre><br>
+<b>code javascript</b> de génération de code :<br>
+<pre>
+Blockly.JavaScript['puzzle_power_plug'] = function(block) {
+//=========================================================
+// Ajoute la suite d'instructions
+var msg = Blockly.JavaScript.valueToCode(block, 'APPAREIL',
+    Blockly.JavaScript.ORDER_ATOMIC) || '\'\'';
+  
+return "PLUG_" + msg;
+};
+</pre>
+</div>
+
+<br>
+Pour être multilangue, il faut remplacer :<br>
+<pre>
+"Prise 230 V %1 %2 %3" par bgBlockly.Msg['PUZZLE_POWER_PLUG_TITLE']
+"Prise de courant 230 V" par bgBlockly.Msg['PUZZLE_POWER_PLUG_TOOLTIP']
+</pre><br>
+et avoir défini :<br>
+<pre>
+bgBlockly.Msg['PUZZLE_POWER_PLUG_TITLE'] = "Prise 230 V %1 %2 %3";
+bgBlockly.Msg['PUZZLE_POWER_PLUG_TOOLTIP'] = "Prise de courant 230 V";
+</pre>
+
+<hr style="margin-left:0;">
+</div>
+
+<!-- #############################################################################################################3 -->
+<img src="images/puzzle_screen.png" alt="puzzle_screen" width="131" height="117" style="vertical-align:middle;"
+     title="c.f. ex0932 et ex0412"> &nbsp; 
+puzzle_screen &nbsp;
+<span id="id_puzzle_screen_more" style="display:inline; font-size:80%;">
+  <a href="javascript:void(0)"
+     onclick="document.getElementById('id_puzzle_screen_less').style.display='inline';  
+              document.getElementById('id_puzzle_screen_more').style.display='none';">voir</a><br>
+</span>
+<div id="id_puzzle_screen_less" style="display:none;">
+<a href="javascript:void(0)"  style="font-size:80%;"
+	  onclick="document.getElementById('id_puzzle_screen_less').style.display='none';
+				        document.getElementById('id_puzzle_screen_more').style.display='inline';">cacher</a><br>
+<img src="images/puzzle_screen_factory.png" alt="puzzle_screen_factory" width="480" height="274"><br>
+
+<div style="display:inline-block; vertical-align:top;">
+<b>code json</b> de définition de ce bloc :<br>
+<pre>
+Blockly.Blocks['puzzle_screen'] = {
+//"""""""""""""""""""""""""""""""""""""
+  init: function() {
+    this.jsonInit({
+      "type": "puzzle_screen",
+      "message0": "%1",
+      "args0": [
+        {
+          "type": "field_image",
+          "src": "images/puzzle_screen.jpg",
+          "width": 100,
+          "height": 100,
+          "alt": "Écran"
+        }
+      ],
+      "output": null,
+      "colour": 90,
+      "tooltip": "C'est un écran",
+      "helpUrl": ""   
+    });
+  }
+};
+</pre><br>
+<b>code xml</b> à ajouter dans la toolbox :<br>
+<pre>
+&lt;block type="puzzle_screen">&lt;/block>
+</pre><br>
+
+</div>
+&nbsp;
+<div style="display:inline-block;">
+<b>code javascript</b> de définition de ce bloc :<br>
+<pre>
+Blockly.Blocks['puzzle_screen'] = {
+//""""""""""""""""""""""""""""""""""
+  init: function() {
+    this.appendDummyInput()
+        .appendField(new Blockly.FieldImage("images/puzzle_screen.jpg", 100, 100, "Écran"));
+    this.setOutput(true, null);
+    this.setColour(90);
+    this.setTooltip("C'est un écran");
+    this.setHelpUrl("");
+  }
+};
+</pre><br>
+<b>code javascript</b> de génération de code :<br>
+<pre>
+Blockly.JavaScript['puzzle_screen'] = function(block) {
+//=====================================================
+  var msg = "Ecran";
+  return [msg, Blockly.JavaScript.ORDER_NONE];
+};
+</pre>
+</div>
+
+<br>
+Pour être multilangue, il faut remplacer :<br>
+<pre>
+"images/puzzle_screen.jpg" par bgBlockly.Msg['PUZZLE_SCREEN_IMAGE']
+"C'est un écran" par bgBlockly.Msg['PUZZLE_SCREEN_TOOLTIP']
+</pre><br>
+et avoir défini :<br>
+<pre>
+bgBlockly.Msg['PUZZLE_SCREEN_IMAGE'] = "images/puzzle_screen.jpg";
+bgBlockly.Msg['PUZZLE_SCREEN_TOOLTIP'] = "C'est un écran";
+</pre>
+
+<hr style="margin-left:0;">
+</div>
+
+<!-- #############################################################################################################3 -->
+<img src="images/puzzle_desktop.png" alt="puzzle_desktop" width="138" height="213" style="vertical-align:middle;"
+     title="c.f. ex0932 et ex0412"> &nbsp; 
+puzzle_desktop &nbsp;
+<span id="id_puzzle_desktop_more" style="display:inline; font-size:80%;">
+  <a href="javascript:void(0)"
+     onclick="document.getElementById('id_puzzle_desktop_less').style.display='inline';  
+              document.getElementById('id_puzzle_desktop_more').style.display='none';">voir</a><br>
+</span>
+<div id="id_puzzle_desktop_less" style="display:none;">
+<a href="javascript:void(0)"  style="font-size:80%;"
+	  onclick="document.getElementById('id_puzzle_desktop_less').style.display='none';
+				        document.getElementById('id_puzzle_desktop_more').style.display='inline';">cacher</a><br>
+<img src="images/puzzle_desktop_factory.png" alt="puzzle_desktop_factory" width="499" height="580" style="vertical-align:middle;"> ou
+<img src="images/puzzle_desktop_2_factory.png" alt="puzzle_desktop_2_factory" width="499" height="542"  style="vertical-align:middle;"><br>
+
+<div style="display:inline-block; vertical-align:top;">
+<b>code json</b> de définition de ce bloc :<br>
+<pre>
+Blockly.Blocks['puzzle_desktop'] = {
+//""""""""""""""""""""""""""""""""
+  init: function() {
+    this.jsonInit({
+      "type": "puzzle_desktop",
+      "message0": "Desktop %1 %2 %3 Écran %4 Clavier %5 Souris %6",
+      "args0": [
+        {
+          "type": "input_dummy"
+        },
+        {
+          "type": "field_image",
+          "src": "images/puzzle_desktop.jpg",
+          "width": 100,
+          "height": 100,
+          "alt": "Desktop"
+        },
+        {
+          "type": "input_dummy"
+        },
+        {
+          "type": "input_value",
+          "name": "SCREEN",
+          "align": "CENTRE"
+        },
+        {
+          "type": "input_value",
+          "name": "KEABORD",
+          "align": "CENTRE"
+        },
+        {
+          "type": "input_value",
+          "name": "MOUSE",
+          "align": "CENTRE"
+        }
+      ],
+      "inputsInline": false,
+      "output": null,
+      "colour": 230,
+      "tooltip": "C'est un Desktop",
+      "helpUrl": ""
+    });
+  }
+};
+</pre><br>
+<b>code xml</b> à ajouter dans la toolbox :<br>
+<pre>
+&lt;block type="puzzle_desktop">&lt;/block>
+</pre><br>
+
+</div>
+&nbsp;
+<div style="display:inline-block;">
+<b>code javascript</b> de définition de ce bloc :<br>
+<pre>
+Blockly.Blocks['puzzle_desktop'] = {
+  init: function() {
+    this.appendDummyInput()
+        .appendField("Desktop");
+    this.appendDummyInput()
+        .appendField(new Blockly.FieldImage("images/puzzle_desktop.jpg", 100, 100, "Desktop"));
+    this.appendValueInput("SCREEN")
+        .setCheck(null)
+        .setAlign(Blockly.ALIGN_CENTRE)
+        .appendField("Écran");
+    this.appendValueInput("KEYBOARD")
+        .setCheck(null)
+        .setAlign(Blockly.ALIGN_CENTRE)
+        .appendField("Clavier");
+    this.appendValueInput("MOUSE")
+        .setCheck(null)
+        .setAlign(Blockly.ALIGN_CENTRE)
+        .appendField("Clavier");
+    this.setInputsInline(false);
+    this.setOutput(true, null);
+    this.setColour(230);
+ this.setTooltip("C'est un Desktop");
+ this.setHelpUrl("");
+  }
+};
+</pre><br>
+<b>code javascript</b> de génération de code :<br>
+<pre>
+Blockly.JavaScript['puzzle_desktop'] = function(block) {
+//====================================================
+  // Ajoute la suite d'instructions
+  var msg1 = Blockly.JavaScript.valueToCode(block, 'SCREEN',
+      Blockly.JavaScript.ORDER_NONE) || '\'\'';
+  var msg2 = Blockly.JavaScript.valueToCode(block, 'KEABORD',
+      Blockly.JavaScript.ORDER_NONE) || '\'\'';
+  var msg3 = Blockly.JavaScript.valueToCode(block, 'MOUSE',
+      Blockly.JavaScript.ORDER_NONE) || '\'\'';
+
+  var msg = "Desktop>" + msg1 + "-" + msg2 + "." + msg3;
+  return [msg, Blockly.JavaScript.ORDER_NONE];
+};
+</pre>
+</div>
+
+<br>
+Pour être multilangue, il faut remplacer :<br>
+<pre>
+"Desktop %1 %2 %3 Écran %4 Clavier %5 Souris %6" par bgBlockly.Msg['PUZZLE_DESKTOP_TITLE']
+"images/puzzle_desktop.jpg" par bgBlockly.Msg['PUZZLE_DESKTOP_IMAGE']
+"C'est un Desktop" par bgBlockly.Msg['PUZZLE_DESKTOP_TOOLTIP']
+</pre><br>
+et avoir défini :<br>
+<pre>
+bgBlockly.Msg['PUZZLE_DESKTOP_TITLE'] = "Desktop %1 %2 %3 Écran %4 Clavier %5 Souris %6";
+bgBlockly.Msg['PUZZLE_DESKTOP_IMAGE'] = "images/puzzle_desktop.jpg";
+bgBlockly.Msg['PUZZLE_DESKTOP_TOOLTIP'] = "C'est un Desktop";
+</pre>
+
+<hr style="margin-left:0;">
+</div>
+
+<!-- #############################################################################################################3 -->
+<img src="images/puzzle_characteristics.png" alt="puzzle_characteristics" width="124" height="112" style="vertical-align:middle;"
+     title="c.f. ex0950"> &nbsp; 
+puzzle_characteristics &nbsp;
+<span id="id_puzzle_characteristics_more" style="display:inline; font-size:80%;">
+  <a href="javascript:void(0)"
+     onclick="document.getElementById('id_puzzle_characteristics_less').style.display='inline';  
+              document.getElementById('id_puzzle_characteristics_more').style.display='none';">voir</a><br>
+</span>
+<div id="id_puzzle_characteristics_less" style="display:none;">
+<a href="javascript:void(0)"  style="font-size:80%;"
+	  onclick="document.getElementById('id_puzzle_characteristics_less').style.display='none';
+				        document.getElementById('id_puzzle_characteristics_more').style.display='inline';">cacher</a><br>
+<img src="images/puzzle_characteristics_factory.png" alt="puzzle_characteristics_factory" width="428" height="575" 
+     style="vertical-align:middle;">
+<div style="display:inline-block; vertical-align:middle;">
+  Des modifications ont été apportée à la définition du bloc<br>
+  après utilisation de la "Bloc Factory", c.f. :
+<a href="https://developers.google.com/blockly/guides/create-custom-blocks/define-blocks#label" target="_blank">
+  field_label</a><br>
+  Les titres des blocs sont définis dans le champ data<br>
+  des blocs définis dans la 'toolbox' et la 'StartBlocks'.<br>
+</div>
+<br>
+
+<div style="display:inline-block; vertical-align:top;">
+<b>code json</b> de définition de ce bloc :<br>
+<pre>
+
+Blockly.Blocks['puzzle_characteristics'] = {
+//""""""""""""""""""""""""""""""""""""""""""
+// c.f. https://developers.google.com/blockly/
+//      guides/create-custom-blocks/define-blocks#label
+  init: function() {
+    this.jsonInit({
+      "type": "puzzle_characteristics",
+      "message0": "%1 %2 image : %3 jambes : %4 %5 traits : %6",
+      "args0": [
+        {
+          "type": "field_label",
+          "text": "Chat",
+          "name": "myAnimal"
+        },
+        {
+          "type": "input_dummy"
+        },
+        {
+          "type": "input_value",
+          "name": "IMAGE",
+          "check": "type_picture",
+          "align": "RIGHT"
+        },
+        {
+          "type": "field_dropdown",
+          "name": "LEGS",
+          "options": [
+            [
+              "0",
+              "0"
+            ],
+            [
+              "2",
+              "2"
+            ],
+            [
+              "4",
+              "4"
+            ],
+            [
+              "6",
+              "6"
+            ]
+          ]
+        },
+        {
+          "type": "input_dummy"
+        },
+        {
+          "type": "input_statement",
+          "name": "CHARACTERS"
+        }
+      ],
+      "inputsInline": false,
+      "colour": 120,
+      "tooltip": "Caractéristiques",
+      "helpUrl": ""
+    });
+  }
+};
+</pre><br>
+<b>code xml</b> à ajouter dans la toolbox :<br>
+<pre>
+&lt;block type="puzzle_characteristics">
+  &lt;data>abeille,BEE&lt;/data>
+&lt;/block>
+</pre><br>
+
+</div>
+&nbsp;
+<div style="display:inline-block;">
+<b>code javascript</b> de définition de ce bloc :<br>
+<pre>
+Blockly.Blocks['puzzle_characteristics'] = {
+  init: function() {
+    this.appendDummyInput()
+        .appendField("Chat", "myAnimal");
+    this.appendValueInput("IMAGE")
+        .setCheck("type_picture")
+        .setAlign(Blockly.ALIGN_RIGHT)
+        .appendField("image :");
+    this.appendDummyInput()
+        .appendField("jambes :")
+        .appendField(new Blockly.FieldDropdown
+           ([["0","0"], ["2","2"], ["4","4"], ["6","6"]]), "LEGS");
+    this.appendStatementInput("CHARACTERS")
+        .setCheck(null)
+        .appendField("traits :");
+    this.setInputsInline(false);
+    this.setColour(120);
+ this.setTooltip("Caractéristiques");
+ this.setHelpUrl("");
+  }
+};
+</pre><br>
+<b>code javascript</b> de génération de code :<br>
+<pre>
+Blockly.JavaScript['puzzle_characteristics'] = function(block) {
+//==============================================================
+// Pour information : block === this
+// Ajoute la suite d'instructions
+var msg_image = Blockly.JavaScript.valueToCode(block, 'IMAGE',
+    Blockly.JavaScript.ORDER_NONE) || '\'\'';
+var msg_legs = block.getFieldValue('LEGS');
+
+// Pas d'indentation désirée, 
+// c.f. https://developers.google.com/blockly/reference/js/Blockly.Generator#INDENT
+Blockly.JavaScript.INDENT = ""; 
+
+var msg_characters = Blockly.JavaScript.statementToCode(block, 'CHARACTERS');
+
+// Données d'utilisateur dans le champ &lt;data> dans la toolbox et de la StartBlocks
+var strData = block.data;
+var strName = '???';
+var strVal  = '?';
+
+if (strData != null) { // S'il y a une donnée, utilise-la
+  var aData = strData.split(","); // Récupère les différents paramètres
+  strName = aData[0];
+  strVal  = aData[1];
+  } 
+
+//Display(msg_image + '  ' + msg_legs + '  ' + '' + '  ' + 
+//        block.getFieldValue("myAnimal") + '  ' + this.data + '\n');
+block.getField("myAnimal").setText(strName); // Change le premier mot du bloc
+var msg = strVal + ">" + msg_image + "-" + msg_legs + msg_characters + "\n";
+
+return msg; // Retourne une instruction, pas une valeur
+};
+</pre>
+</div>
+
+<br>
+Pour être multilangue, il faut remplacer :<br>
+<pre>
+"%1 %2 image : %3 jambes : %4 %5 traits : %6" par bgBlockly.Msg['PUZZLE_CHARACTERISTICSP_TITLE']
+"Caractéristiques" par bgBlockly.Msg['PUZZLE_CHARACTERISTICSP_TOOLTIP']
+</pre><br>
+et avoir défini :<br>
+<pre>
+bgBlockly.Msg['PUZZLE_CHARACTERISTICSP_TITLE'] = "%1 %2 image : %3 jambes : %4 %5 traits : %6";
+bgBlockly.Msg['PUZZLE_CHARACTERISTICSP_TOOLTIP'] = "Caractéristiques";
+</pre>
+
+<hr style="margin-left:0;">
+</div>
+
+<!-- #############################################################################################################3 -->
+<img src="images/puzzle_image100x70.png" alt="puzzle_image100x70" width="128" height="82" style="vertical-align:middle;"
+     title="c.f. ex0950"> &nbsp; 
+puzzle_image100x70 &nbsp;
+<span id="id_puzzle_image100x70_more" style="display:inline; font-size:80%;">
+  <a href="javascript:void(0)"
+     onclick="document.getElementById('id_puzzle_image100x70_less').style.display='inline';  
+              document.getElementById('id_puzzle_image100x70_more').style.display='none';">voir</a><br>
+</span>
+<div id="id_puzzle_image100x70_less" style="display:none;">
+<a href="javascript:void(0)"  style="font-size:80%;"
+	  onclick="document.getElementById('id_puzzle_image100x70_less').style.display='none';
+				        document.getElementById('id_puzzle_image100x70_more').style.display='inline';">cacher</a><br>
+<img src="images/puzzle_image100x70_factory.png" alt="puzzle_image100x70_factory" width="472" height="275" 
+     style="vertical-align:middle;">
+<div style="display:inline-block; vertical-align:middle;">
+  Des modifications ont été apportée à la définition du bloc<br>
+  après utilisation de la "Bloc Factory".<br>
+  Un champ : "name" a été ajouté.<br>
+  Les images des blocs sont définis dans le champ data<br>
+  des blocs définis dans la 'toolbox' et la 'StartBlocks'.<br>
+  Les images ne sont modifiées que dans le champ d'utilisation,<br>
+  je ne sais pas les modifier dans la 'toolbox'.<br>
+</div>
+<br>
+
+<div style="display:inline-block; vertical-align:top;">
+<b>code json</b> de définition de ce bloc :<br>
+<pre>
+Blockly.Blocks['puzzle_image100x70'] = {
+//""""""""""""""""""""""""""""""""""""""""""
+// c.f. https://developers.google.com/blockly/
+//      guides/create-custom-blocks/define-blocks#label
+  init: function() {
+    this.jsonInit({
+      "type": "puzzle_image100x70",
+      "message0": "%1",
+      "args0": [
+        {
+          "type": "field_image",
+          "src": "images/bee.jpg",
+          "width": 100,
+          "height": 70,
+          "alt": "image",
+          "name": "theAnimal"
+        }
+      ],
+      "data": "ask,?",
+      "output": null,
+      "colour": 30,
+      "tooltip": "",
+      "helpUrl": ""
+    });
+  }
+};
+</pre><br>
+<b>code xml</b> à ajouter dans la toolbox :<br>
+<pre>
+&lt;block type="puzzle_image100x70">
+  &lt;data>bee,BEE&lt;/data>
+&lt;/block>
+</pre><br>
+
+</div>
+&nbsp;
+<div style="display:inline-block;">
+<b>code javascript</b> de définition de ce bloc :<br>
+<pre>
+Blockly.Blocks['puzzle_image100x70'] = {
+  init: function() {
+    this.appendDummyInput()
+        .appendField(new Blockly.FieldImage("images/bee.jpg", 100, 70, "image"), "theAnimal");
+    this.setOutput(true, null);
+    this.setColour(30);
+    this.setTooltip("");
+    this.setHelpUrl("");
+    this.data ="ask,?";
+  }
+};
+</pre><br>
+<b>code javascript</b> de génération de code :<br>
+<pre>
+Blockly.JavaScript['puzzle_image100x70'] = function(block) {
+//==========================================================
+// Pour information : block === this
+//block.getField("theAnimal").setText(this.data); // Change le premier mot du bloc
+var oField = block.getField('theAnimal'); // Champ qui doit contenir un "field_image"
+//Display(oField.getValue() + '  ' + block.data +  '\n');
+
+// Données d'utilisateur dans le champ &lt;data> dans la toolbox et de la StartBlocks
+var strData = block.data;
+var strName = '???';
+var strVal  = '?';
+
+if (strData != null) { // S'il y a une donnée, utilise-la
+  var aData = strData.split(","); // Récupère les différents paramètres
+  strName = aData[0];
+  strVal  = aData[1];
+  } 
+
+//block.setTooltip(strName); // Change le texte d'aide associé à l'objet
+oField.setValue('images/' + strName + '.jpg'); // Change l'image
+
+ // Retourne une valeur, pas une instruction
+return [strVal, Blockly.JavaScript.ORDER_NONE];
+};
+</pre>
+</div>
+
+<hr style="margin-left:0;">
+</div>
+
+<!-- #############################################################################################################3 -->
+<img src="images/puzzle_traits.png" alt="puzzle_traits" width="51" height="31" style="vertical-align:middle;"
+     title="c.f. ex0950"> &nbsp; 
+puzzle_traits &nbsp;
+<span id="id_puzzle_traits_more" style="display:inline; font-size:80%;">
+  <a href="javascript:void(0)"
+     onclick="document.getElementById('id_puzzle_traits_less').style.display='inline';  
+              document.getElementById('id_puzzle_traits_more').style.display='none';">voir</a><br>
+</span>
+<div id="id_puzzle_traits_less" style="display:none;">
+<a href="javascript:void(0)"  style="font-size:80%;"
+	  onclick="document.getElementById('id_puzzle_traits_less').style.display='none';
+				        document.getElementById('id_puzzle_traits_more').style.display='inline';">cacher</a><br>
+<img src="images/puzzle_traits_factory.png" alt="puzzle_traits_factory" width="336" height="273" 
+     style="vertical-align:middle;">
+<div style="display:inline-block; vertical-align:middle;">
+  Des modifications ont été apportée à la définition du bloc<br>
+  après utilisation de la "Bloc Factory", c.f. :
+  <a href="https://developers.google.com/blockly/guides/create-custom-blocks/define-blocks#label" target="_blank">
+    field_label</a><br>
+  Les titres des blocs sont définis dans le champ data<br>
+  des blocs définis dans la 'toolbox' et la 'StartBlocks'.<br>
+  Un champ : "name" a été ajouté.<br>
+  Les textes ne sont modifiées que dans le champ d'utilisation,<br>
+  je ne sais pas les modifier dans la 'toolbox'.<br>
+</div>
+<br>
+
+<div style="display:inline-block; vertical-align:top;">
+<b>code json</b> de définition de ce bloc :<br>
+<pre>
+Blockly.Blocks['puzzle_traits'] = {
+//"""""""""""""""""""""""""""""""""
+// c.f. https://developers.google.com/blockly/
+//      guides/create-custom-blocks/define-blocks#label
+  init: function() {
+    this.jsonInit({
+      "type": "puzzle_traits",
+       "message0": "%1",
+       "args0": [{
+           "type": "field_label",
+           "text": "moustache",
+           "name": "myTraits"
+         }],
+      "data": "trait,?",   
+      "previousStatement": null,
+      "nextStatement": null,
+      "colour": 290,
+      "tooltip": "traits",
+      "helpUrl": ""
+    });
+  }
+};
+</pre><br>
+<b>code xml</b> à ajouter dans la toolbox :<br>
+<pre>
+&lt;block type="puzzle_traits">
+  &lt;data>Bec,D&lt;/data>
+&lt;/block>
+</pre><br>
+
+</div>
+&nbsp;
+<div style="display:inline-block;">
+<b>code javascript</b> de définition de ce bloc :<br>
+<pre>
+Blockly.Blocks['puzzle_traits'] = {
+  init: function() {
+    this.appendDummyInput()
+        .appendField("Bec", "myTraits");
+    this.setPreviousStatement(true, null);
+    this.setNextStatement(true, null);
+    this.setColour(290);
+    this.setTooltip("Bec");
+    this.setHelpUrl("");
+    this.data = "trait,?";  
+  }
+};
+</pre><br>
+<b>code javascript</b> de génération de code :<br>
+<pre>
+Blockly.JavaScript['puzzle_traits'] = function(block) {
+//=====================================================
+// Pour information : block === this
+//block.getField("myTraits").setText(this.data); // Change le premier mot du bloc
+var oField = block.getField('myTraits'); // Champ qui doit contenir un "field_image"
+//Display(oField.getValue() + '  ' + block.data +  '\n');
+
+// Données d'utilisateur dans le champ &lt;data> dans la toolbox et de la StartBlocks
+var strData = block.data;
+var strName = '???';
+var strVal  = '?';
+
+if (strData != null) { // S'il y a une donnée, utilise-la
+  var aData = strData.split(","); // Récupère les différents paramètres
+  strName = aData[0];
+  strVal  = aData[1];
+  } 
+
+block.setTooltip(strName); // Change le texte d'aide associé à l'objet
+oField.setValue(strName); // Change le texte
+
+return strVal; // Retourne une instruction, pas une valeur
+};
+</pre>
+</div>
+
+<hr style="margin-left:0;">
+</div>
+
+<!-- #############################################################################################################3 -->
+<img src="images/puzzle_characteristics_choice.png" alt="puzzle_characteristics_choice" width="125" height="111" style="vertical-align:middle;"
+     title="c.f. ex0952"> &nbsp; 
+puzzle_characteristics_choice &nbsp;
+<span id="id_puzzle_characteristics_choice_more" style="display:inline; font-size:80%;">
+  <a href="javascript:void(0)"
+     onclick="document.getElementById('id_puzzle_characteristics_choice_less').style.display='inline';  
+              document.getElementById('id_puzzle_characteristics_choice_more').style.display='none';">voir</a><br>
+</span>
+<div id="id_puzzle_characteristics_choice_less" style="display:none;">
+<a href="javascript:void(0)"  style="font-size:80%;"
+	  onclick="document.getElementById('id_puzzle_characteristics_choice_less').style.display='none';
+				        document.getElementById('id_puzzle_characteristics_choice_more').style.display='inline';">cacher</a><br>
+<img src="images/puzzle_characteristics_choice_factory.png" alt="puzzle_characteristics_choice_factory" width="393" height="702" 
+     style="vertical-align:middle;">
+<div style="display:inline-block; vertical-align:middle;">
+  Des modifications ont été apportées dans la version codée dans ex0952,<br>
+  pour plus de souplesse dans la définition de l'objet,<br>
+  pour pouvoir avoir plus que 5 puzzles différents.<br>
+</div>
+<br>
+
+<div style="display:inline-block; vertical-align:top;">
+<b>code json</b> de définition de ce bloc :<br>
+Version multilangue.<br>
+<pre>
+Blockly.Blocks['puzzle_characteristics_choice'] = {
+//"""""""""""""""""""""""""""""""""""""""""""""""""
+// c.f. https://developers.google.com/blockly/
+//      guides/create-custom-blocks/define-blocks#label
+// Version multilangue
+  init: function() {
+    this.jsonInit({
+      "type": "puzzle_characteristics_choice",
+      "message0": bgBlockly.Msg["PUZZLE_CHARACTERISTICS_TITLE"],
+      "args0": [
+        {
+          "type": "field_dropdown",
+          "name": "myAnimal",
+          "options": [
+            [
+              bgBlockly.Msg["XML_CHAR_BEE"],
+              "BEE"
+            ],
+            [
+              bgBlockly.Msg["XML_CHAR_CAT"],
+              "CAT"
+            ],
+            [
+              bgBlockly.Msg["XML_CHAR_DUCK"],
+              "DUCK"
+            ],
+            [
+              bgBlockly.Msg["XML_CHAR_SNAIL"],
+              "SNAIL"
+            ],
+            [
+              bgBlockly.Msg["XML_CHAR_MOUSE"],
+              "MOUSE"
+            ]
+          ]
+        },
+        {
+          "type": "input_dummy"
+        },
+        {
+          "type": "input_value",
+          "name": "IMAGE",
+          "check": "type_picture",
+          "align": "RIGHT"
+        },
+        {
+          "type": "field_dropdown",
+          "name": "LEGS",
+          "options": [
+            [
+              "0",
+              "0"
+            ],
+            [
+              "2",
+              "2"
+            ],
+            [
+              "4",
+              "4"
+            ],
+            [
+              "6",
+              "6"
+            ]
+          ]
+        },
+        {
+          "type": "input_dummy"
+        },
+        {
+          "type": "input_statement",
+          "name": "CHARACTERS"
+        }
+      ],
+      "inputsInline": false,
+      "colour": 120,
+      "tooltip": "",
+      "helpUrl": ""
+    });
+  }
+};
+</pre><br>
+<b>code xml</b> à ajouter dans la toolbox :<br>
+<pre>
+&lt;block type="puzzle_characteristics_choice">&lt;/block>
+</pre><br>
+
+</div>
+&nbsp;
+<div style="display:inline-block;">
+<b>code javascript</b> de définition de ce bloc :<br>
+Version en français uniquement. c.f. ex0952.js<br>
+<pre>
+Blockly.Blocks['puzzle_characteristics_choice'] = {
+  init: function() {
+    this.appendDummyInput()
+        .appendField(new Blockly.FieldDropdown([
+            ["Abeille","BEE"], ["Chat","CAT"], ["Canard","DUCK"], 
+            ["Escargot","SNAIL"], ["Souris","MOUSE"]
+          ]), "myAnimal");
+    this.appendValueInput("IMAGE")
+        .setCheck("type_picture")
+        .setAlign(Blockly.ALIGN_RIGHT)
+        .appendField("image :");
+    this.appendDummyInput()
+        .appendField("jambes :")
+        .appendField(new Blockly.FieldDropdown([["0","0"], ["2","2"], ["4","4"], ["6","6"]]), "LEGS");
+    this.appendStatementInput("CHARACTERS")
+        .setCheck(null)
+        .appendField("traits :");
+    this.setInputsInline(false);
+    this.setColour(120);
+ this.setTooltip("");
+ this.setHelpUrl("");
+  }
+};
+</pre><br>
+<b>code javascript</b> de génération de code :<br>
+<pre>
+Blockly.JavaScript['puzzle_characteristics_choice'] = function(block) {
+//=====================================================================
+// Pour information : block === this
+// Ajoute la suite d'instructions
+var msg_image = Blockly.JavaScript.valueToCode(block, 'IMAGE',
+    Blockly.JavaScript.ORDER_NONE) || '\'\'';
+var msg_legs = block.getFieldValue('LEGS');
+
+// Pas d'indentation désirée, 
+// c.f. https://developers.google.com/blockly/reference/js/Blockly.Generator#INDENT
+Blockly.JavaScript.INDENT = ""; 
+
+var msg_characters = Blockly.JavaScript.statementToCode(block, 'CHARACTERS');
+
+//Display(msg_image + '  ' + msg_legs + '  ' + '' + '  ' + 
+//        block.getFieldValue("myAnimal") + '  ' + this.data + '\n');
+var strVal = block.getFieldValue("myAnimal");
+var msg = strVal + ">" + msg_image + "-" + msg_legs + msg_characters + "\n";
+
+return msg; // Retourne une instruction, pas une valeur
+};
+</pre>
+</div>
+
+<br>
+Des modifications ont été apportées dans la version codée dans ex0952,
+pour plus de souplesse dans la définition de l'objet,
+pour pouvoir avoir plus que 5 puzzles différents.<br>
+
+<hr style="margin-left:0;">
+</div>
+
+<!-- #############################################################################################################3 -->
+<img src="images/puzzle_image100x70_choice.png" alt="puzzle_image100x70_choice" width="135" height="92" style="vertical-align:middle;"
+     title="c.f. ex0950"> &nbsp; 
+puzzle_image100x70_choice &nbsp;
+<span id="id_puzzle_image100x70_choice_more" style="display:inline; font-size:80%;">
+  <a href="javascript:void(0)"
+     onclick="document.getElementById('id_puzzle_image100x70_choice_less').style.display='inline';  
+              document.getElementById('id_puzzle_image100x70_choice_more').style.display='none';">voir</a><br>
+</span>
+<div id="id_puzzle_image100x70_choice_less" style="display:none;">
+<a href="javascript:void(0)"  style="font-size:80%;"
+	  onclick="document.getElementById('id_puzzle_image100x70_choice_less').style.display='none';
+				        document.getElementById('id_puzzle_image100x70_choice_more').style.display='inline';">cacher</a><br>
+<img src="images/puzzle_image100x70_choice_factory.png" alt="puzzle_image100x70_choice_factory" width="570" height="498" 
+     style="vertical-align:middle;">
+<div style="display:inline-block; vertical-align:middle;">
+  Des modifications ont été apportées dans la version codée dans ex0952,<br>
+  pour plus de souplesse dans la définition de l'objet,<br>
+  pour pouvoir avoir plus que 5 puzzles différents.<br>
+</div>
+<br>
+
+<div style="display:inline-block; vertical-align:top;">
+<b>code json</b> de définition de ce bloc :<br>
+<pre>
+Blockly.Blocks['puzzle_image100x70_choice'] = {
+//"""""""""""""""""""""""""""""""""""""""""""""
+  init: function() {
+    this.jsonInit({
+      "type": "puzzle_image100x70_choice",
+      "message0": "%1",
+      "args0": [
+        {
+          "type": "field_dropdown",
+          "name": "CHOICE",
+          "options": [
+            [
+              {
+                "src": "images/bee.jpg",
+                "width": 100,
+                "height": 70,
+                "alt": "bee"
+              },
+              "BEE"
+            ],
+            [
+              {
+                "src": "images/cat.jpg",
+                "width": 100,
+                "height": 70,
+                "alt": "cat"
+              },
+              "CAT"
+            ],
+            [
+              {
+                "src": "images/duck.jpg",
+                "width": 100,
+                "height": 70,
+                "alt": "duck"
+              },
+              "DUCK"
+            ],
+            [
+              {
+                "src": "images/snail.jpg",
+                "width": 100,
+                "height": 70,
+                "alt": "snail"
+              },
+              "SNAIL"
+            ],
+            [
+              {
+                "src": "images/mouse.jpg",
+                "width": 100,
+                "height": 70,
+                "alt": "mouse"
+              },
+              "MOUSE"
+            ]
+          ]
+        }
+      ],
+      "output": null,
+      "colour": 30,
+      "tooltip": "",
+      "helpUrl": ""
+    });
+  }
+};
+</pre><br>
+<b>code xml</b> à ajouter dans la toolbox :<br>
+<pre>
+&lt;block type="puzzle_image100x70_choice">&lt;/block>
+</pre><br>
+
+</div>
+&nbsp;
+<div style="display:inline-block;">
+<b>code javascript</b> de définition de ce bloc :<br>
+<pre>
+Blockly.Blocks['puzzle_image100x70_choice'] = {
+  init: function() {
+    this.appendDummyInput()
+        .appendField(new Blockly.FieldDropdown([
+          [{"src":"images/bee.jpg","width":100,"height":70,"alt":"bee"},"BEE"], 
+          [{"src":"images/cat.jpg","width":100,"height":70,"alt":"cat"},"CAT"], 
+          [{"src":"images/duck.jpg","width":100,"height":70,"alt":"duck"},"DUCK"], 
+          [{"src":"images/snail.jpg","width":100,"height":70,"alt":"snail"},"SNAIL"], 
+          [{"src":"images/mouse.jpg","width":100,"height":70,"alt":"mouse"},"MOUSE"]]), 
+          "CHOICE");
+    this.setOutput(true, null);
+    this.setColour(30);
+ this.setTooltip("");
+ this.setHelpUrl("");
+  }
+};
+</pre><br>
+<b>code javascript</b> de génération de code :<br>
+<pre>
+Blockly.JavaScript['puzzle_image100x70_choice'] = function(block) {
+//=================================================================
+// Pour information : block === this
+//var oField = block.getField('CHOICE'); // Champ qui doit contenir un "field_image"
+
+var strName = block.getFieldValue('CHOICE');
+
+ // Retourne une valeur, pas une instruction
+return [strName, Blockly.JavaScript.ORDER_NONE];
+};
+</pre>
+</div>
+
+<hr style="margin-left:0;">
+</div>
+
+<!-- #############################################################################################################3 -->
+<img src="images/puzzle_traits_choice.png" alt="puzzle_traits_choice" width="61" height="32" style="vertical-align:middle;"
+     title="c.f. ex0952"> &nbsp; 
+puzzle_traits_choice &nbsp;
+<span id="id_puzzle_traits_choice_more" style="display:inline; font-size:80%;">
+  <a href="javascript:void(0)"
+     onclick="document.getElementById('id_puzzle_traits_choice_less').style.display='inline';  
+              document.getElementById('id_puzzle_traits_choice_more').style.display='none';">voir</a><br>
+</span>
+<div id="id_puzzle_traits_choice_less" style="display:none;">
+<a href="javascript:void(0)"  style="font-size:80%;"
+	  onclick="document.getElementById('id_puzzle_traits_choice_less').style.display='none';
+				        document.getElementById('id_puzzle_traits_choice_more').style.display='inline';">cacher</a><br>
+<img src="images/puzzle_traits_choice_factory.png" alt="puzzle_traits_choice_factory" width="403" height="399" 
+     style="vertical-align:middle;">
+<div style="display:inline-block; vertical-align:middle;">
+  Des modifications ont été apportées dans la version codée dans ex0952,<br>
+  pour plus de souplesse dans la définition de l'objet,<br>
+  pour pouvoir avoir plus que 5 puzzles différents.<br>
+</div>
+<br>
+
+<div style="display:inline-block; vertical-align:top;">
+<b>code json</b> de définition de ce bloc :<br>
+Version multilangues.<br>
+<pre>
+Blockly.Blocks['puzzle_traits_choice'] = {
+//""""""""""""""""""""""""""""""""""""""""
+// c.f. https://developers.google.com/blockly/
+//      guides/create-custom-blocks/define-blocks#label
+  init: function() {
+    this.jsonInit({
+      "type": "puzzle_traits_choice",
+      "message0": "%1",
+      "args0": [
+        {
+          "type": "field_dropdown",
+          "name": "CHOICE",
+          "options": [
+            [
+              bgBlockly.Msg["XML_TRAITS_HONEY"],
+              "B1"
+            ],
+            [
+              bgBlockly.Msg["XML_TRAITS_STINGER"],
+              "B2"
+            ],
+            [
+              bgBlockly.Msg["XML_TRAITS_FUR"],
+              "C1"
+            ],
+            [
+              bgBlockly.Msg["XML_TRAITS_WHISKERS"],
+              "C2"
+            ],
+            [
+              bgBlockly.Msg["XML_TRAITS_BEAK"],
+              "D1"
+            ],
+            [
+              bgBlockly.Msg["XML_TRAITS_FEATHERS"],
+              "D2"
+            ],
+            [
+              bgBlockly.Msg["XML_TRAITS_SHELL"],
+              "S1"
+            ],
+            [
+              bgBlockly.Msg["XML_TRAITS_SLIME"],
+              "S2"
+            ]
+          ]
+        }
+      ],
+      "previousStatement": null,
+      "nextStatement": null,
+      "colour": 290,
+      "tooltip": "",
+      "helpUrl": ""
+    });
+  }
+};
+</pre><br>
+<b>code xml</b> à ajouter dans la toolbox :<br>
+<pre>
+&lt;block type="puzzle_traits_choice">&lt;/block>
+</pre><br>
+
+</div>
+&nbsp;
+<div style="display:inline-block;">
+<b>code javascript</b> de définition de ce bloc :<br>
+Version en français uniquement.<br>
+<pre>
+Blockly.Blocks['puzzle_traits_choice'] = {
+  init: function() {
+    this.appendDummyInput()
+        .appendField(new Blockly.FieldDropdown([
+            ["Miel","HONEY"], ["Dare","STINGER"], ["Fourrure","Fur"], 
+            ["Moustaches","WHISKERS"], ["Bec","BEAK"]
+        ]), "CHOICE");
+    this.setPreviousStatement(true, null);
+    this.setNextStatement(true, null);
+    this.setColour(290);
+    this.setTooltip("");
+    this.setHelpUrl("");
+  }
+};
+</pre><br>
+<b>code javascript</b> de génération de code :<br>
+<pre>
+Blockly.JavaScript['puzzle_traits_choice'] = function(block) {
+//============================================================
+// Pour information : block === this
+//var oField = block.getField('CHOICE'); // Champ qui doit contenir un "field_image"
+
+var strName = block.getFieldValue('CHOICE');
+return strName; // Retourne une instruction, pas une valeur
+};
+</pre>
+</div>
+
+<hr style="margin-left:0;">
+</div>
+
+<!-- #############################################################################################################3 -->
+<img src="images/logo_forward_backward.png" alt="logo_forward_backward" width="141" height="31" style="vertical-align:middle;"
+     title="c.f. ex0940"> &nbsp; 
+logo_forward_backward &nbsp;
+<span id="id_logo_forward_backward_more" style="display:inline; font-size:80%;">
+  <a href="javascript:void(0)"
+     onclick="document.getElementById('id_logo_forward_backward_less').style.display='inline';  
+           	  document.getElementById('id_logo_forward_backward_more').style.display='none';">voir</a><br>
+</span>
+
+<div id="id_logo_forward_backward_less" style="display:none;">
+<a href="javascript:void(0)"  style="font-size:80%;"
+	  onclick="document.getElementById('id_logo_forward_backward_less').style.display='none';
+				        document.getElementById('id_logo_forward_backward_more').style.display='inline';">cacher</a><br>
+<img src="images/logo_forward_backward_factory.png" alt="logo_forward_backward_factory" width="661" height="366"><br>
+
+<div style="display:inline-block; vertical-align:top;">
+<b>code json</b> de définition de ce bloc :<br>
+<pre>
+Blockly.Blocks['logo_forward_backward'] = {
+//=========================================
+init: function() {
+  this.jsonInit({
+    "type": "logo_forward_backward",
+    "message0": "%1 de %2",
+    "args0": [
+      {
+        "type": "field_dropdown",
+        "name": "DIRECTION",
+        "options": [
+          [
+            "avancer",
+            "FORWARD"
+          ],
+          [
+            "reculer",
+            "BACKWARD"
+          ]
+        ]
+      },
+      {
+        "type": "input_value",
+        "name": "PIXELS",
+        "check": "Number"
+      }
+    ],
+    "previousStatement": null,
+    "nextStatement": null,
+    "colour": 20,
+    "tooltip": "Avance ou recule du nombre de pixels donnés.",
+    "helpUrl": ""
+    });
+  }
+};
+</pre><br>
+<b>code xml</b> à ajouter dans la toolbox :<br>
+<pre>
+&lt;block type="logo_forward_backward">
+  &lt;value name="PIXELS">
+    &lt;shadow type="math_number">
+      &lt;field name="NUM">50&lt;/field>
+    &lt;/shadow>
+  &lt;/value>
+  &lt;data>idBouleBleue, 2&lt;/data>
+&lt;/block>
+</pre><br>
+
+</div>
+&nbsp;
+<div style="display:inline-block;">
+<b>code javascript</b> de définition de ce bloc :<br>
+<pre>
+Blockly.Blocks['logo_forward_backward'] = {
+//=========================================
+  init: function() {
+    this.appendValueInput("PIXELS")
+        .setCheck("Number")
+        .appendField(new Blockly.FieldDropdown([["avancer","FORWARD"], ["reculer","BACKWARD"]]), "DIRECTION")
+        .appendField("de");
+    this.setPreviousStatement(true, null);
+    this.setNextStatement(true, null);
+    this.setColour(20);
+ this.setTooltip("Avance ou recule du nombre de pixels donnés.");
+ this.setHelpUrl("");
+  }
+};
+</pre><br>
+<b>code javascript</b> de génération de code :<br>
+<pre>
+Blockly.JavaScript['logo_forward_backward'] = function(block) {
+//===================================================
+// Déplacement de la boule bleue à la position désirée.
+var direction = block.getFieldValue('DIRECTION');
+var nPixels = Blockly.JavaScript.valueToCode(block, 'PIXELS',
+    Blockly.JavaScript.ORDER_ATOMIC) || '\'\'';
+
+var strId_image = "idBouleBleue"; // Valeur par défaut
+var nTimeDelta  = 5; // Valeur par défaut
+
+// Données d'utilisateur dans le champ &lt;data> dans la toolbox
+var strData = this.data;
+
+if (strData != null) { // S'il y a une donnée, utilise-la
+  var aData = strData.split(","); // Récupère les différents paramètres
+  strId_image = aData[0];
+  nTimeDelta  = aData[1];
+  } 
+
+if (direction == "FORWARD") 
+  return "Forward('" + strId_image + "', " + nPixels + ", " + nTimeDelta + ");\n";
+else
+  return "Forward('" + strId_image + "', -(" + nPixels + "), " + nTimeDelta + ");\n";
+};
+</pre>
+</div>
+
+<br>
+Pour être multilangue, il faut remplacer :<br>
+<pre>
+"%1 de %2" par bgBlockly.Msg['LOGO_FORWARD_BACKWARD_TITLE']
+"avancer" par bgBlockly.Msg["LOGO_FORWARD_BACKWARD_DIRECTION_FORWARD"]
+"reculer" par bgBlockly.Msg["LOGO_FORWARD_BACKWARD_DIRECTION_BACKWARD"]
+"Avance ou recule du nombre de pixels donnés." par bgBlockly.Msg['LOGO_FORWARD_BACKWARD_TOOLTIP']
+"colour": 20 par "colour": bgBlockly.Msg["LOGOS_HUE"]
+</pre><br>
+et avoir défini :<br>
+<pre>
+bgBlockly.Msg["LOGO_FORWARD_BACKWARD_TITLE"] = "%1 de %2";
+bgBlockly.Msg["LOGO_FORWARD_BACKWARD_DIRECTION_FORWARD"] = "avance";
+bgBlockly.Msg["LOGO_FORWARD_BACKWARD_DIRECTION_BACKWARD"] = "recule";
+bgBlockly.Msg["LOGO_FORWARD_BACKWARD_TOOLTIP"] = "Avance ou recule du nombre de pixels donnés.";
+bgBlockly.Msg["LOGO_FORWARD_BACKWARD_HELPURL"] = "";  // untranslated
+bgBlockly.Msg["LOGOS_HUE"] = "20";
+</pre>
+
+<hr style="margin-left:0;">
+</div>
+
+<!-- #############################################################################################################3 -->
+<img src="images/logo_left_right.png" alt="logo_left_right" width="195" height="31" style="vertical-align:middle;"
+     title="c.f. ex0940"> &nbsp; 
+logo_left_right &nbsp;
+<span id="id_logo_left_right_more" style="display:inline; font-size:80%;">
+  <a href="javascript:void(0)"
+     onclick="document.getElementById('id_logo_left_right_less').style.display='inline';  
+           	  document.getElementById('id_logo_left_right_more').style.display='none';">voir</a><br>
+</span>
+
+<div id="id_logo_left_right_less" style="display:none;">
+<a href="javascript:void(0)"  style="font-size:80%;"
+	  onclick="document.getElementById('id_logo_left_right_less').style.display='none';
+				        document.getElementById('id_logo_left_right_more').style.display='inline';">cacher</a><br>
+<img src="images/logo_left_right_factory.png" alt="logo_left_right_factory" width="649" height="340"><br>
+
+<div style="display:inline-block; vertical-align:top;">
+<b>code json</b> de définition de ce bloc :<br>
+<pre>
+Blockly.Blocks['logo_left_right'] = {
+//=========================================
+init: function() {
+  this.jsonInit({
+    "type": "logo_left_right",
+    "message0": "%1 %2",
+    "args0": [
+      {
+        "type": "field_dropdown",
+        "name": "SENS",
+        "options": [
+          [
+            "tourne à gauche de",
+            "LEFT"
+          ],
+          [
+            "tourne à droite de",
+            "RIGHT"
+          ]
+        ]
+      },
+      {
+        "type": "input_value",
+        "name": "ANGLE",
+        "check": "Number"
+      }
+    ],
+    "previousStatement": null,
+    "nextStatement": null,
+    "colour": 20,
+    "tooltip": "Tourne à gauche ou à droite de l'angle donné en radians.",
+    "helpUrl": ""
+    });
+  }
+};
+</pre><br>
+<b>code xml</b> à ajouter dans la toolbox :<br>
+<pre>
+&lt;block type="logo_left_right">
+  &lt;value name="ANGLE">
+    &lt;shadow type="math_number">
+      &lt;field name="NUM">45&lt;/field>
+    &lt;/shadow>
+  &lt;/value>
+  &lt;data>idBouleBleue, 2&lt;/data>
+&lt;/block>
+</pre><br>
+
+</div>
+&nbsp;
+<div style="display:inline-block;">
+<b>code javascript</b> de définition de ce bloc :<br>
+<pre>
+Blockly.Blocks['logo_left_right'] = {
+  init: function() {
+    this.appendValueInput("ANGLE")
+        .setCheck("Number")
+        .appendField(new Blockly.FieldDropdown([["tourne à gauche de","LEFT"], 
+                                    ["tourne à droite de","RIGHT"]]), "SENS");
+    this.setPreviousStatement(true, null);
+    this.setNextStatement(true, null);
+    this.setColour(20);
+ this.setTooltip("Tourne à gauche ou à droite de l'angle donné en radians.");
+ this.setHelpUrl("");
+  }
+};
+</pre><br>
+<b>code javascript</b> de génération de code :<br>
+<pre>
+Blockly.JavaScript['logo_left_right'] = function(block) {
+//==================================================
+// Rotation à droite de la boule bleue de l'angle désirée.
+var sens = block.getFieldValue('SENS');
+var nAngle = Blockly.JavaScript.valueToCode(block, 'ANGLE',
+    Blockly.JavaScript.ORDER_ATOMIC) || '\'\'';
+
+var strId_image = "idBouleBleue"; // Valeur par défaut
+var nTimeDelta  = 5; // Valeur par défaut
+
+// Données d'utilisateur dans le champ &lt;data> dans la toolbox
+var strData = this.data;
+
+if (strData != null) { // S'il y a une donnée, utilise-la
+  var aData = strData.split(","); // Récupère les différents paramètres
+  strId_image = aData[0];
+  nTimeDelta  = aData[1];
+  } 
+
+if (sens == "LEFT") 
+  return "Rotate('" + strId_image + "', -(" + nAngle + "), " + nTimeDelta + ");\n";
+else
+  return "Rotate('" + strId_image + "', " + nAngle + ", " + nTimeDelta + ");\n";
+// Le dernier paramètre est le temps d'attente entre chaque rotation de 1 degré
+};
+</pre>
+</div>
+
+<br>
+Pour être multilangue, il faut remplacer :<br>
+<pre>
+"%1 %2" par bgBlockly.Msg['LOGO_LEFT_RIGHT_TITLE']
+"tourne à gauche de" par bgBlockly.Msg["LOGO_LEFT_RIGHT_SENS_LEFT"]
+"tourne à droite de" par bgBlockly.Msg["LOGO_LEFT_RIGHT_SENS_RIGHT"]
+"Tourne à gauche ou à droite du nombre de degrés donnés." par bgBlockly.Msg["LOGO_LEFT_RIGHT_TOOLTIP"]
+</pre><br>
+et avoir défini :<br>
+<pre>
+bgBlockly.Msg["LOGO_LEFT_RIGHT_TITLE"] = "%1 %2";
+bgBlockly.Msg["LOGO_LEFT_RIGHT_SENS_LEFT"] = "tourne à gauche de";
+bgBlockly.Msg["LOGO_LEFT_RIGHT_SENS_RIGHT"] = "tourne à droite de";
+bgBlockly.Msg["LOGO_LEFT_RIGHT_TOOLTIP"] = "Tourne à gauche ou à droite du nombre de degrés donnés.";
+</pre>
+
+<hr style="margin-left:0;">
+</div>
+
+<!-- #############################################################################################################3 -->
+<img src="images/card_movex1x2.png" alt="card_movex1x2" width="355" height="44" style="vertical-align:middle;"
+     title="c.f. ex0900 et ex0600"> &nbsp; 
+card_movex1x2 &nbsp;
+<span id="id_card_movex1x2_more" style="display:inline; font-size:80%;">
+  <a href="javascript:void(0)"
+     onclick="document.getElementById('id_card_movex1x2_less').style.display='inline';  
+           	  document.getElementById('id_card_movex1x2_more').style.display='none';">voir</a><br>
+</span>
+
+<div id="id_card_movex1x2_less" style="display:none;">
+<a href="javascript:void(0)"  style="font-size:80%;"
+	  onclick="document.getElementById('id_card_movex1x2_less').style.display='none';
+				        document.getElementById('id_card_movex1x2_more').style.display='inline';">cacher</a><br>
+<img src="images/card_movex1x2_factory.png" alt="card_movex1x2_factory" width="605" height="371"><br>
+
+<div style="display:inline-block; vertical-align:top;">
+<b>code json</b> de définition de ce bloc :<br>
+<pre>
+Blockly.Blocks['card_movex1x2'] = {
+//=================================
+init: function() {
+  this.jsonInit({
+    "type": "card_movex1x2",
+    "message0": "déplace la carte de la case %1 à la case %2",
+    "args0": [
+      {
+        "type": "input_value",
+        "name": "POSX1",
+        "check":"Number"
+      }
+      ,{
+        "type": "input_value",
+        "name": "POSX2",
+        "check":"Number"
+      }
+    ],
+    "data": "5", // Valeurs par défaut.
+    "inputsInline": true,
+    "previousStatement": null,
+    "nextStatement": null,
+    "colour":  20,
+    "tooltip": "déplace la carte d'une case à une autre.",
+    "helpUrl": ""
+    });
+  }
+};
+</pre><br>
+<b>code xml</b> à ajouter dans la toolbox :<br>
+<pre>
+&lt;block type="card_movex1x2">
+  &lt;value name="POSX1">
+    &lt;shadow type="math_number">
+      &lt;field name="NUM">3&lt;/field>
+    &lt;/shadow>
+  &lt;/value>
+  &lt;value name="POSX2">
+    &lt;shadow type="math_number">
+      &lt;field name="NUM">2&lt;/field>
+    &lt;/shadow>
+  &lt;/value>
+  &lt;data>1&lt;/data>
+&lt;/block>
+</pre><br>
+
+</div>
+&nbsp;
+<div style="display:inline-block;">
+<b>code javascript</b> de définition de ce bloc :<br>
+<pre>
+Blockly.Blocks['card_movex1x2'] = {
+//=================================
+  init: function() {
+    this.appendValueInput("POSX1")
+        .setCheck("Number")
+        .appendField("déplace la carte de la case");
+    this.appendValueInput("POSX2")
+        .setCheck("Number")
+        .appendField("à la case");
+    this.setInputsInline(true);
+    this.setPreviousStatement(true, null);
+    this.setNextStatement(true, null);
+    this.setColour(20);
+ this.setTooltip("déplace la carte d'une case à une autre.");
+ this.setHelpUrl("");
+  }
+};
+</pre><br>
+<b>code javascript</b> de génération de code :<br>
+<pre>
+Blockly.JavaScript['card_movex1x2'] = function(block) {
+//===================================================
+// Déplacement de la boule bleue à la position désirée.
+var nPosX1 = Blockly.JavaScript.valueToCode(block, 'POSX1',
+    Blockly.JavaScript.ORDER_NONE) || '\'\'';
+var nPosX2 = Blockly.JavaScript.valueToCode(block, 'POSX2',
+    Blockly.JavaScript.ORDER_NONE) || '\'\'';
+
+var nTimeDelta  = 5; // Valeur par défaut
+
+// Données d'utilisateur dans le champ &lt;data> dans la toolbox
+var strData = this.data;
+
+if (strData != null) { // S'il y a une donnée, utilise-la
+  nTimeDelta  = parseInt(strData);
+  } 
+
+return "MoveX1X2(" + nPosX1 + ", " + nPosX2 + ", " + nTimeDelta + ");\n";
+// Le dernier paramètre est le temps d'attente entre chaque déplacement de 1 pixel
+};
+</pre>
+</div>
+
+<br>
+Pour être multilangue, il faut remplacer :<br>
+<pre>
+"déplace la carte de la case %1 à la case %2" par bgBlockly.Msg["CARD_MOVEX1X2_TITLE"]
+"déplace la carte d'une case à une autre." par bgBlockly.Msg["CARD_MOVEX1X2_TOOLTIP"]
+</pre><br>
+et avoir défini :<br>
+<pre>
+bgBlockly.Msg["CARD_MOVEX1X2_TITLE"] = "déplace la carte de la case %1 à la case %2";
+bgBlockly.Msg["CARD_MOVEX1X2_TOOLTIP"] = "déplace la carte d'une case à une autre.";
+</pre>
+
+<hr style="margin-left:0;">
+</div>
+
+<!-- #############################################################################################################3 -->
+<img src="images/card_get_card.png" alt="card_get_card" width="158" height="28" style="vertical-align:middle;"
+     title="c.f. ex0900 et ex0600"> &nbsp; 
+card_get_card &nbsp;
+<span id="id_card_get_card_more" style="display:inline; font-size:80%;">
+  <a href="javascript:void(0)"
+     onclick="document.getElementById('id_card_get_card_less').style.display='inline';  
+              document.getElementById('id_card_get_card_more').style.display='none';">voir</a><br>
+</span>
+<div id="id_card_get_card_less" style="display:none;">
+<a href="javascript:void(0)"  style="font-size:80%;"
+	  onclick="document.getElementById('id_card_get_card_less').style.display='none';
+				        document.getElementById('id_card_get_card_more').style.display='inline';">cacher</a><br>
+<img src="images/card_get_card_factory.png" alt="card_get_card_factory" width="605" height="266"><br>
+
+<div style="display:inline-block; vertical-align:top;">
+<b>code json</b> de définition de ce bloc :<br>
+<pre>
+Blockly.Blocks['card_get_card'] = {
+//==================================
+init: function() {
+  this.jsonInit({
+    "type":"card_get_card",
+    "message0": "Carte de la case %1",
+    "args0": [
+      {
+        "type": "input_value",
+        "name": "POSX",
+        "check":"Number"
+      }
+    ],
+    "output": "Number",
+    "colour": 20,
+    "tooltip": "Lit la valeur de la carte se trouvant dans la case donnée."
+    "helpUrl": ""
+    });
+  }
+};
+</pre><br>
+<b>code xml</b> à ajouter dans la toolbox :<br>
+<pre>
+&lt;block type="card_get_card">&lt;/block>
+</pre><br>
+
+</div>
+&nbsp;
+<div style="display:inline-block;">
+<b>code javascript</b> de définition de ce bloc :<br>
+<pre>
+Blockly.Blocks['card_get_card'] = {
+  init: function() {
+    this.appendValueInput("POSX")
+        .setCheck("Number")
+        .appendField("Carte de la case");
+    this.setOutput(true, "Number");
+    this.setColour(30);
+ this.setTooltip("Lit la valeur de la carte se trouvant dans la case donnée.");
+ this.setHelpUrl("");
+  }
+};
+</pre><br>
+<b>code javascript</b> de génération de code :<br>
+<pre>
+Blockly.JavaScript['card_get_card'] = function(block) {
+//=====================================================
+// Lecture de la valeur de la carte se trouvant dans la case donnée
+var nPosX = Blockly.JavaScript.valueToCode(block, 'POSX',
+    Blockly.JavaScript.ORDER_NONE) || '\'\'';
+
+return ["GetCardValue(" + nPosX + ")", Blockly.JavaScript.ORDER_FUNCTION_CALL]; 
+// c.f. blockly/generators/javascript/math.js
+};
+</pre>
+</div>
+
+<br>
+Pour être multilangue, il faut remplacer :<br>
+<pre>
+"Carte de la case %1" par bgBlockly.Msg["CARD_GET_CARD_TITLE"]
+"Lit la valeur de la carte se trouvant dans la case donnée." par bgBlockly.Msg["CARD_GET_CARD_TOOLTIP"]
+</pre><br>
+et avoir défini :<br>
+<pre>
+bgBlockly.Msg["CARD_GET_CARD_TITLE"] = "Carte de la case %1";
+bgBlockly.Msg["CARD_GET_CARD_TOOLTIP"] = "Lit la valeur de la carte se trouvant dans la case donnée.";
+</pre>
+
+<hr style="margin-left:0;">
+</div>
+
+<!-- #############################################################################################################3 -->
+<img src="images/loop_do_while.png" alt="loop_do_while" width="138" height="65" style="vertical-align:middle;"
+     title="Juste un exemple, sans utilisation."> &nbsp; 
+loop_do_while &nbsp;
+<span id="loop_do_while_more" style="display:inline; font-size:80%;">
+  <a href="javascript:void(0)"
+     onclick="document.getElementById('loop_do_while_less').style.display='inline';  
+              document.getElementById('loop_do_while_more').style.display='none';">voir</a><br>
+</span>
+<div id="loop_do_while_less" style="display:none;">
+<a href="javascript:void(0)"  style="font-size:80%;"
+	  onclick="document.getElementById('loop_do_while_less').style.display='none';
+				        document.getElementById('loop_do_while_more').style.display='inline';">cacher</a><br>
+<img src="images/loop_do_while_factory.png" alt="loop_do_while_factory" width="684" height="371"><br>
+
+<div style="display:inline-block; vertical-align:top;">
+<b>code json</b> de définition de ce bloc :<br>
+<pre>
+Blockly.Blocks['loop_do_while'] = {
+//==================================
+init: function() {
+  this.jsonInit({
+    "type": "loop_do_while",
+      "message0": "faire : %1 jusqu'à ce que %2",
+      "args0": [
+        {
+          "type": "input_statement",
+          "name": "STATEMENT"
+        },
+        {
+          "type": "input_value",
+          "name": "UNTIL",
+          "check": "Boolean"
+        }
+      ],
+      "previousStatement": null,
+      "nextStatement": null,
+      "colour": 120,
+      "tooltip": "Répète une suite d'instructions. "
+             + "Exécute au moins une fois les instructions",
+      "helpUrl": ""
+    });
+  }
+};
+</pre><br>
+<b>code xml</b> à ajouter dans la toolbox :<br>
+<pre>
+&lt;block type="loop_do_while">&lt;/block>
+</pre><br>
+
+</div>
+&nbsp;
+<div style="display:inline-block;">
+<b>code javascript</b> de définition de ce bloc :<br>
+<pre>
+Blockly.Blocks['loop_do_while'] = {
+  init: function() {
+    this.appendStatementInput("STATEMENT")
+        .setCheck(null)
+        .appendField("faire :");
+    this.appendValueInput("UNTIL")
+        .setCheck("Boolean")
+        .appendField("jusqu'à ce que");
+    this.setPreviousStatement(true, null);
+    this.setNextStatement(true, null);
+    this.setColour(120);
+ this.setTooltip("Répète une suite d'instructions. "
+        + "Exécute au moins une fois les instructions");
+ this.setHelpUrl("");
+  }
+};
+</pre><br>
+<b>code javascript</b> de génération de code :<br>
+<pre>
+À voir, pas fait...<br>
+</pre>
+</div>
+
+<hr style="margin-left:0;">
+</div>
+
+<!-- #############################################################################################################3 -->
+<img src="images/text_comment.png" alt="text_comment" width="308" height="42" style="vertical-align:middle;"
+     title="c.f. ex0920 et ex0160"> &nbsp; 
+text_comment &nbsp;
+<span id="id_text_comment_more" style="display:inline; font-size:80%;">
+  <a href="javascript:void(0)"
+     onclick="document.getElementById('id_text_comment_less').style.display='inline';  
+              document.getElementById('id_text_comment_more').style.display='none';">voir</a><br>
+</span>
+<div id="id_text_comment_less" style="display:none;">
+<a href="javascript:void(0)"  style="font-size:80%;"
+	  onclick="document.getElementById('id_text_comment_less').style.display='none';
+				        document.getElementById('id_text_comment_more').style.display='inline';">cacher</a><br>
+<img src="images/text_comment_factory.png" alt="text_comment_factory" width="429" height="289" style="vertical-align:middle;">
+<div style="display:inline-block; vertical-align:middle;">
+La couleur a été remplacée par 'FFFF80' qui est un jaune pale.<br>
+Le texte par défaut est défini dans le code xml de la toolbox.<br>
+</div>
+
+<div style="display:inline-block; vertical-align:top;">
+<b>code json</b> de définition de ce bloc :<br>
+<pre>
+Blockly.Blocks['text_comment'] = {
+//==================================
+// Définit l'aspect du bloc
+init: function() {
+  this.jsonInit({
+    "type": "text_comment",
+    "message0": "// %1",
+    "args0": [
+      {
+        "type": "input_value",
+        "name": "COMMENT"
+      }
+    ],
+    "inputsInline": true,
+    "previousStatement": null,
+    "nextStatement": null,
+    "colour": '#FFFF80',
+    "tooltip": "Un commentaire",
+    "helpUrl": ""
+    });
+  }
+};
+</pre><br>
+<b>code xml</b> à ajouter dans la toolbox :<br>
+<pre>
+&lt;block type="text_comment">
+  &lt;value name="COMMENT">
+    &lt;shadow type="text">
+      &lt;field name="TEXT">écrivez un commentaire...&lt;/field>
+    &lt;/shadow>
+  &lt;/value>
+&lt;/block>
+</pre><br>
+
+</div>
+&nbsp;
+<div style="display:inline-block;">
+<b>code javascript</b> de définition de ce bloc :<br>
+<pre>
+Blockly.Blocks['text_comment'] = {
+  init: function() {
+    this.appendValueInput("COMMENT")
+        .setCheck(null)
+        .appendField("//");
+    this.setInputsInline(true);
+    this.setPreviousStatement(true, null);
+    this.setNextStatement(true, null);
+    this.setColour('#FFFF80');
+ this.setTooltip("Un commentaire");
+ this.setHelpUrl("");
+  }
+};
+</pre><br>
+<b>code javascript</b> de génération de code :<br>
+<pre>
+Blockly.JavaScript['text_comment'] = function(block) {
+//====================================================
+// Défini la fonctionnalité du bloc
+var msg = Blockly.JavaScript.valueToCode(block, 'COMMENT', Blockly.JavaScript.ORDER_ATOMIC) || '\'\'';
+
+// Enlève les guillmets placés automatiquement au début et en fin.
+msg = msg.substr(1, msg.length-2); 
+// Remplace le  \\  par un  \
+msg = msg.replace(/\\\\/g, '\\'); //
+// Remplace le  \'  par un  '
+msg = msg.replace(/\\\'/g, '\'');
+return "// " + msg + "\n"; 
+};
+</pre>
+</div>
+
+<hr style="margin-left:0;">
+</div>
+
+<!-- #############################################################################################################3 -->
+<img src="images/text_pause.png" alt="text_pause" width="308" height="42" style="vertical-align:middle;"
+     title="c.f. ex0920 et ex0160"> &nbsp; 
+text_comment &nbsp;
+<span id="id_text_pause_more" style="display:inline; font-size:80%;">
+  <a href="javascript:void(0)"
+     onclick="document.getElementById('id_text_pause_less').style.display='inline';  
+              document.getElementById('id_text_pause_more').style.display='none';">voir</a><br>
+</span>
+<div id="id_text_pause_less" style="display:none;">
+<a href="javascript:void(0)"  style="font-size:80%;"
+	  onclick="document.getElementById('id_text_pause_less').style.display='none';
+				        document.getElementById('id_text_pause_more').style.display='inline';">cacher</a><br>
+<img src="images/text_pause_factory.png" alt="text_pause_factory" width="673" height="455" style="vertical-align:middle;">
+<div style="display:inline-block; vertical-align:middle;">
+La couleur a été remplacée par '#808000' qui est un brun-jaune.<br>
+Le texte par défaut est défini dans le code xml de la toolbox.<br>
+</div>
+
+<div style="display:inline-block; vertical-align:top;">
+<b>code json</b> de définition de ce bloc :<br>
+<pre>
+Blockly.Blocks['text_pause'] = {
+//==============================
+// Définit l'aspect du bloc
+init: function() {
+  this.jsonInit({
+    "type": "text_pause",
+    "message0": "Pause de %1 %2",
+    "args0": [
+      {
+        "type": "input_value",
+        "name": "TIME",
+        "check": "Number"
+      },
+      {
+        "type": "field_dropdown",
+        "name": "SPEED",
+        "options": [
+          [
+            "[s]. Puis vitesse : inchangée",
+            "NONE"
+          ],
+          [
+            "[s]. Puis vitesse : lente",
+            "SLOW"
+          ],
+           [
+             bgBlockly.Msg["TEXT_PAUSE_SPEED_MEDIUM"],
+             "MEDIUM"
+           ],
+          [
+            "[s]. Puis vitesse : rapide",
+            "FAST"
+          ]
+        ]
+      }
+    ],
+    "inputsInline": true,
+    "previousStatement": null,
+    "nextStatement": null,
+    "colour": "#808000",
+    "tooltip": "Fait une pause de ... " +
+               "secondes puis continue à la vitesse indiquée",
+    "helpUrl": ""
+    });
+  }
+};
+</pre><br>
+<b>code xml</b> à ajouter dans la toolbox :<br>
+<pre>
+&lt;block type="text_pause">
+  &lt;value name="TIME">
+    &lt;shadow type="math_number">
+      &lt;field name="NUM">1.5&lt;/field>
+    &lt;/shadow>
+  &lt;/value>
+&lt;/block>
+</pre><br>
+
+</div>
+&nbsp;
+<div style="display:inline-block;">
+<b>code javascript</b> de définition de ce bloc :<br>
+<pre>
+Blockly.Blocks['text_pause'] = {
+  init: function() {
+    this.appendValueInput("TIME")
+        .setCheck("Number")
+        .appendField("Pause de");
+    this.appendDummyInput()
+        .appendField(new Blockly.FieldDropdown([
+           ["[s]. Puis vitesse : inchangée","NONE"], 
+           ["[s]. Puis vitesse : lente","SLOW"], 
+           ["[s]. Puis vitesse : moyenne","MEDIUM"], 
+           ["[s]. Puis vitesse : rapide","FAST"]]), "SPEED");
+    this.setInputsInline(true);
+    this.setPreviousStatement(true, null);
+    this.setNextStatement(true, null);
+    this.setColour("#808000");
+ this.setTooltip("Fait une pause de ... "+
+               "secondes puis continue à la vitesse indiquée");
+ this.setHelpUrl("");
+  }
+};
+</pre><br>
+<b>code javascript</b> de génération de code :<br>
+<pre>
+
+Blockly.JavaScript['text_pause'] = function(block) {
+//==================================================
+// Défini la fonctionnalité du bloc
+var vTime = Blockly.JavaScript.valueToCode(block, 
+             'TIME', Blockly.JavaScript.ORDER_ATOMIC) || '\'\'';
+var strSpeed = block.getFieldValue('SPEED');
+
+return "Speed_execution( " + vTime + ", '" + strSpeed + "');\n"; 
+};
+</pre>
+</div>
+
+<hr style="margin-left:0;">
+</div>
+
+<br>
+Tous les exemples qui précèdent se trouvent dans la librairie au format .xml,
+<a href="ex0170_library.txt">disponible ici</a>.<br>
+Sauvez ce fichier en changeant l'extension en .xml.<br>
+Soit vous avez sauvez les images au bon endroit, dans un dossier "images", 
+soit elles seront indisponibles.<br>
+Depuis la <a href ="https://blockly-demo.appspot.com/static/demos/blockfactory/index.html" target="_blank">
+  Blockly Factory Tools</a>, il est possible d'importer cette librairie pour avoir accès à toutes ces définitions de blocs.<br>
+<br>
+Beaucoup d'exemples de défiition de blocs se trouvent sous :
+<b>Google_blockly/blocks/</b> (coulour.js ; lists.js ; logic.js ; math.js ; procedures.js ; text.js ; variables_dynamic.js et variables.js)<br>
+Des exemples de génération de code se trouvent sous :
+<b>Google_blockly/generators/</b> (dart/ ; javascript/ ; lua/ ; php/ ; python/)<br>
+
+D'autres exemples se trouvent sous :<br>
+° <b>.../bgjs/</b> (bglibrary_abase.js ; bglibrary_card.js ; bglibrary_logo.js ; bglibrary_puzzle.js)<br>
+° <a href="../ex2000/bglibrary_frame_card.js" target="_blank"><b>../ex2000/bglibrary_frame_card.js</b></a><br>
+<br>
+<b>Commentaires durant la relecture de la documentation sur blockly :
+  <a href ="https://developers.google.com/blockly/guides/create-custom-blocks/overview" target="_blank">
+    Create Custum Blocks</a></b><br>
+<div class="indent">
+°&nbsp; Il est recommandé de visualiser <a href ="https://www.youtube.com/watch?v=s2_xaEvcVI0" target="_blank">la vidéos de 13 minutes 30 sur Block Factory</a>.<br>
+</div>
+<div class="indent">
+°&nbsp; Il semble que la <a href ="https://llk.github.io/scratch-gui/master/" target="_blank">version 3 de <b>scratch</b></a> 
+est basée sur Blockly<br>
+</div>
+<div class="indent">
+°&nbsp; <a href ="https://fr.wikipedia.org/wiki/Blockly" target="_blank">La page Wikipedia sur Blockly</a>.<br>
+</div>
+<div class="indent">
+°&nbsp; Il est conseillé de définir les blocs en <b>json</b>. 
+  Il est possible de mélanger la définition d'un bloc avec le format json, suivit de javascript.<br>
+    Plus s'informations sous :
+<a href ="https://developers.google.com/blockly/guides/create-custom-blocks/define-blocks" target="_blank">Define Blocks</a>, en anglais.<br>
+</div>
+<div class="indent">
+°&nbsp; Un champ <b>data</b> est disponible dans les blocs,
+  pour ajouter des informations supplémentaires à un bloc,
+  comme l'id associé au bloc ou la vitesse d'animation.<br>
+  Voir : <a href ="https://developers.google.com/blockly/guides/create-custom-blocks/define-blocks#block_data_web_only" target="_blank">
+    Un brève information sur le champ <b>data</b></a>, en anglais.<br>
+</div>
+    
+<!--
+<div class="indent">
+°&nbsp; <a href ="" target="_blank"></a>, en anglais.<br>
+</div>
+<div class="indent">
+°&nbsp; <a href ="" target="_blank"></a>, en anglais.<br>
+</div>
+-->
+<br>
+<b>Exemples de sites Web utilisant Blockly :</b><br>
+<div class="indent">
+°&nbsp; <a href ="https://llk.github.io/scratch-gui/master/" target="_blank">version 3 de <b>scratch</b></a>, en français.<br>
+</div>
+<div class="indent">
+°&nbsp; <a href ="https://trinket.io/blocks" target="_blank">Simulation de Turtle</a>, en anglais.<br>
+</div>
+<div class="indent">
+°&nbsp; <a href ="https://code.org/" target="_blank"> https://code.org/</a>, en anglais.<br>
+</div>
+<div class="indent">
+°&nbsp; <a href ="https://alainbusser.github.io/Sofus/" target="_blank">Sofus</a>, en français, 
+avec de la documentation en espagnole.<br>
+</div>
+<div class="indent">
+°&nbsp; <a href ="http://www.blockly4thymio.net/" target="_blank">Blockly4Thymio</a>, en français. 
+Utilisation de Blockly pour programmer des robots Thymios<br>
+</div>
+<div class="indent">
+°&nbsp; <a href ="https://recitmst.qc.ca/blockly@rduino/" target="_blank">
+  Blockly@rduino</a>, en français. Blockly pour programmer un microcontroleur Arduino.<br>
+        <a href ="http://blockly-arduino.ac-rouen.fr/" target="_blank">
+          Blockly@rduino</a>, en français. Autre site Web.<br>
+</div>
+<div class="indent">
+°&nbsp; <a href ="https://github.com/technologiescollege/Blockly-at-rduino" target="_blank">
+  Blockly-at-rduino</a>, en anglais. Code Blockly pour programmer un microcontroleur Arduino.<br>
+</div>
+<div class="indent">
+°&nbsp; <a href ="http://appinventor.mit.edu/explore/" target="_blank">MIT Apps Inventor</a>, en anglais. 
+Pour programmer sous Android.<br>
+</div>
+<!--
+<div class="indent">
+°&nbsp; <a href ="" target="_blank"></a>, en anglais.<br>
+</div>
+<div class="indent">
+°&nbsp; <a href ="" target="_blank"></a>, en anglais.<br>
+</div>
+<div class="indent">
+°&nbsp; <a href ="" target="_blank"></a>, en anglais.<br>
+</div>
+<br>
+
+<a href ="https://llk.github.io/scratch-gui/master/" target="_blank">
+    </a><br>
+<a href ="" target="_blank">
+    </a><br>
+<a href ="" target="_blank">
+    </a><br>
+<a href ="" target="_blank">
+    </a><br>
+<br>
+-->
+
+<hr style="margin-left:0; width:95%">
+  <p style="margin-top:0; font-size:80%">
+  Plan du Site : 
+  <a href="../../blockly.html ">blockly</a> &nbsp;
+  <img src="../../images/arrow_right.png" alt="arrow" width="13" height="9"> &nbsp; 
+  ex0170 
+  </p>
+  <hr style="margin-left:0; margin-bottom:0; width:95%">
+  <p style="margin-top:0; font-size:80%">
+  Page mise à jour le 16 décembre 2019 par Bernard Gisin<br>
+  </p>
+<br>
+</body>
+</html>

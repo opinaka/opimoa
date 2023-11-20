@@ -1,0 +1,60 @@
+<xml xmlns="http://www.w3.org/1999/xhtml">
+    <block type="factory_base" deletable="false" movable="false" x="10" y="10">
+    <mutation connections="NONE"></mutation>
+    <field name="NAME">ordi_un</field>
+    <field name="INLINE">AUTO</field>
+    <field name="CONNECTIONS">NONE</field>
+    <statement name="INPUTS">
+      <block type="input_value">
+        <field name="INPUTNAME">NAME</field>
+        <field name="ALIGN">CENTRE</field>
+        <statement name="FIELDS">
+          <block type="field_image">
+            <field name="SRC">https://www.gstatic.com/codesite/ph/images/star_on.gif</field>
+            <field name="WIDTH">15</field>
+            <field name="HEIGHT">15</field>
+            <field name="ALT">*</field>
+          </block>
+        </statement>
+        <value name="TYPE">
+          <shadow type="type_null"></shadow>
+          <block type="type_null"></block>
+        </value>
+        <next>
+          <block type="input_statement">
+            <field name="INPUTNAME">affirmations</field>
+            <field name="ALIGN">LEFT</field>
+            <statement name="FIELDS">
+              <block type="field_image">
+                <field name="SRC">https://www.gstatic.com/codesite/ph/images/star_on.gif</field>
+                <field name="WIDTH">15</field>
+                <field name="HEIGHT">15</field>
+                <field name="ALT">*</field>
+              </block>
+            </statement>
+            <value name="TYPE">
+              <shadow type="type_null"></shadow>
+              <block type="type_null"></block>
+            </value>
+          </block>
+        </next>
+      </block>
+    </statement>
+    <value name="TOOLTIP">
+      <block type="text" deletable="false" movable="false">
+        <field name="TEXT">Image du coposante et les comosantes</field>
+      </block>
+    </value>
+    <value name="HELPURL">
+      <block type="text" deletable="false" movable="false">
+        <field name="TEXT"></field>
+      </block>
+    </value>
+    <value name="COLOUR">
+      <block type="colour_hue">
+        <mutation colour="#935ba5"></mutation>
+        <field name="HUE">285</field>
+      </block>
+    </value>
+  </block>
+</xml>

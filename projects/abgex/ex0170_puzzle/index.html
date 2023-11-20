@@ -1,0 +1,333 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>Blockly exemple 07 : tests de puzzles</title>
+  
+  <script src="../../blockly_compressed.js"></script>
+  <script src="../../blocks_compressed.js"></script>
+  <script src="../../javascript_compressed.js"></script>
+  <script src="../../msg/js/fr.js"></script>
+
+<script>
+  Blockly.Blocks['text_affiche'] = {
+  init: function() {
+    this.jsonInit({
+      "message0": Blockly.Msg['TEXT_PRINT_TITLE'],
+      "args0": [
+        {
+          "type": "input_value",
+          "name": "TEXT"
+        }
+      ],
+      "previousStatement": null,
+      "nextStatement": null,
+      "colour": Blockly.Msg['TEXTS_HUE'],
+      "tooltip": Blockly.Msg['TEXT_PRINT_TOOLTIP'],
+      "helpUrl": Blockly.Msg['TEXT_PRINT_HELPURL']
+    });
+  }
+};
+
+
+Blockly.JavaScript['text_affiche'] = function(block) {
+  // Print statement.
+  var msg = Blockly.JavaScript.valueToCode(block, 'TEXT',
+      Blockly.JavaScript.ORDER_NONE) || '\'\'';
+  return 'Display(' + msg + ');\n';
+};
+
+Blockly.Blocks['image_head'] = {
+  init: function() {
+    this.appendDummyInput()
+        .appendField(new Blockly.FieldImage("http://www.juggling.ch/gisin/javascript/BougeImage/images/ballon3.gif", 100, 100, "Ballon 3"));
+    this.setOutput(true, null);
+    this.setColour(90);
+    this.setTooltip("C'est juste une image");
+    this.setHelpUrl("");
+  }
+};
+Blockly.JavaScript['image_head'] = function(block) {
+  var msg = "'Ballon 3'";
+  return [msg, Blockly.JavaScript.ORDER_NONE];
+};
+
+Blockly.Blocks['image_pa_cherix'] = {
+  init: function() {
+    this.appendDummyInput()
+        .appendField(new Blockly.FieldImage("../images/pierre_alain_cherix.jpeg", 100, 100, "pac"));
+    this.setOutput(true, null);
+    this.setColour(90);
+    this.setTooltip("C'est P.-A.");
+    this.setHelpUrl("");
+  }
+};
+Blockly.JavaScript['image_pa_cherix'] = function(block) {
+  var msg = "'Pierre-Alain Cherix'";
+  return [msg, Blockly.JavaScript.ORDER_NONE];
+};
+
+Blockly.Blocks['image_t_zwissig'] = {
+  init: function() {
+    this.appendDummyInput()
+        .appendField(new Blockly.FieldImage("../images/thierry_zwissig.jpeg", 100, 100, "thz"));
+    this.setOutput(true, null);
+    this.setColour(90);
+    this.setTooltip("C'est Thierry");
+    this.setHelpUrl("");
+  }
+};
+Blockly.JavaScript['image_t_zwissig'] = function(block) {
+  var msg = "'Thierry Zwissig'";
+  return [msg, Blockly.JavaScript.ORDER_NONE];
+};
+
+Blockly.Blocks['image_b_gisin'] = {
+  init: function() {
+    this.appendDummyInput()
+        .appendField(new Blockly.FieldImage("../images/bernard_gisin.jpeg", 100, 100, "thz"));
+    this.setOutput(true, null);
+    this.setColour(90);
+    this.setTooltip("C'est Bernard");
+    this.setHelpUrl("");
+  }
+};
+Blockly.JavaScript['image_b_gisin'] = function(block) {
+  var msg = "'Bernard Gisin'";
+  return [msg, Blockly.JavaScript.ORDER_NONE];
+};
+
+</script>
+
+  <style>
+    body {
+      background-color: #fff;
+      font-family: sans-serif;
+    }
+    h1 {
+      font-weight: normal;
+      font-size: 140%;
+    }
+  </style>
+  
+</head>
+<body>
+<h1>Blockly exemple 06 : Test du générateur XML de Blockly</h1>
+<b>Références</b> : <br>
+<div class="indent">
+ ° <a href ="https://blockly-demo.appspot.com/static/tests/playground.html" target="_blank">
+  Pour générer le code XML d'une suite de blocs </a>.<br>
+</div>
+
+<div class="indent">
+ ° <a href ="https://blockly-demo.appspot.com/static/tests/generators/index.html" target="_blank">
+  Blockly Generator Tests</a>.<br>
+</div>
+
+<p>
+  <button onclick="showCode()">Show JavaScript</button>
+  <button onclick="runCode()">Run JavaScript</button>
+</p>
+
+<div id="blocklyDiv" style="display:inline-block; height: 480px; width: 700px;"></div>
+  
+<div style="display:inline-block; vertical-align:top; height: 480px;">
+<FORM NAME=form1>
+ <TEXTAREA ROWS=25 COLS=60 NAME=textarea2></TEXTAREA><BR>
+  <BR>
+
+  <INPUT TYPE="button"  VALUE="Efface les lignes"
+    NAME=buttonEfface
+    onclick="window.document.form1.textarea2.value = ''">
+</FORM>
+</div>
+
+  <xml id="toolbox" style="display: none">
+    <category name="Logic" colour="%{BKY_LOGIC_HUE}">
+      <block type="controls_if"></block>
+      <block type="logic_compare"></block>
+      <block type="logic_operation"></block>
+      <block type="logic_negate"></block>
+      <block type="logic_boolean"></block>
+    </category>
+    <category name="Loops" colour="%{BKY_LOOPS_HUE}">
+      <block type="controls_repeat_ext">
+        <value name="TIMES">
+          <block type="math_number">
+            <field name="NUM">10</field>
+          </block>
+        </value>
+      </block>
+      <block type="controls_whileUntil"></block>
+    </category>
+    <category name="Math" colour="%{BKY_MATH_HUE}">
+      <block type="math_number">
+        <field name="NUM">123</field>
+      </block>
+      <block type="math_arithmetic"></block>
+      <block type="math_single"></block>
+      <block type="math_number_property">
+        <field name="PROPERTY">EVEN</field>
+      </block>
+
+      <block type="math_number_property">
+        <field name="PROPERTY">DIVISIBLE_BY</field>
+        <field name="NUMBER_TO_CHECK"><field name="NUM">2</field></field>
+      </block>
+    </category>
+    <category name="Text" colour="%{BKY_TEXTS_HUE}">
+      <block type="text"></block>
+      <block type="text_length"></block>
+      <block type="text_affiche"></block>
+    </category>
+    <category name="Variables" custom="VARIABLE" colour="%{BKY_VARIABLES_HUE}">
+    </category>
+    <category name="Puzzle" colour="%{BKY_TEXTS_HUE}">
+      <block type="image_head"></block>
+      <block type="image_pa_cherix"></block>
+      <block type="image_t_zwissig"></block>
+      <block type="image_b_gisin"></block>
+    </category>
+  </xml>
+
+<xml id="startBlocks" style="display: none">
+  <variables>
+    <variable type="">strS</variable>
+    <variable type="">k</variable>
+  </variables>
+  <block type="variables_set" x="20" y="20">
+    <field name="VAR" variabletype="">strS</field>
+    <value name="VALUE">
+      <block type="text">
+        <field name="TEXT"></field>
+      </block>
+    </value>
+    <next>
+      <block type="variables_set">
+        <field name="VAR" variabletype="">k</field>
+        <value name="VALUE">
+          <block type="math_number">
+            <field name="NUM">7</field>
+          </block>
+        </value>
+        <next>
+          <block type="controls_whileUntil">
+            <field name="MODE">WHILE</field>
+            <value name="BOOL">
+              <block type="logic_compare">
+                <field name="OP">GT</field>
+                <value name="A">
+                  <block type="variables_get">
+                    <field name="VAR" variabletype="">k</field>
+                  </block>
+                </value>
+                <value name="B">
+                  <block type="math_number">
+                    <field name="NUM">1</field>
+                  </block>
+                </value>
+              </block>
+            </value>
+            <statement name="DO">
+              <block type="variables_set">
+                <field name="VAR" variabletype="">k</field>
+                <value name="VALUE">
+                  <block type="math_arithmetic">
+                    <field name="OP">MINUS</field>
+                    <value name="A">
+                      <block type="variables_get">
+                        <field name="VAR" variabletype="">k</field>
+                      </block>
+                    </value>
+                    <value name="B">
+                      <block type="math_number">
+                        <field name="NUM">1</field>
+                      </block>
+                    </value>
+                  </block>
+                </value>
+                <next>
+                  <block type="text_append">
+                    <field name="VAR"  variabletype="">strS</field>
+                    <value name="TEXT">
+                      <block type="variables_get">
+                        <field name="VAR" variabletype="">k</field>
+                      </block>
+                    </value>
+                  </block>
+                </next>
+              </block>
+            </statement>
+            <next>
+              <block type="text_affiche">
+                <value name="TEXT">
+                  <block type="variables_get">
+                    <field name="VAR" variabletype="">strS</field>
+                  </block>
+                </value>
+              </block>
+            </next>
+          </block>
+        </next>
+      </block>
+    </next>
+  </block>
+</xml>
+
+<script>
+//############################################################################
+function Display(strInfo) {
+//=========================
+// Ecrit dans une partie de la fenêtre, divers informations.
+var myMessage = window.document.form1.textarea2.value;
+if (strInfo[strInfo.length-1] == "_")  myMessage = myMessage + strInfo.substr(0, strInfo.length-1);
+else  myMessage = myMessage + strInfo + '\n';
+window.document.form1.textarea2.value = myMessage;
+window.document.form1.textarea2.scrollTop = 100000;  // pour rester en fin du texte.
+/// window.document.form1.textarea2.scrollBy(10,0);  pas correcte !?!
+} // Display
+   
+    var demoWorkspace = Blockly.inject('blocklyDiv',
+        {media: '../../media/',
+         toolbox: document.getElementById('toolbox')});
+    Blockly.Xml.domToWorkspace(document.getElementById('startBlocks'),
+                               demoWorkspace);
+
+    function showCode() {
+      // Generate JavaScript code and display it.
+      Blockly.JavaScript.INFINITE_LOOP_TRAP = null;
+      var code = Blockly.JavaScript.workspaceToCode(demoWorkspace);
+      window.document.form1.textarea2.value = "";  // efface le texte contenu dans le TEXTAREA
+      Display(code);
+    }
+
+    function runCode() {
+      // Generate JavaScript code and run it.
+      window.LoopTrap = 1000;
+      Blockly.JavaScript.INFINITE_LOOP_TRAP =
+          'if (--window.LoopTrap == 0) throw "Infinite loop.";\n';
+      var code = Blockly.JavaScript.workspaceToCode(demoWorkspace);
+      Blockly.JavaScript.INFINITE_LOOP_TRAP = null;
+      try {
+        eval(code);
+      } catch (e) {
+        alert(e);
+      }
+    }
+</script>
+
+<hr style="margin-left:0; width:95%">
+<p style="margin-top:0; font-size:80%">
+Plan du Site : 
+<a href="../../blockly.html ">blockly</a> &nbsp;
+<img src="../../images/arrow_right.png" alt="arrow" width="13" height="9"> &nbsp; 
+ex0070_puzzle
+</p>
+<hr style="margin-left:0; margin-bottom:0; width:95%">
+<p style="margin-top:0; font-size:80%">
+Page mise à jour le 21 janvier 2019 par Bernard Gisin<br>
+</p>
+<br>
+</body>
+</html>
+

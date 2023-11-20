@@ -1,0 +1,63 @@
+<xml xmlns="http://www.w3.org/1999/xhtml">
+  <variables>
+    <variable type="">j</variable>
+    <variable type="">i</variable>
+  </variables>
+  <block type="controls_for" x="186" y="140">
+    <field name="VAR" variabletype="">j</field>
+    <value name="FROM">
+      <shadow type="math_number">
+        <field name="NUM">1</field>
+      </shadow>
+    </value>
+    <value name="TO">
+      <shadow type="math_number">
+        <field name="NUM">25</field>
+      </shadow>
+    </value>
+    <value name="BY">
+      <shadow type="math_number">
+        <field name="NUM">1</field>
+      </shadow>
+    </value>
+    <statement name="DO">
+      <block type="controls_for">
+        <field name="VAR" variabletype="">i</field>
+        <value name="FROM">
+          <shadow type="math_number">
+            <field name="NUM">1</field>
+          </shadow>
+          <block type="variables_get">
+            <field name="VAR" variabletype="">j</field>
+          </block>
+        </value>
+        <value name="TO">
+          <shadow type="math_number">
+            <field name="NUM">25</field>
+          </shadow>
+        </value>
+        <value name="BY">
+          <shadow type="math_number">
+            <field name="NUM">1</field>
+          </shadow>
+          <block type="variables_get">
+            <field name="VAR" variabletype="">j</field>
+          </block>
+        </value>
+        <statement name="DO">
+          <block type="card_flip">
+            <data>10</data>
+            <value name="POSX">
+              <shadow type="math_number">
+                <field name="NUM">3</field>
+              </shadow>
+              <block type="variables_get">
+                <field name="VAR" variabletype="">i</field>
+              </block>
+            </value>
+          </block>
+        </statement>
+      </block>
+    </statement>
+  </block>
+</xml>

@@ -1,0 +1,15 @@
+Le 23.12.2019
+
+Tests, pour gérer des événements lors de l'exécution du code javascript généré par Blockly.
+
+L'exemple : 'Blockly_test07.html'  fonctionne, mais est assez compliqé.
+° Il faut introduire une pause dans le code
+° Il faut gérer la boucle d'événement dans blockly.
+
+La difficulté vient du fait qu'on ne peut pas appeler une fonction du code exécuté par l'interpréteur,
+depuis le système. 
+Il faut peut-être étudier le "Threading" de l'interpréteur.
+c.f. https://neil.fraser.name/software/JS-Interpreter/docs.html
+
+
+

@@ -1,0 +1,168 @@
+<xml xmlns="http://www.w3.org/1999/xhtml">
+  <variables>
+    <variable type="">i</variable>
+    <variable type="">val</variable>
+  </variables>
+  <block type="text_comment" x="28" y="34">
+    <value name="COMMENT">
+      <shadow type="text">
+        <field name="TEXT">Compteur en base 10</field>
+      </shadow>
+    </value>
+    <next>
+      <block type="controls_repeat_ext">
+        <value name="TIMES">
+          <shadow type="math_number">
+            <field name="NUM">1000</field>
+          </shadow>
+        </value>
+        <statement name="DO">
+          <block type="controls_for">
+            <field name="VAR" variabletype="">i</field>
+            <value name="FROM">
+              <shadow type="math_number">
+                <field name="NUM">5</field>
+              </shadow>
+            </value>
+            <value name="TO">
+              <shadow type="math_number">
+                <field name="NUM">1</field>
+              </shadow>
+            </value>
+            <value name="BY">
+              <shadow type="math_number">
+                <field name="NUM">1</field>
+              </shadow>
+            </value>
+            <statement name="DO">
+              <block type="variables_set">
+                <field name="VAR" variabletype="">val</field>
+                <value name="VALUE">
+                  <block type="math_arithmetic">
+                    <field name="OP">ADD</field>
+                    <value name="A">
+                      <shadow type="math_number">
+                        <field name="NUM">1</field>
+                      </shadow>
+                      <block type="card_get_card">
+                        <value name="FRAME1">
+                          <shadow type="math_number">
+                            <field name="NUM">1</field>
+                          </shadow>
+                          <block type="variables_get">
+                            <field name="VAR" variabletype="">i</field>
+                          </block>
+                        </value>
+                      </block>
+                    </value>
+                    <value name="B">
+                      <shadow type="math_number">
+                        <field name="NUM">1</field>
+                      </shadow>
+                    </value>
+                  </block>
+                </value>
+                <next>
+                  <block type="controls_if">
+                    <value name="IF0">
+                      <block type="logic_compare">
+                        <field name="OP">EQ</field>
+                        <value name="A">
+                          <block type="variables_get">
+                            <field name="VAR" variabletype="">val</field>
+                          </block>
+                        </value>
+                        <value name="B">
+                          <block type="math_number">
+                            <field name="NUM">1058</field>
+                          </block>
+                        </value>
+                      </block>
+                    </value>
+                    <statement name="DO0">
+                      <block type="variables_set">
+                        <field name="VAR" variabletype="">val</field>
+                        <value name="VALUE">
+                          <block type="math_number">
+                            <field name="NUM">1048</field>
+                          </block>
+                        </value>
+                      </block>
+                    </statement>
+                    <next>
+                      <block type="card_back_define">
+                        <value name="BACK">
+                          <shadow type="math_number">
+                            <field name="NUM">900</field>
+                          </shadow>
+                          <block type="variables_get">
+                            <field name="VAR" variabletype="">val</field>
+                          </block>
+                        </value>
+                        <value name="FRAME1">
+                          <shadow type="math_number">
+                            <field name="NUM">1</field>
+                          </shadow>
+                          <block type="variables_get">
+                            <field name="VAR" variabletype="">i</field>
+                          </block>
+                        </value>
+                        <next>
+                          <block type="card_flip">
+                            <data>1</data>
+                            <value name="FRAME1">
+                              <shadow type="math_number">
+                                <field name="NUM">3</field>
+                              </shadow>
+                              <block type="variables_get">
+                                <field name="VAR" variabletype="">i</field>
+                              </block>
+                            </value>
+                            <next>
+                              <block type="controls_if">
+                                <value name="IF0">
+                                  <block type="logic_compare">
+                                    <field name="OP">NEQ</field>
+                                    <value name="A">
+                                      <block type="variables_get">
+                                        <field name="VAR" variabletype="">val</field>
+                                      </block>
+                                    </value>
+                                    <value name="B">
+                                      <block type="math_number">
+                                        <field name="NUM">1048</field>
+                                      </block>
+                                    </value>
+                                  </block>
+                                </value>
+                                <statement name="DO0">
+                                  <block type="controls_flow_statements">
+                                    <field name="FLOW">BREAK</field>
+                                  </block>
+                                </statement>
+                              </block>
+                            </next>
+                          </block>
+                        </next>
+                      </block>
+                    </next>
+                  </block>
+                </next>
+              </block>
+            </statement>
+            <next>
+              <block type="text_pause">
+                <field name="SPEED">NONE</field>
+                <value name="TIME">
+                  <shadow type="math_number">
+                    <field name="NUM">0.01</field>
+                  </shadow>
+                </value>
+              </block>
+            </next>
+          </block>
+        </statement>
+      </block>
+    </next>
+  </block>
+</xml>

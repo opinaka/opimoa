@@ -1,0 +1,35 @@
+<html>
+<head>
+<meta charset="utf-8">
+<title>Brython test13 draw in a canvas</title>
+</head>
+
+<body onload="brython({debug: 1, indexedDB: false})">
+
+<button id="button8">draw in a canvas</button>
+<canvas id="zone8" width="200" height="50"
+        style="border-color:#000;border-style:solid;border-width:1px;margin-left:5em;"></canvas>
+
+<script type="text/python">
+    from browser import document, html
+    import math
+
+    canvas = document["zone8"]
+    ctx = canvas.getContext("2d")
+
+    x = 20
+
+    def draw(event):
+        global x
+        ctx.beginPath()
+        ctx.arc(x, 25, 15, 0, 2 * math.pi)
+        x += 15
+        ctx.stroke()
+
+    document["button8"].bind("click", draw)
+</script>
+<script src="brython.js"></script>
+<script src="brython_stdlib.js"></script>
+
+</body>
+</html>

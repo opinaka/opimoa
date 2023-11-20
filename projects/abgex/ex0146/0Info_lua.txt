@@ -1,0 +1,51 @@
+Le 13.12.2019 Information sur Lua.
+
+c.f. 
+http://lua.space/webdev/why-we-rewrote-lua-in-js
+http://starlight.paulcuth.me.uk/
+
+http://starlight.paulcuth.me.uk/docs/embedding-lua-in-the-web
+Indique comment exécuter une fonction  Lua  depuis  Javascipt.
+
+<button id="click-me">Click me</button>
+ 
+<script>
+  var button = document.getElementById('click-me');
+  button.addEventListener('click', function () {
+    var lua = "print('Button clicked!!')";
+    var handler = starlight.parser.parse(lua);
+    handler();
+  });
+</script> 
+
+
+http://starlight.paulcuth.me.uk/docs/interacting-with-javascript
+Indique comment appeler du code  Javascript  depuis  Lua
+
+<button id="click-me">Click me</button>
+ 
+<script type="application/lua">
+  local button = window.document:getElementById('click-me')
+ 
+  button:addEventListener('click', function () 
+    window:alert('Hello!')
+  end)
+</script>
+
+Je ne sais pas accéder à une variable javascipt depuis Lua / starlight
+
+
+-----------------------------------------------------------------------------------
+
+Une autre implémentation de Lua :
+=================================
+https://fengari.io/          N'est pas un transpiler.
+
+c.f. https://github.com/fengari-lua/fengari-web
+
+
+-----------------------------------------------------------------------------------
+
+Avoir un transpiler de Lua en javascript, permettrait d'exécuter le code Lua 
+avec les animations.
+

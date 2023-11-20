@@ -1,0 +1,5 @@
+  <block type="puzzle_power_plug" x="10" y="10" deletable="false" movable="false">
+    <value name="APPAREIL">
+    </value>
+  </block>
+

@@ -1,0 +1,58 @@
+<!-- Français -->
+<xml>
+<lang id="_HTML_WIN_TITLE">ex0810, cartes, version multilanges.</lang>
+<lang id="_HTML_MAIN_TITLE">Amusez-vous...</lang>
+<lang id="_HTML_FILES">Fichiers</lang>
+<lang id="_HTML_EXECUTE">Exécution</lang>
+<lang id="_HTML_VIEW">Voir</lang>
+<lang id="_HTML_PARAMETERS">Paramètres</lang>
+
+<lang id="_HTML_SHOW_CODE">Montre le code en JavaScript</lang>
+<lang id="_HTML_EXECUTE_BLOCKLY_CODE">Exécute</lang>
+<lang id="_HTML_SAVE_BLOCKLY_CODE">Enregistrer sous...</lang>
+<lang id="_HTML_LOAD_BLOCKLY_CODE">Ouvrir...</lang>
+<lang id="_HTML_DISPLAY">Affichage</lang>
+<lang id="_HTML_BUTTON_CLEAR">Effacer</lang>
+<lang id="_HTML_CODE_JAVASCRIPT">Code javascript</lang>
+<lang id="_HTML_EXECUTE">Execute</lang>
+
+<!-- Message de l'aide -->
+<lang id="_HTML_HELP">Aide</lang>
+<lang id="_HTML_HELP2">Aide...</lang>
+<lang id="_HTML_MESSAGE_READ">OK, j'ai lu le message</lang>
+<lang id="_HTML_MESSAGE">Message</lang>
+<lang id="_HTML_MAIN_TITLE2">Amusez-vous !!!</lang>
+
+<!-- Message de l'à propos -->
+<lang id="_HTML_ABOUT">À propos...</lang>
+<lang id="_HTML_ABOUT2">
+    &nbsp;Ce programme a été développé par Bernard Gisin pour tester les possibilités de Blockly &nbsp;<br> 
+    &nbsp;et pour donner des exemples à des enseignants informaticiens &nbsp;<br> 
+    &nbsp;qui désirent développer des modules pour des élèves. &nbsp;<br> 
+    <br>
+    &nbsp;À partir de l'ex1000, les développement seront multilangues, &nbsp;<br> 
+    &nbsp;il n'y aura qu'a taduire certains textes se trouvant dans des fichiesr séparés. &nbsp;<br> 
+    &nbsp;Ils utiliseront également une librairie, pour permettre de ne pas devoir écrire trop de code. &nbsp;<br> 
+    &nbsp;À partir de l'ex2000, le développement devraient être assez complet pour être utilisable avec des élèves. &nbsp;<br>     
+    <br><br>
+</lang>
+<lang id="_HTML_MESSAGE_READ2">OK, j'ai lu le message</lang>
+
+
+<!-- Modifie les textes de la startBlocks -->
+<lang id="_XML_SB_VALUE_IS">La valeur vaut :</lang>
+<lang id="_XML_SB_VALUE_IS2">La valeur vaut :</lang>
+
+<!-- Modifie les textes de la toolBox -->
+<!-- Pas utile, les traductions doivent se trouver dans fr.js
+<lang2 id="_XML_CAT_LOGIC">Logique</lang2>
+<lang2 id="_XML_CAT_LOOPS">Boucles</lang2>
+<lang2 id="_XML_CAT_MATH">Math</lang2>
+<lang2 id="_XML_CAT_TEXT">Texte</lang2>
+<lang2 id="_XML_CAT_LISTS">Listes</lang2>
+<lang2 id="_XML_CAT_CARD">Cartes</lang2>
+<lang2 id="_XML_CAT_COLOUR">Coulour</lang2>
+<lang2 id="_XML_CAT_VARIABLES">Variables</lang2>
+<lang2 id="_XML_CAT_FUNCTIONS">Fonctions</lang2>
+-->
+</xml>

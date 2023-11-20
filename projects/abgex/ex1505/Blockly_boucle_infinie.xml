@@ -1,0 +1,33 @@
+<xml xmlns="http://www.w3.org/1999/xhtml">
+  <block type="controls_whileUntil" x="126" y="79">
+    <field name="MODE">WHILE</field>
+    <value name="BOOL">
+      <block type="logic_compare">
+        <field name="OP">NEQ</field>
+        <value name="A">
+          <block type="card_get_card">
+            <value name="POSX">
+              <shadow type="math_number">
+                <field name="NUM">2</field>
+              </shadow>
+            </value>
+          </block>
+        </value>
+        <value name="B">
+          <block type="math_number">
+            <field name="NUM">0</field>
+          </block>
+        </value>
+      </block>
+    </value>
+    <statement name="DO">
+      <block type="text_afficheln">
+        <value name="TEXT">
+          <shadow type="text">
+            <field name="TEXT">hello</field>
+          </shadow>
+        </value>
+      </block>
+    </statement>
+  </block>
+</xml>

@@ -1,0 +1,55 @@
+<!-- Indique à Blockly les blocs que l'on désire mettre à disposition -->
+<!-- Si la balise <category> existe, le champs Blocky aura des scroll bar, 
+     sinon, il n'y a pas de scroll bar. 
+     Ici, il y a des balises <category> -->
+  <category name="Texte" colour="%{BKY_TEXTS_HUE}">
+    <block type="text"></block>
+    <block type="text_join"></block>
+    <block type="text_afficheln">
+      <value name="TEXT">
+        <shadow type="text"></shadow>
+      </value>
+    </block>
+    <block type="text_affiche">
+      <value name="TEXT">
+        <shadow type="text"></shadow>
+      </value>
+    </block>
+    <block type="text_length">
+      <value name="VALUE">
+        <shadow type="text">
+          <field name="TEXT">abc</field>
+        </shadow>
+      </value>
+    </block>
+  </category>
+  <category name="Math" colour="%{BKY_MATH_HUE}">
+    <block type="math_number">
+      <field name="NUM">123</field>
+    </block>
+  </category>  
+  <category name="Bouge" colour="%{BKY_COLOUR_HUE}">
+    <block type="logo_movex1x2">
+      <value name="POSX1">
+        <shadow type="math_number">
+          <field name="NUM">3</field>
+        </shadow>
+      </value>
+      <value name="POSX2">
+        <shadow type="math_number">
+          <field name="NUM">2</field>
+        </shadow>
+      </value>
+      <data>2</data>
+    </block>
+    <block type="logo_get_card">
+      <value name="POSX">
+        <shadow type="math_number">
+          <field name="NUM">3</field>
+        </shadow>
+      </value>
+    </block>
+  </category>
+  <category name="Variables" colour="%{BKY_VARIABLES_HUE}" custom="VARIABLE"></category>
+  <category name="Fonctions" colour="%{BKY_PROCEDURES_HUE}" custom="PROCEDURE"></category>
+

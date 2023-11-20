@@ -1,0 +1,315 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title id="HTML_WIN_TITLE">ex0940, Labyrinthe.</title>
+  
+  <!-- Les 4 lignes suivantes chargent les routines de Blockly -->
+  <script src="../../blockly_compressed.js"></script>
+  <script src="../../blocks_compressed.js"></script>
+  <script src="../../javascript_compressed.js"></script>
+  <script src="../../acorn_interpreter.js"></script>  <!-- Pour avoir un interpréteur javascript -->
+
+  <script src="../../bgjs/bglibrary_abase.js"></script>  <!-- Code de la librairie de Bernard Gisin. -->
+  <script src="../../msg/js/fr.js"></script>  <!-- C'est ici que la langue par défaut des blocs est définie -->
+  <script src="../../bgmsg/js/fr.js"></script>  <!-- C'est ici que la langue par défaut des blocs est définie -->
+  <!-- La langue peut être redéfinie dans l'URL avec : ex0940.html?lang=en -->
+
+  <!-- script spécifique à cette application -->
+  <script src="ex0940.js"></script>
+  <script src="msg/js/fr.js"></script>  <!-- C'est ici que la langue par défaut des blocs est définie -->
+
+  <link rel="stylesheet" type="text/css" href="../../bgcss/menu.css" media="screen" />
+  
+</head>
+<!-- <body onmousemove="myMouseMove(event);" onload="Include_toolbox('ex0940');">  Si on n'a pas de blocs au départ. -->
+<body onmousemove="myMouseMove(event);" onload="Include_startBlocks('ex0940'); CopyImage();"  style="margin:0px;"> 
+<!-- Une fois la page chargée, elle démarre automatiquement Blockly avec :
+ la toolbox définie dans ex0940_toolbox.xml 
+ la startBlokcs définie dans ex0940_startBlokcs.xml
+ Atention au minuscules et majuscules, qui ont de l'importance dans les noms de fichiers sur les serveurs Apach. -->
+
+<!-- Pour créer des boîtes de dialogues généralistes -->
+<!-- ############################################### -->
+<!-- C.f. gloB.oDialog  dans  bglibrary.js  et  msg/js/...  et voir  DialogGeneral(fUpdate, NumDialog, NumMessage) de bglibrary.js -->
+<div  id="idDialogBoxGeneral0"
+      style=" position:absolute; display:none; left:220px; top:260px; z-index:91;  background-color:rgb(255,255,240);
+              border-style:solid; border-width:2px; padding:0px 00px 00px 0px;"
+      onclick="myMouseDown(event, null, 'idDialogBoxGeneral0');">
+  <form name="idDialogBoxGeneral0NameForm"> 
+    <!-- http://www.w3schools.com/cssref/pr_class_cursor.asp -->
+    <div
+      style=" background-color:rgb(40,40,255); color:rgb(255,255,255); font-weight:bold; font-size:80%; cursor:grab;"	
+              onmousedown="myMouseDown(event, this, 'idDialogBoxGeneral0');"
+              onmouseup="this.style.cursor='grab'; gloB.oDivSel = 0;"
+              onmouseout="this.style.cursor='grab';">
+      &nbsp; <span id="id_DIALOG_TITLE0">TITRE DU Message</span> &nbsp;  &nbsp;  &nbsp; 
+    </div>         
+    <span id="id_DIALOG_MESSAGE0">
+      Message de cette boîte de dialogue. 
+    </span> &nbsp;<br><br><br> 
+
+    <button id="id_DIALOG_OK0" type="button" style="font-size:80%; position:absolute; display:inline-block; right:2px; bottom:2px;"
+            onclick=" document.getElementById('idDialogHideWindow').style.display='none';
+                      document.getElementById('idDialogBoxGeneral0').style.display='none';
+            ">OK, j'ai lu le message.
+    </button><br>
+  </form>
+</div>
+
+<!-- Ligne de titre -->
+<!-- ############## -->
+<div style="position:relative; margin:0px; background-color:#0000ff; text-align:center;">
+  <span style='color:#ffffff;'><b><span id="HTML_MAIN_TITLE">Résolvez ce labyrinthe...</span></b> &nbsp;
+  <b><span id="idBlocklyCoundUsed" style='color:#ff0000;'></span></b> 
+  <span id="HTML_BEEN_USED">bloc(s) ont été utilisés.</span></span><br>  
+</div>
+
+<!-- Menu de la page -->
+<!-- ############### -->
+<div id="idBlocklyMenu" style="position:relative; margin:0px;">
+  
+  <span id="menu1" class="cMenu_top"><span id="HTML_FILES">Fichiers</span>
+    <span id="menu1_ouvert" class="cMenu_ouvert">
+      <span class="cMenu_interieur">
+        <span id="HTML_LOAD_BLOCKLY_CODE" class="cMenu" onclick="LoadFile();"> Ouvrir... </span><br>
+        <span id="HTML_SAVE_BLOCKLY_CODE" class="cMenu" onclick="SaveFile('Blockly_logo_v1.xml');"> Enregistrer sous... </span><br>
+      </span>
+    </span>
+  </span> &nbsp; 
+  
+  <span id="menu2" class="cMenu_top"><span id="HTML_EXECUTE">Exécution</span>
+    <span id="menu2_ouvert" class="cMenu_ouvert">
+      <span class="cMenu_interieur">
+        <span id="HTML_EXECUTE_SLOW1" class="cMenu" onclick="runCode_slow(1, 10);">Exécution lente</span><br>
+        <span id="HTML_EXECUTE_SLOW2" class="cMenu" onclick="runCode_slow(2, 10);">Exécution plus rapide</span><br>
+        <span id="HTML_EXECUTE_SLOW3" class="cMenu" onclick="runCode_slow(3, 10);">Exécution sans animation</span><br>
+        <span id="HTML_EXECUTE_SLOW4" class="cMenu" onclick="runCode_slow(4, 10);">Exécution rapide sans animation</span><br>
+        <span id="HTML_EXECUTE_SLOW5" class="cMenu" onclick="runCode_slow(5, 10);">Exécution sans animation, avec 'exec'</span><br>
+        <span id="HTML_EXECUTE_PAUSE" class="cMenu" onclick="PauseCode();">Met l'exécution en mode pause</span><br>
+        <span id="HTML_EXECUTE_STOP" class="cMenu" onclick="StopCode();">Arrête l'exécution</span><br>
+        <span id="HTML_EXECUTE_FASTER" class="cMenu" onclick="ChangeSpeed(1, 0.5);">Plus vite</span><br>
+        <span id="HTML_EXECUTE_SLOWER" class="cMenu" onclick="ChangeSpeed(-1, 2);">Moins vite</span><br>
+      </span>
+    </span>
+  </span> &nbsp;
+  
+  <span id="menu3" class="cMenu_top"><span id="HTML_VIEW">Voir</span>
+    <span id="menu3_ouvert" class="cMenu_ouvert">
+      <span class="cMenu_interieur">
+        <span id="HTML_SHOW_CODE" class="cMenu" onclick="showCode_slow();">Montre le code javascript</span><br>
+      </span>
+    </span>
+  </span> &nbsp;
+  
+  <span id="menu4" class="cMenu_top"><span id="HTML_PARAMETERS">Paramètres</span>
+    <span id="menu4_ouvert" class="cMenu_ouvert">
+      <span class="cMenu_interieur">
+        <span class="cMenu" onclick="parameter_select('with_highlight');">
+          <b><span id=idMenuParametre_with_illumination>v</span></b>
+          <span id="HTML_PARAMETERS_HIGHLIGHT"> Avec illumination des blocs</span>            
+        </span><br>
+        <span class="cMenu" onclick="parameter_select('without_highlight');">
+          <b><span id=idMenuParametre_without_illumination>&nbsp; </span></b>
+          <span id="HTML_PARAMETERS_NO_HIGHLIGHT"> Sans illumination des blocs</span>        
+        </span><br>
+        <span id="HTML_PARAMETERS_SEPARATION1">_______________________________</span><br>
+        <span class="cMenu" onclick="parameter_select('step_by_step_slow');">
+          <b><span id=idMenuParametre_step_by_step_slow>&nbsp; </span></b>
+          <span id="HTML_PARAMETERS_STEP_BY_STEP_SLOW"> Pas à pas lent</span>        
+        </span><br>        
+        <span class="cMenu" onclick="parameter_select('step_by_step_move');">
+          <b><span id=idMenuParametre_step_by_step_move>v</span></b>
+          <span id="HTML_PARAMETERS_STEP_BY_STEP_MOVE"> Pas à pas des mouvements</span>        
+        </span><br>        
+      </span>
+    </span>
+  </span> &nbsp;
+  
+  <span id="menu5" class="cMenu_top"><span id="HTML_HELP">Aide</span>
+    <span id="menu5_ouvert" class="cMenu_ouvert" >
+      <span class="cMenu_interieur">
+        <span class="cMenu" onclick="DialogGeneral(true, 0, 0);" id="HTML_HELP2">Aide...</span><br>
+        <span class="cMenu" onclick="DialogGeneral(true, 0, 1);" id="HTML_ABOUT3">À propos...</span><br>
+      </span>
+    </span>
+  </span>
+
+</div>
+
+<!-- Ligne d'icones -->
+<!-- ############## -->
+<div style="position:relative; margin:0px; height:32px; background-color:#e0e0e0; text-align:left;">
+  <img src="../images/FileLoad.png" alt="FileLoad" width="32" height="32" class="idButtonCommand"
+       id='HTML_IMG_OPEN' title="Ouvrire un fichier Blockly..." 
+       onclick="LoadFile();">
+  <img src="../images/FileSaveAs.png" alt="FileSaveAs" width="32" height="32" class="idButtonCommand"
+       id='HTML_IMG_SAVE' title="Sauver un fichier Blockly..."
+       onclick="SaveFile('Blockly_logo_v1.xml');">
+  <img src="../images/ExecuteRun.png" alt="ExecuteRun" width="32" height="32" class="idButtonCommand"
+       id='HTML_IMG_RUN' title="Lance le programme défini par les blocs dans l'espace de travail."
+       onclick="runCode_slow(1, 10);">
+  <img src="../images/ExecuteRunRun.png" alt="ExecuteRunRun" width="32" height="32" class="idButtonCommand"
+       id='HTML_IMG_RUNRUN' title="Lance le programme, exécution plus rapide."
+       onclick="runCode_slow(2, 10);">
+  <img src="../images/ExecuteRunRunRun.png" alt="ExecuteRunRunRun" width="32" height="32" class="idButtonCommand"
+       id='HTML_IMG_RUNRUNRUN' title="Lance le programme, exécution à haute vitesse, sans animation."
+       onclick="runCode_slow(3, 10);">
+  <img src="../images/ExecuteOneSetp.png" alt="RunOneStep" width="32" height="32" class="idButtonCommand"
+       id='HTML_IMG_ONESTEP' title="Exécute un pas du code."
+       onclick="runOneStep(0);">
+  <img src="../images/Pause.png" alt="Pause" width="32" height="32" class="idButtonCommand"
+       id='HTML_IMG_PAUSE' title="Met l'exécution du programme en mode pause."
+       onclick="PauseCode();">
+  <img src="../images/Stop.png" alt="Stop" width="32" height="32" class="idButtonCommand"
+       id='HTML_IMG_STOP' title="Arrête l'exécution du programme."
+       onclick="StopCode();">
+  <img src="../images/Plus.png" alt="Plus" width="32" height="32" class="idButtonCommand"
+       id='HTML_IMG_FASTER' title="Avance plus vite."
+       onclick="ChangeSpeed(1, 0.5);">
+  <img src="../images/Minus.png" alt="Minus" width="32" height="32" class="idButtonCommand"
+       id='HTML_IMG_SLOWER' title="Avance moins vite."
+       onclick="ChangeSpeed(-1, 2);">
+  <img src="../images/Help.png" alt="Help" width="32" height="32" class="idButtonCommand"
+       id='HTML_IMG_HELP' title="Aide."
+       onclick="DialogGeneral(true, 0, 0);">
+  <img src="../images/CodeJavascript.png" alt="CodeJavascript" width="32" height="32" class="idButtonCommand"
+       id='HTML_IMG_CODEJAVASCRIPT' title="Montre le code javascript."
+       onclick="showCode_slow();">
+  <select id="idSelectLanguage" style="position:relative; top:-10px;"
+          onchange="ChooseLanguage(document.getElementById('idSelectLanguage').value);">
+    <option value="de">Deutsch</option>
+    <option value="en">English</option>
+    <option value="fr" selected>Français</option>
+    <option value="es">Espagnol</option>
+  </select>
+  <img src="../images/a.png" alt="Help" width="32" height="32" class="idButtonCommand"
+       title="Tourne à gauche"
+       onclick="Rotate('idBouleBleue', -10, 10);">
+  <img src="../images/b.png" alt="Help" width="32" height="32" class="idButtonCommand"
+       title="Tourne à droite"
+       onclick="Rotate('idBouleBleue', 10, 10);">
+  <img src="../images/c.png" alt="Help" width="32" height="32" class="idButtonCommand"
+       title="Tourne à droite"
+       onclick="Rotate('idBouleBleue', -90, 10);">
+  <img src="../images/f.png" alt="Help" width="32" height="32" class="idButtonCommand"
+       title="Avance"
+       onclick="Forward('idBouleBleue', 50, 10);">
+  <img src="../images/g.png" alt="Help" width="32" height="32" class="idButtonCommand"
+       title="Couleur ?"
+       onclick="GetColor();">
+</div>
+
+<!-- Positionnement du canvas contenant le labyrinthe et de l'image du labyrinthe -->
+<!-- ############################################################################ -->
+<!-- L'image du labyrinthe est placée derrière le canevas, donc on ne la voit pas -->
+<img id="idLabyrinthe" src="images/labyrinthe_01.png" alt="labyrinthe" 
+     style="position:absolute; left:3px; top:90px; width:400px; height:400px;" >
+
+<div style="position:absolute; left:3px; top:90px;">
+<canvas id="idCanvas"  width="400" height="400"
+        style= "position:absolute; left:0px; top:0px;
+                background-color:rgb(230,255,230); border:1px solid rgb(200,200,200);">
+Votre navigateur ne supporte pas le tag &lt;canvas&gt;.</canvas>
+
+<img src="../images/BouleBleue_dir.png" alt="boule bleue" id="idBouleBleue"
+     style="position:absolute; left:60px; top:360px; width:20px; height:20px; z-index:90; 
+     transform-origin:50% 50%; transform:rotate(0deg);">
+     <!-- c.f. https://www.w3schools.com/cssref/css3_pr_transform.asp -->
+</div>
+
+<!-- Positionnement du code Blockly -->
+<!-- ############################## -->
+<div id="blocklyDiv" style="position:absolute; left:410px; right:0px; top:84px; bottom:80px;"></div>
+
+<!-- ********************************************************************** -->
+<!-- Une fenêtre dans la fenêtre, pour afficher les résultats de l'exécution du code -->
+<!-- ############################################################################### -->
+
+<div id="idDisplay"
+	  style=" visibility:visible; position:absolute; left:530px; top:600px; z-index:5;
+	          background-color:rgb(220,255,220);
+			      	 border-style:solid; border-width:2px;
+				       padding:0px 0px 0px 0px;"
+			onclick="myMouseDown(event, null, 'idDisplay');">
+  <form name="idDisplayNameForm"> 
+    <!-- http://www.w3schools.com/cssref/pr_class_cursor.asp -->
+    <div
+      style=" background-color:rgb(40,40,255);
+              color:rgb(255,255,255);
+              font-weight:bold;
+              font-size:80%;
+              cursor:grab;"	
+              onmousedown="myMouseDown(event, this, 'idDisplay');"
+              onmouseup="this.style.cursor='grab'; gloB.oDivSel = 0;"
+              onmouseout="this.style.cursor='grab';">
+      &nbsp;<span id="HTML_DISPLAY"> Affichage</span> &nbsp;  &nbsp;  &nbsp; 
+
+      <button type="button" style='font-size:80%' id="HTML_BUTTON_CLEAR"
+              onclick="window.document.idDisplayNameForm.idDisplayNameTextArea.value = '';">Effacer
+      </button><br>
+    </div>         
+    
+    &nbsp;<textarea name="idDisplayNameTextArea" rows=20 cols=44 
+                    style="vertical-align:bottom; padding:5px 5px 5px 5px;"></textarea><br>
+
+  </form>
+</div>
+
+<!-- ********************************************************************** -->
+<!-- Une fenêtre dans la fenêtre, pour afficher le code javascript -->
+<!-- ############################################################# -->
+<div id="idCodeJavascript"
+	  style=" visibility:visible; position:absolute; left:860px; top:600px; z-index:5;
+	          background-color:rgb(220,255,220);
+				       border-style:solid; border-width:2px;
+				       padding:0px 0px 5px 0px;"
+		onclick="myMouseDown(event, null, 'idCodeJavascript');">
+<form name="idCodeJavascriptNameForm"> 
+<div
+	style="	background-color:rgb(40,40,255);
+				color:rgb(255,255,255);
+				font-weight:bold;
+				font-size:80%;
+				cursor:grab;"
+	onmousedown="myMouseDown(event, this, 'idCodeJavascript');"
+	onmouseup="this.style.cursor='grab'; gloB.oDivSel = 0;"
+	onmouseout="this.style.cursor='grab';"
+	>
+	
+  &nbsp;<span id="HTML_CODE_JAVASCRIPT"> Code javascript</span> &nbsp;  &nbsp; 
+ 
+  <button type="button" style='font-size:80%' id="HTML_EXECUTE_JAVASCRIPT_CODE"
+		        onclick="runMyCode_slow(window.document.idCodeJavascriptNameForm.idCodeJavascriptNameTextArea.value, 10);">Exécuter
+  </button><br>
+</div>
+&nbsp;<textarea name="idCodeJavascriptNameTextArea" rows=20 cols=44 
+			 style=" vertical-align:bottom;
+					      	padding:5px 5px 5px 5px;
+						      font-family:Courier New, monospace;
+					      	font-size:10pt;
+	 		     			font-weight:bold;
+			      			color:rgb(0,0,0);"></textarea>
+			 
+</form>
+</div>
+
+<!-- ================================================================ -->
+<!-- Pour le pied de page -->
+<!-- #################### -->
+<div style="position:absolute; left:2px; bottom:0px;">
+  <hr style="margin-left:0; width:110%">
+  <p style="margin-top:0; font-size:80%">
+  Plan du Site : 
+  <a href="../../blockly.html ">blockly</a> &nbsp;
+  <img src="../../images/arrow_right.png" alt="arrow" width="13" height="9"> &nbsp; 
+  ex0940 
+  </p>
+  <hr style="margin-left:0; margin-bottom:0; width:95%">
+  <p style="margin-top:0; font-size:80%">
+  Page mise à jour le 22 avril 2019 par Bernard Gisin<br>
+  </p>
+</div>
+
+</body>
+</html>

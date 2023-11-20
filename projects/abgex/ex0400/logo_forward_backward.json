@@ -1,0 +1,32 @@
+{
+    "type": "logo_forward_backward_bis",
+    "message0": "%1 de %2",
+    "args0": [
+      {
+        "type": "field_dropdown",
+        "name": "DIRECTION",
+        "options": [
+          [
+            "avance 2",
+            "FORWARD"
+          ],
+          [
+            "recule 2",
+            "BACKWARD"
+          ]
+        ]
+      },
+      {        
+        "type": "input_value",
+        "name": "PIXELS",
+        "check":"Number"
+      }
+    ],
+    "data": "idBouleBleue, 5",
+    "inputsInline": true,
+    "previousStatement": null,
+    "nextStatement": null,
+    "colour":  40,
+    "tooltip": "Avance ou recule du nombre de pixels donnés.",
+    "helpUrl": ""
+}    

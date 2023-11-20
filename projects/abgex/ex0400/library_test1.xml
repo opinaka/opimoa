@@ -1,0 +1,90 @@
+<xml xmlns="http://www.w3.org/1999/xhtml"><block type="factory_base" id="x8xKc`qltM]qu8M6rm{c" deletable="false" movable="false" x="10" y="10">
+    <mutation connections="LEFT"></mutation>
+    <field name="NAME">image_head</field>
+    <field name="INLINE">AUTO</field>
+    <field name="CONNECTIONS">LEFT</field>
+    <statement name="INPUTS">
+      <block type="input_dummy" id="`ot59-9I]oNPQN#H`!y@">
+        <field name="ALIGN">LEFT</field>
+        <statement name="FIELDS">
+          <block type="field_image" id="+7Or4:CZ~X#rQJq[5)WR">
+            <field name="SRC">http://www.juggling.ch/gisin/javascript/BougeImage/images/ballon3.gif</field>
+            <field name="WIDTH">90</field>
+            <field name="HEIGHT">90</field>
+            <field name="ALT">*</field>
+          </block>
+        </statement>
+      </block>
+    </statement>
+    <value name="TOOLTIP">
+      <block type="text" id="svTv^Ni[eE7z)U3n5=qb" deletable="false" movable="false">
+        <field name="TEXT">un conseille</field>
+      </block>
+    </value>
+    <value name="HELPURL">
+      <block type="text" id=".4hk.5osZHQsp{6bbxtG" deletable="false" movable="false">
+        <field name="TEXT">pas d'aide</field>
+      </block>
+    </value>
+    <value name="OUTPUTTYPE">
+      <shadow type="type_null" id="V0,?,`f(Yv3Qv]}!Xd$l"></shadow>
+    </value>
+    <value name="COLOUR">
+      <block type="colour_hue" id="4W(C/fWu]a=P-a|z$jsm">
+        <mutation colour="#80a55b"></mutation>
+        <field name="HUE">90</field>
+      </block>
+    </value>
+  </block><block type="factory_base" id="v4FF33YI2Y}av5Y%UCt1" deletable="false" movable="false" x="10" y="10">
+    <mutation connections="BOTH"></mutation>
+    <field name="NAME">logo_forward_backward</field>
+    <field name="INLINE">INT</field>
+    <field name="CONNECTIONS">BOTH</field>
+    <statement name="INPUTS">
+      <block type="input_value" id="o?ZHk{a[Z9Q~P98je,n+">
+        <field name="INPUTNAME">PIXELS</field>
+        <field name="ALIGN">LEFT</field>
+        <statement name="FIELDS">
+          <block type="field_dropdown" id="X*O_=m?5}XG1]GHHy[Ba">
+            <mutation options="[&quot;text&quot;,&quot;text&quot;]"></mutation>
+            <field name="FIELDNAME">DIRECTION</field>
+            <field name="USER0">avancer</field>
+            <field name="CPU0">FORWARD</field>
+            <field name="USER1">reculer</field>
+            <field name="CPU1">BACKWARD</field>
+            <next>
+              <block type="field_static" id="XbB9AB01-Mr=2y_OS_rw">
+                <field name="TEXT"> de </field>
+              </block>
+            </next>
+          </block>
+        </statement>
+        <value name="TYPE">
+          <shadow type="type_null" id="Dae,a;QRcMNL7]0=~qYj"></shadow>
+          <block type="type_number" id="^F+29PM};UM]6AjA/#V_"></block>
+        </value>
+      </block>
+    </statement>
+    <value name="TOOLTIP">
+      <block type="text" id="~_ydzd2hP1PH5G|ooRT#" deletable="false" movable="false">
+        <field name="TEXT">bgBlockly.Msg['LOGO_FORWARD_BACKWARD_TOOLTIP']</field>
+      </block>
+    </value>
+    <value name="HELPURL">
+      <block type="text" id=",PgE+36$k,wSvvRMT?~C" deletable="false" movable="false">
+        <field name="TEXT">bgBlockly.Msg['LOGO_GOTOXY_HELPURL']</field>
+      </block>
+    </value>
+    <value name="TOPTYPE">
+      <shadow type="type_null" id="l^yYx:_jrD-)iaHX6J-]"></shadow>
+    </value>
+    <value name="BOTTOMTYPE">
+      <shadow type="type_null" id="dvpA1558v$seRkUEiwN|"></shadow>
+    </value>
+    <value name="COLOUR">
+      <block type="colour_hue" id=".KrnaR.FhT|Q-}DahAE1">
+        <mutation colour="#a5745b"></mutation>
+        <field name="HUE">20</field>
+      </block>
+    </value>
+  </block></xml>

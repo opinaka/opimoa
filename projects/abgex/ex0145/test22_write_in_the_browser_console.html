@@ -1,0 +1,20 @@
+<html>
+<head>
+<meta charset="utf-8">
+<title>Brython demo</title>
+</head>
+<body onload="brython({debug: 1, indexedDB: false})">
+
+<button id="button5">write in the browser console</button>
+
+<script type="text/python" id="script5">
+    from browser import document
+
+    document["button5"].bind("click", lambda ev: print("Hello !"))
+</script>
+
+<script src="brython.js"></script>
+<script src="brython_stdlib.js"></script>
+
+</body>
+</html>

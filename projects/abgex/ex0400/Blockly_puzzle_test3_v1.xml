@@ -1,0 +1,20 @@
+<xml xmlns="http://www.w3.org/1999/xhtml">
+  <block type="puzzle_test3" x="102" y="81">
+    <statement name="STATEMENT_INPUT">
+      <block type="text_afficheln">
+        <value name="TEXT">
+          <block type="text">
+            <field name="TEXT">Bonjour</field>
+          </block>
+        </value>
+        <next>
+          <block type="text_afficheln">
+            <value name="TEXT">
+              <block type="image_head"></block>
+            </value>
+          </block>
+        </next>
+      </block>
+    </statement>
+  </block>
+</xml>

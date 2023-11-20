@@ -1,0 +1,396 @@
+<xml xmlns="http://www.w3.org/1999/xhtml">
+  <variables>
+    <variable type="">nCadre</variable>
+    <variable type="">i</variable>
+    <variable type="">j</variable>
+  </variables>
+  <block type="card_link_func_card" x="15" y="16">
+    <value name="FRAME1">
+      <shadow type="math_number">
+        <field name="NUM">9</field>
+      </shadow>
+    </value>
+    <value name="FUNC">
+      <shadow type="text">
+        <field name="TEXT">redistribue</field>
+      </shadow>
+    </value>
+    <next>
+      <block type="card_link_func_card">
+        <value name="FRAME1">
+          <shadow type="math_number">
+            <field name="NUM">10</field>
+          </shadow>
+        </value>
+        <value name="FUNC">
+          <shadow type="text">
+            <field name="TEXT">redistribue</field>
+          </shadow>
+        </value>
+        <next>
+          <block type="card_link_func_card">
+            <value name="FRAME1">
+              <shadow type="math_number">
+                <field name="NUM">11</field>
+              </shadow>
+            </value>
+            <value name="FUNC">
+              <shadow type="text">
+                <field name="TEXT">reset</field>
+              </shadow>
+            </value>
+          </block>
+        </next>
+      </block>
+    </next>
+  </block>
+  <block type="procedures_defnoreturn" x="26" y="191">
+    <mutation>
+      <arg name="nCadre" varid="IQH`Zg0P7%?a@O_c2I+?"></arg>
+    </mutation>
+    <field name="NAME">redistribue</field>
+    <comment pinned="false" h="80" w="160">Décrire cette fonction…</comment>
+    <statement name="STACK">
+      <block type="controls_if">
+        <mutation else="1"></mutation>
+        <value name="IF0">
+          <block type="logic_compare">
+            <field name="OP">EQ</field>
+            <value name="A">
+              <block type="variables_get">
+                <field name="VAR" variabletype="">nCadre</field>
+              </block>
+            </value>
+            <value name="B">
+              <block type="math_number">
+                <field name="NUM">9</field>
+              </block>
+            </value>
+          </block>
+        </value>
+        <statement name="DO0">
+          <block type="controls_for">
+            <field name="VAR" variabletype="">i</field>
+            <value name="FROM">
+              <shadow type="math_number">
+                <field name="NUM">1</field>
+              </shadow>
+            </value>
+            <value name="TO">
+              <shadow type="math_number">
+                <field name="NUM">7</field>
+              </shadow>
+            </value>
+            <value name="BY">
+              <shadow type="math_number">
+                <field name="NUM">2</field>
+              </shadow>
+            </value>
+            <statement name="DO">
+              <block type="card_movef1f2">
+                <data>1</data>
+                <value name="FRAME1">
+                  <shadow type="math_number">
+                    <field name="NUM">0</field>
+                  </shadow>
+                  <block type="variables_get">
+                    <field name="VAR" variabletype="">i</field>
+                  </block>
+                </value>
+                <value name="FRAME2">
+                  <shadow type="math_number">
+                    <field name="NUM">0</field>
+                  </shadow>
+                </value>
+              </block>
+            </statement>
+            <next>
+              <block type="controls_for">
+                <field name="VAR" variabletype="">i</field>
+                <value name="FROM">
+                  <shadow type="math_number">
+                    <field name="NUM">2</field>
+                  </shadow>
+                </value>
+                <value name="TO">
+                  <shadow type="math_number">
+                    <field name="NUM">8</field>
+                  </shadow>
+                </value>
+                <value name="BY">
+                  <shadow type="math_number">
+                    <field name="NUM">2</field>
+                  </shadow>
+                </value>
+                <statement name="DO">
+                  <block type="card_movef1f2">
+                    <data>1</data>
+                    <value name="FRAME1">
+                      <shadow type="math_number">
+                        <field name="NUM">0</field>
+                      </shadow>
+                      <block type="variables_get">
+                        <field name="VAR" variabletype="">i</field>
+                      </block>
+                    </value>
+                    <value name="FRAME2">
+                      <shadow type="math_number">
+                        <field name="NUM">0</field>
+                      </shadow>
+                    </value>
+                  </block>
+                </statement>
+              </block>
+            </next>
+          </block>
+        </statement>
+        <statement name="ELSE">
+          <block type="controls_for">
+            <field name="VAR" variabletype="">i</field>
+            <value name="FROM">
+              <shadow type="math_number">
+                <field name="NUM">2</field>
+              </shadow>
+            </value>
+            <value name="TO">
+              <shadow type="math_number">
+                <field name="NUM">8</field>
+              </shadow>
+            </value>
+            <value name="BY">
+              <shadow type="math_number">
+                <field name="NUM">2</field>
+              </shadow>
+            </value>
+            <statement name="DO">
+              <block type="card_movef1f2">
+                <data>1</data>
+                <value name="FRAME1">
+                  <shadow type="math_number">
+                    <field name="NUM">0</field>
+                  </shadow>
+                  <block type="variables_get">
+                    <field name="VAR" variabletype="">i</field>
+                  </block>
+                </value>
+                <value name="FRAME2">
+                  <shadow type="math_number">
+                    <field name="NUM">0</field>
+                  </shadow>
+                </value>
+              </block>
+            </statement>
+            <next>
+              <block type="controls_for">
+                <field name="VAR" variabletype="">i</field>
+                <value name="FROM">
+                  <shadow type="math_number">
+                    <field name="NUM">1</field>
+                  </shadow>
+                </value>
+                <value name="TO">
+                  <shadow type="math_number">
+                    <field name="NUM">7</field>
+                  </shadow>
+                </value>
+                <value name="BY">
+                  <shadow type="math_number">
+                    <field name="NUM">2</field>
+                  </shadow>
+                </value>
+                <statement name="DO">
+                  <block type="card_movef1f2">
+                    <data>1</data>
+                    <value name="FRAME1">
+                      <shadow type="math_number">
+                        <field name="NUM">0</field>
+                      </shadow>
+                      <block type="variables_get">
+                        <field name="VAR" variabletype="">i</field>
+                      </block>
+                    </value>
+                    <value name="FRAME2">
+                      <shadow type="math_number">
+                        <field name="NUM">0</field>
+                      </shadow>
+                    </value>
+                  </block>
+                </statement>
+              </block>
+            </next>
+          </block>
+        </statement>
+        <next>
+          <block type="controls_for">
+            <field name="VAR" variabletype="">i</field>
+            <value name="FROM">
+              <shadow type="math_number">
+                <field name="NUM">8</field>
+              </shadow>
+            </value>
+            <value name="TO">
+              <shadow type="math_number">
+                <field name="NUM">1</field>
+              </shadow>
+            </value>
+            <value name="BY">
+              <shadow type="math_number">
+                <field name="NUM">1</field>
+              </shadow>
+            </value>
+            <statement name="DO">
+              <block type="card_movef1f2">
+                <data>1</data>
+                <value name="FRAME1">
+                  <shadow type="math_number">
+                    <field name="NUM">0</field>
+                  </shadow>
+                </value>
+                <value name="FRAME2">
+                  <shadow type="math_number">
+                    <field name="NUM">0</field>
+                  </shadow>
+                  <block type="variables_get">
+                    <field name="VAR" variabletype="">i</field>
+                  </block>
+                </value>
+              </block>
+            </statement>
+          </block>
+        </next>
+      </block>
+    </statement>
+  </block>
+  <block type="procedures_defnoreturn" x="17" y="752">
+    <field name="NAME">reset</field>
+    <comment pinned="false" h="80" w="160">Describe this function...</comment>
+    <statement name="STACK">
+      <block type="card_remove_all">
+        <value name="ACCELERATE">
+          <shadow type="math_number">
+            <field name="NUM">6</field>
+          </shadow>
+        </value>
+        <next>
+          <block type="controls_for">
+            <field name="VAR" variabletype="">j</field>
+            <value name="FROM">
+              <shadow type="math_number">
+                <field name="NUM">1</field>
+              </shadow>
+            </value>
+            <value name="TO">
+              <shadow type="math_number">
+                <field name="NUM">8</field>
+              </shadow>
+            </value>
+            <value name="BY">
+              <shadow type="math_number">
+                <field name="NUM">1</field>
+              </shadow>
+            </value>
+            <statement name="DO">
+              <block type="card_add_one_card">
+                <data>1</data>
+                <value name="CARD">
+                  <shadow type="math_number">
+                    <field name="NUM">101</field>
+                  </shadow>
+                  <block type="math_arithmetic">
+                    <field name="OP">ADD</field>
+                    <value name="A">
+                      <shadow type="math_number">
+                        <field name="NUM">99</field>
+                      </shadow>
+                    </value>
+                    <value name="B">
+                      <shadow type="math_number">
+                        <field name="NUM">1</field>
+                      </shadow>
+                      <block type="variables_get">
+                        <field name="VAR" variabletype="">j</field>
+                      </block>
+                    </value>
+                  </block>
+                </value>
+                <value name="BACK">
+                  <shadow type="math_number">
+                    <field name="NUM">900</field>
+                  </shadow>
+                </value>
+                <value name="FRAME2">
+                  <shadow type="math_number">
+                    <field name="NUM">1</field>
+                  </shadow>
+                  <block type="variables_get">
+                    <field name="VAR" variabletype="">j</field>
+                  </block>
+                </value>
+              </block>
+            </statement>
+            <next>
+              <block type="card_add_one_card">
+                <data>1</data>
+                <value name="CARD">
+                  <shadow type="math_number">
+                    <field name="NUM">900</field>
+                  </shadow>
+                </value>
+                <value name="BACK">
+                  <shadow type="math_number">
+                    <field name="NUM">900</field>
+                  </shadow>
+                </value>
+                <value name="FRAME2">
+                  <shadow type="math_number">
+                    <field name="NUM">9</field>
+                  </shadow>
+                </value>
+                <next>
+                  <block type="card_add_one_card">
+                    <data>1</data>
+                    <value name="CARD">
+                      <shadow type="math_number">
+                        <field name="NUM">910</field>
+                      </shadow>
+                    </value>
+                    <value name="BACK">
+                      <shadow type="math_number">
+                        <field name="NUM">900</field>
+                      </shadow>
+                    </value>
+                    <value name="FRAME2">
+                      <shadow type="math_number">
+                        <field name="NUM">10</field>
+                      </shadow>
+                    </value>
+                    <next>
+                      <block type="card_add_one_card">
+                        <data>1</data>
+                        <value name="CARD">
+                          <shadow type="math_number">
+                            <field name="NUM">920</field>
+                          </shadow>
+                        </value>
+                        <value name="BACK">
+                          <shadow type="math_number">
+                            <field name="NUM">900</field>
+                          </shadow>
+                        </value>
+                        <value name="FRAME2">
+                          <shadow type="math_number">
+                            <field name="NUM">11</field>
+                          </shadow>
+                        </value>
+                      </block>
+                    </next>
+                  </block>
+                </next>
+              </block>
+            </next>
+          </block>
+        </next>
+      </block>
+    </statement>
+  </block>
+</xml>

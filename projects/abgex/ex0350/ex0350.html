@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>ex0350, Test de programmation objet en javascript</title>
+</head>
+<body>
+<h2>ex0350, Test de programmation objet en javascript</h2>
+
+<p>
+  <button onclick="runCode()">Exécute le code JavaScript</button>
+</p>
+
+<!-- C'est ici que le texte sera affiché -->
+<div style="display:inline-block; vertical-align:top; height: 680px;">
+  <form name=nomForm1>
+    <textarea rows=35 COLS=60 NAME=nomTextarea1></textarea><br>
+    <br>
+    <input type="button" value="Efface les lignes"
+           onclick="window.document.nomForm1.nomTextarea1.value = ''">
+  </form>
+</div>
+
+<script>
+//############################################################################
+// COMPLIQUÉ, NE FONCTIONNE PAS BIEN, 
+// car il est difficile d'appeler la méthode d'un parent depuis un enfant.
+// c.f. ex0355, qui est bien meilleur.
+//############################################################################
+/*
+Le but de ce programme est d'illustrer la programmation objet sur la classe des vertébrés
+et quelques classes descendantes plus particulières.
+Structure des classes :
+- classe des vertébrés.
+	- classe des mammifères
+		- classe des chiens
+		- classe des chats
+*/
+function Display(strInfo) {
+//=========================
+// Ecrit dans une partie de la fenêtre, divers informations.
+// La forme "nomForm1" a été définie plus bas, 
+// sous la définition de la '<div id="blocklyDiv" ...' pour Blockly
+var myMessage = window.document.nomForm1.nomTextarea1.value;
+myMessage = myMessage + strInfo + '\n';
+window.document.nomForm1.nomTextarea1.value = myMessage;
+window.document.nomForm1.nomTextarea1.scrollTop = 100000;  // pour rester en fin du texte.
+/// window.document.nomForm1.nomTextarea1.scrollBy(10,0);  pas correcte !?!
+} // Display
+
+function classof(obj) {
+//=====================
+// Pas utile, car javascript n'a que 7 types possibles :
+// null, undefined, boolean, number, string, function et object
+// c.f. page 209  et  136 de "Jacascript The Definitive Guide" de David Flanagan, collection O'Reilly, 2011-08-12
+if (obj === null) return "Null";
+if (obj === undefined) return "Undefined";
+return Object.prototype.toString.call(obj).slice(8, -1);
+} // classof
+
+//***********************************************************************
+function Vertebres(couleur, nom) {
+//================================
+this.couleur = couleur;
+this.nom = nom;
+this.maClass = "Vertébré";
+} // Vertebres
+
+Vertebres.prototype = {
+//*********************
+  AfficheInfo1 : function() {
+  //"""""""""""""""""""""""""
+  Display("Class = " + this.maClass);
+  Display("Coulveu = " + this.couleur);
+  Display("Nom = " + this.nom);
+  } // AfficheInfo1
+,
+  ChangeNom : function(nomNouveau) {
+  //""""""""""""""""""""""""""""""""
+  this.nom = nomNouveau; 
+  } // ChangeNom
+};
+  
+function Fonction_qui_ne_connait_que_les_vertebre(monVertebre) {
+//==============================================================
+// Cette fonction peut avoir écrite juste après avoir défini la classe des Vertebres,
+// sans avoir aucune connaissances des classes descendantes.
+// Pourtant, elle accèdera à des méthodes des classes descendantes.
+// C'est la force du polymorphisme."""
+ monVertebre.AfficheInfo1();
+ } // Fonction_qui_ne_connait_que_les_vertebre
+
+function Mammiferes(couleur, nom) {
+//=================================
+Vertebres.call(this, couleur, nom); // Pour indiquer que Mammiferes est une class descendante de Vertebres
+
+this.maClass = "Mamifère";
+this.caracteristiques = "A des poiles et donne du lait"; // Une propriété a été ajoutée.
+} // Mammiferes
+
+Mammiferes.prototype = {
+//**********************
+  AfficheInfo1 : function() {
+  //"""""""""""""""""""""
+  Vertebres.prototype.AfficheInfo1.call(this);  // Fonctionne, mais est plus simple dans ex0355
+  
+  //Display("Class = " + this.maClass);   Display("Coulveu = " + this.couleur);   Display("Nom = " + this.nom);
+  Display("Caractéristiques = " + this.caracteristiques);
+  } // AfficheInfo1
+};
+
+//***********************************************************************
+function runCode() {
+//===================
+
+var unVertebre = new Vertebres("brun", "mon Vertébré"); // Création dun objet Vertebres
+unVertebre.AfficheInfo1();
+unVertebre.ChangeNom("Change le nom du vertébré");
+unVertebre.AfficheInfo1();
+unVertebre.nom = "troisième changement de nom";  // Manière plus simple et plus directe de changer le nom
+unVertebre.AfficheInfo1();
+//unVertebre.AfficheInfo1(unVertebre);
+Display("--------------------------");
+
+// Ce qui suit montre la force du POLYMORPHISME.
+// La fonction suivante a été écrite avant la définition des descendants de la class des Vertebres,
+// pourtant, elle appelle les méthodes des enfants de la classe Vertebres.
+Fonction_qui_ne_connait_que_les_vertebre(unVertebre);
+Display("--------------------------");
+
+var unMamifere = new Mammiferes("blanc", "mon Mamifère"); // Création dun objet Mamifere
+//unMamifere.AfficheInfo1();
+Fonction_qui_ne_connait_que_les_vertebre(unMamifere);
+unMamifere.AfficheInfo1(); 
+Display("--------------------------");
+/*
+Display("######################################");
+Display(unVertebre instanceof Vertebres); // Permet de tester que unVertebre est de la classe Vertebres
+Display(classof(1));
+Display(typeof(1));
+Display(classof(unVertebre));
+Display(typeof(unVertebre));
+Display(unVertebre.name);
+// Display(unVertebre.constructor);  Affiche toute la fonction du constructeur de unVertebre
+*/
+Display("######################################");
+
+} // runCode
+</script>
+
+<!-- ================================================================ -->
+<hr style="margin-left:0; width:95%">
+<p style="margin-top:0; font-size:80%">
+Plan du Site : 
+<a href="../../blockly.html ">blockly</a> &nbsp;
+<img src="../../images/arrow_right.png" alt="arrow" width="13" height="9"> &nbsp; 
+ex0350 
+</p>
+<hr style="margin-left:0; margin-bottom:0; width:95%">
+<p style="margin-top:0; font-size:80%">
+Page mise à jour le 12 février 2019 par Bernard Gisin<br>
+</p>
+<br>
+</body>
+</html>
+

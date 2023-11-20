@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>ex0510, échange de la position de deux cartes.</title>
+  
+  <!-- Les 4 lignes suivantes chargent les routines de Blockly -->
+  <script src="../../blockly_compressed.js"></script>
+  <script src="../../blocks_compressed.js"></script>
+  <script src="../../javascript_compressed.js"></script>
+  <script src="../../msg/js/fr.js"></script>  <!-- C'est ici que la langue des blocs est définie -->
+ <script src="../../acorn_interpreter.js"></script>  <!-- Pour avoir un interpréteur javascript -->
+
+  <script src="ex0510.js"></script>  <!-- Code spécifique à cette page ( cette application ). -->
+
+  <script>
+    function Help(fUpdate) {
+    //======================
+    // Affiche les instructions à réaliser.
+    if (fUpdate) {
+      // N'est pas fait lors du premier message, qui n'a pas encore terminé la mise à jour du 'Workspace'
+      demoWorkspace.setVisible(false);
+      demoWorkspace.setVisible(true);  // Deux instructions, pour enlever une sélection d'un nombre en train d'être éditer.
+      }
+    glnZIndex++;
+    document.getElementById('idBoite').style.zIndex = glnZIndex+1;
+    document.getElementById('idCacheFenetre').style.zIndex = glnZIndex;
+    document.getElementById('idCacheFenetre').style.display='block';
+    document.getElementById('idBoite').style.display='block';
+    } // Help
+  </script>
+  
+</head>
+<!-- <body onmousemove="myMouseMove(event);" onload="Include_toolbox('ex0510');">  Si on n'a pas de blocs au départ. -->
+<body onmousemove="myMouseMove(event);" onload="Include_startBlocks('ex0510');"> 
+<!-- Une fois la page chargée, elle démarre automatiquement Blockly avec :
+ la toolbox définie dans ex0510_toolbox.xml 
+ la startBlokcs définie dans ex0510_startBlokcs.xml
+ Atention au minuscules et majuscules, qui ont de l'importance dans les noms de fichiers sur les serveurs Apach. -->
+
+
+<!-- Permet de simuler une boîte de dialogue modale -->
+<!-- Le  div  d'id 'idCacheFenetre' recouvre toute le fenêtre en empêchant d'accéder aux éléments de celle-ci. -->
+<!-- Le div  d'id 'idBoite' devient visible et fait office de boite de dialogue. -->
+<div id="idBoite"
+	  style=" position:absolute; display:none;
+				       left:220px; top:260px; z-index:91;
+	          background-color:rgb(255,255,240);
+				 border-style:solid; border-width:2px;
+				 padding:0px 00px 00px 0px;"
+		 		onclick="myMouseDown(event, null, 'idBoite');">
+  <form name="idBoiteNameForm"> 
+    <!-- http://www.w3schools.com/cssref/pr_class_cursor.asp -->
+    <div
+      style=" background-color:rgb(40,40,255);
+              color:rgb(255,255,255);
+              font-weight:bold;
+              font-size:80%;
+              cursor:grab;"	
+              onmousedown="myMouseDown(event, this, 'idBoite');"
+              onmouseup="this.style.cursor='grab'; gloDivSel = 0;"
+              onmouseout="this.style.cursor='grab';">
+      &nbsp; Message &nbsp;  &nbsp;  &nbsp; 
+    </div>         
+    &nbsp;Amusez-vous... &nbsp;<br> 
+    <br><br>
+
+    <button type="button" style="font-size:80%; position:absolute; display:inline-block; right:2px; bottom:2px;"
+            onclick=" document.getElementById('idCacheFenetre').style.display='none';
+                      document.getElementById('idBoite').style.display='none';
+            ">OK, j'ai lu le message.
+    </button><br>
+
+  </form>
+</div>
+
+<!-- recouvre toute la fenêtre, en empêchant d'y accéder -->
+<div id='idCacheFenetre' 
+     style="position:absolute; display:none; left:0px; top:0px; right:0px; bottom:0px;
+            background-color:#000000; opacity:0.7; z-index:90;"
+  >
+</div>
+
+<!-- ********************************************************************** -->
+
+<!-- en-tête de la page -->
+<div style="position:absolute; left:2px; top:2px;">
+   <b><span id="capacity" style='color:#ff0000;'>Amusez-vous !!!</span></b><br>
+  
+  <button onclick="showCode_slow();">Montre le code en JavaScript</button>
+  <button onclick="runCode_slow(10);">Exécute lentement le code Blockly</button>
+  <button onclick="SaveFile('Blockly_move_cartes_v1.xml');">Sauve le code Blockly</button>
+  <button onclick="LoadFile();">Charge le code Blockly</button>
+  <button onclick="Help(true);"> Aide ...</button> 
+  <button onclick="glfRunStop = true;"> STOP Run</button> 
+  <button onclick="glnMoveStep++;"> Plus vite</button> 
+  <button onclick="glnMoveStep--; if (glnMoveStep < 1) glnMoveStep = 1;"> Moins vite</button> 
+  <button onclick="glnInterpreterSpeed = 3 - glnInterpreterSpeed;"> Rapide / Lent</button> 
+  <br>
+ 
+</div>
+
+<!-- Positionnement du code Blockly -->
+<div id="blocklyDiv" style="position:absolute; left:0px; right:0px; top:260px; bottom:80px;"></div>
+
+<!-- zone bleue claire, pour placer les cartes. -->
+<!-- name indique le numéro de la carte. -->
+<!-- L'id des cartes sont définies relativement à leur position  --> 
+<!-- id = 'idPos' + (100 + n° de case) + profondeur.  
+     profondeur = 1 s'il n'y a q'une carte, 2 s'il y a une carte dessus, 3 s'il y a deux cartes dessus, ... -->
+<div id='idCartes' style="position:absolute; left:0px; right:0px; top:76px; height:180px; background-color:#80e0ff;">
+  <!-- Le contenu sera rempli par le script en fin de ce fichier -->
+    <div style="position:absolute; display:inline-block; left:200px; top:40px; width:8px;  
+                z-index:90; border:0px solid #000000;"> 1 8 9 7 6 5 </div>
+    <div style="position:absolute; display:inline-block; left:210px; top:40px; width:8px;  
+                z-index:90; border:1px solid #000000;"> 1 8 9 7 6 5 </div>
+
+</div>
+
+<!-- ********************************************************************** -->
+<!-- Une fenêtre dans la fenêtre, pour afficher les résultats de l'exécution du code -->
+<div id="idDisplay"
+	  style=" visibility:visible; position:absolute; 
+				 left:820px; top:600px; z-index:5;
+	          background-color:rgb(220,255,220);
+				 border-style:solid; border-width:2px;
+				 padding:0px 0px 0px 0px;"
+		 		onclick="myMouseDown(event, null, 'idDisplay');">
+  <form name="nomForm1"> 
+    <!-- http://www.w3schools.com/cssref/pr_class_cursor.asp -->
+    <div
+      style=" background-color:rgb(40,40,255);
+              color:rgb(255,255,255);
+              font-weight:bold;
+              font-size:80%;
+              cursor:grab;"	
+              onmousedown="myMouseDown(event, this, 'idDisplay');"
+              onmouseup="this.style.cursor='grab'; gloDivSel = 0;"
+              onmouseout="this.style.cursor='grab';">
+      &nbsp; Affichage &nbsp;  &nbsp;  &nbsp; 
+
+      <button type="button" style='font-size:80%'
+              onclick="window.document.nomForm1.nomTextarea1.value = '';">Effacer
+      </button><br>
+    </div>         
+    
+    &nbsp;<textarea name="nomTextarea1" rows=20 cols=40 
+                    style="vertical-align:bottom; padding:5px 5px 5px 5px;"></textarea><br>
+
+  </form>
+</div>
+
+<!-- ********************************************************************** -->
+<!-- Une fenêtre dans la fenêtre, pour afficher le code javascript -->
+<div id="idCodeJavascript"
+	  style=" visibility:visible; position:absolute; left:920px; top:950px; z-index:5;
+	          background-color:rgb(220,255,220);
+				       border-style:solid; border-width:2px;
+				       padding:0px 0px 5px 0px;"
+		onclick="myMouseDown(event, null, 'idCodeJavascript');">
+<form name="nomForm2"> 
+<div
+	style="	background-color:rgb(40,40,255);
+				color:rgb(255,255,255);
+				font-weight:bold;
+				font-size:80%;
+				cursor:grab;"
+	onmousedown="myMouseDown(event, this, 'idCodeJavascript');"
+	onmouseup="this.style.cursor='grab'; gloDivSel = 0;"
+	onmouseout="this.style.cursor='grab';"
+	>
+	
+ &nbsp; Code javascript  &nbsp;  &nbsp; 
+ 
+  <button type="button" style='font-size:80%'
+		        onclick="runMyCode_slow(window.document.nomForm2.nomTextarea2.value, 100);">Exécuter
+  </button><br>
+</div>
+&nbsp;<textarea name="nomTextarea2" rows=5 cols=30 
+			 style=" vertical-align:bottom;
+					      	padding:5px 5px 5px 5px;
+						      font-family:Courier New, monospace;
+					      	font-size:10pt;
+	 		     			font-weight:bold;
+			      			color:rgb(0,0,0);"></textarea>
+			 
+</form>
+</div>
+
+<!-- ================================================================ -->
+<!-- Pour le pied de page -->
+<div style="position:absolute; left:2px; bottom:0px;">
+  <hr style="margin-left:0; width:110%">
+  <p style="margin-top:0; font-size:80%">
+  Plan du Site : 
+  <a href="../../blockly.html ">blockly</a> &nbsp;
+  <img src="../../images/arrow_right.png" alt="arrow" width="13" height="9"> &nbsp; 
+  ex0510 
+  </p>
+  <hr style="margin-left:0; margin-bottom:0; width:95%">
+  <p style="margin-top:0; font-size:80%">
+  Page mise à jour le 21 janvier 2019 par Bernard Gisin<br>
+  </p>
+</div>
+
+<script>
+  // Pour placer automatiquement les cadres, les numéros et les cartes
+  var nunit = 0;
+  var ndec = 0;
+  var strInstr = '';
+
+  for (ndec=0; ndec<=8; ndec++) { 
+    for (nunit=0; nunit<=9; nunit++) {
+      strInstr += " <div id='idPos" + (100 + 10*ndec + nunit) + "1' name='" + (10*ndec + nunit) + "'\n" 
+               +  " style='position:absolute; left:" + (10 + 100 * ndec + 10*nunit) 
+               +  "px; top:40px; width:8px; z-index:90;'> " + ndec + " " + nunit + "</div>\n"
+               +  " <div style='position:absolute; left:" + (10 + 100 * ndec + 10*nunit) + "px; top:90px; width:8px;  z-index:90;'>" 
+               +  nunit + " " + ndec + "</div>\n";
+       
+      } // for
+    } // for
+
+  document.getElementById('idCartes').innerHTML = strInstr; 
+  
+  Help(false); // Démarre la page avec l'instruction à suivre...
+</script>
+
+</body>
+</html>

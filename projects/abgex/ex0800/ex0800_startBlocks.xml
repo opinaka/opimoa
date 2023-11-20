@@ -1,0 +1,131 @@
+<block type="variables_set" inline="false">
+  <field name="VAR">x</field>
+  <value name="VALUE">
+    <block type="math_number">
+      <field name="NUM">7</field>
+    </block>
+  </value>
+  <next>
+    <block type="controls_whileUntil" inline="true">
+      <value name="BOOL">
+        <block type="logic_compare" inline="true">
+          <value name="A">
+            <block type="variables_get">
+              <field name="VAR">x</field>
+            </block>
+          </value>
+          <field name="OP">GT</field>
+          <value name="B">
+            <block type="math_number">
+              <field name="NUM">1</field>
+            </block>
+          </value>
+        </block>
+      </value>
+      <statement name="DO">
+        <block type="controls_if" inline="false" x="20" y="20">
+          <mutation else="1"></mutation>
+          <value name="IF0">
+            <block type="math_number_property" inline="true">
+              <value name="NUMBER_TO_CHECK">
+                <block type="variables_get">
+                  <field name="VAR">x</field>
+                </block>
+              </value>
+              <field name="PROPERTY">EVEN</field>
+            </block>
+          </value>
+          <statement name="DO0">
+            <block type="variables_set" inline="true">
+              <field name="VAR">x</field>
+              <value name="VALUE">
+                <block type="math_arithmetic" inline="true">
+                  <field name="OP">DIVIDE</field>
+                  <value name="A">
+                    <block type="variables_get">
+                      <field name="VAR">x</field>
+                    </block>
+                  </value>
+                  <value name="B">
+                    <block type="math_number">
+                      <field name="NUM">2</field>
+                    </block>
+                  </value>
+                </block>
+              </value>
+              <next>
+                <block type="text_affiche" inline="true">
+                  <value name="TEXT">
+                    <block type="text">
+                      <field id="XML_SB_VALUE_IS" name="TEXT">La valeur vaut : </field>
+                    </block>
+                  </value>
+                  <next>
+                    <block type="text_afficheln">
+                      <value name="TEXT">
+                        <block type="variables_get">
+                          <field name="VAR">x</field>
+                        </block>
+                      </value>
+                    </block>
+                  </next>
+                </block> 
+              </next>     
+            </block>
+          </statement>
+          <statement name="ELSE">
+            <block type="variables_set" id="set_n_update" inline="true">
+              <field name="VAR">x</field>
+              <value name="VALUE">
+
+                <block type="math_arithmetic" inline="true">
+                 <field name="OP">ADD</field>
+                 <value name="A">
+
+                  <block type="math_arithmetic" inline="true">
+                   <field name="OP">MULTIPLY</field>
+                   <value name="A">
+                    <block type="variables_get">
+                     <field name="VAR">x</field>
+                    </block>
+                   </value>
+                   <value name="B">
+                    <block type="math_number">
+                     <field name="NUM">3</field>
+                    </block>
+                   </value>
+                  </block>
+                 </value>
+
+                 <value name="B">
+                  <block type="math_number">
+                   <field name="NUM">1</field>
+                  </block>
+                 </value>
+                </block>
+              </value>
+              <next>
+                <block type="text_affiche" inline="true">
+                  <value name="TEXT">
+                    <block type="text">
+                      <field id="XML_SB_VALUE_IS2"  name="TEXT">La valeur vaut : </field>
+                    </block>
+                  </value>
+                  <next>
+                    <block type="text_afficheln">
+                      <value name="TEXT">
+                        <block type="variables_get">
+                          <field name="VAR">x</field>
+                        </block>
+                      </value>
+                    </block>
+                  </next>
+                </block> 
+              </next>     
+            </block>
+          </statement>
+        </block>
+      </statement>
+    </block>
+  </next>     
+</block> 

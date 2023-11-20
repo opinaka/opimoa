@@ -1,0 +1,889 @@
+<!DOCTYPE html>
+<html onmousemove="myMouseMove(event);" onmouseout="myMouseOut(event);">
+<head>
+  <meta charset="utf-8">
+  <title id="HTML_WIN_TITLE">ex2001, programmation générale.</title>
+  
+  <!-- Les 4 lignes suivantes chargent les routines de Blockly -->
+  <script src="../../blockly_compressed.js"></script>
+  <script src="../../blocks_compressed.js"></script>
+  <script src="../../javascript_compressed.js"></script>
+  <script src="../../python_compressed.js"></script>
+  <script src="../../php_compressed.js"></script>
+  <script src="../../lua_compressed.js"></script>
+  <script src="../../dart_compressed.js"></script>
+  <script src="../../bgjs/python/text.js"></script> <!-- Pour le texte des nouveaux blocks de code Python -->
+  <script src="../../bgjs/lua/text.js"></script> <!-- Pour le texte des nouveaux blocks de code Lua -->
+  <script src="../../acorn_interpreter.js"></script>  <!-- Pour avoir un interpréteur javascript -->
+
+  <script src="../../bgjs/bglibrary_abase.js"></script>  <!-- Code de la librairie de Bernard Gisin. -->
+  <script src="../../msg/js/fr.js"></script>  <!-- C'est ici que la langue par défaut des blocs est définie -->
+  <script src="../../bgmsg/js/fr.js"></script>  <!-- C'est ici que la langue par défaut des blocs est définie -->
+  <!-- La langue peut être redéfinie dans l'URL avec : ex2001.html?lang=en -->
+
+  <!-- script spécifique à cette application -->
+  <script src="ex2001.js"></script>
+  <script src="bglibrary_frame_card.js"></script>
+
+  <link rel="stylesheet" type="text/css" href="../../bgcss/menu.css" media="screen" />
+  
+</head>
+<!-- <body onmousemove="myMouseMove(event);" onload="Include_toolbox('ex2001');">  Si on n'a pas de blocs au départ. -->
+<body onload="Include_startBlocks('ex2001');  brython({debug:0, indexedDB:false});"  style="margin:0px;"> 
+<!-- Une fois la page chargée, elle démarre automatiquement Blockly avec :
+ la toolbox définie dans ex2001_toolbox.xml 
+ la startBlokcs définie dans ex2001_startBlokcs.xml
+ Atention au minuscules et majuscules, qui ont de l'importance dans les noms de fichiers sur les serveurs Apach. -->
+
+
+<!-- Permet de simuler une boîte de dialogue modale -->
+<!-- Le  div  d'id 'idDialogHideWindow' recouvre toute le fenêtre en empêchant d'accéder aux éléments de celle-ci. -->
+<!-- Le div  d'id 'idDialogBoxHelp' devient visible et fait office de boite de dialogue. -->
+<!-- Le div  d'id 'idDialogBoxAbout' devient visible et fait office de boite de dialogue. -->
+
+<!-- recouvre toute la fenêtre, en empêchant d'y accéder -->
+<div id='idDialogHideWindow' 
+     style="position:absolute; display:none; left:0px; top:0px; right:0px; bottom:0px; background-color:#000000; opacity:0.7; z-index:90;">
+</div>
+
+<div  id="idDialogBoxHelp"
+      style=" position:absolute; display:none; left:220px; top:260px; z-index:91;  background-color:rgb(255,255,240);
+              border-style:solid; border-width:2px; padding:0px 00px 00px 0px;"
+      onclick="myMouseDown(event, null, 'idDialogBoxHelp');">
+  <form name="idDialogBoxHelpNameForm"> 
+    <!-- http://www.w3schools.com/cssref/pr_class_cursor.asp -->
+    <div
+      style=" background-color:rgb(40,40,255); color:rgb(255,255,255); font-weight:bold; font-size:80%; cursor:grab;"	
+              onmousedown="myMouseDown(event, this, 'idDialogBoxHelp');"
+              onmouseup="this.style.cursor='grab'; gloB.oDivSel = 0;"
+              onmouseout="this.style.cursor='grab';">
+      &nbsp; <span id="HTML_MESSAGE">Message</span> &nbsp;  &nbsp;  &nbsp; 
+    </div>         
+    &nbsp;<span id="HTML_MAIN_TITLE2">Amusez-vous !!!</span> &nbsp;<br> 
+    <br><br>
+
+    <button id="HTML_MESSAGE_READ" type="button" style="font-size:80%; position:absolute; display:inline-block; right:2px; bottom:2px;"
+            onclick=" document.getElementById('idDialogHideWindow').style.display='none';
+                      document.getElementById('idDialogBoxHelp').style.display='none';
+            ">OK, j'ai lu le message.
+    </button><br>
+  </form>
+</div>
+
+<div  id="idDialogBoxAbout"
+      style=" position:absolute; display:none; left:220px; top:260px; z-index:91;  background-color:rgb(255,255,240);
+        border-style:solid; border-width:2px; padding:0px 00px 00px 0px;"
+		  		onclick="myMouseDown(event, null, 'idDialogBoxAbout');">
+  <form name="idDialogBoxAboutNameForm"> 
+    <!-- http://www.w3schools.com/cssref/pr_class_cursor.asp -->
+    <div
+      style=" background-color:rgb(40,40,255); color:rgb(255,255,255); font-weight:bold; font-size:80%; cursor:grab;"	
+              onmousedown="myMouseDown(event, this, 'idDialogBoxAbout');"
+              onmouseup="this.style.cursor='grab'; gloB.oDivSel = 0;"
+              onmouseout="this.style.cursor='grab';">
+      &nbsp; <span id="HTML_ABOUT1">À propos de ce programme </span> &nbsp;  &nbsp;  &nbsp; 
+    </div> 
+    <span id="HTML_ABOUT2">
+    &nbsp;Ce programme a été développé par Bernard Gisin pour tester les possibilités de Blockly &nbsp;<br> 
+    &nbsp;et pour donner des exemples à des enseignants informaticiens &nbsp;<br> 
+    &nbsp;qui désirent développer des modules pour des élèves. &nbsp;<br> 
+    <br>
+    &nbsp;À partir de l'ex1000, les développement seront multilangues, &nbsp;<br> 
+    &nbsp;il n'y aura qu'a taduire certains textes se trouvant dans des fichiesr séparés. &nbsp;<br> 
+    &nbsp;Ils utiliseront également une librairie, pour permettre de ne pas devoir écrire trop de code. &nbsp;<br> 
+    &nbsp;À partir de l'ex2001, le développement devraient être assez complet pour être utilisable avec des élèves. &nbsp;<br>     
+    <br><br>
+    </span>
+    <button id="HTML_MESSAGE_READ2" type="button" style="font-size:80%; position:absolute; display:inline-block; right:2px; bottom:2px;"
+            onclick=" document.getElementById('idDialogHideWindow').style.display='none';
+                      document.getElementById('idDialogBoxAbout').style.display='none';
+            ">OK, j'ai lu le message.
+    </button><br>
+  </form>
+</div>
+
+<!-- ********************************************************************** -->
+<!-- Ligne de titre -->
+<div style="position:relative; margin:0px; background-color:#0000ff; text-align:center;">
+  <span style='color:#ffffff;'><b><span id="HTML_MAIN_TITLE">Amusez-vous...</span></b> &nbsp;
+  <b><span id="idBlocklyCoundUsed" style='color:#ff0000;'></span></b> 
+  <span id="HTML_BEEN_USED">bloc(s) ont été utilisés.</span></span><br>  
+</div>
+<!-- ''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''' -->
+
+<!-- Menu de la page -->
+<div id="idBlocklyMenu" style="position:relative; margin:0px; z-index:9000000;">
+  
+  <span id="menu1" class="cMenu_top"><span id="HTML_FILES">Fichiers</span>
+    <span id="menu1_ouvert" class="cMenu_ouvert">
+      <span class="cMenu_interieur">
+        <span id="HTML_LOAD_BLOCKLY_CODE" class="cMenu" onclick="LoadFile();"> Ouvrir... </span><br>
+        <span id="HTML_SAVE_BLOCKLY_CODE" class="cMenu" onclick="SaveFile('Blockly_v1.xml');"> Enregistrer sous... </span><br>
+      </span>
+    </span>
+  </span> &nbsp; 
+
+  <span id="menu2" class="cMenu_top"><span id="HTML_CONFIGURE">Configuration</span>
+    <span id="menu2_ouvert" class="cMenu_ouvert">
+      <span class="cMenu_interieur">
+        <span id="HTML_CONFIGURE_00" class="cMenu" onclick="ConfigLoad('');">Charge un fichier de configuration...</span><br>
+        <span id="HTML_CONFIGURE_01" class="cMenu" onclick="ConfigLoad('cfg2000_base_4x4.js');">Base : 4 colonnes et 4 lignes</span><br>
+        <span id="HTML_CONFIGURE_02" class="cMenu" onclick="ConfigLoad('cfg2000_compteur_binaire.js');">Compteur binaire</span><br>
+        <span id="HTML_CONFIGURE_03" class="cMenu" onclick="ConfigLoad('cfg2000_magie_2x3.js');">Magie avec 8 cartes</span><br>
+        <span id="HTML_CONFIGURE_04" class="cMenu" onclick="ConfigLoad('cfg2000_test01.js');">Test_01</span><br>
+      </span>
+    </span>
+  </span> &nbsp;
+
+  <span id="menu3" class="cMenu_top"><span id="HTML_EXECUTE">Exécution</span>
+    <span id="menu3_ouvert" class="cMenu_ouvert">
+      <span class="cMenu_interieur">
+        <span id="HTML_EXECUTE_SLOW1" class="cMenu" onclick="runCode_slow(1, 10);">Exécution lente</span><br>
+        <span id="HTML_EXECUTE_SLOW2" class="cMenu" onclick="runCode_slow(2, 10);">Exécution plus rapide</span><br>
+        <span id="HTML_EXECUTE_SLOW3" class="cMenu" onclick="runCode_slow(3, 10);">Exécution sans animation</span><br>
+        <span id="HTML_EXECUTE_SLOW4" class="cMenu" onclick="runCode_slow(4, 10);">Exécution rapide sans animation</span><br>
+        <span id="HTML_EXECUTE_SLOW5" class="cMenu" onclick="runCode_slow(5, 10);">Exécution sans animation, avec 'exec'</span><br>
+        <span id="HTML_EXECUTE_PAUSE" class="cMenu" onclick="PauseCode();">Met l'exécution en mode pause</span><br>
+        <span id="HTML_EXECUTE_STOP" class="cMenu" onclick="StopCode();">Arrête l'exécution</span><br>
+        <span id="HTML_EXECUTE_FASTER" class="cMenu" onclick="ChangeSpeed(1, 0.5);">Plus vite</span><br>
+        <span id="HTML_EXECUTE_SLOWER" class="cMenu" onclick="ChangeSpeed(-1, 2);">Moins vite</span><br>
+      </span>
+    </span>
+  </span> &nbsp;
+  
+  <span id="menu4" class="cMenu_top"><span id="HTML_VIEW">Voir</span>
+    <span id="menu4_ouvert" class="cMenu_ouvert">
+      <span class="cMenu_interieur">
+        <span id="HTML_SHOW_CODE" class="cMenu" onclick="showCode_slow();">Montre le code javascript</span><br>
+      </span>
+    </span>
+  </span> &nbsp;
+
+  <span id="menu5" class="cMenu_top"><span id="HTML_PARAMETERS">Paramètres</span>
+    <span id="menu5_ouvert" class="cMenu_ouvert">
+      <span class="cMenu_interieur">
+        <span class="cMenu" onclick="parameter_select('with_highlight');">
+          <b><span id="idMenuParametre_with_illumination">v</span></b>
+          <span id="HTML_PARAMETERS_HIGHLIGHT"> Avec illumination des blocs</span>            
+        </span><br>
+        <span class="cMenu" onclick="parameter_select('without_highlight');">
+          <b><span id="idMenuParametre_without_illumination">&nbsp; </span></b>
+          <span id="HTML_PARAMETERS_NO_HIGHLIGHT"> Sans illumination des blocs</span>        
+        </span><br>
+      </span>
+    </span>
+  </span> &nbsp;
+
+  <span id="menu6" class="cMenu_top"><span id="HTML_WINDOWS">Fenêtres</span>
+    <span id="menu6_ouvert" class="cMenu_ouvert">
+      <span class="cMenu_interieur">
+        <span class="cMenu" onclick="window_select('idDisplay', 'idDisplayMenuWindow');">
+          <b><span id="idDisplayMenuWindow">v</span></b>
+          <span id="HTML_WINDOWS_DISPLAY"> Affichage</span>            
+        </span><br>
+        <span class="cMenu" onclick="window_select('idCodeBlockly', 'idCodeBlocklyMenuWindow');">
+          <b><span id="idCodeBlocklyMenuWindow">v</span></b>
+          <span id="HTML_WINDOWS_CODE_BLOCKLY"> Code blockly</span>            
+        </span><br>
+        <span class="cMenu" onclick="window_select('idCodeJavascript', 'idCodeJavascriptMenuWindow');">
+          <b><span id="idCodeJavascriptMenuWindow">v</span></b>
+          <span id="HTML_WINDOWS_CODE_JAVASCRIPT"> Code javascript</span>        
+        </span><br>
+        <span class="cMenu" onclick="window_select('idCodePython', 'idCodePythonMenuWindow');">
+          <b><span id="idCodePythonMenuWindow">v</span></b>
+          <span id="HTML_WINDOWS_CODE_PYTHON"> Code python</span>        
+        </span><br>
+        <span class="cMenu" onclick="window_select('idCodeLua', 'idCodeLuaMenuWindow');">
+          <b><span id="idCodeLuaMenuWindow">v</span></b>
+          <span id="HTML_WINDOWS_CODE_LUA"> Code lua</span>        
+        </span><br>
+        <span class="cMenu" onclick="window_select('idVariableSpy', 'idVariableSpyMenuWindow');">
+          <b><span id="idVariableSpyMenuWindow">v</span></b>
+          <span id="HTML_WINDOWS_VARIABLES"> Valeurs de variables</span>        
+        </span><br>
+        <span class="cMenu" onclick="window_select('idFrameCards', 'idFrameCardsMenuWindow');">
+          <b><span id="idFrameCardsMenuWindow">v</span></b>
+          <span id="HTML_WINDOWS_FRAME_CARDS"> Jeu de cartes</span>        
+        </span><br>
+      </span>
+    </span>
+  </span> &nbsp;
+
+  <span id="menu7" class="cMenu_top"><span id="HTML_HELP">Aide</span>
+    <span id="menu7_ouvert" class="cMenu_ouvert" >
+      <span class="cMenu_interieur">
+        <span class="cMenu" onclick="DialogHelp(true);" >Aide...</span><br>
+        <span class="cMenu" onclick="DialogAbout(true);" >À propos...</span><br>
+      </span>
+    </span>
+  </span>
+
+</div>
+
+<!-- Ligne d'icones -->
+<div style="position:relative; margin:0px; height:32px; background-color:#e0e0e0; text-align:left;">
+  <img src="../images/FileLoad.png" alt="FileLoad" width="32" height="32" class="idButtonCommand"
+       id='HTML_IMG_OPEN' title="Ouvrire un fichier Blockly..." 
+       onclick="LoadFile();">
+  <img src="../images/FileSaveAs.png" alt="FileSaveAs" width="32" height="32" class="idButtonCommand"
+       id='HTML_IMG_SAVE' title="Sauver un fichier Blockly..."
+       onclick="SaveFile('Blockly_v1.xml');">
+  <img src="../images/ExecuteRun.png" alt="ExecuteRun" width="32" height="32" class="idButtonCommand"
+       id='HTML_IMG_RUN' title="Lance le programme défini par les blocs dans l'espace de travail."
+       onclick="runCode_slow(1, 10);"> 
+  <img src="../images/ExecuteRunRun.png" alt="ExecuteRunRun" width="32" height="32" class="idButtonCommand"
+       id='HTML_IMG_RUNRUN' title="Lance le programme, exécution plus rapide."
+       onclick="runCode_slow(2, 10);">
+  <img src="../images/ExecuteRunRunRun.png" alt="ExecuteRunRunRun" width="32" height="32" class="idButtonCommand"
+       id='HTML_IMG_RUNRUNRUN' title="Lance le programme, exécution à haute vitesse, sans animation."
+       onclick="runCode_slow(3, 10);">
+  <img src="../images/ExecuteOneSetp.png" alt="RunOneStep" width="32" height="32" class="idButtonCommand"
+       id='HTML_IMG_ONESTEP' title="Exécute un pas du code."
+       onclick="runOneStep(1);">
+  <img src="../images/Pause.png" alt="Pause" width="32" height="32" class="idButtonCommand"
+       id='HTML_IMG_PAUSE' title="Met l'exécution du programme en mode pause."
+       onclick="PauseCode();">
+  <img src="../images/Stop.png" alt="Stop" width="32" height="32" class="idButtonCommand"
+       id='HTML_IMG_STOP' title="Arrête l'exécution du programme."
+       onclick="StopCode();">
+  <img src="../images/Plus.png" alt="Plus" width="32" height="32" class="idButtonCommand"
+       id='HTML_IMG_FASTER' title="Avance plus vite."
+       onclick="ChangeSpeed(1, 0.5);">
+  <img src="../images/Minus.png" alt="Minus" width="32" height="32" class="idButtonCommand"
+       id='HTML_IMG_SLOWER' title="Avance moins vite."
+       onclick="ChangeSpeed(-1, 2);">
+  <img src="../images/Help.png" alt="Help" width="32" height="32" class="idButtonCommand"
+       id='HTML_IMG_HELP' title="Aide."
+       onclick="DialogHelp(true);">
+  <img src="../images/CodeJavascript.png" alt="CodeJavascript" width="32" height="32" class="idButtonCommand"
+       id='HTML_IMG_CODEJAVASCRIPT' title="Charge une configuration."
+       onclick="ConfigLoad('');">
+  <select id="idSelectLanguage" style="position:relative; top:-10px;"
+          onchange="ChooseLanguage(document.getElementById('idSelectLanguage').value);">
+    <option value="de">Deutsch</option>
+    <option value="en">English</option>
+    <option value="fr" selected>Français</option>
+    <option value="es">Espagnol</option>
+  </select>
+</div>
+
+<!-- ********************************************************************** -->
+<!-- Une fenêtre dans la fenêtre, pour afficher les résultats de l'exécution du code -->
+<div id="idCodeBlockly"
+	  style=" visibility:visible; position:absolute; 
+				 left:0px; top:80px; width:700px; height:600px;
+         z-index:5;
+	       background-color:rgb(220,255,220);
+				 border-style:solid; border-width:2px;
+				 padding:0px 0px 0px 0px;"
+		 		onclick="myMouseDown(event, null, 'idCodeBlockly', 0);">
+  
+    <div
+      style=" background-color:rgb(40,40,255);
+              color:rgb(255,255,255);
+              font-weight:bold;
+              font-size:80%;
+              cursor:grab;"	
+      onmousedown="myMouseDown(event, this, 'idCodeBlockly', 0);"
+      onmouseup="this.style.cursor='grab'; gloB.oDivSel = 0;">
+      <!-- onmouseout="this.style.cursor='grab';"> -->
+      &nbsp; Code Blockly &nbsp;  &nbsp;  &nbsp; 
+
+      <button onclick="showCodeJavascript();">Code JavaScript</button> &nbsp;
+      <button onclick="showCodePython();">Code Python</button> &nbsp;
+      <button onclick="showCodeLua();">Code Lua</button> &nbsp;
+      <button type="button" style="position:absolute; font-size:80%; padding:0px; width:12pt; right:0px;"
+              onclick="window_select('idCodeBlockly', 'idCodeBlocklyMenuWindow');">X</button><br>
+      
+    </div>         
+
+  <!-- Positionnement du code Blockly -->
+  <div id="blocklyDiv" style="position:absolute; left:0px; top:24px; width:700px; height:576px;"></div> 
+
+  <img src="../images/traits_obliques_3x.png" alt="traits" width="12" height="12"
+       style="position:absolute; right:0px; bottom:0px; z-index:1000; cursor:nwse-resize;"
+       onmousedown="myMouseDown(event, this, 'idCodeBlockly', 1); return false;"
+       onmouseup="this.style.cursor='nwse-resize'; gloB.oDivSel = 0;">
+
+</div>
+
+<!-- ********************************************************************** -->
+<!-- Une fenêtre dans la fenêtre, pour afficher les résultats de l'exécution du code -->
+<div id="idDisplay"
+	  style=" visibility:visible; position:absolute; left:720px; top:80px; z-index:14;
+	          background-color:rgb(220,255,220);
+			      	 border-style:solid; border-width:2px;
+				       padding:0px 0px 0px 0px;"
+			onclick="myMouseDown(event, null, 'idDisplay');">
+  <form name="idDisplayNameForm"> 
+    <!-- http://www.w3schools.com/cssref/pr_class_cursor.asp -->
+    <div
+      style=" background-color:rgb(40,40,255);
+              color:rgb(255,255,255);
+              font-weight:bold;
+              font-size:80%;
+              cursor:grab;"	
+              onmousedown="myMouseDown(event, this, 'idDisplay');"
+              onmouseup="this.style.cursor='grab'; gloB.oDivSel = 0;"
+              onmouseout="this.style.cursor='grab';">
+      &nbsp;<span id="HTML_DISPLAY"> Affichage</span> &nbsp;  &nbsp;  &nbsp; 
+
+      <button type="button" style='font-size:80%' id="HTML_BUTTON_CLEAR"
+              onclick="window.document.idDisplayNameForm.idDisplayNameTextArea.value = '';">Effacer
+      </button>
+      <button type="button" style="position:absolute; font-size:80%; padding:0px; width:12pt; right:0px;"
+              onclick="window_select('idDisplay', 'idDisplayMenuWindow');">X</button><br>
+    </div>         
+    
+    <textarea id="idDisplayTextArea" name="idDisplayNameTextArea" rows=20 cols=40 
+                    style="vertical-align:bottom; padding:5px 5px 5px 5px;"></textarea></form>
+</div>
+
+<!-- ********************************************************************** -->
+<!-- Une fenêtre dans la fenêtre, pour afficher le code javascript -->
+<div id="idCodeJavascript"
+	  style=" visibility:visible; position:absolute; left:720px; top:420px; z-index:15;
+	          background-color:rgb(220,255,220);
+				    border-style:solid; border-width:2px;
+				    padding:0px 0px 0px 0px;"
+		onclick="myMouseDown(event, null, 'idCodeJavascript');">
+  <form name="idCodeJavascriptNameForm"> 
+  <div
+    style="	background-color:rgb(40,40,255);
+            color:rgb(255,255,255);
+            font-weight:bold;
+            font-size:80%;
+            cursor:grab;"
+    onmousedown="myMouseDown(event, this, 'idCodeJavascript');"
+    onmouseup="this.style.cursor='grab'; gloB.oDivSel = 0;"
+    onmouseout="this.style.cursor='grab';"
+    >
+
+    &nbsp;<span id="HTML_CODE_JAVASCRIPT"> Code javascript</span> &nbsp;  &nbsp; 
+
+    <button type="button" style='font-size:80%' id="HTML_EXECUTE_JAVASCRIPT_CODE"
+            onclick="runMyCode_slow(window.document.idCodeJavascriptNameForm.idCodeJavascriptNameTextArea.value, 10);">Exécuter 
+<!--
+    <button type="button" style='font-size:80%' id="HTML_EXECUTE_JAVASCRIPT_CODE"
+            onclick="runCodeJavascript(window.document.idCodeJavascriptNameForm.idCodeJavascriptNameTextArea.value);">Exécuter 
+-->
+    </button>
+    <button type="button" style="position:absolute; font-size:80%; padding:0px; width:12pt; right:0px;"
+            onclick="window_select('idCodeJavascript', 'idCodeJavascriptMenuWindow');">X</button><br>
+  </div>
+  <textarea id="idCodeJavascriptTextArea" name="idCodeJavascriptNameTextArea" rows=25 cols=40 
+            style=" vertical-align:bottom;
+                    padding:5px 5px 5px 5px;
+                    font-family:Courier New, monospace;
+                    font-size:10pt;
+                    font-weight:bold;
+                    color:rgb(0,0,0);"></textarea></form>
+</div>
+
+<!-- ********************************************************************** -->
+<!-- Une fenêtre dans la fenêtre, pour afficher le code python -->
+<div id="idCodePython"
+	  style=" visibility:visible; position:absolute; left:730px; top:600px; z-index:16;
+	          background-color:rgb(220,255,220);
+			      border-style:solid; border-width:2px;
+			      padding:0px 0px 0px 0px;"
+		onclick="myMouseDown(event, null, 'idCodePython', 0);">
+<form name="idCodePythonNameForm"> 
+<div
+	style="	background-color:rgb(40,40,255);
+          color:rgb(255,255,255);
+          font-weight:bold;
+          font-size:80%;
+          cursor:grab;"
+  onmousedown="myMouseDown(event, this, 'idCodePython', 0);"
+  onmouseup="this.style.cursor='grab'; gloB.oDivSel = 0;">
+  <!-- onmouseout="this.style.cursor='grab';"> -->
+  
+	&nbsp;<span id="HTML_CODE_PYTHON"> Code python</span> &nbsp;  &nbsp; 
+ 
+  <button id="idExecPython" type="button" style='font-size:80%'><span id="HTML_EXECUTE_PYTHON_CODE">Exécuter</span></button>
+  <button type="button" style="position:absolute; font-size:80%; padding:0px; width:12pt; right:0px;"
+            onclick="window_select('idCodePython', 'idCodePythonMenuWindow');">X</button><br>
+
+  <!--
+  <button type="button" style="font-size:80%; position:absolute; right:2px;"
+          onclick="window.document.idCodePythonNameForm.idCodePythonNameTextArea.value = '';">Effacer
+  </button>
+  -->
+</div>
+  
+<textarea id="idCodePythonTextArea" name="idCodePythonNameTextArea" rows=18 cols=50
+			 style=" vertical-align:bottom;
+               padding:5px 5px 5px 5px;
+               font-family:Courier New, monospace;
+               font-size:10pt;
+               font-weight:bold;
+               color:rgb(0,0,0);"></textarea></form>
+</div>
+
+<!-- ********************************************************************** -->
+<!-- Une fenêtre dans la fenêtre, pour afficher le code python -->
+<div id="idCodeLua"
+	  style=" visibility:visible; position:absolute; left:730px; top:640px; z-index:16;
+	          background-color:rgb(220,255,220);
+			      border-style:solid; border-width:2px;
+			      padding:0px 0px 0px 0px;"
+		onclick="myMouseDown(event, null, 'idCodeLua', 0);">
+<form name="idCodeLuaNameForm"> 
+<div
+	style="	background-color:rgb(40,40,255);
+          color:rgb(255,255,255);
+          font-weight:bold;
+          font-size:80%;
+          cursor:grab;"
+  onmousedown="myMouseDown(event, this, 'idCodeLua', 0);"
+  onmouseup="this.style.cursor='grab'; gloB.oDivSel = 0;">
+  <!-- onmouseout="this.style.cursor='grab';"> -->
+	
+	&nbsp;<span id="HTML_CODE_LUA"> Code lua</span> &nbsp;  &nbsp; 
+ 
+  <button id="idExecLua" type="button" style='font-size:80%'><span id="HTML_EXECUTE_LUA_CODE">Exécuter</span></button>
+  <button type="button" style="position:absolute; font-size:80%; padding:0px; width:12pt; right:0px;"
+            onclick="window_select('idCodeLua', 'idCodeLuaMenuWindow');">X</button><br>
+
+  <!--
+  <button type="button" style="font-size:80%; position:absolute; right:2px;"
+          onclick="window.document.idCodeLuaNameForm.idCodeLuaNameTextArea.value = '';">Effacer
+  </button>
+  -->
+</div>
+  
+<textarea id="idCodeLuaTextArea" name="idCodeLuaNameTextArea" rows=18 cols=70
+			 style=" vertical-align:bottom;
+               padding:5px 5px 5px 5px;
+               font-family:Courier New, monospace;
+               font-size:10pt;
+               font-weight:bold;
+               color:rgb(0,0,0);"></textarea></form>
+</div>
+
+<!-- ********************************************************************** -->
+<!-- Une fenêtre dans la fenêtre, pour afficher le contenu de variables  -->
+<div id="idVariableSpy"
+	  style=" visibility:visible; position:absolute; 
+				 left:20px; top:700px; z-index:6;
+	          background-color:rgb(220,255,220);
+				 border-style:solid; border-width:2px;
+				 padding:0px 0px 0px 0px;"
+		 		onclick="myMouseDown(event, null, 'idVariableSpy');">
+  <form name="idVariableSpyNameForm"> 
+    <!-- http://www.w3schools.com/cssref/pr_class_cursor.asp -->
+    <div
+      style=" background-color:rgb(40,40,255);
+              color:rgb(255,255,255);
+              font-weight:bold;
+              font-size:80%;
+              cursor:grab;"	
+              onmousedown="myMouseDown(event, this, 'idVariableSpy');"
+              onmouseup="this.style.cursor='grab'; gloB.oDivSel = 0;"
+              onmouseout="this.style.cursor='grab';">
+      &nbsp;<span id="HTML_VARIABLE_SPY"> Valeurs de variables</span>
+
+    <button type="button" style="position:absolute; font-size:50%; padding:0px; right:0px;"
+            onclick="window_select('idVariableSpy', 'idVariableSpyMenuWindow');">X</button><br>
+    </div>         
+    
+    <textarea id="idVariableSpyTextArea" name="idVariableSpyNameTextArea" rows=10 cols=60  readonly
+              style="vertical-align:bottom; padding:5px 5px 5px 5px; background-color:rgb(255,255,255);"></textarea>
+  </form>
+</div>
+
+<!-- ********************************************************************** -->
+<!-- Une fenêtre dans la fenêtre, pour afficher des cadres avec des cartes à l'intérieur.  -->
+<div id="idFrameCards"
+	  style=" visibility:visible; position:absolute; 
+				 left:1090px; top:80px; width:340px; height:600px; z-index:18;
+	       background-color:rgb(255,255,250);
+				 border-style:solid; border-width:2px;
+				 padding:0px 0px 0px 0px;"
+		 		onclick="myMouseDown(event, null, 'idFrameCards');">
+  <form name="idFrameCardsNameForm"> 
+    <div
+      style=" background-color:rgb(40,40,255);
+              color:rgb(255,255,255);
+              font-weight:bold;
+              font-size:80%;
+              cursor:grab;"	
+              onmousedown="myMouseDown(event, this, 'idFrameCards');"
+              onmouseup="this.style.cursor='grab'; gloB.oDivSel = 0;"
+              onmouseout="this.style.cursor='grab';">
+      &nbsp;<span id="HTML_FRAME_CARDS"> Jeu de cartes</span>
+
+    <button type="button" style="position:absolute; font-size:50%; padding:0px; right:0px;"
+            onclick="window_select('idFrameCards', 'idFrameCardsMenuWindow');">X</button><br>
+    </div>         
+
+  <canvas id="idFrameCardsCanvas" width="700" height="582"
+          style=" position:absolute; left:0px; top:18px; z-index:100; background-color:rgb(255,220,220);">
+    Message pour les navigateurs ne supportant pas encore canvas.
+  </canvas>
+
+
+  <div id="idCards" style=" position:absolute; left:0px; top:18px; z-index:105;">
+    <!-- Le code HTML pour placer les images des cartes sera mis ici -->
+  </div>
+
+  <img src="../images/traits_obliques_3x.png" alt="traits" width="12" height="12"
+       style="position:absolute; right:0px; bottom:0px; z-index:1000; cursor:nwse-resize;"
+       onmousedown="gloB.funcMouseMove=myFrameCardsResize; myMouseDown(event, this, 'idFrameCards', 1); return false;"
+       onmouseup="gloB.funcMouseMove=''; this.style.cursor='nwse-resize'; gloB.oDivSel = 0;">
+  </form>
+</div>
+
+<script type="text/python">
+from browser import document, window
+import sys
+import traceback
+
+class myStringOut:
+#=================
+    def write(self, strS):            
+        # Ajoute le texte affiché par la commande "print" au texte de "idTextarea1" 
+        document["idDisplayTextArea"].value += strS 
+
+def ExecPythonCode(event):
+#===========================
+    ''' Exécute le code de la fenêtre de "Code python".
+        L'instruction "print(...)" affiche dans la fenêtre d'affichage.  '''
+    sss = myStringOut()  # Objet qui sera utilisé par l'instruction "print"
+    sys.stdout = sss  # Associe la sortie de "print" à la méthode write de myStringOut
+    theCode = document["idCodePythonTextArea"].value # Lecture du contenu de la fenêtre du code Python.
+    try:
+      window.gloB.nInterpreterSpeed = 3 # Pour que l'exécution se fasse sans animation.
+      exec(theCode) # Exécute le code Python
+    except:
+      # Il y a eu une erreur, qui sera affiché dans le même "idTextarea1" 
+      strOutput = traceback.format_exc() # Récupère le message d'erreur
+      document["idDisplayTextArea"].value += strOutput # Ajoute le message d'erreur au texte de "idTextarea1"           
+
+    document["idDisplayTextArea"].scrollTop = 100000  # pour rester en fin du texte.
+
+def ClearDisplay():
+#==================
+    ''' Efface de contenu de la fenêtre d'affichage.'''
+    document["idDisplayTextArea"].value = ""
+
+def Pause_execution(vTime, strSpeed):
+#====================================
+    ''' Fait une pause durant l'exécution du code.'''
+    # À FAIRE...
+    vTime = vTime
+    # time.sleep(vTime) # Non implémenté, à voir comment faire ???
+    
+
+def Variable_Spy(vTime, strVariablesName, v0='', v1='', v2='', v3='', v4='', v5='', v6='', v7='', v8='', v9='', va='', vb='', vc='', vd='', ve='', vf='', vg='', vh=''):
+#=======================================================================================================================================================================
+    # On est obligé d'envoyer chaque variable séparément, on ne peut pas les envoyer dans un tableau.
+    # Ecrit dans une partie de la fenêtre, divers informations.
+    # La forme "idVariableSpyNameTextArea" a été définie dans la page HTML. 
+    # sous la définition de la '<div id="idVariableSpy" ...'.
+    # vTime = temps de pause en secondes
+
+    if (strVariablesName != "0"):
+      # Il y a des variables à afficher
+      # À TRADUIRE...
+      #var aData = strVariablesName.split(",") # Récupère les noms des différentes variables.
+      #var strMsg  = '';
+
+      # Longue suite, mais difficile de faire autrement à cause des v_j
+      #if (aData.length >  0): strMsg  = aData[ 0] + " : " + v0 + "\n"
+      #if (aData.length >  1): strMsg += aData[ 1] + " : " + v1 + "\n"
+      #if (aData.length >  2): strMsg += aData[ 2] + " : " + v2 + "\n"
+
+      strMsg = strVariablesName + " " + str(v0)
+      document["idVariableSpyTextArea"].value = strMsg
+
+    # Attente avant de continuer l'exécution du programme
+    Pause_execution(vTime, '')
+
+def GetCardValue(nFrame1, nDepth):
+#=================================
+    ''' Retourne la valeur de la carte de la case  nFrame  et la profondeur  nDepth  dans le tas.'''
+    return window.GetCardValue(nFrame1, nDepth)
+
+def CardFlip(nFrame1, nTimeDelta):
+#=================================
+    ''' Retourne visuellement la carte de la case  nFrame.'''
+    window.CardFlip(nFrame1, nTimeDelta)
+
+def CardMoveF1F2(nFrame1, nFrame2, nTimeDelta):
+#==============================================
+    ''' Déplace la carte de la case  nFrame1  à la case  nFrame2.'''
+    window.CardMoveF1F2(nFrame1, nFrame2, nTimeDelta)
+
+def CardExchangeF1F2(nFrame1, nFrame2, nTimeDelta):
+#=================================================
+    ''' Échange des cartes des  cases  nFrame1  et  nFrame2.'''
+    window.CardExchangeF1F2(nFrame1, nFrame2, nTimeDelta)
+
+def CardExistTest_NOT_WORKING(nCard):
+#====================================
+    ''' Ne fonctionne pas, donc ne fait rien. '''
+    print("CardExistTest doesn't work, nCard=", nCard)
+
+def CardExistResponse_NOT_WORKING():
+#===================================
+    ''' Ne fonctionne pas, donc ne fait rien. '''
+    print("CardExistResponse doesn't work")
+    return -1
+
+def CardAddOne(nCard, nBack, nFrame2, nTimeDelta):
+#=================================================
+    ''' Ajoute la carte  CARD  avec le dos  BACK dans la case  FRAME2.'''
+    window.CardAddOne(nCard, nBack, nFrame2, nTimeDelta)
+
+def CardRemoveOne(nFrame1, nTimeDelta):
+#======================================
+    ''' Supprime la carte de la case  FRAME1.'''
+    window.CardRemoveOne(nFrame1, nTimeDelta)
+
+def CardSetShift(nShift, nTimeDelta):
+#====================================
+    ''' Définit le décalage de cartes superposées.'''
+    window.CardSetShift(nShift, nTimeDelta)
+
+def CardSourceDefine(strSource, strExt):
+#=======================================
+    ''' Définit la source et l extension des fichiers définissant les images des nouvelles cartes.'''
+    window.CardSourceDefine(strSource, strExt)
+
+def cardBackDefine(nCard, nFrame1):
+#==================================
+    ''' Définit le dos à nCard de la case  nFrame1.'''
+    window.cardBackDefine(nCard, nFrame1)
+
+def CardLinkFunction(nFrame1, strFunction, strParam1):
+#=====================================================
+    ''' Fait en sorte que lorsque l on clique sur la carte se trouvant dans la FRAME1,
+        on exécute la fonction  FUNC  du code BLOCKLY,
+        en lui envoyant le paramètre de la case dans laquelle elle se trouve et le paramètre  PARAM.'''  
+    window.CardLinkFunction(nFrame1, strFunction, strParam1)
+
+def CardGetParam(nFrame1, nDepth):
+#=================================
+    ''' Retourne le paramètre associé à la carte se trouvant dans la case  FRAME1.'''
+    return window.CardGetParam(nFrame1, nDepth)
+
+def CardSetParam(nFrame1, nDepth, strParam1):
+#============================================
+    ''' Fixe à  PARAM1  la valeur du paramètre de la carte de la case  FRAME1.'''
+    window.CardSetParam(nFrame1, nDepth, strParam1)
+
+
+document["idExecPython"].bind("click", ExecPythonCode)
+
+</script>
+
+<script type="text/javascript" src="../../brython.js"></script>
+<script type="text/javascript" src="../../brython_stdlib.js"></script>
+
+<!-- ========================================================================== -->
+<!-- Code Lua -->
+<!-- ========================================================================== -->
+
+<script type="text/javascript">
+// Je sais appeler des fonctions javascript depuis Lua starlight, mais pas des variables !
+function SetInterpreterSpeed(nSpeed) {
+//====================================
+gloB.nInterpreterSpeed =  nSpeed;
+}
+</script>
+
+<!-- WARNING! These will only work if you load the starlight library later --> 
+<script type="application/lua">
+--"c.f. http://lua.space/webdev/why-we-rewrote-lua-in-js"
+--"c.f. http://starlight.paulcuth.me.uk/"
+        
+  window.extract()
+
+  local ui = {
+    button = document:getElementById('idExecLua'),
+    textareaDisplay = document:getElementById('idDisplayTextArea'),
+    textareaCodeLua = document:getElementById('idCodeLuaTextArea')
+  }
+  
+  print = function(strS)
+  --"==================="
+  --"Redéfinition de la fonction print de Lua"
+    ui.textareaDisplay.value = ui.textareaDisplay.value .. strS
+    ui.textareaDisplay.scrollTop = 100000  --"pour rester en fin du texte.
+  end --"print"
+  
+  ClearDisplay = function(strS)
+  --"=========================="
+  --"Efface la fenêtre d'affichage du 'print' de Lua"
+    ui.textareaDisplay.value = ""
+  end --"ClearDisplay"
+  
+  Pause_execution = function(vTime, strSpeed)
+  --"========================================"
+  --"Ne fait rien."
+    vTime = vTime
+  end --"Pause_execution"
+  
+  Variable_Spy = function(vTime, strVarNames, strVarValues)
+  --"======================================================"
+  --"Ne fait rien."
+    vTime = vTime
+  end --"Variable_Spy"
+   
+  function runLuaCode ()
+  --"==================="
+    window:SetInterpreterSpeed(3); --"Pour que l'exécution se fasse sans animation."
+    strS = ui.textareaCodeLua.value --"Récupère le code Lua"
+    func = loadstring(strS) --"Convertir le code en une fonction"
+    func()  --"Exécute la fonction créée à la ligne précédente."
+  end
+   
+  function init ()
+  --"============="
+  --"Associe le bouton Exécuter de Lua à la fonction 'runLuaCode'."
+    ui.button:addEventListener('click', runLuaCode)
+  end
+
+  function GetCardValue(nFrame1, nDepth)
+  --"=================================="
+    --" Retourne la valeur de la carte de la case  nFrame  et la profondeur  nDepth  dans le tas."
+    return window:GetCardValue(nFrame1, nDepth); --" Appelle le code javascript correspondant"
+  end
+
+  function CardFlip(nFrame1, nTimeDelta)
+  --"=================================="
+    --"Retournement visuel la carte de la case  nFrame."
+    window:CardFlip(nFrame1, nTimeDelta); --" Appelle le code javascript correspondant"
+  end
+
+  function CardMoveF1F2(nFrame1, nFrame2, nTimeDelta)
+  --"==================================================="
+    --"Déplace la carte de la case  nFrame1  à la case  nFrame2."
+    window:CardMoveF1F2(nFrame1, nFrame2, nTimeDelta); --" Appelle le code javascript correspondant"
+  end
+
+  function CardExchangeF1F2(nFrame1, nFrame2, nTimeDelta)
+  --"==================================================="
+    --"// Échange des cartes des  nFrame1  et  nFrame2"
+    window:CardExchangeF1F2(nFrame1, nFrame2, nTimeDelta); --" Appelle le code javascript correspondant"
+  end
+
+  function CardExistTest_NOT_WORKING(nCard)
+  --"====================================="
+    --" Ne fonctionne pas, donc ne fait rien."
+    print("CardExistTest doesn't work, nCard=", nCard);
+  end
+
+  function CardExistResponse_NOT_WORKING()
+  --"===================================="
+    --" Ne fonctionne pas, donc ne fait rien."
+    print("CardExistResponse doesn't work");
+    return -1;
+  end
+
+  function CardAddOne(nCard, nBack, nFrame2, nTimeDelta)
+  --"=================================================="
+    --" Ajoute la carte  CARD  avec le dos  BACK dans la case  FRAME2."
+    window:CardAddOne(nCard, nBack, nFrame2, nTimeDelta);
+  end
+
+  function CardRemoveOne(nFrame1, nTimeDelta)
+  --"========================================"
+    --" Supprime la carte de la case  FRAME1."
+    window:CardRemoveOne(nFrame1, nTimeDelta);
+  end
+
+  function CardSetShift(nShift, nTimeDelta)
+  --"====================================="
+    --" Définit le décalage de cartes superposées."
+    window:CardSetShift(nShift, nTimeDelta);
+  end
+
+  function CardSourceDefine(strSource, strExt)
+  --"========================================"
+    --" Définit la source et l extension des fichiers définissant les images des nouvelles cartes."
+    window:CardSourceDefine(strSource, strExt);
+  end
+
+  function cardBackDefine(nCard, nFrame1)
+  --"==================================="
+    --" Définit le dos à nCard de la case  nFrame1."
+    --" Ne fonctionne pas"
+    window:cardBackDefine(nCard, nFrame1);
+  end
+
+  function CardLinkFunction(nFrame1, strFunction, strParam1)
+  --"======================================================"
+  --" Fait en sorte que lorsque l'on clique sur la carte se trouvant dans la FRAME1,"
+  --" on exécute la fonction  FUNC  du code BLOCKLY,"
+  --" en lui envoyant le paramètre de la case dans laquelle elle se trouve et le paramètre  PARAM."
+    window:CardLinkFunction(nFrame1, strFunction, strParam1);
+  end
+
+  function CardGetParam(nFrame1, nDepth)
+  --"=================================="
+    --" Retourne le paramètre associé à la carte se trouvant dans la case  FRAME1."
+    return CardGetParam(nFrame1, nDepth); --" Appelle le code javascript correspondant"
+  end
+
+  function CardSetParam(nFrame1, nDepth, strParam1)
+  --"============================================="
+  --" Fixe à  PARAM1  la valeur du paramètre de la carte de la case  FRAME1."
+    window:CardSetParam(nFrame1, nDepth, strParam1);
+  end
+
+
+  init()
+ 
+</script>
+  
+<!-- Here we load the library for Lua -->
+<!--<script src="h/cdnjs.cloudflare.com/ajax/libs/babel-core/5.8.34/browser.min.js"></script>-->
+
+<!--<script src="http://paulcuth.me.uk/starlight/browser-lib/starlight.js" data-run-script-tags></script>-->
+<script type="text/javascript" src="starlight.js" data-run-script-tags></script>
+
+<script type="text/javascript">
+  myFrameCardsInit();
+  myFrameCardsResize(null);
+</script>
+
+<!-- ================================================================ -->
+<!-- Pour le pied de page -->
+<div style="position:absolute; left:2px; bottom:0px;">
+  <hr style="margin-left:0; width:110%">
+  <p style="margin-top:0; font-size:80%">
+  Plan du Site : 
+  <a href="../../blockly.html ">blockly</a> &nbsp;
+  <img src="../../images/arrow_right.png" alt="arrow" width="13" height="9"> &nbsp; 
+  ex1705 
+  </p>
+
+
+<p onclick='test2();'>JavaScript has an built-in function constructor.</p>
+<p id="demo"></p>
+
+<script>
+// c.f. https://stackoverflow.com/questions/7650071/is-there-a-way-to-create-a-function-from-a-string-with-javascript
+// c.f. https://www.w3schools.com/js/js_function_definition.asp
+// c.f. https://www.w3schools.com/js/tryit.asp?filename=tryjs_function_constructor
+var cpt = 0;
+
+function test1(myP1, myP2) {
+cpt += 1;
+document.getElementById("demo").innerHTML = 'param ' + cpt + ' .. ' + myP1 + ' .. ' + myP2;
+}
+
+function test2() {
+var strS = "test1(myP1, myP2)";
+var myFunction = new Function("myP1", "myP2", strS);
+myFunction('mon param1', 'et le 2e');
+}
+
+</script>
+</div>
+
+</body>
+</html>

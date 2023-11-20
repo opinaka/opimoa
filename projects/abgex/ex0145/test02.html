@@ -1,0 +1,27 @@
+<html>
+
+<head>
+<meta charset="utf-8">
+<title>Brython test02</title>
+</head>
+
+<body onload="brython({debug: 1, indexedDB: false})">
+
+<button id="button1">change the text of an element</button> &nbsp;
+
+<span id="zone1">Initial content</span>
+
+<script type="text/python" id="script1">
+    from browser import document
+
+    def change(event):
+        document["zone1"].textContent = "New content"
+
+    document["button1"].bind("click", change)
+</script>
+
+<script src="brython.js"></script>
+<script src="brython_stdlib.js"></script>
+
+</body>
+</html>

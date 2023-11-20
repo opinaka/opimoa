@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>Brython, informations et exemples d'exécution de code Python dans un navigateur.</title>
+</head>
+<!-- <body onmousemove="myMouseMove(event);" onload="Include_toolbox('ex0145');">  Si on n'a pas de blocs au départ. -->
+<body>
+
+<h2 style='text-align:center;'>Brython, informations et exemples d'exécution de code Python dans un navigateur</h2>
+
+<b>Brython</b> est une implémentation de Py<b>thon</b> dans un <b>br</b>owser.<br>
+On peut ainsi exécuter du code Python dans un navigateur, de manière similaire à l'exécution de code javascript.<br>
+<br>
+<a href='https://brython.info/' target="_blank">Le site de référence sur Brython</a>.<br>
+<a href='https://deusyss.developpez.com/tutoriels/Python/web/brython/' target="_blank">Des explications en français sur Brython</a>.<br>
+
+<a href='https://brython.info/demo.html?lang=fr' target="_blank">Plusieurs démonstration d'utilisation de Brython</a>.<br>
+Il y a 25 exemples dans cette page Web, mais c'est difficile de s'y retrouver.
+J'ai donc séparé dans des petits fichiers les exemples.
+L'esthétique a été supprimé en faveur de la simplicité.<br>
+<br>
+Les deux fichiers .js suivants seront nécessaires si vous voulez exécuter le code localement.<br>
+<a href='brython.js' target="_blank">brython.js</a><br>
+<a href='brython_stdlib.js' target="_blank">brython_stdlib.js</a><br>
+<br>
+<a href='test01.html' target="tests">test01</a>, display an alert box.<br>
+<a href='test02.html' target="tests">test02</a>, change the text of an element.<br>
+<a href='test03.html' target="tests">test03</a>, change the style of an element.<br>
+<a href='test04.html' target="tests">test04</a>, change the class of an element.<br>
+<a href='test05.html' target="tests">test05</a>, hide or show an element.<br>
+<a href='test06.html' target="tests">test06</a>, insert an element (standard DOM methods).<br>
+<a href='test07.html' target="tests">test07</a>, insert an element (Brython style).<br>
+<a href='test08.html' target="tests">test08</a>, insert before an element.<br>
+<br>
+<a href='test13_draw_in_canvas.html' target="tests">test13</a>, draw in a canvas.<br>
+<a href='test15_get_value_of_form_fields.html' target="tests">test15</a>, get the value of form fields.<br>
+<a href='test22_write_in_the_browser_console.html' target="tests">test22</a>, write in the browser console.<br>
+<a href='test23_use_javascript_objects_date.html' target="tests">test23</a>, use javascript objects: Date.<br>
+<a href='test24_use_javascript_objects_RegExp_String.html' target="tests">test24</a>, use javascript objects: RegExp, String.<br>
+<br>
+<a href='https://brython.info/static_doc/en/javascript.html' target="_blank">
+  Quelques explications de liens entre javascript et Brython</a>, module javascript.<br>
+<a href='https://brython.info/static_doc/en/jsobjects.html' target="_blank">
+  D'autres explications de liens entre javascript et Brython</a>, Using Javascript objects.<br>
+Des explications, c'est bien, mais des exemples c'est mieux à mon goût, 
+donc regardez les exemples ci-dessous pour savoir comment appeler une fonction Brython depuis javascript
+et pour appeler une fonction javascript depuis Brython.<br>
+Montre également comment rediriger l'instruction "print" dans un textarea.<br>
+<br>
+<a href='test51_print_in_textarea.html' target="tests">test51</a>, redirige l'instruction "print" vers un textarea.<br>
+C'est une manière compliquée de faire, qui utilise le module 
+<a href='StringIO.txt' target="tests">StringIO.py</a>. Si vous le télécharger, il faut le renommer avec l'extension .py<br>
+<a href='test52_print_in_textarea_simplifie.html' target="tests">test52</a>, redirige l'instruction "print" vers un textarea.<br>
+Version simplifiée de la précédente, qui n'utilise pas le module StringIO.py<br>
+<a href='test53_brython_appelle_javascript_fonction.html' target="tests">test53</a>,
+ montre comment une fonction Brython peut appeler une fonction javascript et
+ comment une fonction javascript peut appeler une fonction Brython.<br>
+<a href='' target="tests"></a>.<br>
+
+<hr style="margin-left:0; width:95%">
+
+<a href='https://wiki.python.org/moin/WebBrowserProgramming' target="_blank">
+  Web Browser Programming in Python.</a>.<br>
+  Indique plusieurs projets pour transformer du code Python en code Javascript.<br>
+  La plupart utilisent un programme pour "compiler" du Python en Javascript et
+  ne permettent donc pas de tester en ligne du code Python. 
+  Un tel exemple est Transcrypt.<br>
+  Brython permet de taper en ligne du code Python, 
+  puis de l'exécuter dans un navigateur sans devoir utiliser un programme de "compilation".<br>
+  Le défaut de Brython est que le temps de chargement de la page faisant appelle à Brython est long.<br>
+  Un autre exemple qui permet de tester du code Python en ligne est :
+<a href='http://skulpt.org/' target="_blank">Skulpt</a>.<br>
+<br>
+<a href='https://repl.it/languages' target="_blank">repl.it/languages</a>,
+  une liste de langages de programmation.<br>
+<a href='https://trinket.io/' target="_blank">trinket.io/</a>,
+  Trinket lets your run and write code in any browser, on any device.<br>
+  Permet de tester du code python dans une page Web.<br>
+  Permet aussi de tester du Blockly dans une page Web.<br>
+<a href='' target="_blank"></a>.<br>
+<a href='' target="_blank"></a>.<br>
+
+<!-- ================================================================ -->
+  <hr style="margin-left:0; width:95%">
+  <p style="margin-top:0; font-size:80%">
+  Plan du Site : 
+  <a href="../../blockly.html ">blockly</a> &nbsp;
+  <img src="../../images/arrow_right.png" alt="arrow" width="13" height="9"> &nbsp; 
+  brython.html
+  </p>
+  <hr style="margin-left:0; margin-bottom:0; width:95%">
+  <p style="margin-top:0; font-size:80%">
+  Page mise à jour le 8 novembre 2019 par Bernard Gisin<br>
+  </p>
+</body>
+</html>
+
