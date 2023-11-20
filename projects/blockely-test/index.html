@@ -1,0 +1,740 @@
+<!DOCTYPE html>
+<html style="height: 100%;">
+  <head>
+    <meta charset="utf-8">
+    <script async type="text/javascript" charset="utf-8" src="VM.js"></script>
+    <script async type="text/javascript" charset="utf-8" src="teavm/classes.js"></script>
+    <link rel="stylesheet" media type="text/css" href="ukandrewc_Ace-Scrollbars/ext-scrollbar.min.css">
+    <script src="ukandrewc_Ace-Scrollbars/ext-scrollbar.min.js"></script>
+    <title>Editor</title>
+    <link media href="https://fonts.googleapis.com/css2?family=Source+Code+Pro&display=swap" rel="stylesheet">
+    <link media href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet">
+    <link rel="stylesheet" media href="test/styles.css">
+    <meta http-equiv="Content-Type" content="text/html;charset=utf-8">
+    <meta charset="UTF-8">
+    <meta name="description" content="test for compiler (github.com/radinParsaei/Compiler)">
+    <meta name="author" content="radinParsaei">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link media href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+  </head>
+  <body style="margin: 0; padding: 0; height: 100% !important; overflow-x: hidden;" id="main" class="dark expand" onload="main()">
+    <xml id="toolbox" style="display: none"></xml>
+    <div id="top_div" style="max-width: 100%; overflow: auto; display: inline-flex;">
+      <a href="javascript:paste()"><span class="material-icons file_action top_bar_action" id="paste_button" style="margin-top: 10px">content_paste</span></a>
+      <p id="filepath" class="dark"></p>
+    </div>
+    <div class="layout dark" id="grid"></div>
+    <div id="theme_div" class="dark">
+      <div onclick="Editor.changeTheme()">
+        <svg viewBox="0 0 33 33" fill="none" xmlns="http://www.w3.org/2000/svg" id="light_svg">
+        <path d="M16.5 12.375C18.7687 12.375 20.625 14.2312 20.625 16.5C20.625 18.7687 18.7687 20.625 16.5 20.625C14.2312 20.625 12.375 18.7687 12.375 16.5C12.375 14.2312 14.2312 12.375 16.5 12.375ZM16.5 9.625C12.705 9.625 9.625 12.705 9.625 16.5C9.625 20.295 12.705 23.375 16.5 23.375C20.295 23.375 23.375 20.295 23.375 16.5C23.375 12.705 20.295 9.625 16.5 9.625ZM2.75 17.875H5.5C6.25625 17.875 6.875 17.2563 6.875 16.5C6.875 15.7437 6.25625 15.125 5.5 15.125H2.75C1.99375 15.125 1.375 15.7437 1.375 16.5C1.375 17.2563 1.99375 17.875 2.75 17.875ZM27.5 17.875H30.25C31.0063 17.875 31.625 17.2563 31.625 16.5C31.625 15.7437 31.0063 15.125 30.25 15.125H27.5C26.7437 15.125 26.125 15.7437 26.125 16.5C26.125 17.2563 26.7437 17.875 27.5 17.875ZM15.125 2.75V5.5C15.125 6.25625 15.7437 6.875 16.5 6.875C17.2563 6.875 17.875 6.25625 17.875 5.5V2.75C17.875 1.99375 17.2563 1.375 16.5 1.375C15.7437 1.375 15.125 1.99375 15.125 2.75ZM15.125 27.5V30.25C15.125 31.0063 15.7437 31.625 16.5 31.625C17.2563 31.625 17.875 31.0063 17.875 30.25V27.5C17.875 26.7437 17.2563 26.125 16.5 26.125C15.7437 26.125 15.125 26.7437 15.125 27.5ZM8.23625 6.2975C7.7 5.76125 6.82 5.76125 6.2975 6.2975C5.76125 6.83375 5.76125 7.71375 6.2975 8.23625L7.755 9.69375C8.29125 10.23 9.17125 10.23 9.69375 9.69375C10.2163 9.1575 10.23 8.2775 9.69375 7.755L8.23625 6.2975ZM25.245 23.3063C24.7088 22.77 23.8288 22.77 23.3063 23.3063C22.77 23.8425 22.77 24.7225 23.3063 25.245L24.7638 26.7025C25.3 27.2388 26.18 27.2388 26.7025 26.7025C27.2388 26.1663 27.2388 25.2863 26.7025 24.7638L25.245 23.3063ZM26.7025 8.23625C27.2388 7.7 27.2388 6.82 26.7025 6.2975C26.1663 5.76125 25.2863 5.76125 24.7638 6.2975L23.3063 7.755C22.77 8.29125 22.77 9.17125 23.3063 9.69375C23.8425 10.2163 24.7225 10.23 25.245 9.69375L26.7025 8.23625ZM9.69375 25.245C10.23 24.7088 10.23 23.8288 9.69375 23.3063C9.1575 22.77 8.2775 22.77 7.755 23.3063L6.2975 24.7638C5.76125 25.3 5.76125 26.18 6.2975 26.7025C6.83375 27.225 7.71375 27.2388 8.23625 26.7025L9.69375 25.245Z"/>
+        </svg>
+      </div>
+      <div onclick="Editor.changeTheme()">
+        <svg class="enabled" viewBox="0 0 33 34" fill="none" xmlns="http://www.w3.org/2000/svg" id="dark_svg">
+        <path d="M12.8837 7.80583C12.6362 8.7125 12.5125 9.66167 12.5125 10.625C12.5125 16.405 17.0775 21.1083 22.6875 21.1083C23.6225 21.1083 24.5437 20.9808 25.4237 20.7258C23.9937 24.3525 20.5287 26.9167 16.5 26.9167C11.1925 26.9167 6.875 22.4683 6.875 17C6.875 12.8492 9.36375 9.27917 12.8837 7.80583ZM16.5 4.25C9.66625 4.25 4.125 9.95917 4.125 17C4.125 24.0408 9.66625 29.75 16.5 29.75C23.3337 29.75 28.875 24.0408 28.875 17C28.875 16.3483 28.82 15.6967 28.7375 15.0733C27.39 17.0142 25.19 18.275 22.6875 18.275C18.59 18.275 15.2625 14.8467 15.2625 10.625C15.2625 8.06083 16.4862 5.78 18.37 4.39167C17.765 4.30667 17.1325 4.25 16.5 4.25Z"/>
+        </svg>
+      </div>
+    </div>
+    <div id="main_editor" hidden style="margin: 0; padding: 0; height: calc(100% - 50px)">
+      <div hidden class="dark" id="root" style="margin: 0; padding: 0; height: 100%; border: none"></div>
+      <div id="editor2" style="height: 100%;overflow: scroll">
+        <div class="dark editor" id="editor"></div>
+      </div>
+      <!-- <div id="console" style="height: 25%; min-height: 100px;" class="dark">
+        <h4 style="color: gray; margin: 0;padding: 5px;">OUTPUT</h4>
+        <div class="dark" id="console2" style="padding: 10px; padding-top: 0;"></div>
+      </div> -->
+    </div>
+    <div id="buttom_sheet" class="buttom_sheet dark" style="overflow: hidden">
+      <span id="buttom_sheet_title" style="position: relative; top: 5px; left: 50px; font-size: 24pt" class="dark"></span>
+      <a style="position: relative; top: -40px; left: 0px;" class="closebtn" onclick="closeButtomSheet()">&times;</a>
+      <div style="height: calc(100% - 22px); position: relative; top: -40px" id="buttom_sheet_div"></div>
+    </div>
+    <div class="dark" hidden id="overflowedMenu"></div>
+    <div class="dark" hidden id="menu" style="height: 50px">
+      <span class="label" style="font-size: 75%;position: absolute;">Dark Mode</span>
+      <label class="switch" style="margin-top: 16px">
+        <input type="checkbox" id="theme" onchange="changeTheme2()">
+        <span class="slider round"></span>
+      </label>
+      <span id="modeContainer">
+        <button id="gotoblock" class="mode" onclick="goToBlock()">Blocks</button>
+        <button id="gotocode" class="selected mode" onclick="goToCode()">Code</button>
+        <select onchange="Editor._changeLang()" id="langs" style="margin-right: 10px; background: none; border: none; user-select: none; outline: none;">
+          <option value="0">Default</option>
+        </select>
+      </span>
+      <a href="javascript:openFileBrowser()" class="material-icons home_btn" style="display:inline-block; float:right; margin-right: 5px">home</a>
+    </div>
+    <div id="popup" hidden style="margin: 0; padding: 0; height: 100%"></div>
+    <script type="text/javascript" src="https://unpkg.com/browserfs@2.0.0/dist/browserfs.min.js"></script>
+    <script type="text/javascript">
+      var functions = {};
+      var functionCodes = '';
+      var onStartUsed = 0;
+      var allVariables = [];
+      var editingFile = '';
+      var genBlocksCalled = false;
+      var copiedFilePath = null;
+      var copiedFileName = null;
+      var functionsInImportedFiles = {};
+      var variablesInImportedFiles = [];
+      var packages = []
+      var publicVariables = []
+
+      function openBottomSheet(title) {
+        document.getElementById("buttom_sheet").style.height = "250px";
+        setTimeout(function() {
+          document.getElementById("main_editor").style.height = "calc(100% - 300px)";
+          Blockly.svgResize(Blockly.mainWorkspace)
+          Editor.getAceEditor().resize();
+        }, 200);
+        if (title) document.getElementById("buttom_sheet_title").innerHTML = title;
+        document.getElementById("buttom_sheet_div").innerHTML = '';
+        return document.getElementById("buttom_sheet_div");
+      }
+
+      function closeButtomSheet() {
+        document.getElementById("buttom_sheet").style.height = "0";
+        document.getElementById("main_editor").style.height = "calc(100% - 50px)";
+        document.body.style.overflowY = 'hidden'
+        Blockly.svgResize(Blockly.mainWorkspace)
+        Editor.getAceEditor().resize();
+        setTimeout(function() {
+          document.body.style.overflowY = 'auto'
+        }, 100)
+      }
+
+      function openPopUp() {
+        const popup = document.getElementById('popup')
+        $('#popup').fadeIn(200)
+        popup.innerHTML = ''
+        return popup
+      }
+
+      function closePopUp() {
+        $('#popup').fadeOut(200)
+        document.getElementById('popup').style.backgroundColor = 'rgba(0, 0, 0, 0.3)'
+      }
+
+      window.addEventListener('click', function(e) {
+        if (e.target.id == 'popup') {
+          closePopUp()
+        }
+      });
+
+      function createPopUpBody(popup) {
+        const body = document.createElement('div')
+        body.classList.add('popupbody')
+        popup.appendChild(body)
+        return body
+      }
+
+      function injectCss(css) {
+        const _css = document.createElement('style')
+        _css.innerHTML = css
+        document.head.appendChild(_css)
+        return _css
+      }
+
+      function revertCss(a) {
+        document.head.removeChild(a)
+      }
+
+      let checkingOverflow = false
+
+      let callbacks = {}
+      let lastCallback = 0
+      let rebuildingMenu = false
+
+      function addMenuOption(imgSrc, name, callBack, id) {
+        var child = document.createElement('img');
+        child.setAttribute('src', imgSrc);
+        addMenuOptionWithCustomImageElement(child, name, callBack, id);
+      }
+      function addMenuOptionWithCustomImageElement(imgElement, name, callBack, id) {
+        var child = document.createElement('div');
+        var child1 = document.createElement('p');
+        child1.setAttribute('style', "margin: 0; padding: 0");
+        child.appendChild(imgElement);
+        child1.innerHTML = name;
+        child.appendChild(child1);
+        child.setAttribute("class", "menuitem")
+        callbacks[lastCallback++] = callBack
+        child.setAttribute('onclick', `callbacks[${lastCallback - 1}]()`)
+        child.setAttribute('id', id);
+        document.getElementById("menu").appendChild(child);
+        if (!checkingOverflow && window['checkMenuOverflow']) checkMenuOverflow();
+      }
+      var element = document.createElement("p");
+      element.innerHTML = "&#9658;";
+      element.setAttribute('style', "color: #1A9FFF; font-size: 28px; margin: 0; margin-bottom: -5px; padding: 0; font-family: Roboto, sans-serif !important;");
+
+      function addButtons() {
+        addMenuOptionWithCustomImageElement(element, "Run", function() {
+          if (!window['Compiler']) return;
+          for (let i of Editor.onCodeExecutedCallbacks) {
+            i()
+          }
+          let div = document.createElement('div');
+          div.setAttribute('id', 'console2');
+          div.setAttribute('class', 'dark');
+          div.setAttribute('style', 'padding: 10px; padding-top: 0; height: 200px; background-color: rgba(60, 60, 60, 0.5)');
+          openBottomSheet('console').appendChild(div);
+          Compiler.run();
+        }, 'run');
+        addMenuOption('import.svg', 'add package', function() {
+          // Editor.getSwal().fire({
+          //   title: 'please enter repository name',
+          //   input: 'text',
+          //   inputValidator: (value) => {
+          //     if (!value) {
+          //       return 'repository name can\'t be empty'
+          //     }
+          //   }
+          // }).then((repoName) => {
+          //   if (repoName.value) {
+          //     fetch(`https://api.github.com/repos/${repoName.value}/branches`).then(response => response.json())
+          //     .then(data => fetch(`https://raw.githubusercontent.com/${repoName.value}/${data[0].name}/${repoName.value.split('/')[1]}.js`).then(response => response.text()).then(code => eval(code)).catch(a => Editor.getSwal().fire(a.toString())))
+          //     .catch(a => Editor.getSwal().fire(a.toString()))
+          //   }
+          // })
+          const popup = createPopUpBody(openPopUp())
+          popup.setAttribute('style', 'direction: rtl')
+          popup.innerHTML = '<input class="input" autocomplete="off" id="pkginput" placeholder="search for package name/enter package repo" style="direction: ltr; margin-top: 20px; padding: 10px" type="text"/><div style="width: 100%; height: calc(100% - 133px); margin-top: 10px; direction: ltr; padding-left: 10px; padding-right: 10px; overflow: scroll" class="layout2" id="category_grid"></div><button id="submitpkg" style="position: absolute; bottom: 5px; right: 3px" class="swal2-confirm swal2-styled">Add package</button>'
+          fetch('pkglist').then(response => response.text()).then(function(list) {
+            packages = []
+            for (let i of list.split('\n')) {
+              if (i.trim() == '') continue
+              packages.push(i)
+              document.getElementById('category_grid').innerHTML += `<div class="package_item" id="plug_${i}"><img style="width: 100%; max-height: 70%; object-fit: scale-down" src="https://opengraph.githubassets.com/a/${i}"/><p class="title" style="margin-left: 20px; margin-top: -1px; max-width: calc(100% - 40px); overflow: hidden">${i}</p><a style="color: white; position: relative; bottom: 15px; margin-left: 20px; max-width: calc(100% - 40px); overflow: hidden" target="_blank" href="https://github.com/${i.split('/')[0]}">by ${i.split('/')[0]}</a><a style="color: white; position: relative; bottom: 15px; margin-left: 20px; max-width: calc(100% - 40px); overflow: hidden" href="javascript:document.getElementById('pkginput').value='${i}';document.getElementById('submitpkg').click()">${Object.keys(localStorage).includes('plugin_' + i + '_code')? 'Remove':'Add'}</a></div>`
+              if (Object.keys(localStorage).includes('plugin_' + i + '_code')) {
+                fetch(`https://api.github.com/repos/${i}/branches`).then(response => response.json())
+                .then(data => fetch(`https://raw.githubusercontent.com/${i}/${data[0].name}/${i.split('/')[1]}.js`).then(response => response.text()).then(code => {
+                  let ver = code.match(/^\/\/ver=.+/gm)
+                  if (ver && ver.length == 1) ver = ver[0].split('=')[1]
+                  else ver = 'N/A'
+                  let ver_ = localStorage.getItem('plugin_' + i + '_code').match(/^\/\/ver=.+/gm)
+                  if (ver_ && ver_.length == 1) ver_ = ver_[0].split('=')[1]
+                  else ver_ = 'N/A'
+                  if (ver != ver_) document.getElementById('plug_' + i).innerHTML += `<a style="color: white; position: relative; bottom: 15px; margin-left: 20px; max-width: calc(100% - 40px); overflow: hidden" href="javascript:document.getElementById('pkginput').value=':!U${i}';document.getElementById('submitpkg').click()">Update</a>`
+                })).catch(ignored => {})
+              }
+            }
+          }).catch(a => Editor.getSwal().fire(a.toString()))
+            .catch(a => Editor.getSwal().fire(a.toString()))
+          document.getElementById('submitpkg').addEventListener('click', function() {
+            if (document.getElementById('pkginput').value.includes(':!U')) {
+              document.getElementById('pkginput').value = document.getElementById('pkginput').value.replace(':!U', '')
+              setTimeout(function() {
+                document.getElementById('submitpkg').click()
+              }, 500)
+            } else {
+              closePopUp()
+            }
+            if (Object.keys(localStorage).includes('plugin_' + document.getElementById('pkginput').value + '_code')) {
+              localStorage.removeItem('plugin_' + document.getElementById('pkginput').value + '_code')
+              // reset everything to remove things plugins are done
+              for (let i of Object.keys(Editor._langs)) {
+                delete Editor._langs[i]
+              }
+              Editor._resetTranslations()
+              Editor.onCodeExecutedCallbacks = []
+              rebuildingMenu = true
+              document.getElementById('menu').innerHTML = `<span class="label" style="font-size: 75%;position: absolute;">Dark Mode</span>
+        <label class="switch" style="margin-top: 16px">
+          <input type="checkbox" id="theme" onchange="changeTheme2()">
+          <span class="slider round"></span>
+        </label>
+        <span id="modeContainer">
+          <button id="gotoblock" class="${localStorage['mode'] == 'block'? "selected":""} mode" onclick="goToBlock()">Blocks</button>
+          <button id="gotocode" class="${localStorage['mode'] == 'code'? "selected":""} mode" onclick="goToCode()">Code</button>
+          <select onchange="Editor._changeLang()" id="langs" style="margin-right: 10px; background: none; border: none; user-select: none; outline: none;">
+            <option value="0">Default</option>
+          </select>
+        </span>
+        <a href="javascript:openFileBrowser()" class="material-icons home_btn" style="display:inline-block; float:right; margin-right: 5px">home</a>`
+              if (Editor.isDark()) {
+                document.getElementById('theme').checked = true
+              }
+              addButtons()
+              Blockly.Extensions.unregister('text_indexOf_mutator')
+              Blockly.Extensions.unregister('create_instance_mutator')
+              Editor.setBlocksEditorGrid({
+                spacing : 20,
+                length : 2,
+                colour : localStorage.getItem('theme') == 'dark'? 'rgba(255, 255, 255, 0.12)':'rgba(150, 150, 150, 0.3)',
+                snap : true
+              })
+              Editor.resetThemes()
+              populateDefaultBlocks()
+              initBlocks()
+              setTimeout(function() {
+                Object.keys(localStorage).map((pluginName) => {
+                  if (pluginName.startsWith('plugin_') && pluginName.endsWith('_code')) eval(localStorage.getItem(pluginName))
+                })
+                refreshBlockly()
+                if (window['checkMenuOverflow']) checkMenuOverflow()
+                rebuildingMenu = false
+              }, 100)
+            } else {
+              fetch(`https://api.github.com/repos/${document.getElementById('pkginput').value}/branches`).then(response => response.json())
+              .then(data => fetch(`https://raw.githubusercontent.com/${document.getElementById('pkginput').value}/${data[0].name}/${document.getElementById('pkginput').value.split('/')[1]}.js`).then(response => response.text()).then(code => {
+                eval(code)
+                localStorage.setItem('plugin_' + document.getElementById('pkginput').value + '_code', code)
+                refreshBlockly()
+                if (window['checkMenuOverflow']) checkMenuOverflow()
+              }).catch(a => Editor.getSwal().fire(a.toString())))
+              .catch(a => Editor.getSwal().fire(a.toString()))
+            }
+          })
+          $('#pkginput').keyup(function(e) {
+            document.getElementById('category_grid').innerHTML = ''
+          })
+        }, 'addpkg')
+      }
+
+      addButtons()
+
+      injectCss(`.menuitem#addpkg {
+        width: 95px;
+        max-width: 95px;
+        margin-right: 10px;
+      }`)
+
+      function changeTheme2() {
+        Editor.changeTheme();
+        //  document.getElementById('root').removeChild(Blockly.getMainWorkspace().injectionDiv_);
+        //  injectBlockly();
+        refreshBlockly()
+      }
+      function goToBlock() {
+        if (localStorage.getItem('mode') == 'code') Editor.changeView();
+      }
+      function goToCode() {
+        if (localStorage.getItem('mode') == 'block') Editor.changeView();
+      }
+
+      BrowserFS.install(window);
+      BrowserFS.configure({
+        fs: "LocalStorage"
+      }, function(e) {
+        if (e) {
+          throw e;
+        }
+      });
+
+      var fs = require('fs');
+
+      var deleteDirectory = function(path) {
+        if (fs.existsSync(path)) {
+          fs.readdirSync(path).forEach(function (file, index) {
+            var curentPath = path + "/" + file;
+            if (fs.lstatSync(curentPath).isDirectory()) {
+              deleteDirectory(curentPath);
+            } else {
+              fs.unlinkSync(curentPath);
+            }
+          });
+          fs.rmdirSync(path);
+        }
+      };
+
+      async function createFile() {
+        const { value: name } = await Editor.getSwal().fire({
+          title: Messages['CREATE_FILE_FILENAME_PROMPT'],
+          confirmButtonColor: 'var(--editor-color, #1A9FFF)',
+          input: 'text',
+          inputValidator: (value) => {
+            if (!value) {
+              return Messages['FILENAME_CANT_BE_EMPTY']
+            }
+          }
+        })
+
+        if (name) {
+          if (fs.existsSync(localStorage.getItem('currentDir') + name)) {
+            Editor.getSwal().fire(Messages['FILE_ALREADY_EXIST']);
+            return;
+          }
+          fs.writeFile(localStorage.getItem('currentDir') + name, '\n', function(err) {});
+          loadFiles();
+        }
+      }
+
+      async function createDirectory() {
+        const { value: dirname } = await Editor.getSwal().fire({
+          title: Messages['CREATE_DIR_DIRNAME_PROMPT'],
+          confirmButtonColor: 'var(--editor-color, #1A9FFF)',
+          input: 'text',
+          inputValidator: (value) => {
+            if (!value) {
+              return Messages['DIR_NAME_CANT_BE_EMPTY']
+            }
+          }
+        })
+        if (dirname) {
+          if (!fs.existsSync(localStorage.getItem('currentDir') + dirname)){
+            fs.mkdirSync(localStorage.getItem('currentDir') + dirname);
+          } else {
+            Editor.getSwal().fire(Messages['DIR_NAME_ALREADY_USED']);
+          }
+          loadFiles();
+        }
+      }
+
+      function deleteFile(name) {
+        Editor.getSwal().fire({
+          title: Messages['DELETE_CONFIRM_MSG'].replace("%1", name),
+          // text: "You won't be able to revert this!",
+          icon: 'warning',
+          showCancelButton: true,
+          confirmButtonColor: '#1A9FFF',
+          cancelButtonColor: 'var(--cancel-color, #f55)',
+          confirmButtonColor: 'var(--editor-color, #1A9FFF)',
+          confirmButtonText: Messages['DELETE_CONFIRM']
+        }).then((result) => {
+          if (result.isConfirmed) {
+            if (fs.lstatSync(localStorage.getItem('currentDir') + name).isDirectory()) {
+              deleteDirectory(localStorage.getItem('currentDir') + name);
+            } else {
+              try {
+                localStorage.removeItem('langOfFile_' + localStorage.getItem('currentDir') + editingFile)
+                fs.unlinkSync(localStorage.getItem('currentDir') + name);
+              } catch(err) {
+                console.error(err);
+              }
+            }
+            loadFiles();
+          }
+        })
+      }
+
+      async function renameFile(name) {
+        const { value: q } = await Editor.getSwal().fire({
+          title: Messages['RENAME_FILE_PROMPT'],
+          input: 'text',
+          inputValue: name,
+          confirmButtonColor: 'var(--editor-color, #1A9FFF)',
+          inputValidator: (value) => {
+            if (value == '') {
+              return Messages['RENAME_NAME_EMPTY'];
+            } else if (fs.existsSync(localStorage.getItem('currentDir') + value)) {
+              return Messages['RENAME_NAME_USED'];
+            }
+          }
+        })
+        if (q) {
+          fs.renameSync(localStorage.getItem('currentDir') + name, localStorage.getItem('currentDir') + q);
+        }
+        loadFiles();
+      }
+
+      function copyFile(name) {
+        copiedFilePath = localStorage.getItem('currentDir') + name;
+        copiedFileName = name;
+        checkPaste();
+      }
+
+      function checkPaste() {
+        document.getElementById('paste_button').hidden = copiedFilePath == null;
+      }
+
+      var path = require('path');
+
+      var mkdir = function(dir) {
+      	try {
+      		fs.mkdirSync(dir, 0755);
+      	} catch(e) {
+      		if(e.code != "EEXIST") {
+      			throw e;
+      		}
+      	}
+      };
+
+      var copyDir = function(src, dest) {
+      	mkdir(dest);
+      	var files = fs.readdirSync(src);
+      	for(var i = 0; i < files.length; i++) {
+      		var current = fs.lstatSync(path.join(src, files[i]));
+      		if(current.isDirectory()) {
+      			copyDir(path.join(src, files[i]), path.join(dest, files[i]));
+      		} else if(current.isSymbolicLink()) {
+      			var symlink = fs.readlinkSync(path.join(src, files[i]));
+      			fs.symlinkSync(symlink, path.join(dest, files[i]));
+      		} else {
+      			copy(path.join(src, files[i]), path.join(dest, files[i]));
+      		}
+      	}
+      };
+
+      var copy = function(src, dest) {
+      	fs.readFile(src, function(e, res) {
+      		fs.writeFile(dest, res, function() {});
+      	});
+      };
+
+      async function paste() {
+        let prompt = async function(t, v) {
+          const { value: q } = await Editor.getSwal().fire({
+            title: t,
+            input: 'text',
+            inputValue: v,
+            confirmButtonColor: 'var(--editor-color, #1A9FFF)'
+          });
+          return q
+        }
+        let pCopiedFileName = copiedFileName;
+        if (fs.existsSync(localStorage.getItem('currentDir') + copiedFileName)) {
+          var tmp = copiedFileName;
+          while ((tmp = await prompt(Messages['PASTE_FILE_EXISTS'], tmp)) != null &&
+                  fs.existsSync(localStorage.getItem('currentDir') + tmp));
+          if (tmp == null) return;
+          copiedFileName = tmp;
+        }
+        if (fs.lstatSync(copiedFilePath).isDirectory()) {
+          if (localStorage.getItem('currentDir').startsWith(copiedFilePath)) {
+            Editor.getSwal().fire(Messages['ERR_COPY_FOLDER_IN_ITSELF'])
+            return;
+          }
+          copyDir(copiedFilePath, localStorage.getItem("currentDir") + copiedFileName);
+        } else {
+          copy(copiedFilePath, localStorage.getItem("currentDir") + copiedFileName);
+        }
+        copiedFileName = pCopiedFileName;
+        loadFiles();
+      }
+
+      function loadFiles() {
+        fs.readdir(localStorage.getItem('currentDir'), function(e, contents) {
+          checkPaste();
+          document.getElementById('filepath').innerHTML = localStorage.getItem('currentDir');
+          var back = '';
+          if (localStorage.getItem('currentDir').split('/').length > 2) {
+            back = '<a class=\"file\" href="javascript:back()"><div class="child action"><span class=\"material-icons\">undo</span><br><p>go back</p></div></a>'
+          }
+          document.getElementById('grid').innerHTML = back + '<a class=\"file\" href="javascript:createFile()"><div class="child action"><span class=\"material-icons\">note_add</span><br><p>cteate file</p></div></a>'
+                                                      + '<a class=\"file\" href="javascript:createDirectory()"><div class="child action"><span class=\"material-icons\">create_new_folder</span><br><p>cteate folder</p></div></a>';
+          for (var i of contents) {
+            var element = document.createElement('a');
+            element.setAttribute('class', 'file');
+            let isDir = fs.lstatSync(localStorage.getItem('currentDir') + i).isDirectory();
+            element.innerHTML = "<a class=\"file_action_a\" style=\"position: relative;\" href=\"javascript:deleteFile('" + i
+                               + "')\"><span class=\"material-icons file_action\">delete_forever</span></a>"
+                               + "<br><a class=\"file_action_a\" style=\"position: relative;\" href=\"javascript:renameFile('" + i
+                               + "')\"><span class=\"material-icons file_action\">drive_file_rename_outline</span></a>"
+                               + "<br><a class=\"file_action_a\" style=\"position: relative;\" href=\"javascript:copyFile('" + i
+                               + "')\"><span class=\"material-icons file_action\">content_copy</span></a>"
+                               + "<a href=\"javascript:" + (isDir? "openDir":"openFile")
+                               + "('" + i + "')\"><div class=\"child\"><span class=\"material-icons\">"
+                               + (isDir? "folder":"description") + "</span><br><p>"
+                               + i + "</p></div></a>";
+            document.getElementById('grid').appendChild(element);
+          }
+          if (document.readyState === "complete") $('.material-icons').css('opacity','1')
+        });
+      }
+
+      function openFile(filename) {
+        if (!window['Compiler']) return;
+        editingFile = filename;
+        document.getElementById('grid').hidden = true;
+        document.getElementById('top_div').hidden = true;
+        document.getElementById('main_editor').hidden = false;
+        document.getElementById('menu').hidden = false;
+        document.getElementById('theme_div').hidden = true;
+        document.getElementById('langs').value = localStorage.getItem('langOfFile_' + localStorage.getItem('currentDir') + editingFile)
+        document.getElementById('langs').value = document.getElementById('langs').value? document.getElementById('langs').value:'0'
+        Editor.getAceEditor().session.setValue(fs.readFileSync(localStorage.getItem('currentDir') + filename).toString())
+        Editor.getAceEditor().session.selection.moveTo(0, 0)
+        document.getElementById('langs').onchange()
+        Editor._changeLang()
+        genBlocksCalled = true;
+        if (document.getElementById('langs').value != '0') {
+          Editor.codeInDefaultLang = Editor._langs[document.getElementById('langs').value][2]()
+        }
+        Compiler.genBlocks()
+        Editor.codeInDefaultLang = null
+        Blockly.getMainWorkspace().cleanUp();
+        refreshBlockly()
+        if (window['checkMenuOverflow']) checkMenuOverflow()
+        setInterval(function() {
+          genBlocksCalled = false;
+        }, 200);
+      }
+
+      function openFileBrowser() {
+        document.getElementById('grid').hidden = false;
+        document.getElementById('main_editor').hidden = true;
+        document.getElementById('top_div').hidden = false;
+        document.getElementById('menu').hidden = true;
+        document.getElementById('theme_div').hidden = false;
+        closeButtomSheet();
+        document.getElementById('buttom_sheet').hidden = true;
+        setInterval(function() {
+          document.getElementById('buttom_sheet').hidden = false;
+        }, 150);
+      }
+
+      function openDir(name) {
+        localStorage.setItem('currentDir', localStorage.getItem('currentDir') + name + '/');
+        loadFiles();
+      }
+
+      function back(name) {
+        localStorage.setItem('currentDir', localStorage.getItem('currentDir').substr(0, localStorage.getItem('currentDir').lastIndexOf('/', localStorage.getItem('currentDir').length - 2)) + '/');
+        loadFiles();
+      }
+    </script>
+    <!-- <button hidden id="callColor"></button> -->
+    <button hidden id="genBlocks"></button>
+    <script src="src-min/ace.js" type="text/javascript" charset="utf-8"></script>
+    <script src="src-min/ext-language_tools.js"></script>
+    <script src="dist/index.js"></script>
+    <script>
+      Messages['FILENAME_CANT_BE_EMPTY'] = "filename can't be empty";
+      Messages['FILE_ALREADY_EXIST'] = 'file with this name is already exists';
+      Messages['DIR_NAME_CANT_BE_EMPTY'] = "directory name can't be empty";
+      Messages['DIR_NAME_ALREADY_USED'] = 'sorry this name is already used';
+      Messages['RENAME_NAME_USED'] = "sorry this file is already exists";
+      Messages['RENAME_NAME_EMPTY'] = Messages['FILENAME_CANT_BE_EMPTY'];
+      Messages['ERR_COPY_FOLDER_IN_ITSELF'] = "couldn't copy folder to it's inside";
+      Messages['PASTE_FILE_EXISTS'] = "this file exists. please rename it";
+      Messages['CREATE_FILE_FILENAME_PROMPT'] = 'file name:';
+      Messages['CREATE_DIR_DIRNAME_PROMPT'] = 'folder name:';
+      Messages['RENAME_FILE_PROMPT'] = 'new name:';
+      Messages['DELETE_CONFIRM_MSG'] = 'do you want to remove "%1"';
+      Messages['DELETE_CONFIRM'] = 'Yes, delete it!';
+      setTimeout(function() {
+        Object.keys(localStorage).map((pluginName) => {
+          if (pluginName.startsWith('plugin_') && pluginName.endsWith('_code')) eval(localStorage.getItem(pluginName))
+        })
+        refreshBlockly()
+        var url = new URL(window.location.href);
+        var name = url.searchParams.get("name") || 'unnamed';
+        url = url.searchParams.get("url");
+        if (url) {
+          fetch(url).then(res => res.text()).then(function(res) {
+            while (fs.existsSync('/' + name)) {
+              name += '_'
+            }
+            localStorage.setItem('currentDir', '/')
+            fs.writeFileSync('/' + name, res)
+            loadFiles()
+            let tmp = setInterval(function() {
+              if (window['Compiler']) {
+                openFile(name)
+                clearInterval(tmp)
+              }
+            }, 100)
+          }).catch(function(e) {
+            console.error(e)
+            Editor.getSwal().fire('Sorry. couldn\'t fetch shared file')
+          })
+        }
+      }, 100)
+      window.addEventListener('load', function() {
+        $('.material-icons').css('opacity','1')
+      })
+      class Serial {
+        init = async() => {
+          if ('serial' in navigator) {
+            this.port = await navigator.serial.requestPort()
+          } else {
+            if (Linker.available) {
+              Linker._initPortList()
+              let promise = new Promise((resolve, reject) => {
+                let self = this
+                setTimeout(() => {
+                  let popUp = createPopUpBody(openPopUp())
+                  popUp.style.paddingTop = '30px'
+                  for (let i of Linker._ports) {
+                    let item = document.createElement('div')
+                    item.innerHTML = i
+                    item.classList.add('ser-item')
+                    item.addEventListener('click', () => {
+                      self.port = i
+                      closePopUp()
+                      resolve()
+                    })
+                    popUp.appendChild(item)
+                  }
+                }, 100)
+              })
+              return promise
+            } else {
+              throw 'WebSerial is not supported and linker is not available'
+            }
+          }
+        }
+        open = async (conf = {}, onMessage) => {
+          if (!('baudRate' in conf)) conf['baudRate'] = 9600
+          if ('serial' in navigator) {
+            await this.port.open(conf)
+            this.textDecoder = new TextDecoderStream()
+            this.readableStreamClosed = this.port.readable.pipeTo(this.textDecoder.writable)
+            this.reader = this.textDecoder.readable.getReader()
+            this.textEncoder = new TextEncoderStream()
+            this.writableStreamClosed = this.textEncoder.readable.pipeTo(this.port.writable)
+            this.writer = this.textEncoder.writable.getWriter()
+            while (true) {
+              const { value, done } = await this.reader.read()
+              if (value) {
+                onMessage(value)
+              }
+              if (done) {
+                this.reader.releaseLock()
+                break
+              }
+            }
+          } else {
+            Linker._connectSerial(this.port, conf)
+            Linker._portsCallbacks[this.port] = onMessage
+            await Linker.waitForSuccess()
+          }
+        }
+        write = (data) => {
+          if ('serial' in navigator) {
+            this.writer.write(data)
+          } else {
+            Linker._writeToPort(this.port, data)
+          }
+        }
+        close = async (data) => {
+          if ('serial' in navigator) {
+            this.reader.cancel()
+            await this.readableStreamClosed.catch(() => {})
+            this.writer.close()
+            await this.writableStreamClosed
+            await this.port.close()
+          } else {
+            Linker._closePort(this.port)
+          }
+        }
+        setDTR = async (value) => {
+          if ('serial' in navigator) {
+            await this.port.setSignals({ dataTerminalReady: value });
+          } else {
+            Linker._setDTR(this.port, value)
+          }
+        }
+        setRTS = async (value) => {
+          if ('serial' in navigator) {
+            await this.port.setSignals({ requestToSend: value });
+          } else {
+            Linker._setRTS(this.port, value)
+          }
+        }
+        setBreak = async (value) => {
+          if ('serial' in navigator) {
+            await this.port.setSignals({ "break": value });
+          } else {
+            Linker._setBreak(this.port, value)
+          }
+        }
+      }
+    </script>
+  </body>
+</html>
