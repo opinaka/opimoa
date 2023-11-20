@@ -6,10 +6,10 @@
   <meta name="viewport" content="target-densitydpi=device-dpi, height=660, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
   <title>Blockly Demo: Blockly Developer Tools</title>
 
-  <script src="blockly_compressed.js"></script>
-  <script src="blocks_compressed.js"></script>
-  <script src="javascript_compressed.js"></script>
-  <script src="en.js"></script>
+  <script src="build/blockly_compressed.js"></script>
+  <script src="buils/blocks_compressed.js"></script>
+  <script src="build/javascript_compressed.js"></script>
+  <script src="build/en.js"></script>
 
     <!-- Les 4 lignes suivantes chargent les routines de Blockly --
     <script src="https://unpkg.com/blockly@10.2.2/blockly_compressed.js"></script>
@@ -22,30 +22,33 @@
     <script src="https://unpkg.com/blockly@10.2.2/python_compressed.js"></script>
     <script src="https://unpkg.com/blockly@10.2.2/dart_compressed.js"></script>
     -->
-  <script src="analytics.js"></script>
-  <script src="block_definition_extractor.js"></script>
-  <script src="factory_utils.js"></script>
-  <script src="workspacefactory/wfactory_model.js"></script>
-  <script src="standard_categories.js"></script>
-  <script src="cp.js"></script>
-  <script src="workspacefactory/wfactory_controller.js"></script>
-  <script src="workspacefactory/wfactory_view.js"></script>
-  <script src="workspacefactory/wfactory_generator.js"></script>
-  <script src="workspacefactory/wfactory_init.js"></script>
-  <script src="block_option.js"></script>
-  <script src="factory.js"></script>
-  <script src="block_library_view.js"></script>
-  <script src="block_library_storage.js"></script>
-  <script src="block_library_controller.js"></script>
-  <script src="block_exporter_tools.js"></script>
-  <script src="block_exporter_view.js"></script>
-  <script src="block_exporter_controller.js"></script>
-  <script src="blocks.js"></script>
-  <script src="app_controller.js"></script>
-  <script src="storage.js"></script>
-  <link rel="stylesheet" href="factory.css">
-  <link rel="stylesheet" href="cp.css">
-  <script src="https://cdn.jsdelivr.net/gh/google/code-prettify@master/loader/run_prettify.js"></script>
+    <meta charset="utf-8">
+    <meta name="viewport" content="target-densitydpi=device-dpi, height=660, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+    <title>Blockly Demo: Blockly Developer Tools</title>
+    <script src="analytics.js"></script>
+    <script src="block_definition_extractor.js"></script>
+    <script src="factory_utils.js"></script>
+    <script src="workspacefactory/wfactory_model.js"></script>
+    <script src="standard_categories.js"></script>
+    <script src="cp.js"></script>
+    <script src="workspacefactory/wfactory_controller.js"></script>
+    <script src="workspacefactory/wfactory_view.js"></script>
+    <script src="workspacefactory/wfactory_generator.js"></script>
+    <script src="workspacefactory/wfactory_init.js"></script>
+    <script src="block_option.js"></script>
+    <script src="factory.js"></script>
+    <script src="block_library_view.js"></script>
+    <script src="block_library_storage.js"></script>
+    <script src="block_library_controller.js"></script>
+    <script src="block_exporter_tools.js"></script>
+    <script src="block_exporter_view.js"></script>
+    <script src="block_exporter_controller.js"></script>
+    <script src="blocks.js"></script>
+    <script src="app_controller.js"></script>
+    <script src="/storage.js"></script>
+    <link rel="stylesheet" href="factory.css">
+    <link rel="stylesheet" href="cp.css">
+    <script src="https://cdn.jsdelivr.net/gh/google/code-prettify@master/loader/run_prettify.js"></script>
   <script>
     var blocklyFactory;
     var init = function() {
