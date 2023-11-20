@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>Blockly Example</title>
+    <script src="https://unpkg.com/blockly/blockly.min.js"></script>
+    <script src="https://unpkg.com/blockly/blocks_compressed.js"></script>
+    <script src="https://unpkg.com/blockly/javascript_compressed.js"></script>
+    <script src="https://unpkg.com/blockly/python_compressed.js"></script>
+    <script src="https://unpkg.com/blockly/java_compressed.js"></script>
+    <script src="https://unpkg.com/blockly/lua_compressed.js"></script>
+    <script src="https://unpkg.com/blockly/json_compressed.js"></script>
+</head>
+<body>
+    <div id="blocklyDiv" style="height: 480px; width: 600px;"></div>
+    <xml id="toolbox" style="display: none;">
+        <category name="Logic">
+            <block type="controls_if"></block>
+            <block type="logic_compare"></block>
+            <block type="logic_operation"></block>
+        </category>
+        <category name="Loops">
+            <block type="controls_repeat_ext"></block>
+            <block type="controls_whileUntil"></block>
+        </category>
+    </xml>
+    <script>
+        var workspace = Blockly.inject('blocklyDiv', {
+            toolbox: document.getElementById('toolbox')
+        });
+    </script>
+</body>
+</html>
+<!--
+{
+  "type": "custom_function",
+  "message0": "fonction(%1, %2, %3): %4",
+  "args0": [
+    {
+      "type": "field_input",
+      "name": "input1",
+      "text": "entrée 1"
+    },
+    {
+      "type": "field_input",
+      "name": "input2",
+      "text": "entrée 2"
+    },
+    {
+      "type": "field_input",
+      "name": "input3",
+      "text": "entrée 3"
+    },
+    {
+      "type": "field_input",
+      "name": "output1",
+      "text": "sortie 1"
+    },
+    {
+      "type": "field_input",
+      "name": "output2",
+      "text": "sortie 2"
+    },
+    {
+      "type": "field_input",
+      "name": "output3",
+      "text": "sortie 3"
+    }
+  ],
+  "colour": 230,
+  "tooltip": "",
+  "helpUrl": ""
+}
+-->

@@ -1,0 +1,1271 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta content="Bernard Gisin" name="author">
+  <link rel="shortcut icon" href="images/faviconBlockly.png" type="image/icon"> <!-- pour l'icone dans l'adresse-->
+  <title>Blockly</title>
+  <style>
+    .myindent { padding-left:18px; text-indent:-18px; } 
+  </style>
+  <script type="text/javascript" src="../../courriel.js"></script>
+</head>
+<body>
+<div style="text-align:center">
+  <h2><b>Blockly</b></h2>
+</div>
+
+<b> Blockly is a library from Google for building beginner-friendly block-based programming languages.</b><br>
+<span style="font-size:80%">
+ Tiré de la 
+ <a href="https://developers.google.com/blockly/guides/app-integration/attribution" target="_blank">
+  référence</a>.</span> <br>
+En français :
+<span style="display:inline-block"> <!-- Pour que le texte suivant reste sur une ligne si possible -->
+<b>Blockly est une bibliothèque de Google permettant de créer des langages de programmation par blocs conviviaux pour les débutants.</b>
+</span>
+<br>
+<p>
+  Selon Google Blockly, recopié de <a href="https://developers.google.com/blockly/guides/modify/contributing" target="_blank">ce site Web</a> :<br>
+  <i>"Except as otherwise noted, the content of this page is licensed under the Creative Commons Attribution 3.0 License, 
+  and code samples are licensed under the Apache 2.0 License. 
+  For details, see our Site Policies."</i><br>
+  Tout ce qui suit est principalement destiné à l'enseignement et l'éducation et est aussi sous licence Apache 2.0 &nbsp;
+  c.f. <a href="LICENSE" target="_blank">LICENSE</a><br>
+  Donc vous pouvez tout copier, modifier et utiliser dans un but non commercial.<br>
+</p>
+
+<div class="myindent">
+ ° <a href="https://developers.google.com/blockly/" target="_blank"><b>Google Blockly</b></a>,
+  LA page de référence pour apprendre à programmer avec blockly.<br>
+</div>
+
+<div class="myindent">
+° <a href="https://developers.google.com/blockly/guides/app-integration/best-practices" target="_blank">
+  Custom Blocks: Best Practices</a>,
+  les bonnes pratiques selon l'expérience des développeurs de Blockly<br>
+</div>
+
+<div class="myindent">
+° <a href="https://blockly-games.appspot.com/" target="_blank">
+  <b>Blockly-games</b></a>.<br>  
+  Une suite d'exemples pour apprendre la programmation avec Blockly.<br>
+</div>
+
+<div class="myindent">
+° <a href="https://blockly-demo.appspot.com/static/demos/index.html" target="_blank">
+  <b>Blockly &gt; Demos</b></a>.<br>  
+  Les exemples des développeurs de Blockly.<br>
+</div>
+<div class="myindent">
+° <a href="https://blockly-demo.appspot.com/static/demos/blockfactory/index.html" target="_blank">
+  <b>Blockly &gt; Demos &gt; Blockly Developer Tools</b></a>.<br>  
+  "Blockly factory", outils d'aide de création de blocs de programme.<br>
+  <a href="https://developers.google.com/blockly/guides/create-custom-blocks/blockly-developer-tools" target="_blank">
+  Blockly Developer Tools</a>. Explications et une vidéo.<br>  
+  <a href="https://developers.google.com/blockly/guides/create-custom-blocks/define-blocks" target="_blank">
+  Define Blocks</a>. Tous les paramètres des blocs. Exemple le paramètre "data".<br>    
+</div>
+<div class="myindent">
+° <a href="https://groups.google.com/forum/#!forum/blockly" target="_blank">
+  Le forum de google sur Blockly</a>. En anglais.<br>    
+</div>
+<div class="myindent">
+° <a href="https://docs.google.com/forms/d/e/1FAIpQLSdgoOSdGZG7vwlzB3wisIXOeUYodDjBaYcSmSBPMdE_oUpxiA/viewform" target="_blank">
+  Blockly Developer Registration</a>.<br>    
+</div>
+<div class="myindent">
+° <a href="https://blockly-demo.appspot.com/static/tests/playground.html" target="_blank">
+  Blockly Playground</a>.<br>
+  <a href="https://www.youtube.com/watch?v=QTDyAO61D2k" target="_blank">
+  Vidéo explicant Blockly Playground</a>.<br>
+</div>
+<div class="myindent">
+° <a href="https://blockly-demo.appspot.com/static/tests/generators/index.html" target="_blank">
+  Blockly Generator Tests</a>.<br>    
+</div>
+
+<br>
+<hr style="margin-left:0; width:95%">
+<h2 style="text-align:center"><b>Quelques informations sur Blockly et les exemples qui suivent</b></h2>
+<!--================================================================================================-->
+
+° Blockly est :
+<button id="id_blockly_est_more" style='font-size:70%; display:inline;' 
+        onclick="document.getElementById('id_blockly_est_less').style.display='inline';  
+                 document.getElementById('id_blockly_est_more').style.display='none';">
+  Plus d'info
+</button>
+<div id="id_blockly_est_less" style="display:none;">
+  <button style='font-size:70%;' 
+          onclick="document.getElementById('id_blockly_est_less').style.display='none';  
+                   document.getElementById('id_blockly_est_more').style.display='inline';">
+    Moins d'info
+  </button><br>  
+  <div style="position:relative; left:14px;">
+    - Libre<br>
+    - Open source<br>
+	   - Exécutable dans une page Web<br> 
+    - Exécutable en local<br>
+    -	Indépendant d'un langage de programmation, pour un utilisateur<br>
+    -	Multi langues<br>
+    -	Développé en javascript, pour un développeur<br>
+    -	Bien documenté et orienté objet<br>
+    -	Souple pour des développements et adjonctions de modules<br>
+    -	Utilisable dans de nombreux contextes<br>
+  </div>
+</div>
+
+<br>
+° Configuration des navigateurs pour <b>l'exécution en Local</b> ("Same origin policy) :
+<button id="id_same_origin_policy_more" style='font-size:70%; display:inline;' 
+        onclick="document.getElementById('id_same_origin_policy_less').style.display='inline';  
+                 document.getElementById('id_same_origin_policy_more').style.display='none';">
+  Plus d'info
+</button>
+<div id="id_same_origin_policy_less" style="display:none;">
+  <button style='font-size:70%;' 
+          onclick="document.getElementById('id_same_origin_policy_less').style.display='none';  
+                   document.getElementById('id_same_origin_policy_more').style.display='inline';">
+    Moins d'info
+  </button><br>  
+  <div style="position:relative; left:14px;">
+    Pour pouvoir exécuter les codes qui suivent en local, 
+    il faut modifier un paramètre de <b>Firefox</b>, un paramètre de <b>Safari</b>
+    et un paramètre de <b>Chrome</b>,
+    qui permet au navigateur d'accéder au disque dur lorsque le fichier .html
+    se trouve sur le disque dur, i.e. l'exécution se fait en Local.<br>
+    Une sécurité, dont je ne vois aucun intérêt, empêche d'accéder à certains fichiers
+    lorsqu'on exécute une page Web en local.<br>
+    <div class="myindent">
+    - &nbsp;Dans <b>Firefox</b>, on peut taper : <b>about:config</b> dans la barre d'adresse, 
+    chercher <b>security.fileuri.strict_origin_policy</b> qui est à TRUE par défaut. 
+    En le mettant à FALSE, on peut travailler en local sans ennuis.<br>
+    </div>
+    <div class="myindent">
+      - &nbsp;Dans <b>Safari</b>, aller dans les <b>préférences &gt; Avancées</b>
+    et cocher la case <b>Afficher le menu Développement dans la barre des menus</b>.<br>
+    Dans le <b>menu "Développement"</b> qui est apparut, cocher la case :
+    <b>Désactiver les restrictions de fichier local</b>.<br>
+    </div>
+    <div class="myindent">
+      - &nbsp;Dans <b>google-chrome</b>, lancer 
+      <b>google-chrome --disable-web-security --user-data-dir="/home/bg/webgisin"</b><br>
+    Le nom du répertoir doit être adapté au cas par cas.<br>
+    </div>    
+
+    <div class="myindent">
+    - &nbsp;Voici une explication et une solution concernant Firefox :
+    <a href="https://developer.mozilla.org/en-US/docs/Archive/Misc_top_level/Same-origin_policy_for_file:_URIs" target="_blank">
+      Same origin policy for file:URIs</a>.<br>
+    </div>
+    <div class="myindent">
+    - &nbsp;Voici une explication et une solution concernant Chrome :
+    <a href="https://stackoverflow.com/questions/3102819/disable-same-origin-policy-in-chrome" target="_blank">
+      Disable same origin policy in Chrome</a>.<br>
+    </div>
+    - &nbsp;Recherchez "Same origin policy" ou "Cross-origin Restrictions".<br>
+  </div>
+</div>
+
+<br>
+° Commentaires sur les exemples qui suivent :
+<button id="id_ex_commentaires_more" style='font-size:70%; display:inline;' 
+        onclick="document.getElementById('id_ex_commentaires_less').style.display='inline';  
+                 document.getElementById('id_ex_commentaires_more').style.display='none';">
+  Plus d'info
+</button>
+<div id="id_ex_commentaires_less" style="display:none;">
+  <button style='font-size:70%;' 
+          onclick="document.getElementById('id_ex_commentaires_less').style.display='none';  
+                   document.getElementById('id_ex_commentaires_more').style.display='inline';">
+    Moins d'info
+  </button><br>  
+  <div style="position:relative; left:14px;">
+    - ex0010, un premier exemple très simple de moins de 100 lignes<br>
+    - ex0030, l'affichage est dans une fenêtre, pas dans une alerte<br>
+	   - ex0100, l'espace de toute le fenêtre est utilisée par Blockly<br> 
+     - ex0144, mise des blocs de Blockly dans une fenêtre et exécution de code javascript<br>
+     - ex0145, génération et exécution de code Python<br>
+     - ex0146, génération et exécution de code Lua<br>
+	   - ex0160, le premier exemple vraiment intéressant. Amélioré en ex0920<br> 
+	   - <b>ex0170</b>, indique comment fabriquer de nouveaux puzzle Blockly<br> 
+	   - ex0200 à ex0230, essais, curiosités, pas utiles<br> 
+	   - ex0300, première illumination des blocs, ralenti et animation<br> 
+	   - ex0350, exemple de <b>programmation objet</b> en javascript, pas très utilisé<br> 
+	   - ex0412, manipulation des blocs, utilisation de la 
+       <a href="https://developers.google.com/blockly/reference/overview" target="_blank">référence de google</a><br> 
+	   - ex05xx, manipulations de cartes, algorithmes de tris, repris plusieurs fois<br> 
+	   - ex0600, amélioration du design<br> 
+	   - ex0900, <b>multi-langues</b> et introduction de <b>librairies</b><br> 
+	   - ex0905, avec 10 cartes, permet de les retourner<br> 
+	   - ex0910, tri de 90 nombres<br> 
+	   - ex0920, environnement généraliste, pour écrire un programme, vitesse variable<br> 
+	   - ex0932, puzzles de l'ex0412, version multilangues<br> 
+	   - ex0940, début de reprise des <b>labyrinthes</b> des
+       <a href="https://blockly-games.appspot.com/" target="_blank">Blockly-games</a><br>
+	   - ex095x, début de reprise des <b>puzzles</b> des
+       <a href="https://blockly-games.appspot.com/" target="_blank">Blockly-games</a><br>
+    - ex160x, un module utilisable sur les <b>algorithmes de tris</b><br> 
+  </div>
+</div>
+<br>
+<br>
+<a href="../blockly.zip">Télécharger un fichier .zip avec tous les exemples qui suivent.</a><br>
+<br>
+<a href="../blockly_videos/blockly_videos.html"><b>Vidéos</b> et documentations sur Blockly et les implémentations (ex....) qui suivent</a>.<br>
+
+<hr style="margin-left:0; width:95%">
+<div style="text-align:center">
+  <h2><b>Suite d'exemples progressifs</b></h2>
+  <!--==================================================-->
+</div>
+
+Voici une suite d'exemples pour Informaticiens, d'utilisation de Blockly pour
+créer des applications pour des élèves ou apprentis programmeurs.<br>
+Les exemples les plus intéressants seront précédés d'un !
+et/ou seront marqués en gras.<br>
+Au début, le code javascript se trouvera dans le même fichier que le code html,
+pour ne pas devoir le chercher.<br>
+Plus tard, des librairies seront développées pour inclure ce code javascript.<br>
+Les exemples sont numérotés de 10 en 10, comme on le faisait autrefois dans le langage Basic,
+pour pouvoir compléter certains exemples si je le désire.<br>
+<div class="myindent">
+° <a href="abgex/ex0010/ex0010.html">ex0010</a>, exemple minimaliste de génération de code javascript.<br>
+  - La taille de la région réservé à Blockly est fixe.<br>
+  - Les blocs sont visibles et en nombre limité.<br>
+  - On peut voir le code javascript généré.<br>
+  - On peut exécuter le code javascript généré.<br>
+</div>
+<div class="myindent">
+° <a href="abgex/ex0020/ex0020.html">ex0020</a>, évolution du code précédent.<br>
+  - Les blocs se trouvent dans des menus.<br>
+</div>
+<div class="myindent">
+° <a href="abgex/ex0030/ex0030.html">ex0030</a>, évolution du code de ex0010.<br>
+  Il n'est pas agréable d'avoir les résultats dans des "alert(...)".<br>
+  - Le code et les résultats de l'exécution sont affichés dans la fenêtre.<br>
+  &nbsp; Pour cela un nouveau bloc a été créé en javascript.<br>
+</div>
+<div class="myindent">
+° <a href="abgex/ex0040/ex0040.html">ex0040</a>, évolution du code de ex0030.<br>
+  - Des blocs sont présents dès le départ dans la fenêtre de Blockly.<br>
+  &nbsp; Pour cela un nouveau bloc a été créé en javascript.<br>
+</div>
+<div class="myindent">
+° <a href="abgex/ex0050/ex0050.html">ex0050</a>, très similaire au code de ex0040.<br>
+  - Des blocs sont présents dès le départ dans la fenêtre de Blockly.<br>
+  &nbsp; C'est juste un autre exemple.<br>
+</div>
+<div class="myindent">
+° <a href="abgex/ex0060/ex0060.html">ex0060</a>, similaire au code de ex0040.<br>
+  - Des blocs sont présents dès le départ dans la fenêtre de Blockly.<br>
+  &nbsp; On a placé le programme lié au problème de Syracuse.
+  &nbsp; C'est un autre exemple.<br>
+  - On a défini un nouveau bloc d'affichage, sans retour à la ligne.<br>
+  - On change le texte de ce bloc.<br>
+</div>
+<div class="myindent">
+° <a href="abgex/ex0100/ex0100.html">ex0100</a>, augmentation de l'espace pour introduire les blocs.<br>
+  - Les blocs peuvent êtres mis dans toute la fenêtre.<br>
+  &nbsp; On repart de l'ex0010, avec l'espace pour placer les blocs prenant toute la fenêtre.<br>
+  - On régresse un peut, mais pour aller plus loin ensuite.
+</div>
+<div class="myindent">
+° <a href="abgex/ex0110/ex0110.html">ex0110</a>, très similaire à ex0100, avec des bordures.<br>
+  - Des <b>cadres ont été ajouté</b> à l'exemple ex0100. Peu intéressant.<br>
+  &nbsp; C'est utile pour des développements.<br>
+</div>
+<div class="myindent">
+° <a href="abgex/ex0120/ex0120.html">ex0120</a>, extension de l'ex0100.<br>
+  - Les blocs ne sont pas visible au départs.<br>
+  - Il y a beaucoup plus de blocs disponibles, dont des variables et des fonctions.<br>
+</div>
+<div class="myindent">
+° <a href="abgex/ex0130/ex0130.html">ex0130</a>, belle extension de l'ex0120.<br>
+  En plus des fonctionnalité de l'ex0120 :<br>
+  - L'affichage se fait dans des fenêtres.<br>
+  - Un code est présent dès le départ.<br>
+  Le code devient trop long, une partie sera mise dans une librairie par la suite.<br>
+</div>
+<div class="myindent">
+° <a href="abgex/ex0140/ex0140.html">ex0140</a>, comme l'ex0130, rangé dans des fichiers.<br>
+  Le code de l'ex0130 permet déjà d'écrire un vrai programme.
+  Il fait plus de 700 lignes, il faut donc séparer diverses parties dans divers fichiers.
+  C'est ce qui est fait dans cet exemple.<br>
+  Il y a maintenant 4 fichiers :<br>
+  1) le code HTML (130 lignes)<br>
+  2) le code javascript (220 lignes)<br>
+  3) la définition des blocks désirés dans la toolbox (310 lignes)<br>
+  4) la définition des blocks initialement présents (startBlocks) (130 lignes)<br>
+</div>
+<div class="myindent">
+  ° <a href="abgex/ex0144/ex0144.html">ex0144</a>, mise de blockly dans une fenêtre.<br>
+  Ce code a été écrit après l'ex1605, 
+  il a pour but de tester la mise des blocks dans une sous-fenêtre.<br>
+  Chaque sous-fenêtre peut être déplacée et redimensionnée.<br>
+  Il part du code de l'ex0140.<br>
+  Adjonction d'un bloque qui bloc qui permet d'effacer l'affichage.<br>
+  On peut aussi éditer et exécuter le code javascript.<br>
+</div>
+<div class="myindent">
+  ° <a href="abgex/ex0145/ex0145.html"><b>ex0145</b></a>, suite de ex0144, exécution de code Python.<br>
+  Ce code est la suite du code ex0144.html.<br>
+  En plus des fonctionnalités de ex0144.html, 
+  il permet d'éditer et d'exécuter du code Python,
+  en utilisant le développement "Brython",
+  expliqué plus en détail dans la page suivante.<br>
+</div>
+<div class="myindent">
+  ° <a href="abgex/ex0145/brython.html"><b>Brython</b></a>, exécution de code Python dans un navigateur.<br>
+  Informations et exemples sur comment exécuter du code Python dans un navigateur.<br>
+</div>
+<div class="myindent">
+  ° <a href="abgex/ex0146/ex0146.html"><b>ex0146</b></a>, suite de ex0144, exécution de code Lua.<br>
+  Ce code est la suite du code ex0144.html.<br>
+  En plus des fonctionnalités de ex0144.html, 
+  il permet d'éditer et d'exécuter du code Lua.<br>
+  L'idée est similaire à ex0145 qui permet d'exécuter du code Python.<br>
+  Le langage Lua est très proche du langage C, dans sa syntaxe de base.<br>
+  Il est prévu de mixer toutes ces possibilités en une seule application, vers ex2000.<br>
+</div>
+<div class="myindent">
+° <a href="abgex/ex0150/ex0150.html">ex0150</a>, <b>fonctionnalités intéressantes</b>.<br>
+  Le code est une extension de celui de "ex0140" et est de nouveau subdivisé en 4 fichiers.<br>
+  Adjonction de :<br>
+  - la possiblité de voir le code XML généré par le programme Blockly.<br>
+  &nbsp; C'est utile pour le copier et le coller dans la startBlocks d'un nouveau projet.<br>
+  - La possibilité de sauver la réalisation Blockly<br>
+  - La possibilité de charger une réalisation Blockly<br>
+</div>
+<div class="myindent">
+!! <a href="abgex/ex0160/ex0160.html"><b>ex0160</b></a>, <b>= ex0150 + code javascript automatique</b>.<br>
+  Le code est une extension de celui de "ex0150" et est de nouveau subdivisé en 4 fichiers.<br>
+  Le code javascript est mis à jour automatiquement à chaque modification de blocs.<br>
+  Adjonction de l'instruction : "demoWorkspace.addChangeListener(myUpdateFunction);" dans 'exe0160.js'<br>
+  c.f. : 
+  <a href="https://developers.google.com/blockly/guides/configure/web/code-generators" target="_blank">Code Generators</a>.<br>
+</div>
+<br>
+<div class="myindent">
+!! <a href="abgex/ex0170/ex0170.html"><b>ex0170</b></a>, <b>exemple de génération de blocs</b>.<br>
+  Donne plusieurs exemples de génération de blocs Blockly.<br>
+  Montre le lien entre la 
+  <a href="https://blockly-demo.appspot.com/static/demos/blockfactory/index.html" target="_blank">
+  <b>Blockly Factory</b></a> (Blockly &gt; Demos &gt; Blockly Developer Tools) et
+  la génération de code pour définir des blocs, ainsi que pour générer du code javascript.<br>
+</div>
+
+<br>
+<div class="myindent">
+° <a href="abgex/ex0200/ex0200.html">ex0200</a>, Exécution ralentie du code.<br>
+Il peut être intéressant d'avoir <b>un code qui s'exécute au ralenti</b>.<br>
+Javascript n'a pas d'instruction "wait(temps)".
+Javascript n'est pas multitâche mais il existe deux manières
+pour simuler une instruction "wait(temps)" en rendant la main au système.<br>
+Une boucle d'attendte ne sert à rien, car cela bloque javascript et 
+aucune mise à jour n'est visible durant cette boucle.<br>
+Ici une première manière est illustrée. Elle utilise le minuteur (timer) et 
+l'instruction yield.<br>
+Le code de départ est celui de l'ex0150 et est de nouveau subdivisé en 4 fichiers.<br>
+  Adjonction de l'exécution de code au ralent.<br>
+</div>
+<div class="myindent">
+° <a href="abgex/ex0210/ex0210.html">ex0210</a>, déplacement d'un objet au ralenti.<br>
+- Adjonction de la possibilité de lire les coordonnées de la position de l'objet.<br>
+- Adjonction d'un choix multiple de la lecture d'une coordonnée de la position de l'objet.<br>
+L'id de l'image déplacée est définie dans la balise &lt;data&gt; du bloc &lt;block type="logo_gotoxy"&gt; de la toolbox.<br>
+Le nom de l'id est suivit d'une virgule, puis du temps en [ms] entre deux déplacement d'un pixel de l'image.<br>
+Dans le fichier html de base, une image ayant cette "id" doit être définie.<br>
+Dans cet exemple, l'id est : "idBouleBleue" et la vitesse est 2.<br>
+Dans le code javascript (ex0210.js), dans : "Blockly.Blocks['logo_gotoxy'] = {"<br>
+la ligne : <i>"data": "idBouleBleue, 5", // Valeurs par défaut.</i> a été ajouté.<br>
+</div>
+<div class="myindent">
+° <a href="abgex/ex0220/ex0220.html">ex0220</a>, comme ex0210, disposition différente.<br>
+  Au lieu d'avoir l'image de la boule bleu à droite du menu de Blockly, 
+  elle est positionnée à gauche. Très peu de changements relativement à ex0210.<br>
+</div>
+<div class="myindent">
+° <a href="abgex/ex0222/ex0222.html">ex0222</a>, comme ex0222, avec illumination du block actif.<br>
+  Seulement deux lignes ont été ajoutées et les blocs sont illuminés en cours d'exécution,
+  pour indiquer l'instruction exécutée.<br>
+</div>
+<div class="myindent">
+° <a href="abgex/ex0224/ex0224.html"><b>ex0224</b></a>, Exécution ralentie du code, avec mise en évidence des blocs.<br>
+  C'est presque le même code que les ex0220 et ex0222, 
+  avec une méthode particulière à Blockly pour illuminer les blocs actifs durant l'exécution du programme.<br>
+</div>
+<div class="myindent">
+° <a href="abgex/ex0230/ex0230.html">ex0230</a>, comme ex0220, la boule doit suivre le chemin.<br>
+  Départ de l'ex0220, avec une image d'un chemin, dans un canevas.<br>
+  La boule bleue doit suivre le chemin jaune.<br>
+  En cours de développement.<br>
+</div>
+
+<br>
+<div class="myindent">
+<b>! <a href="abgex/ex0300/ex0300.html">ex0300</a></b>, Exécution ralentie du code, avec mise en évidence des blocs.<br>
+  Voici la méthode particulière de Blockly, ...<br>
+  avec mise en évidence du bloc actif durant l'exécution du programme.<br>
+  Il y a plus de finesse dans la mise en évidence des blocks.<br>
+  Regardez dans le fichier "ex0300.js",
+  les deux fonction : "function runCode_slow(timeMS) {" et "function initApi(interpreter, scope) {",
+  ainsi que les deux premières fonctions.<br>
+  Pour des détails, c.f. 
+  <a href="https://developers.google.com/blockly/guides/app-integration/running-javascript" target="_blank">
+    l'interpréteur javascript</a>.<br>
+</div>
+
+<div class="myindent">
+  ° <a href="abgex/ex0350/ex0350.html">ex0350</a>, Exemple de <b>programmation objet en javascript</b>.<br>
+  N'a pas grand chose à voir avec Blockly, mais donne un exemple de programmation objet.<br>
+  Cette exemple n'est pas bon, utilise une ancienne méthode compliquée.<br>
+  <a href="abgex/ex0350/ex0352.html">ex0352</a> donne une légère modification, toujours pas bien.<br>
+  <b>!!!</b> Regardez l'exemple <a href="abgex/ex0350/ex0355.html"><b>ex0355</b></a>, qui est bien meilleur.<br>
+</div>
+
+<br>
+<div class="myindent">
+° <a href="abgex/ex0400/ex0400.html">ex0400</a>, Puzzles, allez voir l'ex0412.<br>
+  Un premier test de de puzzles avec Blockly.<br>
+</div>
+<div class="myindent">
+° <a href="abgex/ex0410/ex0410.html">ex0410</a>, Chenille, durant le développement de l'ex0412.<br>
+</div>
+<div class="myindent">
+° <a href="abgex/ex0411/ex0411.html">ex0411</a>, Un pas vers l'ex0411, avec moins de code et moins de fonctionnalités.<br>
+</div>
+<div class="myindent">
+  !! <b><a href="abgex/ex0412/ex0412.html">ex0412</a>, Puzzles, composantes d'un ordinateur.</b><br>
+  Un gros développement, qui utilise beaucoup de fonctionnalités de Blockly, avec sa structure objet.
+  Branchez la souris à la prise pour voir l'effet.<br>
+  Branchez le desktop à la prise, avant et après l'avoir complété correctement.<br>
+  Pour des explications sur le code, cliquez sur :
+  
+  <span id="id_ex0412_more" style="display:inline; font-size:80%;">
+  <a href="javascript:void(0)" onclick="document.getElementById('id_ex0412_less').style.display='inline';  
+			      	  document.getElementById('id_ex0412_more').style.display='none';">plus d'info</a>
+  </span> 
+
+  <div id="id_ex0412_less" style="display:none;">
+  <a href="javascript:void(0)" style="font-size:80%;" onclick="document.getElementById('id_ex0412_less').style.display='none';
+				        document.getElementById('id_ex0412_more').style.display='inline';">moins d'info</a>
+	<br> 
+  <b>Le code de ex0412.js</b> utilise de nombreux objets de Blockly avec leur méthodes.<br>
+  Voici quelques références :<br>
+  ° <a href="https://developers.google.com/blockly/reference/js/Blockly.Workspace" target="_blank">sur le workspace</a>.<br>
+  ° <a href="https://developers.google.com/blockly/reference/js/Blockly.WorkspaceSvg" target="_blank">sur le workspace Svg</a>.<br>
+  ° <a href="https://developers.google.com/blockly/reference/js/Blockly.Toolbox" target="_blank">sur la Toolbox</a>.<br>
+  ° <a href="https://developers.google.com/blockly/reference/js/Blockly.Block" target="_blank">sur les blocs</a>.<br>
+  ° <a href="https://developers.google.com/blockly/reference/js/Blockly.Field" target="_blank">sur les Field</a>.<br>
+  ° <a href="https://developers.google.com/blockly/reference/js/Blockly.Events" target="_blank">sur les events</a>.<br>
+  ° <a href="https://developers.google.com/blockly/guides/configure/web/events" target="_blank">sur les events, vient du guide</a>.<br>
+  Une variable globale <b>demoWorkspace</b> est déclarée en globale en début de fichier et
+  crée dans la fonction "RunBlockly()".<br>
+  Elle est de type "WorkspaceSvg" qui est une classe descendente de la classe "Workspace".<br>
+  Ce "workspace" contient les blocks qui sont des objets de type "Block".<br>
+  Ces blocks peuvnent contenir des Fields, par exemple des images.<br>
+  <br>
+  À la fin de la fonction "RunBlockly()" l'instruction <b>demoWorkspace.addChangeListener(myUpdateFunction);</b>
+  demande à Blockly d'appeler la fonction "myUpdateFunction(event)" à chaque fois qu'une action est 
+  menée sur un block.<br>
+  L'instruction <b>glnObject = demoWorkspace.getBlockById(event.blockId);</b> mémorise dans la variable globale 
+  <b>glnObject</b> le dernier block qui a été manipulé.<br>
+  L'essentielle du code particulier à cet exemple se trouve dans la <b>fonction "showCode()"</b>.<br>
+  Le code généré n'est pas exécutable, il sert à tester la connectique des blocks.<br>
+  <b>gloField = glnObject.getField('myMouse');</b> mémorise une référence sur l'image de la souris.<br>
+  "myMouse" a été ajouté dans un champs dans la partie : "Blockly.Blocks['puzzle_mouse'] = {".<br>
+  On test si la souris a été branchée sur la prise en testant que le code généré contient la séquence 'PLUS_LIFE'.
+  Si c'est le cas, on change l'attribut 'LIFE' de la souris à "DEAD" et on lance
+  un timer, qui va générer l'animation.<br>
+  Quelques méthodes de l'objet "demoWorkspace" sont utilisés, pour connaître la position du block 'souris'.
+  On crée également quelques balises HTML pour l'animation.<br>
+  À la fin de l'animation, on détruit les balises HTML et on change l'image de la souris avec
+  l'instruction : "gloField.setValue('puzzle_mouse_burned.jpg');"<br>
+  En résumé, voici la liste des méthodes des objets de Blockly qui ont été utilisée ou auraient pu l'être.<br>
+  ° demoWorkspace.addChangeListener(myUpdateFunction);<br>
+  ° demoWorkspace.getOriginOffsetInPixels().x<br>
+  ° demoWorkspace.getOriginOffsetInPixels().y &nbsp; c.f.
+      <a href="https://developers.google.com/blockly/reference/js/Blockly.WorkspaceSvg#getOriginOffsetInPixels" target="_blank">getOriginOffsetInPixels</a>.<br>
+  ° glnObject = demoWorkspace.getBlockById(event.blockId); &nbsp; c.f.
+      <a href="https://developers.google.com/blockly/reference/js/Blockly.Workspace#getBlockById" target="_blank">getBlockById</a>.<br>
+  ° glnObject.getRelativeToSurfaceXY().x<br>
+  ° glnObject.getRelativeToSurfaceXY().y &nbsp; c.f.
+      <a href="https://developers.google.com/blockly/reference/js/Blockly.Block#getRelativeToSurfaceXY" target="_blank">getRelativeToSurfaceXY</a>.<br>
+  ° glnObject.data &nbsp; le champ "data" a été ajouté dans "Blockly.Blocks['puzzle_mouse'] = {" <br>
+  ° glnObject.unplug(false);  // Déconnecte le block de son parent. C.f. 
+      <a href="https://developers.google.com/blockly/reference/js/Blockly.Block#unplug" target="_blank">unplug</a>.<br>
+  ° glnObject.dispose(false);  // Efface l'objet &nbsp; c.f.
+      <a href="https://developers.google.com/blockly/reference/js/Blockly.Block#dispose" target="_blank">dispose</a>.<br>
+  ° gloField = glnObject.getField('myMouse');  &nbsp; c.f.
+      <a href="https://developers.google.com/blockly/reference/js/Blockly.Block#getField" target="_blank">getField</a>.<br>
+  ° gloField.setTooltip('Souris grillée !!!');  &nbsp; c.f.
+      <a href="https://developers.google.com/blockly/reference/js/Blockly.Field#setTooltip" target="_blank">setTooltip</a>.<br>
+  ° gloField.setValue('puzzle_mouse_burned.jpg');  &nbsp; c.f.
+      <a href="https://developers.google.com/blockly/reference/js/Blockly.Field#setValue" target="_blank">setValue</a>.<br>
+  ° gloField.setText('Souris_grillee');  &nbsp; c.f.
+      <a href="https://developers.google.com/blockly/reference/js/Blockly.Field#setText" target="_blank">setText</a>.<br>
+  </div>
+</div>
+<br>
+
+<div class="myindent">
+° <a href="abgex/ex0420/ex0420.html">ex0420</a>, introduction de type de données.<br>
+  Un <b>typage est donné</b> à divers éléments, pour interdire certaines connexions.<br>
+</div>
+<div class="myindent">
+° <a href="abgex/ex0422/ex0422.html">ex0422</a>, suite de l'ex0420.<br>
+  Un typage est donné à divers éléments, pour interdire certaines connexions.<br>
+  Lors d'un <b>refus de connexion par Blockly d'un bloc à l'autre</b>,
+  il serait intéressant d'avoir un événement dans le code qui permetterait
+  de traiter ce refus.<br>
+  Le but de cet exemple est de traiter ce refus, par bidouillage, à défaut de mieux.<br>
+  Tous les rejets sont détectés, mais il est possible d'obtenir de fausses détections de rejets,
+  en déplaçant deux fois de suite le même bloc rapidement sur une courte distance.<br>
+  Il est possible de modifier la variable 
+  <a href="https://developers.google.com/blockly/reference/js/Blockly#.BUMP_DELAY" target="_blank">'Blockly.BUMP_DELAY' à 150 [ms]</a>,
+  pour ne plus avoir de fausses détections de rejets.<br>
+</div>
+<br>
+
+<div class="myindent">
+° <a href="abgex/ex0500/ex0500.html">ex0500</a>, déplacement de cartes.<br>
+  La première étape vers des algorithmes de tri. 
+  Il y a des cartes à disposition on peut les déplacer par programme, à l'aide de blocs.<br> 
+  On peut également obtenir la valeur de la carte se trouvant dans une case donnée.<br>
+</div>
+<div class="myindent">
+° <b><a href="abgex/ex0502/ex0502.html">ex0502</a>, développements de l'ex0500.</b><br>
+  Création d'une vraie boîte de dialogue MODALE. Donc rien de la page Web n'est accessible, 
+  tant que l'on a pas cliqué sur le bouton de confirmation de la boîte de dialogue modale.<br>
+  Ici, il y a un vrai petit challenge, qui est d'échanger deux cartes de leur place.<br>
+  Avec un message et un bruitage, en fonction de la réussite ou de l'échec du challenge.<br>
+</div>
+<div class="myindent">
+° <b><a href="abgex/ex0504/ex0504.html">ex0504</a>, développements de l'ex0502.</b><br>
+  Demande d'échanger deux paires de cartes.<br>
+  En route pour demander d'écrire une fonction qui échange deux cartes de place.<br>
+  Dès qu'il y a des fonctions, la méthode utilisant l'interpréteur javascript est nécessaire pour aller lentement.<br>
+  Le code fonctionne bien.
+</div>
+<div class="myindent">
+° <b><a href="abgex/ex0505/ex0505.html">ex0505</a>, mini variation de l'ex0504.</b><br>
+  Exactement le même code que l'ex0504, avec l'adjonction de dans ex0505.js, 
+  de la fonction : 'onchange(event)' et des petites adjonctions dans : 'RunBlockly()'.<br>
+  L'adjonction : 'maxBlocks: 18,' limite l'utilisation à 18 blocs.<br>
+  Cette limitation est indiquée dans l'aide, qui se situe dans le code HTML.<br>
+  Dans le code HTML, il y a aussi une adjonction, pour afficher le nombre de blocs disponibles.<br>  
+</div>
+<div class="myindent">
+° <a href="abgex/ex0506/ex0506.html">ex0506</a>, 3 paires à de cartes à permutter.<br>
+  Adjonction de cartes<br>
+  Il faut permutter deux paires de cartes, avec 20 blocs au maximum.<br>
+  Est-ce faisable sans l'utilisation d'une fonction ?<br>
+  Dans le code HTML :<br>
+  ° affichage du nombre de blocs disponibles.<br>  
+  ° Placement automatique des cases et des cartes.<br>
+</div>
+<div class="myindent">
+  ° <a href="abgex/ex0508/ex0508.html">ex0508</a>, 10 cartes.<br>
+  Juste pour découvrir et s'amuser.<br>
+  On peut écrire le programme que l'on veut et tester.<br>
+  Un bouton 'STOP Run' d'arrêt d'exécution de programme a été ajouté.<br>
+  Un bloc de mélange des cartes a été ajouté.<br>
+  Permet d'aller plus vite.<br>
+  <b>ex0600</b> est une amélioration notable de cet exemple.<br>
+</div>
+<div class="myindent">
+  ° <a href="abgex/ex0510/ex0510.html">ex0510</a>, 90 nombres.<br>
+  Juste pour découvrir et s'amuser.<br>
+  Illuminer tous les blocs peut devenir trop lent.<br>
+  Ici, un bloc est illuminé et le programme ralenti, uniquement pour les animations,
+  sinon, le programme va rapidement.<br>
+  On peut s'amuser avec une liste de 90 nombres à déplacer.<br>
+  Adjonction de :<br>
+  ° une boîte Blockly pour changer la couleur de fond d'une image, en sélectionnant l'image<br>
+  ° une boîte Blockly pour échanger deux images, en sélectionnant leur cases<br>
+  <b>ex0610</b> est une amélioration notable de cet exemple.<br>
+</div>
+<br>
+
+<div class="myindent">
+<b>!!! <a href="abgex/ex0600/ex0600.html">ex0600</a>, Menu + icons + Améliorations.</b><br>
+  Adjonction de :<br>
+  ° une barre de titre<br>
+  ° affichage dans la barre de titre le nombre de blocs utilisés<br>
+  ° un menu. Le menu s'ouvre automatiquement si le curseur reste dessus durant 0,4 secondes.<br>
+  ° icones<br>
+  ° 3 vitesses d'exécutions (plus une 4ème avec "eval(code)")<br>
+  ° la possibilité de varier la vitesse des animations<br>
+  ° un bouton "stop exécution"<br>
+  ° un bouton "pause exécution"<br>
+  ° un bouton d'exécution d'un pas à la fois<br>
+  ° la possibilité d'ilumination de code ou non, donc éliminer les 'highlightBlock' dans le code javascript.<br>
+  ° une boîte Blockly pour échanger deux images, en sélectionnant leur cases<br>
+  ° une boîte Blockly pour changer la couleur de fond d'une image, en sélectionnant sa case<br>
+  ° une boîte Blockly pour changer la couleur de fond d'une image, en sélectionnant l'image<br>
+    Les changements de fonds ne sont visibles que pour l'As, le 2 et le 3, car il faut qu'une partie de l'image soit transparente.<br>
+  ° une boîte de dialogues modales "À propos"<br> 
+</div>
+<br>
+
+<div class="myindent">
+° <a href="abgex/ex0605/ex0605.html">ex0605</a>, Menu + icons, comme ex0600.<br>
+  Une petite modification de ex0600.<br>
+  Au lieu d'avoir un menu qui s'auvre automatiquement lorsque le curseur est dessus,
+  il faut cliquer pour qu'il s'ouvre.<br>
+</div>
+<br>
+
+<div class="myindent">
+  ° <b><a href="abgex/ex0610/ex0610.html">ex0610</a>, avec 90 nombres</b>.<br>
+  Comme ex0600, avec 90 nombres au lieu de 10 cartes.<br>
+</div>
+<br>
+
+<div class="myindent">
+° <b><a href="abgex/ex0830/ex0830.html">ex0830</a>, ex0600, multilangues, indépendance de la langue</b>.<br>
+  Reprise de l'ex0600, en le rendant multilangue.<br>
+  Pour avoir une application utilisable par beaucoup d'autres personnes et
+  pour suivre les traces de Blockly, il est bon d'avoir une <b>applications indépendante de la langue</b>.<br>
+  <b>Voir l'ex0900</b><br>
+  Sans trop compliquer le code, il est bon d'avoir la possiblité de traduire facilement
+  tous les textes qui dépendent de la langue dans une autre langue.<br>
+  Il y a quatre fichiers contenant des textes dépendant de la langue :<br>
+  ° ex0830.html<br>
+  ° ex0830.js<br>
+  ° ex0830_startBlocks.xml<br>
+  ° ex0830_toolbox.xml<br>
+  Il y a deux manières de changer les textes des catégories de la toolbox.<br>
+  1) la manière de Blockly, avec un : name="%{BKY_CATEGORY_NAME_LOGIC}"<br>
+  &nbsp; Dans ce cas, c'est dans un fichier : msg/js/fr.js &nbsp; qu'il faut définir le texte.<br>
+  2) La même manière que pour changer le texte de la page html.<br>
+  &nbsp; Dans ce cas, c'est dans un fichier : msg/fr.xml &nbsp; qu'il faut définir le texte.<br>
+  &nbsp; Cette deuxième manière à l'avantage de voir dans le code la langue par défaut.<br>
+  Se référer aux fichiers dans : msg &nbsp; pour des exemples.
+  Les deux méhtodes ont été volontairement implémentées pour donner des exemples.<br>
+  <b>Mauvaise surprise.</b><br>
+  Le chargement des langues en local pose des problèmes. 
+  Apparemment, un serveur est nécessaire ici. Pourquoi ???<br>
+  On peut utiliser XAMP, et si on reste dans une langue, tout fonctionne bien.<br>
+  En quittant firefox, puis en le relançant, le chargement de langues fonctionne de nouveau,
+  mais parfois, arrête de fonctionné. 
+  Cela ajoute une complication au développement en local.<br>
+  Voici une explication et une solution :
+  <a href="https://developer.mozilla.org/en-US/docs/Archive/Misc_top_level/Same-origin_policy_for_file:_URIs" target="_blank">
+    Same origin policy for file:URIs</a>.<br>
+    Dans Firefox, on peut taper : <b>about:config</b> dans la barre d'adresse, chercher <b>security.fileuri.strict_origin_policy</b>  
+    qui est à TRUE par défaut. En le mettant à FALSE, on peut travailler en local sans ennuis.<br>
+</div>
+<br>
+
+<div class="myindent">
+  ° <b><a href="abgex/ex0900/ex0900.html">ex0900</a>, création d'une bibliothèque</b>.<br>
+  Mise des routines des ex0500 à ex0800 dans une librairie, en restant multilangue.<br>
+  C.f. &nbsp; <b>../../bglibrary.js</b> &nbsp; ; &nbsp; <b>../../bgcss/menu.css</b> &nbsp; et &nbsp; <b>../../bgmsg/js/</b><br>
+  Dans ce qui précède, certaines parties de code se retrouvent à une trentaine d'exemplaire.
+  Cela peut être pratique pour l'indépendance des codes, mais ce n'est pas efficacee et
+  une amélioration d'une routine est longue à reporter dans les développement antérieurs.
+  Par exemple, il y a une erreur dans les ex0500, ex0502, ex0504, 
+  qui a été corrigée par la suite.<br>
+  Il est donc temps de mettre des routines dans une <b>bibliothèque</b> de troutines. (library en angalis).<br>
+  Le but est de constituer une bibliothèque généraliste, avec de nouveau blocs, 
+  qui reste multilangue, comme c'est le cas avec Blockly.<br>
+  La bibliothèque peut être consituée de code HTML, XML, javascript et CSS.<br>
+  Comme le code javascript peut générer de l'HTML et l'inclusion de code HTLM
+  n'est pas standard dans des pages Web, l'insertions de code HTML se fera par le biais du javascript.<br>
+  <br>
+  Lorsque l'on change de langue :<br>
+  ° la toolbox est recharchée et traduite dans la nouvelle langue.<br>
+  ° la langue est chargée de "../../msg/js/", celle par défaut de Blockly.<br>
+  ° la langue est chargée de "../../bgmsg/js/", celle de la bibliothèque de Bernard Gisin.<br>
+  ° la langue est chargée de "<b>msg/js/</b>", celle de l'application finale.<br>  
+  ° les blocs présents sont conservés et traduit, sauf les textes qui sont personnels.<br>
+  Par défaut, on peut ignorer la langue de l'application finale, 
+  car elle est codée dans la page Web finale.
+  En ajoutant des : <b>id="HTML_..."</b> aux balises ayant du texte dépendant de la langue,
+  ont permet de les traduire facilement dans les fichiers placés dans "msg/js/"<br>
+  En ajoutant des : <b>id="HTML_IMG_..."</b> aux balises ayant un <b>title</b> dépendant de la langue,
+  ont permet de les traduire facilement dans les fichiers placés dans "<b>msg/js/</b>".<br>
+  C.f. les exemples.<br>
+</div>
+
+<div class="myindent">
+  ° <b><a href="abgex/ex0905/ex0905.html">ex0905</a>, exemple d'utilisation de la bibliothèque</b>.<br>
+  On joue avec 10 cartes. Permet de retourner des cartes.<br>
+</div>
+
+<div class="myindent">
+  ° <b><a href="abgex/ex0906/ex0906.html">ex0906</a>, exemple d'utilisation de la bibliothèque</b>.<br>
+  On joue avec des cartes, teste la couleur des cartes, retourne des cartes et permet de séparer les couleurs.<br>
+</div>
+
+<div class="myindent">
+  ° <b><a href="abgex/ex0910/ex0910.html">ex0910</a>, exemple d'utilisation de la bibliothèque</b>.<br>
+  On permet de trier une liste de 90 nombres.<br>
+</div>
+<div class="myindent">
+  ° <b><a href="abgex/ex0920/ex0920.html">ex0920</a>, programmation générale, reprise du code ex0160</b>.<br>
+  Permet d'écrire un programme général.<br>
+</div>
+<div class="myindent">
+  ° <a href="abgex/ex0930/ex0930.html">ex0930</a>, puzzles, reprise du code ex0412.<br>
+  Test de puzzles. Multilangue et certaines parties de définition de puzzles sont laborieuses.<br>
+  C.f. l'ex0932 pour des simplifications du code.<br>
+</div>
+<div class="myindent">
+  ° <b><a href="abgex/ex0932/ex0932.html">ex0932</a>, puzzles, reprise du code ex0412.</b><br>
+  Test de puzzles. Multilangue avec simplification de création de puzzles.<br>
+  Création d'une <b>boîte de dialogue généraliste</b> qui permet d'afficher des messages
+  personnalisés, multilangue, avec de la musique si désiré.
+  c.f. "idDialogBoxGeneral0" de ex0932.html et DialogGeneral(fUpdate, oText, NumDialog) de bglibrary.js<br>
+</div>
+<div class="myindent">
+  ° <b><a href="abgex/ex0940/ex0940.html">ex0940</a>, labyrinthe, reprise du code ex0230.</b><br>
+  Test de labyrinthe. Multilangue.<br>
+  Avec une <b>boîte de dialogue généraliste</b> qui permet d'afficher des messages
+  personnalisés, multilangue, avec de la musique si désiré.
+  c.f. "idDialogBoxGeneral0" de ex0940.html et DialogGeneral(fUpdate, oText, NumDialog) de bglibrary.js<br>
+</div>
+<div class="myindent">
+  ° <b><a href="abgex/ex0950/ex0950.html">ex0950</a>, puzzles, similaire au puzzle des blockly games.</b><br>
+</div>
+<div class="myindent">
+  ° <b><a href="abgex/ex0952/ex0952.html">ex0952</a>, puzzles, similaire au précédent, avec des drop down lists.</b><br>
+</div>
+<div class="myindent">
+  ° <b><a href="abgex/ex0954/ex0954.html">ex0954</a>, puzzles, similaire au précédent, avec des drop down lists.</b><br>
+  Montre la souplesse, on ajoute facilement de nouveau puzzles, de nouvelles images et de nouveau traits.<br>
+  On ajoute également facilement des nouvelles conditions sur les traits que les animaux doivent avoir.<br>
+  Ils n'ont pas tous forcément le même nombre de traits.<br>
+</div>
+<br>
+
+<div class="myindent">
+  ° <b><a href="abgex/ex1505/ex1505.html">ex1505</a>, une suite d'étapes pour séparer les cartes rouges des noires</b>.<br>
+  Diverses étapes pour apprendre à déplacer et retourner des cartes et à séparer les rouges des noires.<br>
+</div>
+<br>
+
+<div class="myindent" style="font-size:70%;">
+  ° <b><a href="abgex/ex1600/ex1600.html">ex1600</a>, une suite d'étapes pour l'apprentissage d'algorithmes de tri</b>.<br>
+  Diverses étapes pour apprendre des algorithmes de tri.<br>
+</div>
+<div class="myindent">
+  ° <b><a href="abgex/ex1605/ex1605.html">ex1605</a>, apprentissage d'algorithmes de tri, améliorations</b>.<br>
+  Diverses étapes pour apprendre des algorithmes de tri.<br>
+  Une version améliorée, avec placement des cartes plus joliement effectué.
+</div>
+
+<div class="myindent">
+  ° <b><a href="abgex/ex1705/ex1705.html">ex1705</a>, une suite d'étapes pour retourner les cartes demandées</b>.<br>
+  Il faut retourner des cartes à diverses reprises.
+</div>
+
+<div class="myindent">
+  ° <b><a href="abgex/ex2000/ex2000.html">ex2000</a>, programmation générale, en divers langages</b>.<br>
+  Permet d'écrire un programme général.<br>
+  Permet de traduire automatiquement les blocs en Javascript, en Python et en Lua.<br>
+  Les programmes en Python et Lua ont des limitations. 
+  Les annimations ne fonctionnent pas avec ces deux langages (pour l'instant).<br>
+  Les blocs, les divers codes et l'affichage des résultats sont affichés dans des sous-fenêtres du navigateur.<br>
+  Il est possible de configurer la situation initiales, dans un fichier .js qu'il est possible d'écrire soit-même.<br>
+  Plusieurs exemples de fichiers de configurations sont disponibles :<br>
+  ° <a href="abgex/ex2000/cfg2000fr_base_4x4.js" target="_blank">cfg2000fr_base_4x4.js</a>, 4x4 cadres.<br>
+  ° <a href="abgex/ex2000/cfg2000fr_binaire_choice.js" target="_blank">cfg2000fr_binaire_choice.js</a>, choix parmi plusieurs traitements binaires.<br>
+  ° <a href="abgex/ex2000/cfg2000fr_base10_compteur_v1.js" target="_blank">cfg2000fr_base10_compteur_v1.js</a>, un exemple de compteur en base 10.<br>
+  ° <a href="abgex/ex2000/cfg2000fr_base10_compteur_v3.js" target="_blank">cfg2000fr_base10_compteur_v3.js</a>, un autre exemple de compteur en base 10.<br>
+  ° <a href="abgex/ex2000/cfg2000fr_binaire_compteur_v1.js" target="_blank">cfg2000fr_binaire_compteur_v1.js</a>, un exemple de compteur binaire.<br>
+  ° <a href="abgex/ex2000/cfg2000fr_binaire_compteur_v3.js" target="_blank">cfg2000fr_binaire_compteur_v3.js</a>, un autre exemple de compteur binaire.<br>
+  ° <a href="abgex/ex2000/cfg2000fr_binaire_compteur_auto.js" target="_blank">cfg2000fr_binaire_compteur_auto.js</a>, un exemple de compteur binaire automatique.<br>
+  ° <a href="abgex/ex2000/cfg2000fr_binaire_8_digits.js" target="_blank">cfg2000fr_binaire_8_digits.js</a>, 8 chiffres pour traiter du binaire.<br>
+  ° <a href="abgex/ex2000/cfg2000fr_binaire_4_digits.js" target="_blank">cfg2000fr_binaire_4_digits.js</a>, 4 chiffres pour traiter du binaire.<br>
+  ° <a href="abgex/ex2000/cfg2000fr_cartes_mxn.js" target="_blank">cfg2000fr_cartes_mxn.js</a>, défini mxn cases, m et n étant choisi par l'utilisateur.<br>
+  ° <a href="abgex/ex2000/cfg2000fr_exemples_choice.js" target="_blank">cfg2000fr_exemples_choice.js</a>, choix parmi plusieurs exemples, sans utilisation de cartes<br>
+  ° <a href="abgex/ex2000/cfg2000fr_syracuse_v1.js" target="_blank">cfg2000fr_syracuse_v1.js</a>, un exemple, sans utilisation de cartes.<br>
+  ° <a href="abgex/ex2000/cfg2000fr_syracuse_v2.js" target="_blank">cfg2000fr_syracuse_v2.js</a>, un autre exemple, sans utilisation de cartes.<br>
+  ° <a href="abgex/ex2000/cfg2000fr_magie_2x3_choice.js" target="_blank">cfg2000_magiefr_2x3_choice.js</a>, choix parmi plusieurs options.<br>
+  ° <a href="abgex/ex2000/cfg2000fr_magie_2x3_v1.js" target="_blank">cfg2000fr_magie_2x3_v1.js</a>, un tour de magie avec des cartes.<br>
+  ° <a href="abgex/ex2000/cfg2000fr_magie_2x3_v2.js" target="_blank">cfg2000fr_magie_2x3_v2.js</a>, un tour de magie avec des cartes.<br>
+  ° <a href="abgex/ex2000/cfg2000fr_magie_2x3_v3.js" target="_blank">cfg2000fr_magie_2x3_v3.js</a>, un tour de magie avec des cartes.<br>
+  ° <a href="abgex/ex2000/cfg2000fr_magie_2x3_v0.js" target="_blank">cfg2000fr_magie_2x3_v0.js</a>, un tour de magie avec des cartes.<br>
+  ° <a href="abgex/ex2000/cfg2000fr_magie_2x4_v0.js" target="_blank">cfg2000fr_magie_2x4_v0.js</a>, base pour un tour avec 16 cartes.<br>
+  ° <a href="abgex/ex2000/cfg2000fr_evenements_choice.js" target="_blank">cfg2000fr_evenements_choice.js</a>, choix parmi des des exemples de trairement d'événements.<br>
+  ° <a href="abgex/ex2000/cfg2000fr_evenements_v1.js" target="_blank">cfg2000fr_evenements_v1.js</a>, un exemple de traitement d'événements.<br>
+  ° <a href="abgex/ex2000/cfg2000fr_evenements_v2.js" target="_blank">cfg2000fr_evenements_v2.js</a>, un autre exemple de traitement d'événements.<br>
+  ° <a href="abgex/ex2000/cfg2000fr_traduction.js" target="_blank">cfg2000fr_traduction.js</a>, exemple pour modifier le menu de configuration<br>
+  ° <a href="abgex/ex2000/cfg2000en_trad_francais.js" target="_blank">cfg2000en_trad_francais.js</a>, pour modifier le menu de Configuration. Change actuellement de français en français :-).<br>
+  ° <a href="abgex/ex2000/cfg2000en_trad_english.js" target="_blank">cfg2000en_trad_english.js</a>, pour modifier en anglais le menu de Configuration. Les traductions restent à faire...<br>
+  ° <a href="abgex/ex2000/cfg2000de_trad_deutsch.js" target="_blank">cfg2000de_trad_deutsch.js</a>, pour modifier en allemand le menu de Configuration. Les traductions restent à faire...<br>
+  ° <a href="abgex/ex2000/cfg2000fr_url.js" target="_blank">cfg2000fr_url.js</a>, exemple du fichier de config. permettant de charger une config. depuis une URL.<br>
+  ° <a href="abgex/ex2000/" target="_blank"></a><br>
+  Si vous voulez, copiez-en un, faites de légères modifications, puis chargez-le depuis le menu "configuration".<br>
+  Vous pouvez :<br>
+  - soit le charger depuis un fichier se trouvant localement sur votre disque dur,<br>
+  - soit le charger depuis une URL (adresse Web : http://...).<br>
+  Vous pouvez en télécharger un, le modifier, le charger et créer votre propre configuration.<br>
+  Il n'est pas nécessaire de tout comprendre pour faire des modifications.<br>
+  Un fichier de configuration est un programme en javascript.
+  Il permet donc de faire d'énormes modifications, pour une personne à l'aise dans ce langage de programmation.<br>
+</div>
+
+<br>
+
+<h3>Tests et anciens exemples de tests.</h3>
+<!-- =================================== -->
+ <div class="myindent">
+° <a href="abgex/code/index.html?lang=fr">Exemple de code</a>, "abgex/code".<br>
+</div>
+<div class="myindent">
+° <a href="abgex/ex0170_puzzle/index.html">ex0170_puzzle</a>, exemple de puzzle.<br>
+</div>
+
+<!--
+FAIT ex0300..ex0399 => Exécution au ralenti avec illumination des blcos.
+
+FAIT ex0400..ex0499 => puzzles
+
+FAIT => Avoir 3 niveaux de vitesse d'exécution.  c.f. ex0510
+   1. Lent, avec illumination de chaque blocs
+   2. Moyen, avec illumination uniquement des blocs faisant intervenir des animations.
+   3. Rapide, sans aucune animation.  Soit avec  exec, soit avec  Interpréteur.run().
+
+..... => avoir un objet qui stocke toutes les variables globales.
+
+
+FAIT ex0600 => avoir des Menus et des icones.  Partir de ex0508
+..... => Ajouter un menu
+
+PAS FAIT ex0700 => Blockly factory, reprendre et développer.
+
+FAIT ex0170 => exemples et explication de la "Block Factory" ou "Blockly Developer Tools"
+          Avec beaucoup d'exemples, que l'on peut charger, modifier et sauver,
+          grace à la 'Block Library".
+
+FAIT ex0800 => rendre indépendant de la langue, pour une traduction simplifiée
+
+FAIT ex0900 => mettre le toute dans une librairie
+          Avoir un objet pour les variables globales, paramètres d'exécution.
+
+ex900 => début d'exemples, qui utilisent la librairie et qui sont multilanges.
+         Reprise d'exemples précédents, avec librairie et multilange.
+ex1000 => reprise d'exemples des 'Blockly games'
+
+ex1?00 => début d'exmples complets
+
+
+
+..... => application servant à découvrir le binaire, puis l'hexadécimal
+
+..... => apprendre le langage Python
+
+..... => créer une fenêtre graphique  + les fonctions de bases de  Logo.
+..... => développer les fonctions de bases du langage logo dans des blocs
+
+..... => une fonction qui échange deux cartes visuellement, c.f. ex0508
+
+=> Avoir un bouton qui efface les "highlight" du code utilisateur
+
+=> Dans la librairie, 
+  pour charger des fonctions dans l'interpréteur, avec la fonction : initApi
+  faire des tests du genre : if (la fonction existe) alors la charger dans initApi.
+
+
+5 niveaux de développement :
+1) Le développement de Google, qui donne les 4 scripts js 
+  <script src="../../blockly_compressed.js"></script>
+  <script src="../../blocks_compressed.js"></script>
+  <script src="../../javascript_compressed.js"></script>
+  <script src="../../msg/js/fr.js"></script>  >>> C'est ici que la langue des blocs est définie 
+
+2) Le développement que j'ai fait qui représente quelques scripts
+
+3) Le développement fait typiquement par des enseignants informaticiens,
+   pour enseigner la programmation et
+   plus généralement divers branches de l'informatique
+
+4) Le dévelppement en Blockly fait par les élèves.
+
+5) La personne qui teste le développement fait par l'élève.
+   C'est généralement l'élève lui-même, 
+   mais cela peut être l'enseignant ou d'autres élèves.
+
+Liste de vidéos possibles.
+1) Introduction à Blockly, en montrant les Blockly games.
+2) Je montre les exemples que j'ai développés.
+3) Je montre comment utiliser la Blockly factory et générer les .xml 
+   à rajouter dans la toolbox
+4) Montrer des applications utilisables par des enseignants-informaticien.
+
+==============================================================================
+-->
+
+
+<br>
+<hr style="margin-left:0; width:95%">
+<div style="text-align:center">
+  <h2>Pour les développeurs</h2>
+  <!--=======================-->
+</div>
+
+<div class="myindent">
+ ° <a href="https://developers.google.com/blockly/guides/create-custom-blocks/blockly-developer-tools" target="_blank">
+  Blockly Developer Tools</a>, information pour développer des applications "blockly apps".<br>
+</div>
+
+<div class="myindent">
+° <a href="" target="_blank"></a>,
+  <br>
+</div>
+
+<div class="myindent">
+ ° <a href="https://codelabs.developers.google.com/codelabs/blockly-web/index.html?index=..%2F..index#1" target="_blank">
+  Learning to use Blockly on the Web</a>.<br>
+</div>
+
+<div class="myindent">
+ ° <a href="" target="_blank">
+  </a>.<br>
+</div>
+
+<br>
+Deux manières de développer de nouveaux blocs :<br>
+<b>Premièrement :</b><br>
+Depuis : "Blockly_Google/blockly/blocks/" copier la partie qui est similaire à ce que l'on désire créer.<br>
+Depuis : "Blockly_Google/blockly/generators/javascript/" copier la partie qui est similaire à ce que l'on désire créer.<br>
+Voici un exemple, qui a été mis en pratique dans "ex0030" :<br>
+Dans mon code, sous les importations de "&lt;script&gt;", j'ai ajouter les balises :
+"&lt;script&gt;" et en-dessous : "&lt;/script&gt;"<br>
+<div class="myindent">
+° J'ai copié le code de : "Blockly_Google/blockly/blocks/text.js",
+allant de : "Blockly.Blocks['text_print'] = {" au "};" correspondant.<br>
+Je l'ai collé entre les deux balises : "&lt;script&gt;" et "&lt;/script&gt;" de mon code.<br>
+</div>
+<div class="myindent">
+° J'ai copié le code de : "Blockly_Google/generators/javascript/text.js",
+allant de : "Blockly.JavaScript['text_print'] = function(block) {" au "};" correspondant.<br>
+Je l'ai collé entre les deux balises : "&lt;script&gt;" et "&lt;/script&gt;" de mon code.<br>
+</div>
+<div class="myindent">
+ ° J'ai modifié la ligne : "return 'window.alert(' + msg + ');\n';" en : "return 'Display(' + msg + ');\n';"<br>
+</div>
+<div class="myindent">
+° J'ai renommé les textes "text_print" en minuscules en : "text_affiche" partout dans le code, à 4 endroits.<br>
+</div>
+<div class="myindent">
+° J'ai aisni obtenu une nouvelle fonctionnalité.
+</div>
+
+<br>
+<b>Deuxièmement :</b><br>
+<div class="myindent">
+° <a href="https://blockly-demo.appspot.com/static/demos/blockfactory/index.html" target="_blank">Blockly factory</a>,
+  Pour développer des nouveaux blocs.<br>
+</div>
+<br>
+En local, aller dans : "Blockly_Google/blockly/demos/index.html", puis cliquer sur "Blockly Developer Tools" à la fin.<br>
+Plus directement : "Blockly_Google/blockly/blocklyfactory/index.html"<br>
+<br>
+
+<br>
+<b>Utilitaires :</b><br>
+<!--============================================================================-->
+<div class="myindent">
+ ° <a href="https://blockly-demo.appspot.com/static/tests/playground.html" target="_blank">
+  Pour générer le code XML d'une suite de blocs </a>.<br>
+</div>
+
+<div class="myindent">
+ ° <a href="https://blockly-demo.appspot.com/static/tests/generators/index.html" target="_blank">
+  Blockly Generator Tests</a>.<br>
+</div>
+
+<div class="myindent">
+ ° <a href="" target="_blank">
+  </a>.<br>
+</div>
+
+<div class="myindent">
+ ° <a href="" target="_blank">
+  </a>.<br>
+</div>
+
+<br>
+<b>Divers :</b><br>
+<!--============================================================================-->
+
+<div class="myindent">
+ ° <a href="http://raffinat.perso.univ-pau.fr/blockly/index.html" target="_blank">
+  Programmation visuelle avec Blockly</a>.<br>
+  Des parties intéressantes.
+</div>
+
+<div class="myindent">
+ ° <a href="http://raffinat.perso.univ-pau.fr/plurialgo/2018/blockly/extensions/sofuspy/index.html" target="_blank">
+  Blockly pour générer du Python</a>.<br>
+  Ensuite, on peut modifier et exécuter le code Python dans la page Web.<br>
+</div>
+
+<div class="myindent">
+ ° <a href="http://raffinat.perso.univ-pau.fr/plurialgo/2018/blockly/extensions/dgpad/run.html" target="_blank">
+  Blockly pour générer du Javascript</a>.<br>
+  Ensuite, on peut modifier et exécuter le code Javascript dans la page Web.<br>
+  On peut également sauver le programme sous forme de blocs en XML.<br>
+</div>
+
+<div class="myindent">
+ ° <a href="https://medium.com/mit-media-lab/scratch-google-next-generation-of-programming-blocks-for-kids-5f377ec9ff0" target="_blank">
+  Scratch + Google = Next Generation of Programming Blocks for Kids</a>.<br>
+</div>
+
+<div class="myindent">
+ ° <a href="https://scratch.mit.edu/developers" target="_blank">
+  Scratch pour les développeurs</a>.<br>
+  La nouvelle version de Scratch, version 3, se base sur Blockly.
+</div>
+
+<div class="myindent">
+ ° <a href="https://chrome.google.com/webstore/detail/coding-with-chrome/becloognjehhioodmnimnehjcibkloed/related?hl=fr" target="_blank">
+  Coding with Chrome</a>.<br>
+  Depuis le navigateur google Chrome, 
+  permet d'avoir un environnement de développement basé sur Blockly.<br>
+  On peut sauver des productions dans un fichier .cwc.<br>
+  Pour ouvrir un tel fichier, c'est bien caché. 
+  Il faut cliquer sur le "menu" formé de 3 segments horizontaux, en haut à gauche,
+  et sélectionner @@NAVIGATION_OPEN_FILE.<br>
+  Beaucoup d'exemples créés par (hkza) un ancien retraité de l'université de où? 
+  <a href="https://github.com/hkza/my_blockly" target="_blank"> sur GitHub </a>.<br>
+  
+</div>
+
+
+<div class="myindent">
+ ° <a href="" target="_blank">
+  </a>.<br>
+</div>
+
+<div class="myindent">
+ ° <a href="" target="_blank">
+  </a>.<br>
+</div>
+
+<div class="myindent">
+ ° <a href="" target="_blank">
+  </a>.<br>
+</div>
+
+<br>
+<h3>Vidéos pour apprendre à développer des applications pour utiliser Blockly apps.</h3>
+<!--=================================================================================-->
+
+<div class="myindent">
+° <a href="https://www.youtube.com/watch?v=wDJua9hgyZM" target="_blank"></a>,
+  Blockly: Using Block Based Coding in your App<br>
+</div>
+
+<div class="myindent">
+ ° <a href="https://www.youtube.com/watch?v=lPVJjQbEeN0" target="_blank">
+  Blockly Tutorial Part 1 </a>.<br>
+</div>
+
+<div class="myindent">
+ ° <a href="https://www.youtube.com/watch?v=YjGoDh-Qqkg" target="_blank">
+   Blockly Tutorial Part 2 Edited</a>.<br>
+</div>
+
+<div class="myindent">
+ ° <a href="https://www.youtube.com/watch?v=_Mwc1gc77dc" target="_blank">
+   Why top universities teach drag and drop programming</a>, 1 minute 24 seconds.<br>
+</div>
+
+<div class="myindent">
+ ° <a href="" target="_blank">
+  </a>.<br>
+</div>
+
+<div class="myindent">
+° <a href="https://www.youtube.com/watch?v=s2_xaEvcVI0" target="_blank">
+  Blockly Factory</a>, pour développer de nouveaux blocs.<br>
+</div>
+
+<div class="myindent">
+ ° <a href="" target="_blank">
+  </a>.<br>
+</div>
+
+<div class="myindent">
+ ° <a href="" target="_blank">
+  </a>.<br>
+</div>
+
+<div class="myindent">
+ ° <a href="" target="_blank">
+  </a>.<br>
+</div>
+
+<div class="myindent">
+ ° <a href="https://www.youtube.com/results?search_query=blockly" target="_blank">
+  Liste de vidéos sur Blockly</a>. <br>
+</div>
+
+<div class="myindent">
+ ° <a href="https://www.youtube.com/watch?v=Vh1QgT7Ymsw" target="_blank">
+  Premier programme Blockly@rduino v2</a>.<br>
+</div>
+
+<div class="myindent">
+ ° <a href="https://www.youtube.com/watch?v=RkueM-_6L7A" target="_blank">
+  Blockly Developer Summit 2018: Welcome and The History of Blockly</a>. 37 minutes en anglais.<br>
+  Selon le créateur de Blockly, Neil Fraser (c.f. 15'50"), 
+  "Blockly is a generic graphical programming environment, not a programming language."<br>
+  "Blockly est un environnement graphique de programmation, ce n'est pas un langage de programmation."<br>
+  À 16'30", quelques exemples de compagnies qui utilisent Blockly.<br>
+</div>
+
+<div class="myindent">
+ ° <a href="https://www.progbloc.fr/blockly/" target="_blank">
+  Programmation par blocs</a>, un atricle avec des liens intéressants.<br>
+</div>
+
+<div class="myindent">
+ ° <a href="https://www.typescriptlang.org/#download-links" target="_blank">
+  TypeScript, Javascript that scales</a>.<br>
+  Un surensemble de javascript, qui accepte des variables typées.
+  On peut ensuite "compiler" le code typescript en des lignes de codes javascript.<br>
+  Cela amène de la rigueur dans la programmation en javascript et permet la détection d'erreurs à la compilation.<br>
+</div>
+<br>
+<div class="myindent">
+ ° <a href="https://studio.code.org/hoc/1" target="_blank">
+  <b>studio.code.org</b></a>, similaire à Blockly games, pour apprendre à programmer en jouant. Apprends avec Code Studio.<br>
+  + <a href="https://code.org/" target="_blank">La page d'entrée de code.org</a>.<br>
+</div>
+
+<div class="myindent">
+ ° <a href="https://www.youtube.com/ScratchAuCollege" target="_blank">
+  <b>Scratch</b> au collège</a>, des vidéos explicatives.<br>
+</div>
+
+<div class="myindent">
+ ° <a href="https://scratch.mit.edu/" target="_blank">
+  Scratch en ligne</a>, utilisable dans une page Web, rien besoin d'installer.<br>
+  + <a href="https://scratch.mit.edu/projects/editor/?tutorial=getStarted" target="_blank">
+  <b>L'application Scratch en ligne</b></a>.<br>
+</div>
+<br>
+<div class="myindent">
+  ° <a href="https://ulli.mingram.net/blockly_python.html" target="_blank">
+    Python und JavaScript mit blockly</a>, en allemand. <br>
+    Utilise Blockly pour dessiner à l'aide d'une tortue<br>
+    On peut sauver et charger le programme écrit.<br>
+    Permet d'afficher le code Javascript et le code Python équivalent.<br>
+    Utilise "Jython" et "TigerJython".<br>
+</div>
+<br>
+<div class="myindent">
+  
+° <a href="https://webtigerjython.ethz.ch/" target="_blank">
+    WebTigerJython</a>, Programmation dans une page Web en Python, pour dessiner avec le module "Turtle"<br>
+    Dévelopé par l'ETHZ.<br>
+    Est utilisable en français.<br>
+    Utilise "Jython" et "TigerJython".<br>
+</div>
+<br>
+<div class="myindent">
+° <a href="http://www.python-online.ch/pyonline/PyOnline.php" target="_blank">
+    Python Online Editor</a>, Programmation dans une page Web en Python, pour dessiner avec le module "Turtle"<br>
+    Autre présentation, similaire au lien précédent.<br>
+    Permet aussi de s'initier aux <b>bases de données</b>.<br>
+    En Anglais ou Allemand.<br>
+  <br>
+</div>
+<br>
+<div class="myindent">
+<a href="https://www.jython.org/" target="_blank">
+  What is Jython?</a><br>
+  Jython est une implémentation de Python en Java. 
+  Cela permet d'exécuter du code Python dans une page web.<br>
+</div>
+<br>
+<div class="myindent">
+° <a href="https://www.tjgroup.ch/fr/index.php" target="_blank">
+    TigerJython Group</a><br>
+    Est un environnement de développement écrit en Java, adapté au langage Python.<br>
+</div>
+<br>
+<div class="myindent">
+ ° <a href="" target="_blank">
+  </a>.<br>
+</div>
+
+<!--
+<pre>
+Information pour compiler le blockly-game :
+Hello, 
+I had the same problem as mentioned by "lightnightlee" ! 
+The file "closurebuilder.py" and probably all the directory from "closure-library/closure/bin/build/" are missing in the "blockly-game/third-party" or "blockly-game-master/third-party" ! 
+I downloaded the file : "google-closure-library-v20180910-190-ge52d9b5.zip" from the Web : "https://developers.google.com/blockly/guides/modify/web/closure", 
+unzipped it and found the above mentioned "build" directory. 
+I created the directory  : "blockly-game-master/third-party".
+I copied the "closure-library/closure/bin/build" directory to : "blockly-game-master/third-party". 
+I'm working on linux (KUbuntu 18.4) and had to install the two following apps :
+sudo apt install wget 
+sudo apt install subversion
+Then I could type : 
+make deps
+I got to confirm 10 times with "r" the conflict :
+"Arborescences en conflit sur 'build/closurebuilder.py' "
+waited, and this time it worked through the end.
+Then I typed : 
+make en 
+waited, and got the English version with the "compressed.js" and "uncompressed.js" files.
+I got several WARNING such as :
+"WARNING: Please consider reporting this to the maintainers of com.google.inject.internal.cglib.core.$ReflectUtils$2"
+
+I did it three times to be sure that I didn't miss anything.
+
+To start, I'm launching " appengine/index.html?lang=en ".
+
+Since I'm french speaking, I tried to compile the french version with
+make fr
+But it says : "make: *** Aucune règle pour fabriquer la cible 'fr'. Arrêt."
+in english  : "make: *** No rules to make the target 'fr'. Stop. "
+I tried also :
+make languages
+make all
+Without any success.
+
+I modified the "Makefile" replacing all : "-en"  by  "-fr", all  "/en"  by  "/fr" and some more "en" by "fr", the once which were not in works. Then I typed :
+make fr
+I got "fr" folders, but the content was still in english !
+
+I'm investigating further...
+
+c.f.
+https://github.com/google/blockly-games/issues/72
+</pre>
+-->
+
+<br>
+<hr style="margin-left:0; width:95%">
+<p style="margin-top:0; font-size:80%">
+Plan du Site : 
+<a href="../../index.html">Home</a> &nbsp;
+<img src="../../icons00/arrow_right.gif" alt="arrow" width="13" height="9"> &nbsp; 
+<a href="../program.html">program</a> &nbsp;
+<img src="../../icons00/arrow_right.gif" alt="arrow" width="13" height="9"> &nbsp; 
+blockly.html 
+<span style="font-size:80%"> 
+( = http://www.juggling.ch/gisin/program/blockly/blockly.html )
+</span>
+</p>
+<hr style="margin-left:0; margin-bottom:0; width:95%">
+<p style="margin-top:0; font-size:80%">
+Page mise à jour le 11 janvier 2020 par Bernard Gisin &nbsp; &nbsp;
+( <a href="" onclick="return myCourrielMsgBox();">Envoyer un e-mail</a> )<br>
+Hébergement par : <a href="http://www.infomaniak.ch">www.infomaniak.ch</a>
+</p>
+<br>
+</body>
+</html>
