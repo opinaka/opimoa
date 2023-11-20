@@ -1,0 +1,10 @@
+########### pour avoir le bon charset de fichier SciLab et texte ##############
+### c.f. https://www.w3.org/International/questions/qa-htaccess-charset.en  ###
+## c.f. http://httpd.apache.org/docs/2.2/configuring.html
+AddDefaultCharset UTF-8
+AddCharset UTF-8 .js
+AddCharset UTF-8 .txt
+## AddType 'text; charset=UTF-8' txt
+################################################################################
+
+
