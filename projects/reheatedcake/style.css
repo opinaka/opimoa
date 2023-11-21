@@ -1,0 +1,124 @@
+html, body {
+  height: 100%;
+  margin: 0;
+  background-color: black;
+}
+
+body {
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+
+#blocklyArea {
+  flex: 1;
+}
+
+#download {
+  display: none;
+}
+
+.keybinds {
+  padding: 2px;
+  color: white;
+  font-family: monospace;
+  font-size: 12px;
+  flex-flow: row wrap;
+  display: flex;
+  user-select: none;
+}
+
+.keybinds b {
+  color: #afa;
+  text-shadow: 0 0 4px #afa;
+}
+
+.keybinds a, .keybinds a:visited {
+  color: #aaf;
+  text-shadow: 0 0 4px #aaf;
+}
+
+.keybinds .bind {
+  padding: 0 8px;
+  height: 20px;
+  margin: 2px;
+  border-radius: 2px;
+  background-color: #222;
+  display: flex;
+  align-items: center;
+  position: relative;
+  white-space: pre;
+}
+
+.bind.button {
+  cursor: pointer;
+}
+.bind.button:hover {
+  background-color: #444;
+}
+.bind.button:active {
+  background-color: #666;
+}
+
+.copied::before, .errors::before {
+  position: absolute;
+  color: white;
+  display: flex;
+  top: 0;
+  left: 50%;
+  align-items: center;
+  transform: translate(-50%, -100%);
+  z-index: 100;
+  justify-content: center;
+  white-space: nowrap;
+  pointer-events: none;
+  color: white;
+  font-size: 12px;
+  padding: 2px 4px;
+  border-radius: 4px;
+}
+
+.copied::before {
+  content: 'Copied!';
+  background-color: rgba(100, 255, 100, 0.8);
+}
+
+.errors::before {
+  content: 'Error!';
+  background-color: rgba(255, 100, 100, 0.8);
+}
+
+.more-container {
+  position: relative;
+  overflow: visible;
+  height: 20px;
+  margin: 0 2px;
+  z-index: 100;
+}
+
+.more-header {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0 8px;
+  height: 20px;
+  margin: 2px 0;
+  border-radius: 2px;
+  background-color: #444;
+  color: #ddd;
+  font-weight: bold;
+}
+
+.more-container:hover .more {
+  transform: translateY(calc(20px - 100%));
+  background-color: #000;
+}
+
+.more-container .bind {
+  display: none;
+  margin: 2px 0;
+}
+
+.more-container:hover .bind {
+  display: flex;
+}

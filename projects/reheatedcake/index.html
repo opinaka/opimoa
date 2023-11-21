@@ -1,0 +1,426 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>mlog blocks</title>
+  <meta charset="UTF-8">
+  <meta name="description" content="Mindustry Logic Code Generator from Blocks">
+  <meta name="keywords" content="mlog,mindustry,logic,scratch,blockly,python,programming,processor">
+  <meta name="author" content="cake">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <link rel="stylesheet" type="text/css" href="style.css">
+  <script src="lib/blockly_compressed.js"></script>
+  <script src="lib/blocks_compressed.js"></script>
+  <script src="lib/en.js"></script>
+  <script src="generator.js"></script>
+  <script src="config.js"></script>
+  <script src="blocks.js"></script>
+  <script src="external_blocks.js"></script>
+  <script src="main.js"></script>
+</head>
+<body>
+  <div id="blocklyArea">
+    <div id="blocklyDiv" style="position: absolute;"></div>
+  </div>
+  <div class="keybinds">
+    <a id="download"></a>
+    <div class="bind button" id="copymlogBtn"><code>Ctrl+S</code> - <b>copy mlog</b></div>
+    <div class="more-container">
+      <div class="more">
+        <div class="more-header">more keybinds</div>
+        <div class="bind button" id="copyxmlBtn"><code>Ctrl+Shift+S</code> - <b>copy xml</b></div>
+        <div class="bind"><code>Ctrl+V</code> - <b>import xml from clipboard</b></div>
+        <div class="bind"><code>Ctrl+Shift+V</code> - <b>import xml and not clear</b></div>
+        <div class="bind button" id="exportBtn"><code>Ctrl+E</code> - <b>export</b></div>
+        <div class="bind button" id="clearBtn"><code>Ctrl+Shift+Del</code> - <b>clear workspace</b></div>
+        <div class="bind"><code>Ctrl+Shift+K</code> - <b>toggle <a href="https://developers.google.com/blockly/guides/configure/web/keyboard-nav#using_keyboard_navigation" tabindex="-1" target="_blank" rel="noopener noreferrer">keyboard navigation</a></b></div>
+        <div class="bind"><code>1-7</code> - <b>open toolbox category</b></div>
+      </div>
+    </div>
+    <div class="more-container">
+      <div class="more">
+        <div class="more-header">notes and help</div>
+        <div class="bind"><u>note</u>: only <b>tail recursion</b> works.</div>
+        <div class="bind"><u>note</u>: code is run from the <b>top left</b></div>
+        <div class="bind"><u>note</u>: code <b>without an end</b> may break</div>
+      </div>
+    </div>
+    <div class="bind"><a href="https://github.com/Meshiest/mlogblocks" target="_blank">github</a></div>
+  </div>
+  <xml xmlns="https://developers.google.com/blockly/xml" id="toolbox" style="display: none">
+    <category name="Variables" categorystyle="category_variable">
+      <block type="mind_set">
+        <value name="VALUE">
+          <shadow type="var_block_text"><field name="VALUE">0</field></shadow>
+        </value>
+      </block>
+      <block type="mind_lookup">
+        <value name="INDEX">
+          <shadow type="var_block_text"><field name="VALUE">0</field></shadow>
+        </value>
+      </block>
+      <block type="mind_op_set_binary">
+        <value name="A"><shadow type="var_block_text"><field name="VALUE">a</field></shadow></value>
+        <value name="B"><shadow type="var_block_text"><field name="VALUE">b</field></shadow></value>
+      </block>
+      <block type="mind_op_set_unary">
+        <value name="A"><shadow type="var_block_text"><field name="VALUE">a</field></shadow></value>
+      </block>
+      <block type="var_block_text"></block>
+      <block type="variables_get"></block>
+      <block type="global_liquid"></block>
+      <block type="mind_op_var_binary">
+        <value name="A"><shadow type="var_block_text"><field name="VALUE">a</field></shadow></value>
+        <value name="B"><shadow type="var_block_text"><field name="VALUE">b</field></shadow></value>
+      </block>
+      <block type="mind_op_var_unary">
+        <value name="A"><shadow type="var_block_text"><field name="VALUE">a</field></shadow></value>
+      </block>
+      <block type="global_item"></block>
+      <block type="global_unit"></block>
+      <block type="global_self"></block>
+      <block type="global_access"></block>
+    </category>
+    <category name="Output" categorystyle="category_output">
+      <block type="mind_flush_draw">
+        <field name="VAR">display1</field>
+      </block>
+      <block type="mind_flush_print">
+        <field name="VAR">message1</field>
+      </block>
+      <block type="mind_print_text">
+        <value name="TEXT"><shadow type="var_block_text"><field name="VALUE">"text"</field></shadow></field>
+      </block>
+      <block type="mind_print_text">
+        <value name="TEXT"><shadow type="var_block_text"><field name="VALUE">"\n"</field></shadow></field>
+      </block>
+      <block type="mind_print_text">
+        <value name="TEXT"><shadow type="var_block_text"><field name="VALUE">"result = {result}\n"</field></shadow></field>
+      </block>
+      <block type="mind_print_text">
+        <value name="TEXT"><shadow type="var_block_text"><field name="VALUE">result</field></shadow></field>
+      </block>
+      <block type="mind_draw_clear">
+        <value name="r"><shadow type="var_block_text"><field name="VALUE">0</field></shadow></value>
+        <value name="g"><shadow type="var_block_text"><field name="VALUE">0</field></shadow></value>
+        <value name="b"><shadow type="var_block_text"><field name="VALUE">0</field></shadow></value>
+      </block>
+      <block type="mind_draw_color">
+        <value name="r"><shadow type="var_block_text"><field name="VALUE">0</field></shadow></value>
+        <value name="g"><shadow type="var_block_text"><field name="VALUE">0</field></shadow></value>
+        <value name="b"><shadow type="var_block_text"><field name="VALUE">0</field></shadow></value>
+        <value name="a"><shadow type="var_block_text"><field name="VALUE">255</field></shadow></value>
+      </block>
+      <block type="mind_draw_stroke">
+        <value name="arg_0"><shadow type="var_block_text"><field name="VALUE">0</field></shadow></value>
+      </block>
+      <block type="mind_draw_line">
+        <value name="x"><shadow type="var_block_text"><field name="VALUE">0</field></shadow></value>
+        <value name="y"><shadow type="var_block_text"><field name="VALUE">0</field></shadow></value>
+        <value name="x2"><shadow type="var_block_text"><field name="VALUE">0</field></shadow></value>
+        <value name="y2"><shadow type="var_block_text"><field name="VALUE">0</field></shadow></value>
+      </block>
+      <block type="mind_draw_rect">
+        <value name="x"><shadow type="var_block_text"><field name="VALUE">0</field></shadow></value>
+        <value name="y"><shadow type="var_block_text"><field name="VALUE">0</field></shadow></value>
+        <value name="width"><shadow type="var_block_text"><field name="VALUE">0</field></shadow></value>
+        <value name="height"><shadow type="var_block_text"><field name="VALUE">0</field></shadow></value>
+      </block>
+      <block type="mind_draw_poly">
+        <value name="x"><shadow type="var_block_text"><field name="VALUE">0</field></shadow></value>
+        <value name="y"><shadow type="var_block_text"><field name="VALUE">0</field></shadow></value>
+        <value name="sides"><shadow type="var_block_text"><field name="VALUE">0</field></shadow></value>
+        <value name="radius"><shadow type="var_block_text"><field name="VALUE">0</field></shadow></value>
+        <value name="rotation"><shadow type="var_block_text"><field name="VALUE">0</field></shadow></value>
+      </block>
+      <block type="mind_draw_lineRect">
+        <value name="x"><shadow type="var_block_text"><field name="VALUE">0</field></shadow></value>
+        <value name="y"><shadow type="var_block_text"><field name="VALUE">0</field></shadow></value>
+        <value name="width"><shadow type="var_block_text"><field name="VALUE">0</field></shadow></value>
+        <value name="height"><shadow type="var_block_text"><field name="VALUE">0</field></shadow></value>
+      </block>
+      <block type="mind_draw_linePoly">
+        <value name="x"><shadow type="var_block_text"><field name="VALUE">0</field></shadow></value>
+        <value name="y"><shadow type="var_block_text"><field name="VALUE">0</field></shadow></value>
+        <value name="sides"><shadow type="var_block_text"><field name="VALUE">0</field></shadow></value>
+        <value name="radius"><shadow type="var_block_text"><field name="VALUE">0</field></shadow></value>
+        <value name="rotation"><shadow type="var_block_text"><field name="VALUE">0</field></shadow></value>
+      </block>
+      <block type="mind_draw_triangle">
+        <value name="x"><shadow type="var_block_text"><field name="VALUE">0</field></shadow></value>
+        <value name="y"><shadow type="var_block_text"><field name="VALUE">0</field></shadow></value>
+        <value name="x2"><shadow type="var_block_text"><field name="VALUE">0</field></shadow></value>
+        <value name="y2"><shadow type="var_block_text"><field name="VALUE">0</field></shadow></value>
+        <value name="x3"><shadow type="var_block_text"><field name="VALUE">0</field></shadow></value>
+        <value name="y3"><shadow type="var_block_text"><field name="VALUE">0</field></shadow></value>
+      </block>
+      <block type="mind_draw_image">
+        <value name="x"><shadow type="var_block_text"><field name="VALUE">0</field></shadow></value>
+        <value name="y"><shadow type="var_block_text"><field name="VALUE">0</field></shadow></value>
+        <value name="image"><shadow type="var_block_text"><field name="VALUE">@copper</field></shadow></value>
+        <value name="size"><shadow type="var_block_text"><field name="VALUE">32</field></shadow></value>
+        <value name="rotation"><shadow type="var_block_text"><field name="VALUE">0</field></shadow></value>
+      </block>
+    </category>
+    <category name="Control" categorystyle="category_control">
+      <block type="mind_jump_always"><field name="LABEL">label</field></block>
+      <block type="mind_jump_cond">
+        <field name="LABEL">label</field>
+        <field name="COND">notEqual</field>
+        <value name="ARG_A">
+          <shadow type="var_block_text"><field name="VALUE">x</field></shadow>
+        </value>
+        <value name="ARG_B">
+          <shadow type="var_block_text"><field name="VALUE">false</field></shadow>
+        </value>
+      </block>
+      <block type="mind_jump_label"><field name="LABEL">label</field></block>
+      <block type="mind_end"></block>
+      <block type="mind_wait">
+        <value name="DURATION">
+          <shadow type="var_block_text"><field name="VALUE">0.5</field></shadow>
+        </value>
+      </block>
+      <block type="controls_if">
+        <value name="IF0">
+          <block type="mind_op_var_binary">
+            <field name="OPERATOR">notEqual</field>
+            <value name="A"><shadow type="var_block_text"><field name="VALUE">x</field></shadow></value>
+            <value name="B"><shadow type="var_block_text"><field name="VALUE">false</field></shadow></value>
+          </block>
+        </value>
+      </block>
+      <block type="logic_ternary">
+        <value name="IF">
+          <block type="mind_op_var_binary">
+            <field name="OPERATOR">notEqual</field>
+            <value name="A"><shadow type="var_block_text"><field name="VALUE">x</field></shadow></value>
+            <value name="B"><shadow type="var_block_text"><field name="VALUE">false</field></shadow></value>
+          </block>
+        </value>
+        <value name="THEN"><shadow type="var_block_text"><field name="VALUE">a</field></shadow></value>
+        <value name="ELSE"><shadow type="var_block_text"><field name="VALUE">b</field></shadow></value>
+      </block>
+      <block type="loop_repeat_i">
+        <value name="TIMES">
+          <shadow type="var_block_text"><field name="VALUE">x</field></shadow>
+        </value>
+      </block>
+      <block type="loop_for">
+        <value name="INIT"><shadow type="var_block_text"><field name="VALUE">0</field></shadow></value>
+        <value name="TO"><shadow type="var_block_text"><field name="VALUE">x</field></shadow></value>
+        <value name="STEP"><shadow type="var_block_text"><field name="VALUE">1</field></shadow></value>
+      </block>
+      <block type="loop_repeat_while">
+        <value name="COND">
+          <block type="mind_op_var_binary">
+            <field name="OPERATOR">notEqual</field>
+            <value name="A"><shadow type="var_block_text"><field name="VALUE">x</field></shadow></value>
+            <value name="B"><shadow type="var_block_text"><field name="VALUE">false</field></shadow></value>
+          </block>
+        </value>
+      </block>
+      <block type="loop_repeat_while">
+        <value name="COND">
+          <shadow type="var_block_text"><field name="VALUE">true</field></shadow>
+        </value>
+      </block>
+      <block type="loop_continue"></block>
+      <block type="loop_break"></block>
+    </category>
+    <category name="Unit" categorystyle="category_unit">
+      <block type="mind_unit_bind">
+        <value name="UNIT"><shadow type="global_unit"></shadow></value>
+      </block>
+      <block type="mind_unit_bind">
+        <value name="UNIT">
+          <shadow type="var_block_text"><field name="VALUE">@poly</field></shadow>
+        </value>
+      </block>
+      <block type="mind_unit_radar">
+        <field name="target1">enemy</field>
+      </block>
+      <block type="mind_sensor">
+        <value name="UNIT">
+          <shadow type="var_block_text"><field name="VALUE">@unit</field></shadow>
+        </value>
+        <value name="FIELD">
+          <shadow type="var_block_text"><field name="VALUE">@copper</field></shadow>
+        </value>
+      </block>
+      <block type="mind_sensor_val">
+        <value name="UNIT">
+          <shadow type="var_block_text"><field name="VALUE">@unit</field></shadow>
+        </value>
+        <value name="FIELD">
+          <shadow type="var_block_text"><field name="VALUE">@copper</field></shadow>
+        </value>
+      </block>
+      <block type="mind_unit_locate">
+        <field name="TARGET">building</field>
+        <value name="ENEMY">
+          <shadow type="var_block_text"><field name="VALUE">false</field></shadow>
+        </value>
+      </block>
+      <block type="mind_unit_locate">
+        <field name="TARGET">ore</field>
+        <value name="ORE">
+          <shadow type="global_item"><field name="NAME">@copper</field></shadow>
+        </value>
+      </block>
+      <block type="mind_unit_control_stop"></block>
+      <block type="mind_unit_control_move">
+        <value name="x"><shadow type="var_block_text"><field name="VALUE">0</field></shadow></value>
+        <value name="y"><shadow type="var_block_text"><field name="VALUE">0</field></shadow></value>
+      </block>
+      <block type="mind_unit_control_flag">
+        <value name="value"><shadow type="var_block_text"><field name="VALUE">0</field></shadow></value>
+      </block>
+      <block type="mind_unit_control_approach">
+        <value name="x"><shadow type="var_block_text"><field name="VALUE">0</field></shadow></value>
+        <value name="y"><shadow type="var_block_text"><field name="VALUE">0</field></shadow></value>
+        <value name="radius"><shadow type="var_block_text"><field name="VALUE">0</field></shadow></value>
+      </block>
+      <block type="mind_unit_control_target">
+        <value name="x"><shadow type="var_block_text"><field name="VALUE">0</field></shadow></value>
+        <value name="y"><shadow type="var_block_text"><field name="VALUE">0</field></shadow></value>
+        <value name="shoot"><shadow type="var_block_text"><field name="VALUE">0</field></shadow></value>
+      </block>
+      <block type="mind_unit_control_targetp">
+        <value name="unit"><shadow type="var_block_text"><field name="VALUE">0</field></shadow></value>
+        <value name="shoot"><shadow type="var_block_text"><field name="VALUE">0</field></shadow></value>
+      </block>
+      <block type="mind_unit_control_itemDrop">
+        <value name="to"><shadow type="var_block_text"><field name="VALUE">0</field></shadow></value>
+        <value name="amount"><shadow type="var_block_text"><field name="VALUE">0</field></shadow></value>
+      </block>
+      <block type="mind_unit_control_itemTake">
+        <value name="from"><shadow type="var_block_text"><field name="VALUE">0</field></shadow></value>
+        <value name="item"><shadow type="var_block_text"><field name="VALUE">0</field></shadow></value>
+        <value name="amount"><shadow type="var_block_text"><field name="VALUE">0</field></shadow></value>
+      </block>
+      <block type="mind_unit_control_mine">
+        <value name="x"><shadow type="var_block_text"><field name="VALUE">0</field></shadow></value>
+        <value name="y"><shadow type="var_block_text"><field name="VALUE">0</field></shadow></value>
+      </block>
+      <block type="mind_unit_control_build">
+        <value name="x"><shadow type="var_block_text"><field name="VALUE">0</field></shadow></value>
+        <value name="y"><shadow type="var_block_text"><field name="VALUE">0</field></shadow></value>
+        <value name="block"><shadow type="var_block_text"><field name="VALUE">0</field></shadow></value>
+        <value name="rotation"><shadow type="var_block_text"><field name="VALUE">0</field></shadow></value>
+        <value name="config"><shadow type="var_block_text"><field name="VALUE">0</field></shadow></value>
+      </block>
+      <block type="mind_unit_control_getBlock">
+        <value name="x"><shadow type="var_block_text"><field name="VALUE">0</field></shadow></value>
+        <value name="y"><shadow type="var_block_text"><field name="VALUE">0</field></shadow></value>
+        <value name="type"><shadow type="var_block_text"><field name="VALUE">0</field></shadow></value>
+        <value name="building"><shadow type="var_block_text"><field name="VALUE">0</field></shadow></value>
+      </block>
+      <block type="mind_unit_control_pathfind"></block>
+      <block type="mind_unit_control_boost">
+        <value name="enable"><shadow type="var_block_text"><field name="VALUE">0</field></shadow></value>
+      </block>
+      <block type="mind_unit_control_payDrop"></block>
+      <block type="mind_unit_control_payTake">
+        <value name="takeUnits"><shadow type="var_block_text"><field name="VALUE">0</field></shadow></value>
+      </block>
+      <block type="mind_unit_control_within">
+        <value name="x"><shadow type="var_block_text"><field name="VALUE">0</field></shadow></value>
+        <value name="y"><shadow type="var_block_text"><field name="VALUE">0</field></shadow></value>
+        <value name="radius"><shadow type="var_block_text"><field name="VALUE">0</field></shadow></value>
+        <value name="result"><shadow type="var_block_text"><field name="VALUE">0</field></shadow></value>
+      </block>
+    </category>
+    <category name="World" categorystyle="category_world">
+      <block type="mind_get_link">
+        <value name="INDEX">
+          <shadow type="var_block_text"><field name="VALUE">0</field></shadow>
+        </value>
+      </block>
+      <block type="mind_get_link_var">
+        <value name="INDEX">
+          <shadow type="var_block_text"><field name="VALUE">0</field></shadow>
+        </value>
+      </block>
+      <block type="mind_control">
+        <value name="TARGET">
+          <shadow type="var_block_text"><field name="VALUE">block1</field></shadow>
+        </value>
+        <value name="TO">
+          <shadow type="var_block_text"><field name="VALUE">0</field></shadow>
+        </value>
+      </block>
+      <block type="mind_radar">
+        <value name="UNIT">
+          <shadow type="var_block_text"><field name="VALUE">turret1</field></shadow>
+        </value>
+        <field name="target1">enemy</field>
+      </block>
+      <block type="mind_sensor">
+        <value name="UNIT">
+          <shadow type="var_block_text"><field name="VALUE">block1</field></shadow>
+        </value>
+        <value name="FIELD">
+          <shadow type="global_item"><field name="NAME">@copper</field></shadow>
+        </value>
+      </block>
+      <block type="mind_sensor">
+        <value name="UNIT">
+          <shadow type="var_block_text"><field name="VALUE">block1</field></shadow>
+        </value>
+        <value name="FIELD">
+          <shadow type="global_access"></shadow>
+        </value>
+      </block>
+      <block type="mind_sensor_val">
+        <value name="UNIT">
+          <shadow type="var_block_text"><field name="VALUE">block1</field></shadow>
+        </value>
+        <value name="FIELD">
+          <shadow type="global_item"><field name="NAME">@copper</field></shadow>
+        </value>
+      </block>
+      <block type="mind_sensor_val">
+        <value name="UNIT">
+          <shadow type="var_block_text"><field name="VALUE">block1</field></shadow>
+        </value>
+        <value name="FIELD">
+          <shadow type="global_access"></shadow>
+        </value>
+      </block>
+    </category>
+    <category name="Memory" categorystyle="category_memory">
+      <block type="mind_read">
+        <value name="CELL">
+          <shadow type="var_block_text"><field name="VALUE">cell1</field></shadow>
+        </value>
+        <value name="INDEX">
+          <shadow type="var_block_text"><field name="VALUE">0</field></shadow>
+        </value>
+      </block>
+      <block type="mind_read_var">
+        <value name="CELL">
+          <shadow type="var_block_text"><field name="VALUE">cell1</field></shadow>
+        </value>
+        <value name="INDEX">
+          <shadow type="var_block_text"><field name="VALUE">0</field></shadow>
+        </value>
+      </block>
+      <block type="mind_write">
+        <value name="SOURCE">
+          <shadow type="var_block_text">
+            <field name="VALUE">result</field>
+          </shadow>
+        </value>
+        <value name="CELL">
+          <shadow type="var_block_text"><field name="VALUE">cell1</field></shadow>
+        </value>
+        <value name="INDEX">
+          <shadow type="var_block_text"><field name="VALUE">0</field></shadow>
+        </value>
+      </block>
+    </category>
+    <category name="Functions" categorystyle="category_control" custom="PROCEDURE"></category>
+  </xml>
+</body>
+</html>
