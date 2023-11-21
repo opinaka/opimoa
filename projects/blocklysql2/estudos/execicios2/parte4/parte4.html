@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="PT-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="shortcut icon" href="../../../assets/imagens/blockly_sql.png">
+    <title>Blockly | Exercício 2 - 4 </title>
+
+    <!-- Estilização da página -->
+    <link rel="stylesheet" href="../../../assets/css/reset.css">
+    <link rel="stylesheet" href="../../../assets/css/cabecalho.css">
+    <link rel="stylesheet" href="../../../assets/css/corpo.css">
+    <link rel="stylesheet" href="../../../assets/css/cor-codigo.css">
+    <link rel="stylesheet" href="../questao.css">
+
+    <!-- Google Font - Open Sans -->
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Fredericka+the+Great&display=swap" rel="stylesheet">
+
+    <!-- Google Icons -->
+    <link href="https://fonts.googleapis.com/css2?family=Material+Icons+Round" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Material+Icons+Outlined" rel="stylesheet">
+
+    <!-- Uso da biblioteca Blockly -->
+    <script src="https://unpkg.com/blockly/blockly.min.js"></script>
+
+    <!-- Blocos Personalisados -->
+    <script src="../customBlocks.js"></script>
+
+    <!-- Código Personalisados -->
+    <script src="../colorirCodigo.js"></script>
+
+    <!-- Gerador MySQL -->
+    <script src="https://unpkg.com/blockly/lua_compressed.js"></script>
+    <script src="../../../Blocos/geradorMySQL.js"></script>
+
+    <!-- Gerador Web SQL -->
+    <script src="https://unpkg.com/blockly/javascript_compressed.js"></script>
+    <script src="../geradorWebSQL.js"></script>
+</head>
+
+<body>
+    <header class="menu">
+        <div class="menu__voltar">
+            <span class="material-icons-outlined menu__voltar-icone">first_page</span>
+            <a href="../../estudo.html" title="Voltar para exercícios" class="menu__item">
+                Voltar para exercícios
+            </a>
+        </div>
+
+        <a href="https://developers.google.com/blockly" target="_blank" title="Blockly Site">
+            <img class="menu__logo-blockly" alt="Logo Blockly" src="../../../assets/imagens/logo_blockly.png">
+        </a>
+    </header>
+
+    <main class="corpo">
+        <section class="cartao">
+            <div class="cartao__cabecalho">
+                <h2 class="cartao__cabecalho-titulo">Exercício 2 — Questão 4</h2>
+            </div>
+            <div class="cartao__corpo">
+                <p class="cartao-objetivo">Analise os bancos de dados abaixo e crie um comando SELECT que 
+                    relacione as variáveis id com id_comprador e apresente os dados da relação.</p>
+                </div>
+            </section>
+    
+            <section id="blocklyDiv" class="blocklyDiv"></section>
+    
+            <pre id="Codigo" class="codigo" readonly></pre>
+    
+            <section class="tabela-exemplo">
+                <p>Bancos de dados base</p>
+                <table id="tabelaInformativa" class="tabela">
+                    <thead>
+                        <th colspan="5">pessoa</th>
+                        <tr>
+                            <th scope="col">id</th>
+                            <th scope="col">nome</th>
+                            <th scope="col">cpf</th>
+                            <th scope="col">idade</th>
+                            <th scope="col">telefone</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <th scope="row">1</th>
+                            <td>Anderson Joaquim Lima</td>
+                            <td>109.419.057-80</td>
+                            <td>32</td>
+                            <td>(63) 2924-7115</td>
+                        </tr>
+                        <tr>
+                            <th scope="row">2</th>
+                            <td>Mariana Gabrielly Ribeiro</td>
+                            <td>746.328.138-85</td>
+                            <td>27</td>
+                            <td>(86) 3645-6679</td>
+                        </tr>
+                        <tr>
+                            <th scope="row">3</th>
+                            <td>Eduardo Manuel Barboa</td>
+                            <td>230.083.525-88</td>
+                            <td>16</td>
+                            <td>(68) 3983-5955</td>
+                        </tr>
+                    </tbody>
+                </table>
+                <table id="tabelaInformativa" class="tabela">
+                    <thead>
+                        <th colspan="4">pedido</th>
+                        <tr>
+                            <th scope="col">id_pedido</th>
+                            <th scope="col">id_comprador</th>
+                            <th scope="col">valor_compra</th>
+                            <th scope="col">data_compra</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <th scope="row">1</th>
+                            <td>2</td>
+                            <td>76.8</td>
+                            <td>2021-09-28 21:3:25</td>
+                        </tr>
+                        <tr>
+                            <th scope="row">2</th>
+                            <td>1</td>
+                            <td>124.9</td>
+                            <td>2021-08-25 16:4:49</td>
+                        </tr>
+                        <tr>
+                            <th scope="row">3</th>
+                            <td>2</td>
+                            <td>95</td>
+                            <td>2021-09-29 16:1:20</td>
+                        </tr>
+                        <tr>
+                            <th scope="row">4</th>
+                            <td>3</td>
+                            <td>49.9</td>
+                            <td>2021-09-05 14:5:31</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </section>
+    
+            <section class="tabela-resposta">
+                <p style="padding: 5px;">Resposta gerada pelo comando SELECT</p>
+                <div id="tabela">
+                    <table id="tabelaSelect" class="tabela"> </table>
+                    <table id="tabelaSelect2" class="tabela" style="display: none;"> </table>
+                </div>
+            </section>
+    
+            <button type="button" id="botao_enviar-resposta" class="botao_enviar-resposta">Validar resposta</button>
+        </main>
+    
+        <div class="alerta alerta-aviso">
+            <span class="material-icons-round alerta__icone">block</span>
+            <div id="alertaMensagemAviso" class="alerta__mensagem">Resposta errada!</div>
+            <button id="fecharAviso" type="button" class="alerta__fecha">
+                <span class="material-icons-round">close</span>
+            </button>
+        </div>
+    
+        <div id="RespostaCorreta" class="background">
+            <div class="cartao-resposta">
+                <div class="cartao-resposta__cabecalho">
+                    <p class="cartao-resposta__titulo">Resposta Correta!</p>
+                    <button type="button" class="alerta__fecha" id="fecharCartaoResposta">
+                        <span class="material-icons-round">close</span>
+                    </button>
+                </div>
+                <div class="cartao-resposta__corpo">
+                    <p>Tabela aceita!</p>
+                </div>
+                <div class="cartao-resposta__rodape">
+                    <button type="button" id="botao_proximo-exercicio" class="botao_proximo-exercicio">Proxímo exercício</button>
+                </div>
+            </div>
+        </div>
+    </body>
+    
+    <xml id="xml1" style="display: none">
+        <block type="select" x="20" y="20"></block>
+    </xml>
+    
+    <script src="./parte4.js"></script>
+    
+    </html>

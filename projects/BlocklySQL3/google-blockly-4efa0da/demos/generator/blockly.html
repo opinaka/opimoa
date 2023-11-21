@@ -1,0 +1,314 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>BlocklySQL Demo: Generating SQL Code with Blocks</title>
+  <script src="../../blockly_compressed.js"></script>
+  <script src="../../blocks_compressed.js"></script>
+  <script src="../../javascript_compressed.js"></script>
+  <script src="../../msg/js/en.js"></script>
+
+  <script src="js/scripts_definition.js"></script>
+  <script src="js/scripts_functions.js"></script>
+
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+
+  <style>
+    body {
+      background-color: #fff;
+      font-family: sans-serif;
+    }
+    h1 {
+      font-weight: normal;
+      font-size: 140%;
+    }
+  </style>
+
+</head>
+<body style="height: 600px; width: 1200px; margin: auto;">
+  <h1>BlocklySQL Demo: Generating SQL Code with Blocks</h1>
+
+  <p hidden id="chosenDB">bundesliga</p>
+
+  <p>
+    <button onclick="showCode()">Show JavaScript</button>
+    <button onclick="runCode()">Run JavaScript</button>
+  </p>
+
+  <div id="blocklyDiv" style="height: 600px; width: 1200px; margin: auto;"></div>
+
+  <xml id="toolbox" style="display: none">
+      <category name="Befehle" colour="#8007f2">
+          <label text="Befehle:" web-class="befehle_commandStyle"></label>
+          <block type="select"></block>
+          <sep gap="50"></sep>
+          <block type="select_from"></block>
+          <block type="all_join"></block>
+          <block type="select_where"></block>
+          <block type="select_groupby"></block>
+          <block type="select_having"></block>
+          <block type="select_orderby"></block>
+      </category>
+      <category name="Tabellen" colour="#f1bf06">
+          <label text="Tabellen:" web-class="tabellen_tablesStyle"></label>
+          <block type="table"></block>
+          <label text="Attribute:" web-class="tabellen_attributStyle"></label>
+          <block type="allchooser"></block>
+          <block type="conditionchooser"></block>
+      </category>
+      <category name="Aliases" colour="#0ddb69">
+          <label text="Alias:" web-class="tabellen_aliasesStyle"></label>
+          <block type="tablename_as"></block>
+      </category>
+      <category name="Operatoren" colour="#4B5ED4">
+          <category name="logische Operatoren" colour="#4B5ED4">
+              <label text="logische Operatoren:" web-class="operatoren_logicStyle"></label>
+              <block type="and"></block>
+              <block type="or"></block>
+              <block type="not"></block>
+              <block type="between"></block>
+              <block type="innifier"></block>
+          </category> -->
+          <category name="mathematische Operatoren" colour="#3ED9D9">
+              <label text="mathematische Operatoren:" web-class="operatoren_mathsStyle"></label>
+              <block type="compare"></block>
+              <block type="nullifier"></block>
+              <block type="math"></block>
+          </category>
+      </category>
+      <category name="Werte" colour="#CC0037">
+          <label text="logische Werte:" web-class="werte_logicStyle"></label>
+          <block type="boolean"></block>
+          <label text="numerische Werte:" web-class="werte_numberStyle"></label>
+          <block type="number"></block>
+          <label text="Datum:" web-class="werte_dateStyle"></label>
+          <block type="datepicker"></block>
+          <label text="freie Eingabe & selbst definierte Variablen:" web-class="werte_freesStyle"></label>
+          <block type="freeinput"></block>
+      </category>
+      <category name="Aggregate" colour="#C440C4">
+          <label text="Aggregatsfunktionen:" web-class="aggLabelStyle"></label>
+          <block type="aggregate_min"></block>
+          <block type="aggregate_avg"></block>
+          <block type="aggregate_max"></block>
+          <block type="aggregate_sum"></block>
+          <block type="aggregate_count"></block>
+      </category>
+  </xml>
+
+  <xml id="toolboxNewSelect" style="display: none">
+      <category name="Befehle" colour="#8007f2">
+          <label text="Befehle:" web-class="befehle_commandStyle"></label>
+          <block type="inselect"></block>
+          <sep gap="50"></sep>
+          <block type="select_from"></block>
+          <block type="all_join"></block>
+          <block type="select_where"></block>
+          <block type="select_groupby"></block>
+          <block type="select_having"></block>
+          <block type="select_orderby"></block>
+      </category>
+      <category name="Tabellen" colour="#f1bf06">
+          <label text="Tabellen:" web-class="tabellen_tablesStyle"></label>
+          <block type="table"></block>
+          <label text="Attribute:" web-class="tabellen_attributStyle"></label>
+          <block type="allchooser"></block>
+          <block type="conditionchooser"></block>
+      </category>
+      <category name="Aliases" colour="#0ddb69">
+          <label text="Alias:" web-class="tabellen_aliasesStyle"></label>
+          <block type="tablename_as"></block>
+      </category>
+      <category name="Operatoren" colour="#4B5ED4">
+          <category name="logische Operatoren" colour="#4B5ED4">
+              <label text="logische Operatoren:" web-class="operatoren_logicStyle"></label>
+              <block type="and"></block>
+              <block type="or"></block>
+              <block type="not"></block>
+              <block type="between"></block>
+              <block type="innifier"></block>
+          </category>
+          <category name="mathematische Operatoren" colour="#3ED9D9">
+              <label text="mathematische Operatoren:" web-class="operatoren_mathsStyle"></label>
+              <block type="compare"></block>
+              <block type="nullifier"></block>
+              <block type="math"></block>
+          </category>
+      </category>
+      <category name="Werte" colour="#CC0037">
+          <label text="logische Werte:" web-class="werte_logicStyle"></label>
+          <block type="boolean"></block>
+          <label text="numerische Werte:" web-class="werte_numberStyle"></label>
+          <block type="number"></block>
+          <label text="Datum:" web-class="werte_dateStyle"></label>
+          <block type="datepicker"></block>
+          <label text="freie Eingabe & selbst definierte Variablen:" web-class="werte_freesStyle"></label>
+          <block type="freeinput"></block>
+      </category>
+      <category name="Aggregate" colour="#C440C4">
+          <label text="Aggregatsfunktionen:" web-class="aggLabelStyle"></label>
+          <block type="aggregate_min"></block>
+          <block type="aggregate_avg"></block>
+          <block type="aggregate_max"></block>
+          <block type="aggregate_sum"></block>
+          <block type="aggregate_count"></block>
+      </category>
+  </xml>
+
+  <xml id="toolboxNewFrom" style="display: none">
+      <category name="Befehle" colour="#8007f2">
+          <label text="Befehle:" web-class="befehle_commandStyle"></label>
+          <block type="select"></block>
+          <sep gap="50"></sep>
+          <block type="select_newfrom"></block>
+          <block type="all_join"></block>
+          <block type="select_where"></block>
+          <block type="select_groupby"></block>
+          <block type="select_having"></block>
+          <block type="select_orderby"></block>
+      </category>
+      <category name="Tabellen" colour="#f1bf06">
+          <label text="Tabellen:" web-class="tabellen_tablesStyle"></label>
+          <block type="table"></block>
+          <label text="Attribute:" web-class="tabellen_attributStyle"></label>
+          <block type="allchooser"></block>
+          <block type="conditionchooser"></block>
+      </category>
+      <category name="Aliases" colour="#0ddb69">
+          <label text="Alias:" web-class="tabellen_aliasesStyle"></label>
+          <block type="tablename_as"></block>
+      </category>
+      <category name="Operatoren" colour="#4B5ED4">
+          <category name="logische Operatoren" colour="#4B5ED4">
+              <label text="logische Operatoren:" web-class="operatoren_logicStyle"></label>
+              <block type="and"></block>
+              <block type="or"></block>
+              <block type="not"></block>
+              <block type="between"></block>
+              <block type="innifier"></block>
+          </category>
+          <category name="mathematische Operatoren" colour="#3ED9D9">
+              <label text="mathematische Operatoren:" web-class="operatoren_mathsStyle"></label>
+              <block type="compare"></block>
+              <block type="nullifier"></block>
+              <block type="math"></block>
+          </category>
+      </category>
+      <category name="Werte" colour="#CC0037">
+          <label text="logische Werte:" web-class="werte_logicStyle"></label>
+          <block type="boolean"></block>
+          <label text="numerische Werte:" web-class="werte_numberStyle"></label>
+          <block type="number"></block>
+          <label text="Datum:" web-class="werte_dateStyle"></label>
+          <block type="datepicker"></block>
+          <label text="freie Eingabe & selbst definierte Variablen:" web-class="werte_freesStyle"></label>
+          <block type="freeinput"></block>
+      </category>
+      <category name="Aggregate" colour="#C440C4">
+          <label text="Aggregatsfunktionen:" web-class="aggLabelStyle"></label>
+          <block type="aggregate_min"></block>
+          <block type="aggregate_avg"></block>
+          <block type="aggregate_max"></block>
+          <block type="aggregate_sum"></block>
+          <block type="aggregate_count"></block>
+      </category>
+  </xml>
+
+  <xml id="toolboxNewSelectFrom"  style="display: none">
+      <category name="Befehle" colour="#8007f2">
+          <label text="Befehle:" web-class="befehle_commandStyle"></label>
+          <block type="inselect"></block>
+          <sep gap="50"></sep>
+          <block type="select_newfrom"></block>
+          <block type="all_join"></block>
+          <block type="select_where"></block>
+          <block type="select_groupby"></block>
+          <block type="select_having"></block>
+          <block type="select_orderby"></block>
+      </category>
+      <category name="Tabellen" colour="#f1bf06">
+          <label text="Tabellen:" web-class="tabellen_tablesStyle"></label>
+          <block type="table"></block>
+          <label text="Attribute:" web-class="tabellen_attributStyle"></label>
+          <block type="allchooser"></block>
+          <block type="conditionchooser"></block>
+      </category>
+      <category name="Aliases" colour="#0ddb69">
+          <label text="Alias:" web-class="tabellen_aliasesStyle"></label>
+          <block type="tablename_as"></block>
+      </category>
+      <category name="Operatoren" colour="#4B5ED4">
+          <category name="logische Operatoren" colour="#4B5ED4">
+              <label text="logische Operatoren:" web-class="operatoren_logicStyle"></label>
+              <block type="and"></block>
+              <block type="or"></block>
+              <block type="not"></block>
+              <block type="between"></block>
+              <block type="innifier"></block>
+          </category>
+          <category name="mathematische Operatoren" colour="#3ED9D9">
+              <label text="mathematische Operatoren:" web-class="operatoren_mathsStyle"></label>
+              <block type="compare"></block>
+              <block type="nullifier"></block>
+              <block type="math"></block>
+          </category>
+      </category>
+      <category name="Werte" colour="#CC0037">
+          <label text="logische Werte:" web-class="werte_logicStyle"></label>
+          <block type="boolean"></block>
+          <label text="numerische Werte:" web-class="werte_numberStyle"></label>
+          <block type="number"></block>
+          <label text="Datum:" web-class="werte_dateStyle"></label>
+          <block type="datepicker"></block>
+          <label text="freie Eingabe & selbst definierte Variablen:" web-class="werte_freesStyle"></label>
+          <block type="freeinput"></block>
+      </category>
+      <category name="Aggregate" colour="#C440C4">
+          <label text="Aggregatsfunktionen:" web-class="aggLabelStyle"></label>
+          <block type="aggregate_min"></block>
+          <block type="aggregate_avg"></block>
+          <block type="aggregate_max"></block>
+          <block type="aggregate_sum"></block>
+          <block type="aggregate_count"></block>
+      </category>
+  </xml>
+
+  <script>
+              <!-- Blockly Injection Script & Functions -->
+              var blocklyArea = document.getElementById('blocklyArea');
+              var blocklyDiv = document.getElementById('blocklyDiv');
+              //Workspace Definition
+              var workspace = Blockly.inject('blocklyDiv',
+                  {media: 'BlocklyCode/media/',
+                      toolbox: document.getElementById('toolbox'),
+                      zoom:
+                          {controls: true,
+                              wheel: false,
+                              startScale: 1.0,
+                              maxScale: 3,
+                              minScale: 0.3,
+                              scaleSpeed: 1.2},
+                      trashcan: true});
+              var onresize = function(e) {
+                  // Compute the absolute coordinates and dimensions of blocklyArea.
+                  var element = blocklyArea;
+                  var x = 0;
+                  var y = 0;
+                  do {
+                      x += element.offsetLeft;
+                      y += element.offsetTop;
+                      element = element.offsetParent;
+                  } while (element);
+                  // Position blocklyDiv over blocklyArea.
+                  blocklyDiv.style.left = x + 'px';
+                  blocklyDiv.style.top = y + 'px';
+                  blocklyDiv.style.width = blocklyArea.offsetWidth + 'px';
+                  blocklyDiv.style.height = blocklyArea.offsetHeight + 'px';
+              };
+              window.addEventListener('resize', onresize, true);
+              onresize();
+              Blockly.svgResize(workspace);
+          </script>
+
+</body>
+</html>

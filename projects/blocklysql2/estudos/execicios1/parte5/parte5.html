@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="PT-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="shortcut icon" href="../../../assets/imagens/blockly_sql.png">
+    <title>Blockly | Exercício 1 - 5 </title>
+
+    <!-- Estilização da página -->
+    <link rel="stylesheet" href="../../../assets/css/reset.css">
+    <link rel="stylesheet" href="../../../assets/css/cabecalho.css">
+    <link rel="stylesheet" href="../../../assets/css/corpo.css">
+    <link rel="stylesheet" href="../../../assets/css/cor-codigo.css">
+    <link rel="stylesheet" href="../questao.css">
+
+    <!-- Google Font - Open Sans -->
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Fredericka+the+Great&display=swap" rel="stylesheet">
+
+    <!-- Google Icons -->
+    <link href="https://fonts.googleapis.com/css2?family=Material+Icons+Round" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Material+Icons+Outlined" rel="stylesheet">
+
+    <!-- Uso da biblioteca Blockly -->
+    <script src="https://unpkg.com/blockly/blockly.min.js"></script>
+
+    <!-- Blocos Personalisados -->
+    <script src="../customBlocks.js"></script>
+
+    <!-- Código Personalisados -->
+    <script src="../colorirCodigo.js"></script>
+
+    <!-- Gerador MySQL -->
+    <script src="https://unpkg.com/blockly/lua_compressed.js"></script>
+    <script src="../../../Blocos/geradorMySQL.js"></script>
+</head>
+
+<body>
+    <header class="menu">
+        <div class="menu__voltar">
+            <span class="material-icons-outlined menu__voltar-icone">first_page</span>
+            <a href="../../estudo.html" title="Voltar para exercícios" class="menu__item">
+                Voltar para exercícios
+            </a>
+        </div>
+
+        <a href="https://developers.google.com/blockly" target="_blank" title="Blockly Site">
+            <img class="menu__logo-blockly" alt="Logo Blockly" src="../../../assets/imagens/logo_blockly.png">
+        </a>
+    </header>
+
+    <main class="corpo">
+        <section class="cartao">
+            <div class="cartao__cabecalho">
+                <h2 class="cartao__cabecalho-titulo">Exercício 1 — Questão 5</h2>
+            </div>
+            <div class="cartao__corpo">
+                <p class="cartao-objetivo">Identifique os blocos e ALTERE a tabela para que o INSERT seja correto.</p>
+            </div>
+        </section>
+
+        <section class="conteudo">
+            <section id="blocklyDiv" class="blocklyDiv"></section>
+    
+            <pre id="Codigo" class="codigo" readonly></pre>
+        </section>
+
+        <button type="button" id="botao_enviar-resposta" class="botao_enviar-resposta">Validar resposta</button>
+    </main>
+
+    <div class="alerta alerta-aviso">
+        <span class="material-icons-round alerta__icone">block</span>
+        <div id="alertaMensagemAviso" class="alerta__mensagem">Resposta errada!</div>
+        <button id="fecharAviso" type="button" class="alerta__fecha">
+            <span class="material-icons-round">close</span>
+        </button>
+    </div>
+
+    <div id="RespostaCorreta" class="background">
+        <div class="cartao-resposta">
+            <div class="cartao-resposta__cabecalho">
+                <p class="cartao-resposta__titulo">Resposta Correta!</p>
+                <button type="button" class="alerta__fecha" id="fecharCartaoResposta">
+                    <span class="material-icons-round">close</span>
+                </button>
+            </div>
+            <div class="cartao-resposta__corpo">
+                <p class="cartao-resposta__corpo__titulo">EXPLICAÇÃO</p>
+                Comandos ALTER TABLE podem ser usados para alterações a uma tabela já existente no banco, 
+                    evitando assim a necessidade de recria-lá perdendo os dados presentes nela.
+            </div>
+            <div class="cartao-resposta__rodape">
+                <button type="button" id="botao_proximo-exercicio" class="botao_proximo-exercicio">Voltar para a tela de exercícios</button>
+            </div>
+        </div>
+    </div>
+</body>
+
+<xml id="xml1" style="display: none">
+    <block type="start_sql" x="10" y="0">
+        <field name="db_name">database</field>
+        <next>
+            <block type="create_table">
+                <field name="table_name">pessoa</field>
+                <statement name="table_var">
+                    <block type="table_var">
+                        <field name="var_name">id</field>
+                        <field name="type">INTEGER</field>
+                        <field name="opcao"> NOT NULL AUTO_INCREMENT</field>
+                        <next>
+                            <block type="table_var">
+                                <next>
+                                    <block type="table_var">
+                                        <field name="var_name">sexo</field>
+                                        <field name="type">CHAR(1)</field>
+                                        <next>
+                                            <block type="table_var">
+                                                <field name="var_name">data_nascimento</field>
+                                                <field name="type">TIMESTAMP</field>
+                                                <next>
+                                                    <block type='table_var'>
+                                                        <field name="var_name">cpf</field>
+                                                        <field name="opcao"> UNIQUE</field>
+                                                        <next>
+                                                            <block type='table_var'>
+                                                                <field name="var_name">profissao</field>
+                                                                <next>
+                                                                    <block type="table_var_pk">
+                                                                        <field name="var_name">id</field>
+                                                                    </block>
+                                                                </next>
+                                                            </block>
+                                                        </next>
+                                                    </block>
+                                                </next>
+                                            </block>
+                                        </next>
+                                    </block>
+                                </next>
+                            </block>
+                        </next>
+                    </block>
+                </statement>
+                <next>
+                    <block type="insert_table">
+                        <field name="table_name">pessoa</field>
+                        <field name="vars">id,nome,sexo,idade,cpf,profissao</field>
+                        <statement name="insert_var">
+                            <block type="insert_start">
+                                <value name="insert_var">
+                                    <block type="insert_var_default">
+                                        <value name="insert_var">
+                                            <block type="insert_var">
+                                                <field name="var_input">Anderson Joaquim Lima</field>
+                                                <value name="insert_var">
+                                                    <block type="insert_var">
+                                                        <field name="var_input">M</field>
+                                                        <value name="insert_var">
+                                                            <block type="insert_var">
+                                                                <field name="var_input">25</field>
+                                                                <value name="insert_var">
+                                                                    <block type="insert_var">
+                                                                        <field name="var_input">109.419.057-80</field>
+                                                                        <value name="insert_var">
+                                                                            <block type="insert_var">
+                                                                                <field name="var_input">Advogado</field>
+                                                                            </block>
+                                                                        </value>
+                                                                    </block>
+                                                                </value>
+                                                            </block>
+                                                        </value>
+                                                    </block>
+                                                </value>
+                                            </block>
+                                        </value>
+                                    </block>
+                                </value>
+                            </block>
+                        </statement>
+                    </block>
+                </next>
+            </block>
+        </next>
+    </block>
+    <block type="alter_table" x="150" y="330">
+        <field name="table_name">pessoa</field>
+        <field name="operation">ADD</field>
+        <field name="column_name">idade</field>
+        <field name="type">INTEGER</field>
+    </block>
+    <block type="alter_table" x="260" y="380">
+        <field name="table_name">pessoa</field>
+        <field name="operation">DROP COLUMN</field>
+        <field name="column_name">cpf</field>
+    </block>
+    <block type="alter_table" x="150" y="430">
+        <field name="table_name">pessoa</field>
+        <field name="operation">ADD</field>
+        <field name="column_name">profissao</field>
+        <field name="type">VARCHAR(30)</field>
+    </block>
+    <block type="alter_table" x="260" y="480">
+        <field name="table_name">pessoa</field>
+        <field name="operation">DROP COLUMN</field>
+        <field name="column_name">data_nascimento</field>
+    </block>
+    <block type="alter_table" x="150" y="530">
+        <field name="table_name">pessoa</field>
+        <field name="operation">DROP COLUMN</field>
+        <field name="column_name">idade</field>
+    </block>
+</xml>
+
+<script src="./parte5.js"></script>
+
+</html>

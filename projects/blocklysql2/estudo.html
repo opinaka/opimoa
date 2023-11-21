@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="PT-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="shortcut icon" href="./assets/imagens/blockly_sql.png">
+    <title>BlocklySQL | Exercícios</title>
+
+    <!-- Estilização da página -->
+    <link rel="stylesheet" href="./assets/css/reset.css">
+    <link rel="stylesheet" href="./assets/css/cabecalho.css">
+    <link rel="stylesheet" href="./assets/css/corpo.css">
+    <link rel="stylesheet" href="./assets/css/estudo.css">
+
+    <!-- Google Font - Open Sans -->
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Fredericka+the+Great&display=swap" rel="stylesheet">
+
+    <!-- Google Icons -->
+    <link href="https://fonts.googleapis.com/css2?family=Material+Icons+Round" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Material+Icons+Outlined" rel="stylesheet">
+</head>
+
+<body>
+    <header class="menu">
+        <a class="menu__nome-site" href="./index.html" title="Página inicial">BlocklySQL</a>
+        
+        <nav class="menu__items">
+            <a class="menu__item" href="./index.html">
+                <span class="icone-casa material-icons-outlined">home</span>
+                <p class="menu-texto">Início</p>
+            </a>
+                
+            <a class="menu__item ativo" href="./estudo.html">
+                <span class="icone-exercicio material-icons-outlined">edit_note</span>
+                <p class="menu-texto">Exercícios</p>
+            </a>
+            
+            <a class="menu__item" href="./instrucoes.html">
+                <span class="icone-ajuda material-icons-outlined">info</span>
+                <p class="menu-texto">Instruções</p>
+            </a>
+        </nav>
+
+        <a href="https://developers.google.com/blockly" target="_blank" title="Blockly Site">
+            <img class="menu__logo-blockly" alt="Logo Blockly" src="./assets/imagens/logo_blockly.png">
+        </a>
+    </header>
+
+    <main class="corpo">
+        <h1 class="titulo titulos">Exercícios Blockly SQL</h1>
+
+        <p class="texto">Treine e teste seus conhecimentos sobre as Linguagem de Consulta 
+            Estruturadas(SQLs) em 2 categorias de desafios com 5 questões cada.</p>
+
+        <section class="exercicios">
+            <div class="cartao">
+                <div class="cartao__cabecalho">
+                    <h2 class="cartao__cabecalho-titulo">Exercício 1 — ORGANIZE OS BLOCOS
+                        <span id="exercicio1-completo" class="material-icons-outlined"></span>
+                    </h2>
+                </div>
+                <div class="cartao__corpo">
+                    <p class="cartao-objetivo">Dada uma sequência de blocos encontre e corrija o(s) erro(s) 
+                        presentes para que o SQL seja corretamente executado como pedido.</p>
+                    <div class="cartao-questoes">
+                        <p class="cartao-titulo">
+                            Questões
+                        </p>
+                        <div class="cartao-botoes">
+                            <button id="11" class="cartao-botao">1</button>
+                            <button id="12" class="cartao-botao">2</button>
+                            <button id="13" class="cartao-botao">3</button>
+                            <button id="14" class="cartao-botao">4</button>
+                            <button id="15" class="cartao-botao">5</button>
+                        </div>
+                    </div> 
+                </div>
+            </div>
+
+            <div class="cartao">
+                <div class="cartao__cabecalho">
+                    <h2 class="cartao__cabecalho-titulo">Exercício 2 — MONTE O SELECT 
+                        <span id="exercicio2-completo" class="material-icons-outlined"></span>
+                    </h2>
+                </div>
+                <div class="cartao__corpo">
+                    <p class="cartao-objetivo">Dado um banco de dados monte, a partir dos blocos fornecidos, o comando SELECT ideal para 
+                        apresentar os dados pedidos.</p>
+                    <div class="cartao-questoes">
+                        <p class="cartao-titulo">
+                            Questões
+                            <span id="exercicio1-completo" class="material-icons-outlined"></span>
+                        </p>
+                        <div class="cartao-botoes">
+                            <button id="21" class="cartao-botao">1</button>
+                            <button id="22" class="cartao-botao">2</button>
+                            <button id="23" class="cartao-botao">3</button>
+                            <button id="24" class="cartao-botao">4</button>
+                            <button id="25" class="cartao-botao">5</button>
+                        </div>
+                    </div> 
+                </div>
+            </div>
+
+            <p class="aviso">RECOMENTADA-SE A REALIZAÇÃO DOS EXERCÍCIOS EM UM DESKTOP</p>
+        </section>
+    </main>
+</body>
+
+<script src="./estudos/estudo.js"></script>
+
+</html>

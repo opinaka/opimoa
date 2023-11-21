@@ -1,0 +1,505 @@
+<!DOCTYPE html>
+<html lang="PT-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="application-name" content="BlocklySQL">
+    <meta name="description" content="Conheça comandos da Linguagem de Consulta Estruturada(SQL) a partir de blocos visuais.">
+    <meta name="keywords" content="SQL,MySQL,Blockly,estudo sql,Programação">
+    <meta name="generator" content="Visual Studio Code">
+    <meta name="robot" content="index">
+    <meta name="author" content="Janilson Júnior">
+    <link rel="canonical" href="https://blocklysql.web.app">
+    <link rel="shortcut icon" href="assets/imagens/blockly_sql.png">
+    <title>BlocklySQL | Home</title>
+
+    <!-- Estilização da página -->
+    <link rel="stylesheet" href="assets/css/reset.css">
+    <link rel="stylesheet" href="assets/css/cabecalho.css">
+    <link rel="stylesheet" href="assets/css/corpo.css">
+    <link rel="stylesheet" href="assets/css/index.css">
+    <link rel="stylesheet" href="assets/css/cor-codigo.css">
+
+    <!-- Google Font - Open Sans -->
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Fredericka+the+Great&display=swap" rel="stylesheet">
+
+    <!-- Google Icons -->
+    <link href="https://fonts.googleapis.com/css2?family=Material+Icons+Round" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Material+Icons+Outlined" rel="stylesheet">
+
+    <!-- Biblioteca Blockly -->
+    <script src="https://unpkg.com/blockly/blockly.min.js"></script>
+
+    <!-- Blocos Personalisados -->
+    <script src="./Blocos/customBlocks.js"></script>
+
+    <!-- Gerador MySQL -->
+    <script src="https://unpkg.com/blockly/lua_compressed.js"></script>
+    <script src="./Blocos/geradorMySQL.js"></script>
+
+    <!-- Gerador Web SQL -->
+    <script src="https://unpkg.com/blockly/javascript_compressed.js"></script>
+    <script src="./Blocos/geradorWebSQL.js"></script>
+
+    <!-- GOOGLE ADSENSE-->
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-2545476433082338"
+     crossorigin="anonymous"></script>
+</head>
+
+<body>
+    <header class="menu">
+        <a class="menu__nome-site" href="index.html" title="Página inicial">BlocklySQL</a>
+        
+        <nav class="menu__items">
+            <a class="menu__item ativo" href="./index.html">
+                <span class="icone-casa material-icons-outlined">home</span>
+                <p class="menu-texto">Início</p>
+            </a>
+                
+            <a class="menu__item" href="estudo.html">
+                <span class="icone-exercicio material-icons-outlined">edit_note</span>
+                <p class="menu-texto">Exercícios</p>
+                
+            </a>
+            
+            <a class="menu__item" href="instrucoes.html">
+                <span class="icone-ajuda material-icons-outlined">info</span>
+                <p class="menu-texto">Instrucoes</p>
+            </a>
+        </nav>
+
+        <a href="https://developers.google.com/blockly" target="_blank" title="Blockly Site">
+            <img class="menu__logo-blockly" alt="Logo Blockly" src="assets/imagens/logo_blockly.png">
+        </a>
+    </header>
+
+    <main class="corpo">
+        <h1 class="titulo titulos">Conheça comandos da Linguagem de Consulta Estruturada(SQL) a partir de blocos visuais</h1>
+
+        <h2 class="blocklyDiv__titulo titulos">Workspace - Coloque aqui os blocos para a criação do banco</h2>
+        <section id="blocklyDiv" class="blocklyDiv" ></section>
+        <section id="blocklyArea"></section>
+
+        <section class="acoes">
+            <div class="selecionar-linguagem">
+                <span class="selecionar-linguagem__titulo acao-texto" >Linguagem:</span>
+                <select id="linguagens" class="selecionar-linguagem__opcao" onchange="mirrorEvent();">
+                    <option class="selecionar-linguagem__opcao-dropdown" value="MySQL">MySQL</option>
+                    <option class="selecionar-linguagem__opcao-dropdown" value="WebSQL">WebSQL</option>
+                </select>
+            </div>
+
+            <button type="button" class="botao" onclick="runCode()" title="Executar código WebSQL">
+                <span class="material-icons-outlined botao__icone-executar">play_circle_outline</span>
+                <p class="acao-texto">Executar</p>
+            </button>
+            <button type="button" class="botao" onclick="clearWS()" title="Limpar workspace">
+                <span class="material-icons-outlined botao__icone-limpar">layers_clear</span>
+                <p class="acao-texto">Limpar</p>
+            </button>
+            <button type="button" class="botao" onclick="copyCode()" title="Copiar para área de transferência">
+                <span class="material-icons-outlined botao__icone-copiar">copy_all</span>
+                <p class="acao-texto">Copiar</p>
+            </button>
+            <button type="button" class="botao" onclick="mudarTema()" title="Mudar tema">
+                <span class="material-icons-outlined botao__icone-tema">light_mode</span>
+                <p class="acao-texto">Tema</p>
+            </button>
+            <button type="button" class="botao" onclick="testDB()" title="Gera estrutura exemplo">
+                <span class="material-icons-outlined botao__icone-exemplo">code</span>
+                <p class="acao-texto">Exemplo</p>
+            </button>
+            <button type="button" class="botao" onclick="saveWS()" title="Salvar workspace">
+                <span class="material-icons-outlined botao__icone-salvar">save</span>
+                <p class="acao-texto">Salvar</p>
+            </button>
+            <button type="button" class="botao" onclick="loadWS()" title="Carregar workspace">
+                <span class="material-icons-outlined botao__icone-baixar">file_download</span>
+                <p class="acao-texto">Carregar</p>
+            </button>
+        </section>
+
+        <h2 class="codigo__titulo titulos">Apresentação do Código Gerado</h2>
+        <pre id="codigo" class="codigo codigo-tema-escuro" readonly></pre>
+
+        <h2 class="campo-tabela__titulo titulos">Tabela resultante do comando SELECT</h2>
+        <section class="campo-tabela">
+            <div class="campo-tabela__tabela">
+                <table id="tabelaSelect"> </table>
+            </div>
+        </section>
+    </main>
+
+    <!-- Alertas -->
+    <div class="alerta alerta-sucesso">
+        <span class="material-icons-round">task_alt</span>
+        <div id="alertaMensagem">Execução conluída!</div>
+        <button type="button" class="alerta__fecha" data-bs-dismiss="alert" aria-label="Close" onclick="closeAlerts()">
+            <span class="material-icons-round">close</span>
+        </button>
+    </div>
+    <div class="alerta alerta-copia">
+        <span class="material-icons-round alerta__icone">info</span>
+        <div id="alertaMensagemInfo" class="alerta__mensagem "></div>
+        <button type="button" class="alerta__fecha" data-bs-dismiss="alert" aria-label="Close" onclick="closeAlerts()">
+            <span class="material-icons-round">close</span>
+        </button>
+    </div>
+    <div class="alerta alerta-aviso">
+        <span class="material-icons-round alerta__icone">warning</span>
+        <div id="alertaMensagemAviso" class="alerta__mensagem"></div>
+        <button type="button" class="alerta__fecha" data-bs-dismiss="alert" aria-label="Close" onclick="closeAlerts()">
+            <span class="material-icons-round">close</span>
+        </button>
+    </div>
+</body>
+
+<xml id="toolbox" style="display: none">
+    <category name="Inicia SQL" colour="130">
+        <label text="Inicia um novo banco de dados ou conecta a um já existente."></label>
+        <block type="start_sql"></block>
+    </category>
+    <category name="Criar" colour="240">
+        <label text="CREATE TABLE - Cria uma nova tabela no banco de dados."></label>
+        <label text="Cria a estrutura base CREATE TABLE com variáveis"></label>
+        <block type="create_table">
+            <statement name="table_var">
+                <block type="table_var">
+                    <next>
+                        <block type="table_var">
+                            <next>
+                                <block type="table_var">
+                            </next>
+                        </block>
+                    </next>
+                </block>
+            </statement>
+        </block>
+        <label text="Estrutura CREATE TABLE."></label>
+        <block type="create_table"></block>
+    </category>
+    <category name="Inserir" colour="285">
+        <label text="INSERT INTO - Insere novo(s) dado(s) a uma tabela."></label>
+        <block type="insert_table">
+            <statement name="insert_var">
+                    <block type="insert_start"></block>
+            </statement>
+        </block>
+    </category>
+    <category name="Alterar" colour="45">
+        <label text="ALTER TABLE - Adiciona ou remove uma variável da tabela."></label>
+        <label text="Cria a estrutura base ALTER TABLE."></label>
+        <block type="alter_table"></block>
+    </category>
+    <category name="Atualizar" colour="30">
+        <label text="UPDATE - Altera um dado já adicionado."></label>
+        <label text="Cria a estrutura base UPDATE com dados."></label>
+        <block type="update_table">
+            <statement name="update_var">
+                <block type="update_var">
+                    <next>
+                        <block type="update_var"></block>
+                    </next>
+                </block>
+            </statement>
+        </block>
+        <label text="Estrutura UPDATE."></label>
+        <block type="update_table"></block>
+    </category>
+    <category name="Selecionar" colour="165">
+        <label text="SELECT - Pesquisa por dados na tabela."></label>
+        <label text="Cria uma estrutura SELECT simples."></label>
+        <block type="select2"></block>
+        <label text="Cria uma estrutura SELECT com restrição de apresentação."></label>
+        <block type="select4"></block>
+        <label text="Cria uma estrutura SELECT com interação de tabelas."></label>
+        <block type="select3"></block>
+        <label text="Cria uma estrutura SELECT completa."></label>
+        <block type="select"></block>
+    </category>
+    <category name="Deletar" colour="345">
+        <label text="DROP TABLE - Deleta uma tabela do banco de dados."></label>
+        <label text="Cria a estrutura base DROP TABLE."></label>
+        <block type="drop_table"></block>
+        <label text="DELETE FROM - Excluí um ou varios dados de uma tabela."></label>
+        <label text="Cria a estrutura base DELETE FROM."></label>
+        <block type="delete_from_table"></block>
+    </category>
+</xml>
+
+<xml id="testDB" style="display: none">
+    <block type="start_sql" x="20" y="20">
+        <field name="db_name">db</field>
+        <next>
+            <block type='drop_table'>
+                <field name="name_table">pessoa</field>
+                <field name="option"> IF EXISTS</field>
+                <next>
+                    <block type="create_table">
+                        <field name="option"> IF NOT EXISTS</field>
+                        <field name="table_name">pessoa</field>
+                        <statement name="table_var">
+                            <block type="table_var">
+                                <field name="var_name">id</field>
+                                <field name="type">INTEGER</field>
+                                <field name="opcao"> NOT NULL AUTO_INCREMENT</field>
+                                <next>
+                                    <block type="table_var">
+                                        <field name="var_name">nome</field>
+                                        <field name="opcao"> NOT NULL</field>
+                                        <next>
+                                            <block type="table_var">
+                                                <field name="var_name">cpf</field>
+                                                <field name="opcao"> UNIQUE</field>
+                                                <next>
+                                                    <block type="table_var">
+                                                        <field name="var_name">idade</field>
+                                                        <field name="type">INTEGER</field>
+                                                        <next>
+                                                            <block type="table_var">
+                                                                <field name="var_name">telefone</field>
+                                                                <next>
+                                                                    <block type='table_var_pk'>
+                                                                        <field name="var_name">id</field>
+                                                                    </block>
+                                                                </next>
+                                                            </block>
+                                                        </next>
+                                                    </block>
+                                                </next>
+                                            </block>
+                                        </next>
+                                    </block>
+                                </next>
+                            </block>
+                        </statement>
+                        <next>
+                            <block type="insert_table">
+                                <field name="table_name">pessoa</field>
+                                <statement name="insert_var">
+                                    <block type="insert_start">
+                                        <value name="insert_var">
+                                            <block type="insert_var_default">
+                                                <value name="insert_var">
+                                                    <block type="insert_var">
+                                                        <field name="var_input">Anderson Joaquim Lima</field>
+                                                        <value name="insert_var">
+                                                            <block type="insert_var">
+                                                                <field name="var_input">109.419.057-80</field>
+                                                                <value name="insert_var">
+                                                                    <block type="insert_var">
+                                                                        <field name="var_input">32</field>
+                                                                        <value name="insert_var">
+                                                                            <block type="insert_var">
+                                                                                <field name="var_input">(63) 2924-7115</field>
+                                                                            </block>
+                                                                        </value>
+                                                                    </block>
+                                                                </value>
+                                                            </block>
+                                                        </value>
+                                                    </block>
+                                                </value>
+                                            </block>
+                                        </value>
+                                    </block>
+                                </statement>
+                                <next>
+                                    <block type="insert_table">
+                                        <field name="table_name">pessoa</field>
+                                        <statement name="insert_var">
+                                            <block type="insert_start">
+                                                <value name="insert_var">
+                                                    <block type="insert_var_default">
+                                                        <value name="insert_var">
+                                                            <block type="insert_var">
+                                                                <field name="var_input">Mariana Gabrielly Ribeiro</field>
+                                                                <value name="insert_var">
+                                                                    <block type="insert_var">
+                                                                        <field name="var_input">746.328.138-85</field>
+                                                                        <value name="insert_var">
+                                                                            <block type="insert_var">
+                                                                                <field name="var_input">27</field>
+                                                                                <value name="insert_var">
+                                                                                    <block type="insert_var">
+                                                                                        <field name="var_input">(86) 3645-6679</field>
+                                                                                    </block>
+                                                                                </value>
+                                                                            </block>
+                                                                        </value>
+                                                                    </block>
+                                                                </value>
+                                                            </block>
+                                                        </value>
+                                                    </block>
+                                                </value>
+                                            </block>
+                                        </statement>
+                                        <next>
+                                            <block type="insert_table">
+                                                <field name="table_name">pessoa</field>
+                                                <statement name="insert_var">
+                                                    <block type="insert_start">
+                                                        <value name="insert_var">
+                                                            <block type="insert_var_default">
+                                                                <value name="insert_var">
+                                                                    <block type="insert_var">
+                                                                        <field name="var_input">Eduardo Manuel Barbosa</field>
+                                                                        <value name="insert_var">
+                                                                            <block type="insert_var">
+                                                                                <field name="var_input">230.083.525-88</field>
+                                                                                <value name="insert_var">
+                                                                                    <block type="insert_var">
+                                                                                        <field name="var_input">16</field>
+                                                                                        <value name="insert_var">
+                                                                                            <block type="insert_var">
+                                                                                                <field name="var_input">(68) 3983-5955</field>
+                                                                                            </block>
+                                                                                        </value>
+                                                                                    </block>
+                                                                                </value>
+                                                                            </block>
+                                                                        </value>
+                                                                    </block>
+                                                                </value>
+                                                            </block>
+                                                        </value>
+                                                    </block>
+                                                </statement>
+                                                <next>
+                                                    <block type='drop_table'>
+                                                        <field name="name_table">pedido</field>
+                                                        <field name="option"> IF EXISTS</field>
+                                                        <next>
+                                                            <block type="create_table">
+                                                                <field name="option"> IF NOT EXISTS</field>
+                                                                <field name="table_name">pedido</field>
+                                                                <statement name="table_var">
+                                                                    <block type="table_var">
+                                                                        <field name="var_name">id_pedido</field>
+                                                                        <field name="type">INTEGER</field>
+                                                                        <field name="opcao"> NOT NULL AUTO_INCREMENT</field>
+                                                                        <next>
+                                                                            <block type="table_var">
+                                                                                <field name="var_name">id_comprador</field>
+                                                                                <field name="type">INTEGER</field>
+                                                                                <next>
+                                                                                    <block type="table_var">
+                                                                                        <field name="var_name">data_compra</field>
+                                                                                        <field name="type">TIMESTAMP</field>
+                                                                                        <next>
+                                                                                            <block type='table_var_pk'>
+                                                                                                <field name="var_name">id_pedido</field>
+                                                                                            </block>
+                                                                                        </next>
+                                                                                    </block>
+                                                                                </next>
+                                                                            </block>
+                                                                        </next>
+                                                                    </block>
+                                                                </statement>
+                                                                <next>
+                                                                    <block type="insert_table">
+                                                                        <field name="table_name">pedido</field>
+                                                                        <statement name="insert_var">
+                                                                            <block type="insert_start">
+                                                                                <value name="insert_var">
+                                                                                    <block type="insert_var_default">
+                                                                                        <value name="insert_var">
+                                                                                            <block type="insert_var">
+                                                                                                <field name="var_input">2</field>
+                                                                                                <value name="insert_var">
+                                                                                                    <block type="insert_var_default">
+                                                                                                        <field name="var_input">CURRENT_TIMESTAMP</field>
+                                                                                                    </block>
+                                                                                                </value>
+                                                                                            </block>
+                                                                                        </value>
+                                                                                    </block>
+                                                                                </value>
+                                                                            </block>
+                                                                        </statement>
+                                                                        <next>
+                                                                            <block type="insert_table">
+                                                                                <field name="table_name">pedido</field>
+                                                                                <statement name="insert_var">
+                                                                                    <block type="insert_start">
+                                                                                        <value name="insert_var">
+                                                                                            <block type="insert_var_default">
+                                                                                                <value name="insert_var">
+                                                                                                    <block type="insert_var">
+                                                                                                        <field name="var_input">1</field>
+                                                                                                        <value name="insert_var">
+                                                                                                            <block type="insert_var_default">
+                                                                                                                <field name="var_input">CURRENT_TIMESTAMP</field>
+                                                                                                            </block>
+                                                                                                        </value>
+                                                                                                    </block>
+                                                                                                </value>
+                                                                                            </block>
+                                                                                        </value>
+                                                                                    </block>
+                                                                                </statement>
+                                                                                <next>
+                                                                                    <block type="select">
+                                                                                        <value name="vars">
+                                                                                            <block type="select_var">
+                                                                                                <field name="var_input">*</field>
+                                                                                            </block>
+                                                                                        </value>
+                                                                                        <value name="from">
+                                                                                            <block type="select_from">
+                                                                                                <field name="table_name">pedido</field>
+                                                                                            </block>
+                                                                                        </value>
+                                                                                        <value name="join">
+                                                                                            <block type="select_join">
+                                                                                                <field name="table_name">pessoa</field>
+                                                                                                <field name="table_var">id</field>
+                                                                                                <field name="table_join_var">id_comprador</field>
+                                                                                            </block>
+                                                                                        </value>
+                                                                                        <value name="conditions">
+                                                                                            <block type="select_where">
+                                                                                                <field name="variavel">idade</field>
+                                                                                                <field name="op">>=</field>
+                                                                                                <field name="value">18</field>
+                                                                                            </block>
+                                                                                        </value>
+                                                                                        <value name="orderby">
+                                                                                            <block type="select_orderby">
+                                                                                                <field name="variavel">nome</field>
+                                                                                                <field name="op"> ASC</field>
+                                                                                            </block>
+                                                                                        </value>
+                                                                                    </block>
+                                                                                </next>
+                                                                            </block>
+                                                                        </next>
+                                                                    </block>
+                                                                </next>
+                                                            </block>
+                                                        </next>
+                                                    </block>
+                                                </next>
+                                            </block>
+                                        </next>
+                                    </block>
+                                </next>
+                            </block>
+                        </next>
+                    </block>
+                </next>
+            </block>
+        </next>
+    </block>
+</xml>
+
+<!-- JavaScript -->
+<script src="./index.js"></script>
+
+</html>
