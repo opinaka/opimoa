@@ -159,6 +159,16 @@
   <script src="blox_bloks/blox.js"></script>
   <script src="blox_bloks/bodyposition_set_p.js"></script>
   <script src="blox_bloks/datastorage_svc_get.js"></script>
+  <script src="blox_bloks/datastorage_svc_get_datastore.js"></script>
+  <script src="blox_bloks//datastorage_svc_set.js"></script>
+  <script src="blox_bloks/datastorage_svc_get.js"></script>
+  <script src="blox_bloks/declare_local_variables.js"></script>
+  <script src="blox_bloks/get_local_player.js"></script>
+  <script src="blox_bloks/get_players.js"></script>
+  <script src="blox_bloks/get_service.js"></script>
+  <script src="blox_bloks/gui_button_mouse1_click.js"></script>
+  <script src="blox_bloks/gui_object_get_attribute.js"></script>
+
 
   <script src="code.js"></script>
 </head>
@@ -873,15 +883,16 @@
       </category>
       <sep></sep>
     </category>
-    <category name= "Math" colour="%{BKY_MATH_HUE}">
-      <block type= "math_arithmetic"></block>
-      <block type= "math_single"></block>
-      <block type= "math_trig"></block>
-      <block type= "math_constant"></block>
-      <block type= "math_number_property"></block>
-      <block type= "math_round"></block>
-      <block type= "math_on_list"></block>
-      <block type= "math_modulo"></block>
+    <category name= "GUI" colour="%{BKY_MATH_HUE}">
+    <block type= "gui_button_mouse1_click"></block>
+    <block type= "gui_object_get_attribute"></block>
+    <block type= "gui_object_set_attribute"></block>
+    <block type= "gui_text_label_get_attribute"></block>
+    <block type= "gui_text_label_set_attribute"></block>
+      </category>
+      <category name= "Animation" colour="%{BKY_MATH_HUE}">
+        <block type= "animator_load_animation"></block>
+        <block type= "animation_track_play"></block>
       </category>
   </xml>
 

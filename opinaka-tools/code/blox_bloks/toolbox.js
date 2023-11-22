@@ -477,11 +477,7 @@
             ]
         }>
         {
-            <category name= "Animation" colour="%{BKY_MATH_HUE}"></category>
 
-                    <block type= "animator_load_animation">
-
-                    <block type= "animation_track_play">
                 }
             ]
         }>
@@ -510,17 +506,7 @@
             ]
         }>
         {
-            <category name= "GUI" colour="%{BKY_MATH_HUE}"></category>
 
-                    <block type= "gui_button_mouse1_click">
-
-                    <block type= "gui_object_get_attribute">
-
-                    <block type= "gui_object_set_attribute">
-
-                    <block type= "gui_text_label_get_attribute">
-
-                    <block type= "gui_text_label_set_attribute">
                 }
             ]
         }
