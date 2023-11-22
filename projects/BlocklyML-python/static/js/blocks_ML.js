@@ -7,7 +7,7 @@
         define(["./blockly_compressed.js"], factory);
     } else if (typeof exports === "object") {
         // Node.js
-        module.exports = factory(require("../blockly_compressed.js"));
+        module.exports = factory(require("./blockly_compressed.js"));
     } else {
         // Browser
         root.Blockly.Blocks = factory(root.Blockly);
