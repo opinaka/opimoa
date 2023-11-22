@@ -1,8 +1,5 @@
-"use strict";
-
-
-var htmlBlocks =
-[{
+Blockly.defineBlocksWithJsonArray([  
+  {
   "type": "baseframe",
   "message0": "document %1 header %2 %3 content %4 %5",
   "args0": [
@@ -30,6 +27,10 @@ var htmlBlocks =
   "tooltip": "",
   "helpUrl": "http://www.w3schools.com/tags/tag_html.asp"
 },
+]);
+
+
+  Blockly.defineBlocksWithJsonArray([  
 {
   "type": "html",
   "message0": "document %1 %2",
@@ -47,6 +48,9 @@ var htmlBlocks =
   "tooltip": "",
   "helpUrl": "http://www.w3schools.com/tags/tag_html.asp"
 },
+]);
+
+Blockly.defineBlocksWithJsonArray([
 {
   "type": "body",
   "message0": "content %1 %2",
@@ -66,6 +70,10 @@ var htmlBlocks =
   "tooltip": "",
   "helpUrl": "http://www.w3schools.com/tags/tag_html.asp"
 },
+]);
+
+
+Blockly.defineBlocksWithJsonArray([
 {
   "type": "head",
   "message0": "header %1 %2",
@@ -85,6 +93,10 @@ var htmlBlocks =
   "tooltip": "",
   "helpUrl": "http://www.w3schools.com/tags/tag_html.asp"
 },
+]);
+
+
+Blockly.defineBlocksWithJsonArray([
 {
   "type": "title",
   "message0": "title %1",
@@ -101,6 +113,10 @@ var htmlBlocks =
   "tooltip": "",
   "helpUrl": "http://www.w3schools.com/tags/tag_html.asp"
 },
+]);
+
+
+Blockly.defineBlocksWithJsonArray([
 {
   "type": "paragraph",
   "message0": "paragraph %1",
@@ -117,6 +133,10 @@ var htmlBlocks =
   "tooltip": "",
   "helpUrl": "http://www.w3schools.com/tags/tag_html.asp"
 },
+]);
+
+
+Blockly.defineBlocksWithJsonArray([
 {
   "type": "plaintext",
   "message0": "text %1",
@@ -133,6 +153,10 @@ var htmlBlocks =
   "tooltip": "",
   "helpUrl": "http://www.w3schools.com/tags/tag_html.asp"
 },
+]);
+
+
+Blockly.defineBlocksWithJsonArray([
 {
   "type": "division",
   "message0": "division %1 %2",
@@ -154,6 +178,10 @@ var htmlBlocks =
   "tooltip": "",
   "helpUrl": "http://www.w3schools.com/tags/tag_html.asp"
 },
+]);
+
+
+Blockly.defineBlocksWithJsonArray([
 {
   "type": "style",
   "message0": "style =  %1 %2",
@@ -173,6 +201,10 @@ var htmlBlocks =
   "tooltip": "",
   "helpUrl": ""
 },
+]);
+
+
+Blockly.defineBlocksWithJsonArray([
 {
   "type": "color",
   "message0": "text colour :  %1",
@@ -189,6 +221,10 @@ var htmlBlocks =
   "tooltip": "",
   "helpUrl": ""
 },
+]);
+
+
+Blockly.defineBlocksWithJsonArray([
 {
   "type": "bgcolour",
   "message0": "background colour :  %1",
@@ -205,6 +241,10 @@ var htmlBlocks =
   "tooltip": "",
   "helpUrl": ""
 },
+]);
+
+
+Blockly.defineBlocksWithJsonArray([
 {
   "type": "genericstyle",
   "message0": "%1 : %2",
@@ -226,6 +266,9 @@ var htmlBlocks =
   "tooltip": "",
   "helpUrl": ""
 },
+]);
+
+Blockly.defineBlocksWithJsonArray([
 {
   "type": "generictag",
   "message0": "< %1 > %2 %3",
@@ -252,6 +295,10 @@ var htmlBlocks =
   "tooltip": "",
   "helpUrl": "http://www.w3schools.com/tags/tag_html.asp"
 },
+]);
+
+
+Blockly.defineBlocksWithJsonArray([
 {
   "type": "more_attributes",
   "message0": "%1 %2 %3",
@@ -277,6 +324,10 @@ var htmlBlocks =
   "tooltip": "",
   "helpUrl": ""
 },
+]);
+
+
+Blockly.defineBlocksWithJsonArray([
 {
   "type": "genericattribute",
   "message0": "%1  =  %2",
@@ -298,6 +349,10 @@ var htmlBlocks =
   "tooltip": "",
   "helpUrl": ""
 },
+]);
+
+
+Blockly.defineBlocksWithJsonArray([
 {
   "type": "link",
   "message0": "link to %1 %2 %3",
@@ -322,6 +377,10 @@ var htmlBlocks =
   "tooltip": "",
   "helpUrl": "http://www.w3schools.com/tags/tag_html.asp"
 },
+]);
+
+
+Blockly.defineBlocksWithJsonArray([
 {
   "type": "span",
   "message0": "span %1 %2",
@@ -343,6 +402,10 @@ var htmlBlocks =
   "tooltip": "",
   "helpUrl": "http://www.w3schools.com/tags/tag_html.asp"
 },
+]);
+
+
+Blockly.defineBlocksWithJsonArray([
 {
   "type": "image",
   "message0": "image %1 or %2",
@@ -364,6 +427,10 @@ var htmlBlocks =
   "tooltip": "",
   "helpUrl": "http://www.w3schools.com/tags/tag_html.asp"
 },
+]);
+
+
+Blockly.defineBlocksWithJsonArray([
 {
   "type": "emphasise",
   "message0": "emphasise %1 %2",
@@ -382,6 +449,9 @@ var htmlBlocks =
   "tooltip": "",
   "helpUrl": "http://www.w3schools.com/tags/tag_html.asp"
 },
+]);
+
+Blockly.defineBlocksWithJsonArray([
 {
   "type": "strong",
   "message0": "important %1 %2",
@@ -400,6 +470,10 @@ var htmlBlocks =
   "tooltip": "",
   "helpUrl": "http://www.w3schools.com/tags/tag_html.asp"
 },
+]);
+
+
+Blockly.defineBlocksWithJsonArray([
 {
   "type": "headline",
   "message0": "headline %1 %2 %3",
@@ -448,6 +522,10 @@ var htmlBlocks =
   "tooltip": "",
   "helpUrl": "http://www.w3schools.com/tags/tag_html.asp"
 },
+]);
+
+
+Blockly.defineBlocksWithJsonArray([
 {
   "type": "linebreak",
   "message0": "line break",
@@ -457,6 +535,10 @@ var htmlBlocks =
   "tooltip": "",
   "helpUrl": "http://www.w3schools.com/tags/tag_html.asp"
 },
+]);
+
+
+Blockly.defineBlocksWithJsonArray([
 {
   "type": "horizontalbreak",
   "message0": "topic break",
@@ -466,6 +548,10 @@ var htmlBlocks =
   "tooltip": "",
   "helpUrl": "http://www.w3schools.com/tags/tag_html.asp"
 },
+]);
+
+
+Blockly.defineBlocksWithJsonArray([
 {
   "type": "unorderedlist",
   "message0": "unordered list %1 %2",
@@ -484,6 +570,9 @@ var htmlBlocks =
   "tooltip": "",
   "helpUrl": "http://www.w3schools.com/tags/tag_html.asp"
 },
+]);
+
+Blockly.defineBlocksWithJsonArray([
 {
   "type": "orderedlist",
   "message0": "ordered list %1 %2",
@@ -502,6 +591,10 @@ var htmlBlocks =
   "tooltip": "",
   "helpUrl": "http://www.w3schools.com/tags/tag_html.asp"
 },
+]);
+
+
+Blockly.defineBlocksWithJsonArray([
 {
   "type": "listelement",
   "message0": "list item %1 %2",
@@ -520,6 +613,9 @@ var htmlBlocks =
   "tooltip": "",
   "helpUrl": "http://www.w3schools.com/tags/tag_html.asp"
 },
+]);
+
+Blockly.defineBlocksWithJsonArray([
 {
   "type": "inserted",
   "message0": "inserted %1 %2",
@@ -538,6 +634,9 @@ var htmlBlocks =
   "tooltip": "",
   "helpUrl": "http://www.w3schools.com/tags/tag_html.asp"
 },
+]);
+
+Blockly.defineBlocksWithJsonArray([
 {
   "type": "deleted",
   "message0": "deleted %1 %2",
@@ -556,6 +655,9 @@ var htmlBlocks =
   "tooltip": "",
   "helpUrl": "http://www.w3schools.com/tags/tag_html.asp"
 },
+]);
+
+Blockly.defineBlocksWithJsonArray([
 {
   "type": "super",
   "message0": "superscript %1 %2",
@@ -574,6 +676,10 @@ var htmlBlocks =
   "tooltip": "",
   "helpUrl": "http://www.w3schools.com/tags/tag_html.asp"
 },
+]);
+
+
+Blockly.defineBlocksWithJsonArray([
 {
   "type": "sub",
   "message0": "subscript %1 %2",
@@ -592,6 +698,10 @@ var htmlBlocks =
   "tooltip": "",
   "helpUrl": "http://www.w3schools.com/tags/tag_html.asp"
 },
+]);
+
+
+Blockly.defineBlocksWithJsonArray([
 {
   "type": "code",
   "message0": "code %1 %2",
@@ -610,6 +720,10 @@ var htmlBlocks =
   "tooltip": "",
   "helpUrl": "http://www.w3schools.com/tags/tag_html.asp"
 },
+]);
+
+
+Blockly.defineBlocksWithJsonArray([
 {
   "type": "quote",
   "message0": "quote %1 %2",
@@ -628,6 +742,10 @@ var htmlBlocks =
   "tooltip": "",
   "helpUrl": "http://www.w3schools.com/tags/tag_html.asp"
 },
+]);
+
+
+Blockly.defineBlocksWithJsonArray([
 {
   "type": "blockquote",
   "message0": "blockquote %1 %2",
@@ -646,6 +764,10 @@ var htmlBlocks =
   "tooltip": "",
   "helpUrl": "http://www.w3schools.com/tags/tag_html.asp"
 },
+]);
+
+
+Blockly.defineBlocksWithJsonArray([
 {
   "type": "sample",
   "message0": "sample output %1 %2",
@@ -664,6 +786,10 @@ var htmlBlocks =
   "tooltip": "",
   "helpUrl": "http://www.w3schools.com/tags/tag_html.asp"
 },
+]);
+
+
+Blockly.defineBlocksWithJsonArray([
 {
   "type": "keyboard",
   "message0": "keyboard input %1 %2",
@@ -682,6 +808,9 @@ var htmlBlocks =
   "tooltip": "",
   "helpUrl": "http://www.w3schools.com/tags/tag_html.asp"
 },
+]);
+
+Blockly.defineBlocksWithJsonArray([
 {
   "type": "variable",
   "message0": "variable %1 %2",
@@ -700,6 +829,9 @@ var htmlBlocks =
   "tooltip": "",
   "helpUrl": "http://www.w3schools.com/tags/tag_html.asp"
 },
+]);
+
+Blockly.defineBlocksWithJsonArray([
 {
   "type": "form",
   "message0": "form %1 %2",
@@ -718,6 +850,9 @@ var htmlBlocks =
   "tooltip": "",
   "helpUrl": "http://www.w3schools.com/tags/tag_html.asp"
 },
+]);
+
+Blockly.defineBlocksWithJsonArray([
 {
   "type": "table",
   "message0": "table %1 %2",
@@ -737,6 +872,9 @@ var htmlBlocks =
   "tooltip": "",
   "helpUrl": "http://www.w3schools.com/tags/tag_html.asp"
 },
+]);
+
+Blockly.defineBlocksWithJsonArray([
 {
   "type": "tablerow",
   "message0": "row %1 %2",
@@ -756,6 +894,10 @@ var htmlBlocks =
   "tooltip": "",
   "helpUrl": "http://www.w3schools.com/tags/tag_html.asp"
 },
+]);
+
+
+Blockly.defineBlocksWithJsonArray([
 {
   "type": "tablecell",
   "message0": "entry %1 %2",
@@ -775,6 +917,10 @@ var htmlBlocks =
   "tooltip": "",
   "helpUrl": "http://www.w3schools.com/tags/tag_html.asp"
 },
+]);
+
+
+Blockly.defineBlocksWithJsonArray([
 {
   "type": "input_text",
   "message0": "text input %1",
@@ -791,6 +937,9 @@ var htmlBlocks =
   "tooltip": "",
   "helpUrl": "http://www.w3schools.com/tags/tag_html.asp"
 },
+]);
+
+Blockly.defineBlocksWithJsonArray([
 {
   "type": "button",
   "message0": "button %1 %2",
@@ -809,6 +958,9 @@ var htmlBlocks =
   "tooltip": "",
   "helpUrl": "http://www.w3schools.com/tags/tag_html.asp"
 },
+]);
+
+Blockly.defineBlocksWithJsonArray([
 {
   "type": "input",
   "message0": "%1 input %2 %3",
@@ -923,6 +1075,9 @@ var htmlBlocks =
   "tooltip": "",
   "helpUrl": "http://www.w3schools.com/tags/tag_html.asp"
 },
+]);
+
+Blockly.defineBlocksWithJsonArray([
 {
   "type": "script",
   "message0": "script %1 %2",
@@ -942,6 +1097,10 @@ var htmlBlocks =
   "tooltip": "",
   "helpUrl": "http://www.w3schools.com/tags/tag_html.asp"
 },
+]);
+
+
+Blockly.defineBlocksWithJsonArray([
 {
   "type": "onclick",
   "message0": "on click =  %1 %2",
@@ -961,6 +1120,9 @@ var htmlBlocks =
   "tooltip": "",
   "helpUrl": ""
 },
+]);
+
+Blockly.defineBlocksWithJsonArray([
 {
   "type": "body_attributes",
   "message0": "content %1 %2",
@@ -981,43 +1143,4 @@ var htmlBlocks =
   "colour": 0,
   "tooltip": "",
   "helpUrl": "http://www.w3schools.com/tags/tag_html.asp"
-}];
-
-if (Msg && Msg.blocks) {
-  // Update jsons with translations
-  for (var iBlock in htmlBlocks) {
-    var json = htmlBlocks[iBlock];
-    var trs = Msg.blocks[json.type];
-    for (var iTr in trs) {
-      if (typeof(trs[iTr]) == "string") {
-        json[iTr] = trs[iTr];
-      } else if (typeof(trs[iTr]) == "object") {
-        // Mainly for args0 property
-        // Follow two levels, then just replace
-        for (var iTrObj in trs[iTr]) {
-          if (typeof(trs[iTr][iTrObj]) == "object") {
-            for (var index in trs[iTr][iTrObj]) {
-              json[iTr][iTrObj][index] = trs[iTr][iTrObj][index];
-            }
-          }
-          else {
-            console.error("Don't know how to translate that: Msg.blocks." + iTr + "." + iTrObj)
-          }
-        }
-      } else {
-        console.error("Don't know how to translate that: Msg.blocks." + iTr)
-      }
-    }
-  }
-}
-
-for (var iBlock in htmlBlocks) {
-  function makeBlock(json) {
-    Blockly.Blocks[json.type] = {
-      init: function() {
-        this.jsonInit(json);
-      }
-    }
-  }
-  makeBlock(htmlBlocks[iBlock]);
-}
+}]);
