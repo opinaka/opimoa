@@ -18,6 +18,199 @@
     Blockly.Constants = {};
     Blockly.Constants.Colour = {};
     Blockly.Constants.Colour.HUE = 20;
+    //attik
+
+    Blockly.defineBlocksWithJsonArray([
+        {
+            "type": "aggregate_min",
+            "message0": "MIN %1",
+            "args0": [
+                {
+                    "type": "input_value",
+                    "name": "min",
+                    "check": ["CONDITIONCHOOSER", 'freeinput']
+                },
+            ],
+            "inputsInline": true,
+            "output": 'aggregate_min',
+            "colour": '#C440C4',
+            "tooltip": "",
+            "helpUrl": "",
+            "extensions": 'aggregate_Extensions'
+        },
+        {
+            "type": "aggregate_avg",
+            "message0": "AVG %1",
+            "args0": [
+                {
+                    "type": "input_value",
+                    "name": "avg",
+                    "check": ["CONDITIONCHOOSER", 'freeinput']
+                }
+            ],
+            "inputsInline": true,
+            "output": 'aggregate_avg',
+            "colour": '#C440C4',
+            "tooltip": "",
+            "helpUrl": "",
+            "extensions": 'aggregate_Extensions'
+        },
+        {
+            "type": "aggregate_max",
+            "message0": "MAX %1",
+            "args0": [
+                {
+                    "type": "input_value",
+                    "name": "max",
+                    "check": ["CONDITIONCHOOSER", 'freeinput']
+                }
+            ],
+            "inputsInline": true,
+            "output": 'aggregate_max',
+            "colour": '#C440C4',
+            "tooltip": "",
+            "helpUrl": "",
+            "extensions": 'aggregate_Extensions'
+        },
+        {
+            "type": "aggregate_sum",
+            "message0": "SUM %1",
+            "args0": [
+                {
+                    "type": "input_value",
+                    "name": "sum",
+                    "check": ["CONDITIONCHOOSER", 'freeinput', 'MATH']
+                }
+            ],
+            "inputsInline": true,
+            "output": 'aggregate_sum',
+            "colour": '#C440C4',
+            "tooltip": "",
+            "helpUrl": "",
+            "extensions": 'aggregate_Extensions'
+        },
+        {
+            "type": "aggregate_count",
+            "message0": "COUNT %1",
+            "args0": [
+                {
+                    "type": "input_value",
+                    "name": "count",
+                    "check": ["CONDITIONCHOOSER", 'freeinput']
+                }
+            ],
+            "inputsInline": true,
+            "output": 'aggregate_count',
+            "colour": '#C440C4',
+            "tooltip": "",
+            "helpUrl": "",
+            "extensions": 'aggregate_Extensions'
+        }
+    ]);
+    Blockly.Blocks['allchooser'] = {
+        init: function() {
+            this.appendDummyInput('allInput')
+                .setAlign(Blockly.ALIGN_CENTRE)
+                .appendField("*");
+            this.setOutput(true, "ALL");
+            this.setColour('#f1bf06');
+            this.setTooltip("");
+            this.setHelpUrl("");
+        }
+    };
+    Blockly.defineBlocksWithJsonArray([
+        {
+            "type": "and",
+            "message0": "AND %1",
+            "args0": [
+                {
+                    "type": "input_value",
+                    "name": "Con0",
+                    "check": ["Number", "COMPARE", "NULLIFIER", "INNIFIER", "OR", 'NOT', 'AND', 'BETWEEN']
+                }
+            ],
+            "message1": "    %1",
+            "args1": [
+                {
+                    "type": "input_value",
+                    "name": "sCon0",
+                    "check": ["Number", "COMPARE", "NULLIFIER", "INNIFIER", "OR", 'NOT', 'AND', 'BETWEEN']
+                }
+            ],
+            "output": "AND",
+            "colour": '#5270DE',
+            "helpUrl": "",
+        },
+    ]);
+    Blockly.defineBlocksWithJsonArray([
+        {
+            "type": "tablename_as",
+            "message0": "%1 AS %2",
+            "args0": [
+                {
+                    "type": "input_value",
+                    "name": "as_oldName",
+                    "check": ["aggregate_min", "aggregate_max", "aggregate_avg", "aggregate_count", "aggregate_sum", "CONDITIONCHOOSER", "freeinput"]
+                },
+                {
+                    "type": "input_value",
+                    "name": "as_newName",
+                    "check": ["freeinput"]
+                }
+            ],
+            "inputsInline": true,
+            "output": 'tablename_as',
+            "colour": '#0ddb69',
+            "tooltip": "",
+            "helpUrl": "",
+            'extensions': 'assExtensions'
+        },
+    ]);//AS-Modifier
+    Blockly.defineBlocksWithJsonArray([
+        {
+            "type": "between",//AND-BLOCK
+            "message0": "    %1",//Text on Block (First Input) --> messages need to be numbereds
+            "args0": [
+                {
+                    "type": "input_value",//FirstInput
+                    "name": "Con0",//name of FirstInput
+                    "check": ['CONDITIONCHOOSER', 'freeinput']//Acceptance Condition for following Blocks to be combined
+                }
+            ],
+            "message1": "BETWEEN %1",//Text on second Input
+            "args1": [
+                {
+                    "type": "input_value",//SecondInput
+                    "name": "Con1",//name of SecondInput
+                    "check": ['AND']//Acceptance Condition for following Blocks to be combined
+                }
+            ],
+            "output": "BETWEEN",//Condition of this Block defining, how this Block could be combined to previous Blocks
+            "colour": '#5270DE',
+            "helpUrl": "",
+        },
+    ]);
+    Blockly.defineBlocksWithJsonArray([
+        {
+            "type": "boolean",
+            "message0": "%1",
+            "args0": [
+                {
+                    "type": "field_dropdown",
+                    "name": "BOOL",
+                    "options": [
+                        ["true", "TRUE"],
+                        ["false", "FALSE"]
+                    ]
+                }
+            ],
+            "output": "Boolean",
+            "colour": '#FC4758',
+            "tooltip": "",
+            "helpUrl": ""
+        },
+    ]);    
+    //attik
     Blockly.defineBlocksWithJsonArray([
         {
             type: "colour_picker",
