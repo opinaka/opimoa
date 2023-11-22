@@ -1,8 +1,3 @@
-Blockly.Blocks.colour = {};
-Blockly.Constants = {};
-Blockly.Constants.Colour = {};
-Blockly.Constants.Colour.HUE = 20;
-
 Blockly.defineBlocksWithJsonArray([
     {
         type: "colour_picker",

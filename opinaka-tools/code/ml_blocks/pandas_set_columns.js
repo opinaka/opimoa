@@ -1,10 +1,3 @@
-
-/*
-* pycaret end
-*/
-/*
-* pandas start
-*/
 Blockly.defineBlocksWithJsonArray([
     {
         type: "pandas_set_columns",

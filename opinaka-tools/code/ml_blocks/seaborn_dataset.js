@@ -26,5 +26,3 @@ Blockly.defineBlocksWithJsonArray([
         output: "DataFrame"
     }
 ])
-
-Blockly.Extensions.registerMixin("controls_flow_in_loop_check", Blockly.Constants.Loops.CONTROL_FLOW_IN_LOOP_CHECK_MIXIN);

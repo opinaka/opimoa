@@ -1,6 +1,3 @@
-Blockly.Blocks.logic = {};
-Blockly.Constants.Logic = {};
-Blockly.Constants.Logic.HUE = 210;
 Blockly.defineBlocksWithJsonArray([
     {
         type: "logic_boolean",

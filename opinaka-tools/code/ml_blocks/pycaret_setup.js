@@ -1,8 +1,3 @@
-
-/*
-* pycaret
-*/
-
 Blockly.defineBlocksWithJsonArray([
     {
         type: "pycaret_setup",
