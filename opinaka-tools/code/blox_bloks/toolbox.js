@@ -482,27 +482,12 @@
             ]
         }>
         {
-            <category name= "Sound" colour="%{BKY_MATH_HUE}"></category>
 
-                    <block type= "sound_play">
-
-                    <block type= "sound_new">
-
-                    <block type= "sound_service_play_local_sound">
                 }>
             ]
         }>
         {
-            <category name= "Remote Events" colour="%{BKY_MATH_HUE}"></category>
 
-                    <block type= "remote_event_fire_server">
-
-                    <block type= "remote_event_on_server_event">
-
-                    <block type= "remote_event_fire_client">
-
-                    <block type= "remote_event_on_client_event">
-                }>
             ]
         }>
         {

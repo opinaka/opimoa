@@ -169,6 +169,25 @@
   <script src="blox_bloks/gui_button_mouse1_click.js"></script>
   <script src="blox_bloks/gui_object_get_attribute.js"></script>
 
+  <script src="blox_bloks/remote_event_fire_client.js"></script>
+  <script src="blox_bloks/remote_event_fire_server.js"></script>
+  <script src="blox_bloks/remote_event_on_client_event.js"></script>
+  <script src="blox_bloks/remote_event_on_server_event.js"></script>
+
+  <script src="blox_bloks/script_get_parent.js"></script>
+  <script src="blox_bloks/script_get_parent.js"></script>
+  <script src="blox_bloks/set_local_variable.js"></script>
+  <script src="blox_bloks/sound_new.js"></script>
+  <script src="blox_bloks/sound_play.js"></script>
+  <script src="blox_bloks/sound_service_play_local_sound.js"></script>
+  <script src="blox_bloks/spawn_thread.js"></script>
+  <script src="blox_bloks/stringvalue_get_value.js"></script>
+  <script src="blox_bloks/stringvalue_set_value.js"></script>
+  <script src="blox_bloks"></script>
+  <script src="blox_bloks"></script>
+  <script src="blox_bloks"></script>
+  <script src="blox_bloks"></script>
+
 
   <script src="code.js"></script>
 </head>
@@ -883,6 +902,12 @@
       </category>
       <sep></sep>
     </category>
+
+    <category name= "Remote Events" colour="%{BKY_MATH_HUE}">
+    <block type= "remote_event_fire_server"></block>
+    <block type= "remote_event_on_server_event"></block>
+    <block type= "remote_event_fire_client"></block>
+    </category>
     <category name= "GUI" colour="%{BKY_MATH_HUE}">
     <block type= "gui_button_mouse1_click"></block>
     <block type= "gui_object_get_attribute"></block>
@@ -894,6 +919,12 @@
         <block type= "animator_load_animation"></block>
         <block type= "animation_track_play"></block>
       </category>
+      <category name= "Sound" colour="%{BKY_MATH_HUE}">
+        <block type= "sound_play"></block>
+        <block type= "sound_new"></block>
+        <block type= "sound_service_play_local_sound"></block>
+        </category>
+      
   </xml>
 
 </body>
