@@ -18,6 +18,7 @@
     Blockly.Constants = {};
     Blockly.Constants.Colour = {};
     Blockly.Constants.Colour.HUE = 20;
+    //attik
     Blockly.defineBlocksWithJsonArray([
         {
             "type": "between",//AND-BLOCK
@@ -42,6 +43,28 @@
             "helpUrl": "",
         },
     ]);
+    Blockly.JavaScript['between'] = function(block) {
+        var argument0 = Blockly.JavaScript.statementToCode(block, 'Con0');
+        var argument1 = Blockly.JavaScript.statementToCode(block, 'Con1');
+        var code = argument0 + ' between ' + argument1;
+        code = code.replace('(', '');
+        code = code.replace(')', '');
+        return code;
+    };
+    Blockly.Blocks['select'] = {
+        init: function() {
+            this.appendValueInput('SELECT')
+                .appendField('SELECT   ')
+                .setCheck(['freeinput', "tablename_as", "ALL", "CONDITIONCHOOSER", "aggregate_min", "aggregate_max", "aggregate_avg", "aggregate_sum", "aggregate_count"])
+                .appendField(new Blockly.FieldDropdown([["\u2009", 'blank'], ["ALL", 'all'], ["DISTINCT", 'distinct']]), 'option')
+            this.setInputsInline(false);
+            this.setPreviousStatement(true, ['SELECT', 'WHERE', 'GROUP BY', 'HAVING', 'ORDER BY', 'FROM']);
+            this.setNextStatement(true, ['SELECT']);
+            this.setColour('#8007f2');
+    
+        }
+    };    
+    //attik fin des blocs sql 
     Blockly.defineBlocksWithJsonArray([
         {
             type: "colour_picker",
