@@ -18,45 +18,6 @@
     Blockly.Constants = {};
     Blockly.Constants.Colour = {};
     Blockly.Constants.Colour.HUE = 20;
-    //attik
-    Blockly.defineBlocksWithJsonArray([
-        {
-            "type": "between",//AND-BLOCK
-            "message0": "    %1",//Text on Block (First Input) --> messages need to be numbereds
-            "args0": [
-                {
-                    "type": "input_value",//FirstInput
-                    "name": "Con0",//name of FirstInput
-                    "check": ['CONDITIONCHOOSER', 'freeinput']//Acceptance Condition for following Blocks to be combined
-                }
-            ],
-            "message1": "BETWEEN %1",//Text on second Input
-            "args1": [
-                {
-                    "type": "input_value",//SecondInput
-                    "name": "Con1",//name of SecondInput
-                    "check": ['AND']//Acceptance Condition for following Blocks to be combined
-                }
-            ],
-            "output": "BETWEEN",//Condition of this Block defining, how this Block could be combined to previous Blocks
-            "colour": '#5270DE',
-            "helpUrl": "",
-        },
-    ]);
-    Blockly.Blocks['select'] = {
-        init: function() {
-            this.appendValueInput('SELECT')
-                .appendField('SELECT   ')
-                .setCheck(['freeinput', "tablename_as", "ALL", "CONDITIONCHOOSER", "aggregate_min", "aggregate_max", "aggregate_avg", "aggregate_sum", "aggregate_count"])
-                .appendField(new Blockly.FieldDropdown([["\u2009", 'blank'], ["ALL", 'all'], ["DISTINCT", 'distinct']]), 'option')
-            this.setInputsInline(false);
-            this.setPreviousStatement(true, ['SELECT', 'WHERE', 'GROUP BY', 'HAVING', 'ORDER BY', 'FROM']);
-            this.setNextStatement(true, ['SELECT']);
-            this.setColour('#8007f2');
-    
-        }
-    };    
-    //attik fin des blocs sql 
     Blockly.defineBlocksWithJsonArray([
         {
             type: "colour_picker",
