@@ -27,6 +27,7 @@
  * exception is end-of-line comments, which the scraper will remove.
  * @author fraser@google.com (Neil Fraser)
  */
+/*
 'use strict';
 
 goog.provide('Blockly.Blocks.lists');  // Deprecated
@@ -34,7 +35,7 @@ goog.provide('Blockly.Constants.Lists');  // deprecated, 2018 April 5
 
 goog.require('Blockly.Blocks');
 goog.require('Blockly');
-
+*/
 /**
  * Unused constant for the common HSV hue for all blocks in this category.
  * @deprecated Use Blockly.Msg['LISTS_HUE']. (2018 April 5)
