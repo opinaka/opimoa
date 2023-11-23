@@ -1,12 +1,13 @@
 /**
  * @author @10MINT (redpandadevs@gmail.com)
  */
+/*
 'use strict';
 goog.provide('Blockly.Constants.Border');
 
 goog.require('Blockly');
 goog.require('Blockly.Blocks');
-
+*/
 const FIELDS = ["color", "width"];
 const TYPES = ["Colour", "Number"];
 const COLOR = 60;
