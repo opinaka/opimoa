@@ -8,7 +8,8 @@ This code is based on GOOGLE BLOCKLY
 https://developers.google.com/blockly
 
 BUG: When I add a field to a block, and I try to drag it, I receive the error: 
-Error: The insertion marker manager tried to create a marker but the result is missing an input. If you are using a mutator, make sure your domToMutation method is properly defined.
+Error: The insertion marker manager tried to create a marker but the result is missing an input. 
+If you are using a mutator, make sure your domToMutation method is properly defined.
 
 To test it:
 1. Drag the "array" block on the stage (on the right)
