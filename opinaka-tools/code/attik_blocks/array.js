@@ -63,12 +63,7 @@ Blockly.Blocks["array"] = {
       }
     }
   };
-  
-  // Blockly starts here
-  var workspace = Blockly.inject("blocklyDiv", {
-    toolbox: document.getElementById("toolbox")
-  });
-  
+
   var deleteArrayElementInput = function (block, inputToDelete) {
     var inputNameToDelete = inputToDelete.name;
     var inputIndexToDelete = Number(inputNameToDelete.match(/\d+/)[0]);
