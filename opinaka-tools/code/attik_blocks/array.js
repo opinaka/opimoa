@@ -20,7 +20,7 @@ Blockly.Blocks["array"] = {
       this.itemCount_ = 0;
       this.appendDummyInput("array").appendField("array");
       let appendFieldPlusIcon = new Blockly.FieldImage(
-        "https://eliokit.com/media/plus.png",
+        "https://eliokit.com/play/media/plus.png",
         15,
         15,
         "Add",
@@ -53,7 +53,7 @@ Blockly.Blocks["array"] = {
       for (let i = 0; i < this.itemCount_; i++) {
         if (!this.getInput("element_" + i)) {
           var appended_input = this.appendValueInput("element_" + i);
-          var deleteArrayElementIcon = new    Blockly.FieldImage("https://eliokit.com/media/minus.png", 15, 15, "Remove", function (block) {
+          var deleteArrayElementIcon = new    Blockly.FieldImage("https://eliokit.com/play/media/minus.png", 15, 15, "Remove", function (block) {
             block.sourceBlock_.deleteArrayElementInput(appended_input);
           });
           appended_input.appendField(deleteArrayElementIcon, 'delete_' + i);
@@ -63,12 +63,12 @@ Blockly.Blocks["array"] = {
       }
     }
   };
-  /*
+  
   // Blockly starts here
   var workspace = Blockly.inject("blocklyDiv", {
     toolbox: document.getElementById("toolbox")
   });
-  */
+  
   var deleteArrayElementInput = function (block, inputToDelete) {
     var inputNameToDelete = inputToDelete.name;
     var inputIndexToDelete = Number(inputNameToDelete.match(/\d+/)[0]);
@@ -82,3 +82,4 @@ Blockly.Blocks["array"] = {
       input.name = 'element_' + (i - 1);
     }
   }
+  
